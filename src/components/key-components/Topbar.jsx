@@ -13,7 +13,7 @@ import {
   Fade,
 } from "@mui/material";
 import { styled, useTheme } from "@mui/system";
-import logo from "/vite.svg";
+import logo from "/logo.png";
 import { motion } from "framer-motion";
 import { Menu as MenuIcon, Close as CloseIcon } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
