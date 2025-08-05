@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Container, IconButton, Stack } from '@mui/material';
+import { Box, Typography, Container, IconButton, Stack, useTheme, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
@@ -30,13 +30,15 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 }));
 
 const ComingSoon = () => {
+    const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <ComingSoonWrapper>
       <Container maxWidth="sm">
-        <Typography variant="h2" fontWeight="700" gutterBottom>
+        <Typography gutterBottom sx={{fontSize: isMobile ? "2rem" : "2rem", fontWeight:"700"}}>
           Coming Soon
         </Typography>
-        <Typography variant="h6">
+        <Typography sx={{fontSize: isMobile ? "1rem" : "1rem"}}>
           We're working hard to bring something amazing. Stay tuned!
         </Typography>
 
