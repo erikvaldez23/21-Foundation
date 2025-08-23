@@ -1,10 +1,13 @@
-import { useState } from 'react';
+// App.jsx
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from "@mui/material"
 import './App.css';
-import QuoteIntroAnimation from './components/animations/Intro';
+import HeroClark from './components/landing/hero';
+import Events from './components/landing/Events';
+import Footer from './components/key-components/Footer';
+import Quote from './components/landing/Quote';
 import Topbar from './components/key-components/Topbar';
-import Home from './components/hero/ComingSoon'; // Assuming Home component exists
+import AboutPage from './components/about/About';
 
 const theme = createTheme({
   palette: {
@@ -13,21 +16,25 @@ const theme = createTheme({
 });
 
 function App() {
-  // const [introDone, setIntroDone] = useState(false);
-
   return (
     <ThemeProvider theme={theme}>
-    <Router>
-      {/* <Topbar /> */}
-      {/* {!introDone ? ( */}
-        {/* <QuoteIntroAnimation onComplete={() => setIntroDone(true)} /> */}
-      {/* ) : ( */}
+      <Router>
+        <Topbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          {/* Add more routes here as needed */}
+          <Route 
+            path="/" 
+            element={
+              <>
+                <HeroClark />
+                <Quote />
+                <Events />
+              </>
+            } 
+          />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
-      {/* )} */}
-    </Router>
+        <Footer />
+      </Router>
     </ThemeProvider>
   );
 }
