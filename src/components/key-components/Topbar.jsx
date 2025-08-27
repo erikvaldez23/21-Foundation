@@ -25,6 +25,7 @@ const DEFAULT_LINKS = [
   { label: "Give", to: "/give" },
   { label: "Shop", to: "/shop" },
   { label: "About", to: "/about" },
+  { label: "Events", to: "/events" },
   { label: "Gallery", to: "/gallery" },
   { label: "Contact", to: "/contact" },
   { label: "Cart", to: "/cart" },
@@ -133,25 +134,34 @@ export default function TopbarHero({
   };
 
   return (
-    <AppBar
-      position={position}
-      sx={{
-        transition: (theme) =>
-          theme.transitions.create(
-            ["background-color", "backdrop-filter", "box-shadow", "border-color"],
-            { duration: 300 }
-          ),
-        backgroundColor: scrolled ? alpha("#0b0b0b", glassOpacity) : "transparent",
-        color: "#fff",
-        boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,0.08)" : "none",
-        backdropFilter: scrolled ? `saturate(160%) blur(${blurPx}px)` : "none",
-        WebkitBackdropFilter: scrolled ? `saturate(160%) blur(${blurPx}px)` : "none",
-        borderBottom: scrolled ? `1px solid ${alpha("#fff", 0.12)}` : "1px solid transparent",
-        zIndex: (theme) => theme.zIndex.appBar,
-        p: 1,
-        ...sx,
-      }}
-    >
+  <AppBar
+  position={position}
+  sx={{
+    transition: (theme) =>
+      theme.transitions.create(
+        ["background-color", "backdrop-filter", "box-shadow", "border-color"],
+        { duration: 300 }
+      ),
+    background: scrolled
+      ? `linear-gradient(
+          135deg,
+          rgba(15, 15, 15, ${glassOpacity + 0.1}),
+          rgba(30, 30, 30, ${glassOpacity})
+        )`
+      : "transparent",
+    color: "#fff",
+    boxShadow: scrolled ? "0 8px 28px rgba(0,0,0,0.25)" : "none",
+    backdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
+    WebkitBackdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
+    borderBottom: scrolled
+      ? `1px solid ${alpha("#ffffff", 0.18)}`
+      : "1px solid transparent",
+    zIndex: (theme) => theme.zIndex.appBar,
+    p: 1,
+    ...sx,
+  }}
+>
+
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* Left: Logo → routes home */}
         <LogoLink
