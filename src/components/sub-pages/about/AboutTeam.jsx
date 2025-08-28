@@ -7,6 +7,7 @@ import {
   IconButton,
   Box,
   Chip,
+  Divider,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -37,7 +38,56 @@ export const teamData = [
     links: { linkedin: "#", email: "mailto:jordan@example.org" },
   },
   {
+    name: "Christa Dubill",
+    role: "Committee Member",
+    bio: "Builds relationships with families, partners, and volunteers.",
+    photo: "/vert-image.JPG",
+    links: { linkedin: "#", email: "mailto:sam@example.org" },
+  },
+  {
+    name: "Nayla Eid",
+    role: "Committee Member",
+    bio: "Builds relationships with families, partners, and volunteers.",
+    photo: "/vert-image.JPG",
+    links: { linkedin: "#", email: "mailto:sam@example.org" },
+  },
+  {
+    name: "Michelle Hardgree",
+    role: "Committee Member",
+    bio: "Builds relationships with families, partners, and volunteers.",
+    photo: "/vert-image.JPG",
+    links: { linkedin: "#", email: "mailto:sam@example.org" },
+  },
+  {
+    name: "Amber Hellwig",
+    role: "Committee Member",
+    bio: "Builds relationships with families, partners, and volunteers.",
+    photo: "/vert-image.JPG",
+    links: { linkedin: "#", email: "mailto:sam@example.org" },
+  },
+  {
+    name: "Christina Pfaff",
+    role: "Committee Member",
+    bio: "Builds relationships with families, partners, and volunteers.",
+    photo: "/vert-image.JPG",
+    links: { linkedin: "#", email: "mailto:sam@example.org" },
+  },
+  {
+    name: "Julia Pfaff",
+    role: "Committee Member",
+    bio: "Builds relationships with families, partners, and volunteers.",
+    photo: "/vert-image.JPG",
+    links: { linkedin: "#", email: "mailto:sam@example.org" },
+  },
+  {
     name: "Dean Wheeler",
+    role: "Committee Member",
+    bio: "Builds relationships with families, partners, and volunteers.",
+    photo: "/vert-image.JPG",
+    links: { linkedin: "#", email: "mailto:sam@example.org" },
+  },
+  {
+    name: "Isabel Jaramillo",
     role: "Committee Member",
     bio: "Builds relationships with families, partners, and volunteers.",
     photo: "/vert-image.JPG",
@@ -50,6 +100,24 @@ const Section = styled(Box)(({ theme }) => ({
   backgroundColor: "#fff",
   paddingTop: theme.spacing(12),
   paddingBottom: theme.spacing(12),
+}));
+
+const GroupHeader = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "baseline",
+  justifyContent: "space-between",
+  gap: 12,
+  marginTop: theme.spacing(6),
+  marginBottom: theme.spacing(2),
+}));
+
+const CountPill = styled(Box)(({ theme }) => ({
+  fontSize: 12,
+  padding: "4px 10px",
+  borderRadius: 999,
+  border: `1px solid ${alpha("#000", 0.08)}`,
+  background: "#f7f7f7",
+  color: "rgba(0,0,0,.65)",
 }));
 
 const CardWrap = styled("div")(({ theme }) => ({
@@ -148,24 +216,39 @@ const RoleChip = styled(Chip)(({ theme }) => ({
   border: "1px solid rgba(0,0,0,.08)",
 }));
 
+/* ----------------------- Helpers ----------------------- */
+const normalizeMember = (m) => ({
+  name: m.name || "",
+  role: m.role || "",
+  bio: m.bio || "",
+  photo: m.photo || m.avatar || "/vert-image.JPG",
+  links: {
+    linkedin: (m.links && m.links.linkedin) || "#",
+    instagram: (m.links && m.links.instagram) || "#",
+    email: (m.links && m.links.email) || "#",
+  },
+});
+
+const isBoard = (m) =>
+  (m.role || "").toLowerCase().includes("board");
+const isCommittee = (m) =>
+  (m.role || "").toLowerCase().includes("committee");
+
 /* ----------------------- Component ----------------------- */
 export default function AboutTeam({
   title = "Meet the Team",
   subtitle = "The people guiding Reach, Include, and Support.",
   team = teamData,
+  boardTitle = "Board of Directors",
+  committeeTitle = "Committee",
 }) {
-  // Normalize once so the JSX has ZERO conditionals
-  const normalized = team.map((m) => ({
-    name: m.name || "",
-    role: m.role || "",
-    bio: m.bio || "",
-    photo: m.photo || m.avatar || "/vert-image.JPG",
-    links: {
-      linkedin: (m.links && m.links.linkedin) || "#",
-      instagram: (m.links && m.links.instagram) || "#",
-      email: (m.links && m.links.email) || "#",
-    },
-  }));
+  const normalized = team.map(normalizeMember);
+
+  const board = normalized.filter(isBoard);
+  const committee = normalized.filter(isCommittee);
+  const others = normalized.filter(
+    (m) => !isBoard(m) && !isCommittee(m)
+  );
 
   const placeholder =
     "data:image/svg+xml;charset=utf-8," +
@@ -178,9 +261,67 @@ export default function AboutTeam({
       </svg>`
     );
 
+  const SectionGrid = ({ data }) => (
+    <Grid container spacing={3}>
+      {data.map((m) => (
+        <Grid key={m.name} size={{ xs: 12, sm: 6, md: 4 }}>
+          <CardWrap>
+            <PhotoFrame>
+              <Img
+                src={m.photo}
+                alt={`${m.name} — ${m.role}`}
+                loading="lazy"
+                decoding="async"
+                onError={(e) => {
+                  e.currentTarget.src = placeholder;
+                }}
+              />
+              <OverlayGrad />
+              {m.role ? <RoleChip label={m.role} size="small" /> : null}
+              <InfoBar>
+                <NameRole>
+                  <Name noWrap>{m.name}</Name>
+                  {/* <Role noWrap title={m.bio}>{m.bio}</Role> */}
+                </NameRole>
+                <Socials>
+                  <IconButton
+                    aria-label={`${m.name} on LinkedIn`}
+                    href={m.links.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                  >
+                    <LinkedInIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    aria-label={`${m.name} on Instagram`}
+                    href={m.links.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                  >
+                    <InstagramIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    aria-label={`Email ${m.name}`}
+                    href={m.links.email}
+                    size="small"
+                  >
+                    <EmailIcon fontSize="small" />
+                  </IconButton>
+                </Socials>
+              </InfoBar>
+            </PhotoFrame>
+          </CardWrap>
+        </Grid>
+      ))}
+    </Grid>
+  );
+
   return (
     <Section>
       <Container maxWidth="lg">
+        {/* Page Title */}
         <Typography
           variant="h3"
           sx={{
@@ -199,60 +340,55 @@ export default function AboutTeam({
           {subtitle}
         </Typography>
 
-        <Grid container spacing={3}>
-          {normalized.map((m) => (
-            <Grid key={m.name} size={{ xs: 12, sm: 6, md: 4 }}>
-              <CardWrap>
-                <PhotoFrame>
-                  <Img
-                    src={m.photo}
-                    alt={`${m.name} — ${m.role}`}
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      e.currentTarget.src = placeholder;
-                    }}
-                  />
-                  <OverlayGrad />
-                  <RoleChip label={m.role} size="small" />
-                  <InfoBar>
-                    <NameRole>
-                      <Name noWrap>{m.name}</Name>
-                      {/* <Role noWrap title={m.bio}>{m.bio}</Role> */}
-                    </NameRole>
-                    <Socials>
-                      <IconButton
-                        aria-label={`${m.name} on LinkedIn`}
-                        href={m.links.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        size="small"
-                      >
-                        <LinkedInIcon fontSize="small" />
-                      </IconButton>
-                      <IconButton
-                        aria-label={`${m.name} on Instagram`}
-                        href={m.links.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        size="small"
-                      >
-                        <InstagramIcon fontSize="small" />
-                      </IconButton>
-                      <IconButton
-                        aria-label={`Email ${m.name}`}
-                        href={m.links.email}
-                        size="small"
-                      >
-                        <EmailIcon fontSize="small" />
-                      </IconButton>
-                    </Socials>
-                  </InfoBar>
-                </PhotoFrame>
-              </CardWrap>
-            </Grid>
-          ))}
-        </Grid>
+        {/* Board Members */}
+        {board.length > 0 && (
+          <>
+            <GroupHeader>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 800, color: "#111" }}
+              >
+                {boardTitle}
+              </Typography>
+              <CountPill>{board.length}</CountPill>
+            </GroupHeader>
+            <SectionGrid data={board} />
+            <Divider sx={{ my: 5 }} />
+          </>
+        )}
+
+        {/* Committee Members */}
+        {committee.length > 0 && (
+          <>
+            <GroupHeader>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 800, color: "#111" }}
+              >
+                {committeeTitle}
+              </Typography>
+              <CountPill>{committee.length}</CountPill>
+            </GroupHeader>
+            <SectionGrid data={committee} />
+          </>
+        )}
+
+        {/* Fallback for anyone without Board/Committee in role */}
+        {others.length > 0 && (
+          <>
+            <Divider sx={{ my: 5 }} />
+            <GroupHeader>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 800, color: "#111" }}
+              >
+                Team
+              </Typography>
+              <CountPill>{others.length}</CountPill>
+            </GroupHeader>
+            <SectionGrid data={others} />
+          </>
+        )}
       </Container>
     </Section>
   );

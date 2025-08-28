@@ -3,7 +3,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from "@mui/material"
 import './App.css';
 import HeroClark from './components/landing/hero';
-import Events from './components/landing/Events';
+import Events2 from './components/landing/Events2';
 import Footer from './components/key-components/Footer';
 import Quote from './components/landing/Quote';
 import Topbar from './components/key-components/Topbar';
@@ -33,7 +33,7 @@ function App() {
                 <HeroClark />
                 {/* <EventsHero /> */}
                 <Quote />
-                <Events />
+                <Events2 />
               </>
             } 
           />
