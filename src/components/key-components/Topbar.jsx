@@ -143,11 +143,12 @@ export default function TopbarHero({
         { duration: 300 }
       ),
     background: scrolled
-      ? `linear-gradient(
-          135deg,
-          rgba(15, 15, 15, ${glassOpacity + 0.1}),
-          rgba(30, 30, 30, ${glassOpacity})
-        )`
+      ? "#000"
+      // `linear-gradient(
+      //     135deg,
+      //     rgba(15, 15, 15, ${glassOpacity + 0.1}),
+      //     rgba(30, 30, 30, ${glassOpacity})
+      //   )`
       : "transparent",
     color: "#fff",
     boxShadow: scrolled ? "0 8px 28px rgba(0,0,0,0.25)" : "none",
