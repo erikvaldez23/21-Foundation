@@ -1,354 +1,450 @@
-import React, { useMemo, useState } from "react";
+import React, { useState, useMemo } from 'react';
 import {
   Box,
   Container,
-  Grid,
+  Typography,
   Card,
   CardContent,
-  CardHeader,
-  Typography,
-  ToggleButton,
-  ToggleButtonGroup,
+  Button,
   TextField,
+  Grid,
   Chip,
-  Divider,
-  Checkbox,
+  Radio,
+  RadioGroup,
   FormControlLabel,
-  Snackbar,
-  Alert,
-  Link as MuiLink,
+  FormControl,
+  FormLabel,
+  Divider,
+  Paper,
+  LinearProgress,
+  Breadcrumbs,
+  Link,
   InputAdornment,
-  Tooltip,
-  IconButton,
-} from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
-import { LoadingButton } from "@mui/lab";
-import { motion } from "framer-motion";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import ShieldRoundedIcon from "@mui/icons-material/ShieldRounded";
-import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
-import VolunteerActivismRoundedIcon from "@mui/icons-material/VolunteerActivismRounded";
-import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
+} from '@mui/material';
+import { styled, alpha } from '@mui/material/styles';
+import {
+  CreditCardOutlined,
+  SecurityOutlined,
+  HomeOutlined,
+  ArrowForwardIos,
+} from '@mui/icons-material';
 
-/* =========================
-   Donations sub‑page for a Foundation (mental outreach)
-   - One‑time / Monthly toggle, presets + custom amount
-   - Tribute gifts, fee coverage, employer match prompt
-   - Sidebar: impact stats, transparency, other ways to give
-   - Replace the submit handler with your payment provider (Stripe / Pushpay)
-   ========================= */
-
-const Page = styled(Box)(({ theme }) => ({
-  minHeight: "100vh",
-  background: `linear-gradient(180deg, ${alpha(
-    theme.palette.primary.light,
-  0.18)}, ${alpha(theme.palette.background.default, 1)})`,
-  color: theme.palette.text.primary,
+/* ===================== Styled ===================== */
+const PageWrap = styled(Box)(({ theme }) => ({
+  minHeight: '100vh',
+  background:
+    `radial-gradient(1200px 600px at 20% -10%, ${alpha('#2FA652', 0.12)} 0%, transparent 60%),
+     radial-gradient(1000px 500px at 110% 10%, ${alpha('#2FA652', 0.10)} 0%, transparent 60%),
+     linear-gradient(180deg, ${alpha('#0b1a11', 0.04)} 0%, transparent 30%)`,
 }));
 
-const Glass = styled(Card)(({ theme }) => ({
+const GridPattern = styled('div')(({ theme }) => ({
+  position: 'fixed',
+  inset: 0,
+  pointerEvents: 'none',
+  backgroundImage:
+    `linear-gradient(${alpha('#2FA652', 0.06)} 1px, transparent 1px),
+     linear-gradient(90deg, ${alpha('#2FA652', 0.06)} 1px, transparent 1px)`,
+  backgroundSize: '40px 40px, 40px 40px',
+  maskImage:
+    'radial-gradient(ellipse at center, rgba(0,0,0,0.35), rgba(0,0,0,0.85))',
+}));
+
+const Hero = styled('section')(({ theme }) => ({
+  position: 'relative',
+  paddingTop: theme.spacing(12),
+  paddingBottom: theme.spacing(8),
+  color: '#fff',
+  background:
+    `linear-gradient(180deg, ${alpha('#2FA652', 0.85)}, ${alpha('#2FA652', 0.8)})`,
+  overflow: 'hidden',
+}));
+
+const HeroGlow = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  inset: '-20% -10% auto -10%',
+  height: 420,
+  filter: 'blur(60px)',
+  background:
+    `radial-gradient(600px 280px at 20% 30%, rgba(255,255,255,0.18) 0%, transparent 60%),
+     radial-gradient(500px 220px at 80% 10%, rgba(255,255,255,0.12) 0%, transparent 60%)`,
+  pointerEvents: 'none',
+}));
+
+const PageSection = styled('section')(({ theme }) => ({
+  paddingTop: theme.spacing(6),
+  paddingBottom: theme.spacing(10),
+}));
+
+const GlassCard = styled(Card)(({ theme }) => ({
   borderRadius: 20,
-  background: alpha("#fff", 0.05),
-  backdropFilter: "blur(10px)",
-  border: `1px solid ${alpha("#fff", 0.1)}`,
-  boxShadow: "0 10px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.06)",
+  backgroundColor: alpha('#ffffff', 0.75),
+  backdropFilter: 'blur(10px)',
+  boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
 }));
 
-const SectionHeader = ({ title, subtitle }) => (
-  <Box sx={{ textAlign: "center", mb: 4 }}>
-    <Typography
-      component={motion.h1}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      variant="h3"
-      sx={{ fontWeight: 800, letterSpacing: -0.4 }}
-    >
-      {title}
-    </Typography>
-    {subtitle && (
-      <Typography
-        component={motion.p}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.1 }}
-        variant="subtitle1"
-        sx={{ opacity: 0.85, mt: 1 }}
-      >
-        {subtitle}
-      </Typography>
-    )}
-  </Box>
-);
+const SidePaper = styled(Paper)(({ theme }) => ({
+  borderRadius: 16,
+  backgroundColor: alpha('#ffffff', 0.9),
+  backdropFilter: 'blur(6px)',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+}));
 
-export default function Donations() {
-  const [interval, setInterval] = useState("one_time");
-  const [amount, setAmount] = useState(50);
-  const [coverFees, setCoverFees] = useState(true);
-  const [tribute, setTribute] = useState(false);
-  const [honoree, setHonoree] = useState({ name: "", email: "" });
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [match, setMatch] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [toast, setToast] = useState({ open: false, msg: "", ok: true });
+const Sticky = styled('div')(({ theme }) => ({
+  position: 'sticky',
+  top: theme.spacing(12),
+}));
 
-  const presets = interval === "monthly" ? [10, 25, 50, 100] : [25, 50, 100, 250];
+const OutlineBtn = styled(Button)(({ theme }) => ({
+  textTransform: 'none',
+  borderRadius: 999,
+}));
 
-  const fee = useMemo(() => {
-    const a = Number(amount) || 0;
-    // Example processing fee math (2.9% + $0.30). Adjust to your provider.
-    const base = a * 0.029 + 0.3;
-    return Math.round(base * 100) / 100;
-  }, [amount]);
+const CTAStrip = styled('div')(({ theme }) => ({
+  marginTop: theme.spacing(6),
+  borderRadius: 16,
+  padding: theme.spacing(2),
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  background:
+    `linear-gradient(180deg, ${alpha('#2FA652', 0.10)}, ${alpha('#2FA652', 0.06)})`,
+  border: `1px solid ${alpha('#2FA652', 0.15)}`,
+}));
 
-  const total = useMemo(() => {
-    const a = Number(amount) || 0;
-    return coverFees ? (Math.round((a + fee) * 100) / 100) : a;
-  }, [amount, coverFees, fee]);
+/* ===================== Component ===================== */
+const DonationPage = () => {
+  const [donationType, setDonationType] = useState('one-time');
+  const [selectedAmount, setSelectedAmount] = useState(50);
+  const [customAmount, setCustomAmount] = useState('');
+  const [donorInfo, setDonorInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: ''
+  });
 
-  const validAmount = Number(amount) >= 1;
-  const emailValid = /\S+@\S+\.\S+/.test(email);
+  const predefinedAmounts = [25, 50, 100, 250, 500];
+  const currentGoal = 75000;
+  const currentRaised = 52340;
+  const progressPercentage = (currentRaised / currentGoal) * 100;
 
-  const handleGive = async (e) => {
-    e.preventDefault();
-    if (!validAmount) return setToast({ open: true, msg: "Please enter at least $1", ok: false });
-    if (!emailValid) return setToast({ open: true, msg: "Enter a valid email for your receipt", ok: false });
+  const displayAmount = useMemo(() => {
+    const v = customAmount !== '' ? Number(customAmount) : selectedAmount || 0;
+    return isNaN(v) ? 0 : v;
+  }, [customAmount, selectedAmount]);
 
-    setSubmitting(true);
-    try {
-      // \u26A0\uFE0F Replace with your payment flow (Stripe Checkout / Pushpay / etc.)
-      // Example body you might send:
-      // const res = await fetch("/api/donations/checkout", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ interval, amount: Number(amount), coverFees, tribute, honoree, email, name, match })
-      // });
-      // const { checkoutUrl } = await res.json();
-      // window.location.href = checkoutUrl;
-      await new Promise((r) => setTimeout(r, 1000));
-      setToast({ open: true, msg: "Thanks for your generous gift!", ok: true });
-    } catch (err) {
-      setToast({ open: true, msg: "Something went wrong. Please try again.", ok: false });
-    } finally {
-      setSubmitting(false);
-    }
+  const handleAmountSelect = (amount) => {
+    setSelectedAmount(amount);
+    setCustomAmount('');
+  };
+
+  const handleCustomAmountChange = (e) => {
+    const val = e.target.value.replace(/[^\d.]/g, '');
+    setCustomAmount(val);
+    setSelectedAmount(null);
+  };
+
+  const handleInputChange = (field, value) => {
+    setDonorInfo(prev => ({ ...prev, [field]: value }));
   };
 
   return (
-    <Page>
-      <Container sx={{ py: { xs: 6, md: 10 } }}>
-        <SectionHeader
-          title="Give the Gift of Hope"
-          subtitle="Your donation funds mental health outreach, peer mentoring, and youth programs. Every dollar moves someone closer to help."
-        />
+    <PageWrap>
+      <GridPattern />
 
-        <Grid container spacing={4}>
-          {/* Left: Donation form */}
-          <Grid item xs={12} md={7}>
-            <Glass component={motion.form}
-              onSubmit={handleGive}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              sx={{ p: { xs: 2.5, md: 4 } }}
-            >
-              <CardHeader
-                title={<Typography variant="h5" sx={{ fontWeight: 800 }}>Choose your gift</Typography>}
-                subheader={<Typography variant="body2" sx={{ opacity: 0.8 }}>Secure and tax‑deductible to the extent allowed by law.</Typography>}
-              />
+      {/* ===== Hero / Header ===== */}
+      <Hero>
+        <HeroGlow />
+        <Container maxWidth="lg">
+          <Breadcrumbs
+            sx={{ color: alpha('#fff', 0.95), mb: 1 }}
+            separator={<ArrowForwardIos sx={{ fontSize: 12, opacity: 0.9 }} />}
+          >
+            <Link color="inherit" underline="hover" href="/">
+              <HomeOutlined sx={{ fontSize: 16, mr: 0.5, mb: -0.2 }} />
+              Home
+            </Link>
+            <Typography color={alpha('#fff', 0.9)}>Get Involved</Typography>
+            <Typography color="#fff" fontWeight={600}>Donate</Typography>
+          </Breadcrumbs>
 
-              <CardContent sx={{ pt: 0 }}>
-                <Box sx={{ mb: 2, display: "flex", justifyContent: "center" }}>
-                  <ToggleButtonGroup
-                    exclusive
-                    value={interval}
-                    onChange={(_, v) => v && setInterval(v)}
-                    sx={{ borderRadius: 2 }}
-                  >
-                    <ToggleButton value="one_time">One‑time</ToggleButton>
-                    <ToggleButton value="monthly">Monthly</ToggleButton>
-                  </ToggleButtonGroup>
-                </Box>
+          <Typography variant="h3" sx={{ fontWeight: 800, letterSpacing: -0.5 }}>
+            Fuel Mental Resilience
+          </Typography>
+          <Typography variant="h6" sx={{ mt: 1.5, opacity: 0.95, maxWidth: 680, lineHeight: 1.5 }}>
+            Your gift funds outreach, workshops, and resources that help youth build courage,
+            kindness, and lifelong coping skills.
+          </Typography>
 
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.25, mb: 2 }}>
-                  {presets.map((p) => (
-                    <Chip
-                      key={p}
-                      label={`$${p}`}
-                      onClick={() => setAmount(p)}
-                      variant={Number(amount) === p ? "filled" : "outlined"}
-                      color={Number(amount) === p ? "primary" : "default"}
-                      sx={{ borderRadius: 2, fontWeight: 700 }}
-                    />
-                  ))}
-                  <Chip
-                    label="Custom"
-                    onClick={() => setAmount("")}
-                    variant={isNaN(Number(amount)) ? "filled" : "outlined"}
-                    sx={{ borderRadius: 2 }}
-                  />
-                </Box>
+          <Box sx={{ mt: 3, display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+            <OutlineBtn variant="outlined" color="inherit" href="#give">
+              Make a Gift
+            </OutlineBtn>
+            <OutlineBtn variant="outlined" color="inherit" href="#impact">
+              See Your Impact
+            </OutlineBtn>
+          </Box>
+        </Container>
+      </Hero>
 
-                <TextField
-                  fullWidth
-                  label="Donation amount"
-                  value={amount}
-                  onChange={(e) => {
-                    const val = e.target.value.replace(/[^0-9.]/g, "");
-                    setAmount(val);
-                  }}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                  }}
-                  helperText={!validAmount ? "Minimum $1" : ""}
-                  error={!validAmount}
-                  sx={{ mb: 2 }}
-                />
-
-                <FormControlLabel
-                  control={<Checkbox checked={coverFees} onChange={(e) => setCoverFees(e.target.checked)} />}
-                  label={`Add $${fee.toFixed(2)} to cover processing fees (new total $${total.toFixed(2)})`}
-                />
-
-                <Divider sx={{ my: 2, opacity: 0.1 }} />
-
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="Your name" value={name} onChange={(e) => setName(e.target.value)} />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      fullWidth
-                      label="Receipt email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      error={!!email && !emailValid}
-                      helperText={!!email && !emailValid ? "Enter a valid email" : "We'll send your tax receipt here"}
-                    />
-                  </Grid>
-                </Grid>
-
-                <Box sx={{ mt: 2 }}>
-                  <FormControlLabel
-                    control={<Checkbox checked={tribute} onChange={(e) => setTribute(e.target.checked)} />}
-                    label="This gift is in honor or memory of someone"
-                  />
-
-                  {tribute && (
-                    <Grid container spacing={2} sx={{ mt: 0 }}>
-                      <Grid item xs={12} md={6}>
-                        <TextField fullWidth label="Honoree name" value={honoree.name} onChange={(e) => setHonoree({ ...honoree, name: e.target.value })} />
-                      </Grid>
-                      <Grid item xs={12} md={6}>
-                        <TextField fullWidth label="Notify by email (optional)" value={honoree.email} onChange={(e) => setHonoree({ ...honoree, email: e.target.value })} />
-                      </Grid>
-                    </Grid>
-                  )}
-                </Box>
-
-                <Box sx={{ mt: 2 }}>
-                  <FormControlLabel
-                    control={<Checkbox checked={match} onChange={(e) => setMatch(e.target.checked)} />}
-                    label={
-                      <Box sx={{ display: "inline" }}>
-                        My employer matches donations <Typography component="span" sx={{ opacity: 0.6 }}>— we’ll email a reminder with next steps.</Typography>
-                      </Box>
-                    }
-                  />
-                </Box>
-
-                <LoadingButton
-                  type="submit"
-                  loading={submitting}
-                  variant="contained"
-                  size="large"
-                  startIcon={<FavoriteRoundedIcon />}
-                  sx={{ mt: 2, borderRadius: 2, fontWeight: 800 }}
-                >
-                  {interval === "monthly" ? "Start Monthly Gift" : "Donate Now"}
-                </LoadingButton>
-
-                <Box sx={{ mt: 1.5, display: "flex", alignItems: "center", gap: 1, opacity: 0.8 }}>
-                  <ShieldRoundedIcon fontSize="small" />
-                  <Typography variant="caption">256‑bit SSL encryption • PCI‑compliant processing</Typography>
-                </Box>
-              </CardContent>
-            </Glass>
-          </Grid>
-
-          {/* Right: Impact & Transparency */}
-          <Grid item xs={12} md={5}>
-            <Box component={motion.div} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <Glass sx={{ p: { xs: 2.5, md: 3 }, mb: 3 }}>
-                <CardHeader title={<Typography variant="h6" sx={{ fontWeight: 800 }}>Your impact</Typography>} />
-                <CardContent sx={{ pt: 0 }}>
-                  <ImpactRow amount={25} text="Covers a week of peer‑support check‑ins for a student" />
-                  <ImpactRow amount={50} text="Funds a starter toolkit for youth mental health ambassadors" />
-                  <ImpactRow amount={100} text="Provides a small group workshop at a local school" />
-                  <ImpactRow amount={250} text="Sponsors community outreach and resources for families" />
-                </CardContent>
-              </Glass>
-
-              <Glass sx={{ p: { xs: 2.5, md: 3 }, mb: 3 }}>
-                <CardHeader title={<Typography variant="h6" sx={{ fontWeight: 800 }}>Transparency</Typography>} />
-                <CardContent sx={{ pt: 0 }}>
-                  <Typography variant="body2" sx={{ mb: 1.5 }}>
-                    We’re committed to stewarding every dollar wisely. View our latest annual report and Form 990.
+      {/* ===== Main Content ===== */}
+      <PageSection id="give">
+        <Container maxWidth="lg">
+          <Grid container spacing={4}>
+            {/* Left: Donation Form */}
+            <Grid item xs={12} lg={8}>
+              <GlassCard>
+                <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
+                  <Typography variant="h4" sx={{ fontWeight: 800, mb: 1 }}>
+                    Make a Donation
                   </Typography>
-                  <Box sx={{ display: "flex", gap: 1 }}>
-                    <TextLink href="#">Annual Report 2024</TextLink>
-                    <TextLink href="#">Form 990</TextLink>
-                  </Box>
-                </CardContent>
-              </Glass>
+                  <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4 }}>
+                    Every contribution—large or small—moves this mission forward.
+                  </Typography>
 
-              <Glass sx={{ p: { xs: 2.5, md: 3 } }}>
-                <CardHeader title={<Typography variant="h6" sx={{ fontWeight: 800 }}>Other ways to give</Typography>} />
-                <CardContent sx={{ pt: 0 }}>
-                  <Bullet>Mail a check to: <strong>Your Foundation, PO Box 123, DFW, TX</strong></Bullet>
-                  <Bullet>ACH / Wire: <strong>Request instructions</strong></Bullet>
-                  <Bullet>Corporate gifts &amp; sponsorships</Bullet>
-                  <Bullet>In‑kind donations for youth programs</Bullet>
-                  <Divider sx={{ my: 2, opacity: 0.08 }} />
-                  <Box sx={{ display: "flex", gap: 1, alignItems: "center", opacity: 0.85 }}>
-                    <VerifiedRoundedIcon fontSize="small" />
-                    <Typography variant="caption">Gifts are tax‑deductible to the extent allowed by law. A receipt will be emailed to you.</Typography>
+                  {/* Donation Type */}
+                  <FormControl component="fieldset" sx={{ mb: 3 }}>
+                    <FormLabel component="legend" sx={{ fontWeight: 700, color: 'text.primary', mb: 1.5 }}>
+                      Donation Type
+                    </FormLabel>
+                    <RadioGroup
+                      value={donationType}
+                      onChange={(e) => setDonationType(e.target.value)}
+                      row
+                    >
+                      <FormControlLabel
+                        value="one-time"
+                        control={<Radio sx={{ color: '#2FA652', '&.Mui-checked': { color: '#2FA652' } }} />}
+                        label="One-time"
+                      />
+                      <FormControlLabel
+                        value="monthly"
+                        control={<Radio sx={{ color: '#2FA652', '&.Mui-checked': { color: '#2FA652' } }} />}
+                        label="Monthly"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+
+                  {/* Amount Selection */}
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.5 }}>
+                    Select Amount
+                  </Typography>
+                  <Grid container spacing={1.5} sx={{ mb: 3 }}>
+                    {predefinedAmounts.map((amount) => {
+                      const active = selectedAmount === amount && customAmount === '';
+                      return (
+                        <Grid item key={amount}>
+                          <Chip
+                            label={`$${amount.toLocaleString()}`}
+                            onClick={() => handleAmountSelect(amount)}
+                            sx={{
+                              borderRadius: 2,
+                              px: 2,
+                              py: 1,
+                              fontWeight: 700,
+                              fontSize: '1rem',
+                              cursor: 'pointer',
+                              bgcolor: active ? '#2FA652' : '#fff',
+                              color: active ? '#fff' : 'text.primary',
+                              border: `1px solid ${active ? '#2FA652' : alpha('#000', 0.1)}`,
+                              '&:hover': {
+                                bgcolor: active ? '#2a9a4c' : alpha('#2FA652', 0.06)
+                              }
+                            }}
+                          />
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+
+                  <TextField
+                    fullWidth
+                    label="Custom Amount"
+                    value={customAmount}
+                    onChange={handleCustomAmountChange}
+                    placeholder="Enter custom amount"
+                    inputMode="decimal"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Typography sx={{ color: 'text.secondary' }}>$</Typography>
+                        </InputAdornment>
+                      )
+                    }}
+                    sx={{ mb: 4 }}
+                  />
+
+                  <Divider sx={{ my: 3 }} />
+
+                  {/* Donor Information */}
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
+                    Your Information
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="First Name"
+                        value={donorInfo.firstName}
+                        onChange={(e) => handleInputChange('firstName', e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="Last Name"
+                        value={donorInfo.lastName}
+                        onChange={(e) => handleInputChange('lastName', e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="Email Address"
+                        type="email"
+                        value={donorInfo.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="Phone Number (Optional)"
+                        value={donorInfo.phone}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                      />
+                    </Grid>
+                  </Grid>
+
+                  <Button
+                    variant="contained"
+                    size="large"
+                    fullWidth
+                    sx={{
+                      mt: 4,
+                      py: 2,
+                      backgroundColor: '#2FA652',
+                      fontSize: '1.1rem',
+                      fontWeight: 800,
+                      textTransform: 'none',
+                      borderRadius: 2,
+                      boxShadow: '0 8px 20px rgba(47,166,82,0.35)',
+                      '&:hover': { backgroundColor: '#29964a' }
+                    }}
+                    startIcon={<CreditCardOutlined />}
+                  >
+                    Donate ${displayAmount.toLocaleString()} {donationType === 'monthly' ? 'Monthly' : 'Today'}
+                  </Button>
+
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 1.5, gap: 1 }}>
+                    <SecurityOutlined sx={{ fontSize: 18, color: 'text.secondary' }} />
+                    <Typography variant="caption" color="text.secondary">
+                      Secure donation processing
+                    </Typography>
                   </Box>
+
+                  {/* Trust strip */}
+                  <CTAStrip>
+                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                      Prefer to give by check or employer match?
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                      <OutlineBtn variant="outlined" href="#other-ways">Other ways to give</OutlineBtn>
+                      <OutlineBtn variant="outlined" href="#faq">FAQ</OutlineBtn>
+                    </Box>
+                  </CTAStrip>
                 </CardContent>
-              </Glass>
-            </Box>
+              </GlassCard>
+            </Grid>
+
+            {/* Right: Sticky Sidebar */}
+            <Grid item xs={12} lg={4}>
+              <Sticky>
+                <SidePaper sx={{ p: 3, mb: 3 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
+                    Campaign Progress
+                  </Typography>
+                  <Box sx={{ mb: 1.5, display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography variant="body2" color="text.secondary">
+                      ${currentRaised.toLocaleString()} raised
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      ${currentGoal.toLocaleString()} goal
+                    </Typography>
+                  </Box>
+                  <LinearProgress
+                    variant="determinate"
+                    value={progressPercentage}
+                    sx={{
+                      height: 10,
+                      borderRadius: 6,
+                      backgroundColor: alpha('#2FA652', 0.15),
+                      '& .MuiLinearProgress-bar': { backgroundColor: '#2FA652' }
+                    }}
+                  />
+                  <Typography variant="body2" sx={{ mt: 1.2, textAlign: 'center' }} color="text.secondary">
+                    {Math.round(progressPercentage)}% of goal reached
+                  </Typography>
+                </SidePaper>
+
+                <SidePaper id="impact" sx={{ p: 3, mb: 3 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, mb: 1.5 }}>
+                    Your Impact
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>$25 can provide:</Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+                    Mental health resources for one person for a month
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>$100 can provide:</Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+                    Crisis intervention training for community volunteers
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>$250 can provide:</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    A mental health workshop for an entire school
+                  </Typography>
+                </SidePaper>
+
+                <SidePaper id="faq" sx={{ p: 3 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
+                    Questions?
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+                    Need help with your donation or have questions about our mission?
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    sx={{
+                      color: '#2FA652',
+                      borderColor: '#2FA652',
+                      textTransform: 'none',
+                      '&:hover': {
+                        borderColor: '#29964a',
+                        backgroundColor: alpha('#2FA652', 0.06)
+                      }
+                    }}
+                  >
+                    Contact Us
+                  </Button>
+                </SidePaper>
+              </Sticky>
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </PageSection>
 
-      <Snackbar open={toast.open} autoHideDuration={3800} onClose={() => setToast({ ...toast, open: false })} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
-        <Alert onClose={() => setToast({ ...toast, open: false })} severity={toast.ok ? "success" : "error"} variant="filled" sx={{ width: "100%" }}>
-          {toast.msg}
-        </Alert>
-      </Snackbar>
-    </Page>
+      {/* ===== Footer Band (optional) ===== */}
+      <Box sx={{ py: 6, borderTop: `1px solid ${alpha('#000', 0.08)}` }}>
+        <Container maxWidth="lg">
+          <Typography variant="body2" color="text.secondary">
+            Clark21 Foundation is a 501(c)(3) nonprofit. Donations are tax-deductible as allowed by law.
+          </Typography>
+        </Container>
+      </Box>
+    </PageWrap>
   );
-}
+};
 
-/* ===== Small components ===== */
-const ImpactRow = ({ amount, text }) => (
-  <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", py: 0.75 }}>
-    <Chip label={`$${amount}`} color="primary" variant="outlined" sx={{ borderRadius: 2, fontWeight: 700 }} />
-    <Typography variant="body2" sx={{ ml: 1.5, opacity: 0.9 }}>{text}</Typography>
-  </Box>
-);
-
-const TextLink = ({ href, children }) => (
-  <MuiLink href={href} target="_blank" rel="noopener" underline="hover" sx={{ display: "inline-flex", alignItems: "center", gap: 0.5, fontWeight: 700 }}>
-    {children}
-    <OpenInNewRoundedIcon sx={{ fontSize: 16, opacity: 0.7 }} />
-  </MuiLink>
-);
-
-const Bullet = ({ children }) => (
-  <Box sx={{ display: "flex", alignItems: "start", gap: 1, mb: 0.75 }}>
-    <VolunteerActivismRoundedIcon sx={{ fontSize: 18, mt: 0.25, opacity: 0.75 }} />
-    <Typography variant="body2">{children}</Typography>
-  </Box>
-);
+export default DonationPage;

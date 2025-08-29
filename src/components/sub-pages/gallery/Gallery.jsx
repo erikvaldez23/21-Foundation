@@ -84,18 +84,34 @@ const TAGS = ["Youth", "Volunteers", "Coaches", "Family", "Highlights", "Awards"
 
 const PHOTOS = [
   // width/height help the masonry compute aspect ratio smoothly
-  { id: "p1",  src: "/gallery/img1.jpg",  w: 1200, h: 1600, album: "Events",    tags: ["Highlights", "Youth"],       title: "5K Fundraiser" },
-  { id: "p2",  src: "/gallery/img2.jpg",  w: 1600, h: 1066, album: "Clinics",   tags: ["Coaches", "Youth"],          title: "Skills Clinic" },
-  { id: "p3",  src: "/gallery/img3.jpg",  w: 1600, h: 1200, album: "Community", tags: ["Volunteers", "Family"],      title: "Community Night" },
-  { id: "p4",  src: "/gallery/img4.jpg",  w: 1200, h: 1200, album: "Workshops", tags: ["Highlights"],                 title: "Resilience Talk" },
-  { id: "p5",  src: "/gallery/img5.jpg",  w: 1200, h: 900,  album: "Events",    tags: ["Youth", "Smiles"],           title: "Warm-Up Circle" },
-  { id: "p6",  src: "/gallery/img6.jpg",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p7",  src: "/gallery/img7.jpg",  w: 1500, h: 1000, album: "Community", tags: ["Volunteers", "Smiles"],      title: "Team High-Five" },
-  { id: "p8",  src: "/gallery/img8.jpg",  w: 1200, h: 800,  album: "Behind the Scenes", tags: ["Highlights"],        title: "Setup Crew" },
-  { id: "p9",  src: "/gallery/img9.jpg",  w: 1200, h: 1600, album: "Events",    tags: ["Family"],                    title: "Finish Line" },
-  { id: "p10", src: "/gallery/img10.jpg", w: 1600, h: 1066, album: "Workshops", tags: ["Highlights", "Smiles"],      title: "Youth Panel" },
-  { id: "p11", src: "/gallery/img11.jpg", w: 1400, h: 1000, album: "Clinics",   tags: ["Youth"],                     title: "Drills" },
-  { id: "p12", src: "/gallery/img12.jpg", w: 1200, h: 1200, album: "Community", tags: ["Volunteers", "Family"],      title: "Together" },
+  { id: "p1",  src: "/image1.JPG",  w: 1200, h: 1600, album: "Events",    tags: ["Highlights", "Youth"],       title: "5K Fundraiser" },
+  { id: "p2",  src: "/image3.JPG",  w: 1600, h: 1066, album: "Clinics",   tags: ["Coaches", "Youth"],          title: "Skills Clinic" },
+  { id: "p3",  src: "/image4.JPG",  w: 1600, h: 1200, album: "Community", tags: ["Volunteers", "Family"],      title: "Community Night" },
+  { id: "p4",  src: "/image5.JPG",  w: 1200, h: 1200, album: "Workshops", tags: ["Highlights"],                 title: "Resilience Talk" },
+  { id: "p5",  src: "/image6.JPG",  w: 1200, h: 900,  album: "Events",    tags: ["Youth", "Smiles"],           title: "Warm-Up Circle" },
+  { id: "p6",  src: "/image7.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image8.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image9.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image10.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image11.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image12.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image13.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image14.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image15.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image16.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image17.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image18.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image19.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image20.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image21.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image22.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image23.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image24.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image25.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image26.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image27.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image28.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p6",  src: "/image29.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
 ];
 
 export default function Gallery() {
@@ -151,8 +167,6 @@ export default function Gallery() {
 
   const current = lightbox.items[lightbox.index];
 
-  const toggleTag = (tag) =>
-    setActiveTags((t) => (t.includes(tag) ? t.filter((x) => x !== tag) : [...t, tag]));
 
   const downloadFile = (url, filename = "photo.jpg") => {
     fetch(url)
@@ -176,51 +190,6 @@ export default function Gallery() {
           title="Gallery"
           subtitle="Moments that tell our story—clinics, workshops, and community in motion."
         />
-
-        {/* Filters */}
-        <Glass sx={{ p: 2.5, mb: 3 }}>
-          <Box sx={{ display: "grid", gridTemplateColumns: "1fr", gap: 2 }}>
-            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 2 }}>
-              <TextField
-                select
-                label="Album"
-                value={album}
-                onChange={(e) => setAlbum(e.target.value)}
-                fullWidth
-              >
-                {ALBUMS.map((a) => (
-                  <MenuItem key={a} value={a}>
-                    {a}
-                  </MenuItem>
-                ))}
-              </TextField>
-
-              <TextField
-                label="Search by title or tag"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                fullWidth
-              />
-            </Box>
-
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-              {TAGS.map((t) => {
-                const on = activeTags.includes(t);
-                return (
-                  <Chip
-                    key={t}
-                    label={t}
-                    onClick={() => toggleTag(t)}
-                    color={on ? "primary" : "default"}
-                    variant={on ? "filled" : "outlined"}
-                    sx={{ borderRadius: 2 }}
-                  />
-                );
-              })}
-            </Box>
-          </Box>
-        </Glass>
-
         {/* Masonry Grid */}
         <ImageList
           variant="masonry"
