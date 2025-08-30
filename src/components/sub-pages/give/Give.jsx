@@ -1,450 +1,251 @@
-import React, { useState, useMemo } from 'react';
+// src/pages/DonationsPage.jsx
+import React, { useState } from 'react';
 import {
   Box,
-  Container,
   Typography,
+  Container,
+  Grid,
   Card,
   CardContent,
   Button,
-  TextField,
-  Grid,
   Chip,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Stack,
   Divider,
-  Paper,
-  LinearProgress,
-  Breadcrumbs,
-  Link,
   InputAdornment,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
-import {
-  CreditCardOutlined,
-  SecurityOutlined,
-  HomeOutlined,
-  ArrowForwardIos,
-} from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
 
-/* ===================== Styled ===================== */
-const PageWrap = styled(Box)(({ theme }) => ({
-  minHeight: '100vh',
-  background:
-    `radial-gradient(1200px 600px at 20% -10%, ${alpha('#2FA652', 0.12)} 0%, transparent 60%),
-     radial-gradient(1000px 500px at 110% 10%, ${alpha('#2FA652', 0.10)} 0%, transparent 60%),
-     linear-gradient(180deg, ${alpha('#0b1a11', 0.04)} 0%, transparent 30%)`,
-}));
+// ✅ import the image (bulletproof across dev/prod & subpaths)
+import vertImg from '/image1.JPG'; // make sure filename & case match exactly
 
-const GridPattern = styled('div')(({ theme }) => ({
-  position: 'fixed',
-  inset: 0,
-  pointerEvents: 'none',
-  backgroundImage:
-    `linear-gradient(${alpha('#2FA652', 0.06)} 1px, transparent 1px),
-     linear-gradient(90deg, ${alpha('#2FA652', 0.06)} 1px, transparent 1px)`,
-  backgroundSize: '40px 40px, 40px 40px',
-  maskImage:
-    'radial-gradient(ellipse at center, rgba(0,0,0,0.35), rgba(0,0,0,0.85))',
-}));
+const DonationsPage = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-const Hero = styled('section')(({ theme }) => ({
-  position: 'relative',
-  paddingTop: theme.spacing(12),
-  paddingBottom: theme.spacing(8),
-  color: '#fff',
-  background:
-    `linear-gradient(180deg, ${alpha('#2FA652', 0.85)}, ${alpha('#2FA652', 0.8)})`,
-  overflow: 'hidden',
-}));
+  // ---- donation state ----
+  const [freq, setFreq] = useState('one-time');
+  const [amount, setAmount] = useState(50);
+  const [custom, setCustom] = useState('');
+  const presetAmounts = [25, 50, 100, 250, 500];
 
-const HeroGlow = styled('div')(({ theme }) => ({
-  position: 'absolute',
-  inset: '-20% -10% auto -10%',
-  height: 420,
-  filter: 'blur(60px)',
-  background:
-    `radial-gradient(600px 280px at 20% 30%, rgba(255,255,255,0.18) 0%, transparent 60%),
-     radial-gradient(500px 220px at 80% 10%, rgba(255,255,255,0.12) 0%, transparent 60%)`,
-  pointerEvents: 'none',
-}));
-
-const PageSection = styled('section')(({ theme }) => ({
-  paddingTop: theme.spacing(6),
-  paddingBottom: theme.spacing(10),
-}));
-
-const GlassCard = styled(Card)(({ theme }) => ({
-  borderRadius: 20,
-  backgroundColor: alpha('#ffffff', 0.75),
-  backdropFilter: 'blur(10px)',
-  boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-}));
-
-const SidePaper = styled(Paper)(({ theme }) => ({
-  borderRadius: 16,
-  backgroundColor: alpha('#ffffff', 0.9),
-  backdropFilter: 'blur(6px)',
-  boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
-}));
-
-const Sticky = styled('div')(({ theme }) => ({
-  position: 'sticky',
-  top: theme.spacing(12),
-}));
-
-const OutlineBtn = styled(Button)(({ theme }) => ({
-  textTransform: 'none',
-  borderRadius: 999,
-}));
-
-const CTAStrip = styled('div')(({ theme }) => ({
-  marginTop: theme.spacing(6),
-  borderRadius: 16,
-  padding: theme.spacing(2),
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  background:
-    `linear-gradient(180deg, ${alpha('#2FA652', 0.10)}, ${alpha('#2FA652', 0.06)})`,
-  border: `1px solid ${alpha('#2FA652', 0.15)}`,
-}));
-
-/* ===================== Component ===================== */
-const DonationPage = () => {
-  const [donationType, setDonationType] = useState('one-time');
-  const [selectedAmount, setSelectedAmount] = useState(50);
-  const [customAmount, setCustomAmount] = useState('');
-  const [donorInfo, setDonorInfo] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: ''
-  });
-
-  const predefinedAmounts = [25, 50, 100, 250, 500];
-  const currentGoal = 75000;
-  const currentRaised = 52340;
-  const progressPercentage = (currentRaised / currentGoal) * 100;
-
-  const displayAmount = useMemo(() => {
-    const v = customAmount !== '' ? Number(customAmount) : selectedAmount || 0;
-    return isNaN(v) ? 0 : v;
-  }, [customAmount, selectedAmount]);
-
-  const handleAmountSelect = (amount) => {
-    setSelectedAmount(amount);
-    setCustomAmount('');
+  const handleSelectAmount = (val) => {
+    setAmount(val);
+    setCustom('');
   };
 
-  const handleCustomAmountChange = (e) => {
-    const val = e.target.value.replace(/[^\d.]/g, '');
-    setCustomAmount(val);
-    setSelectedAmount(null);
+  const handleCustomChange = (e) => {
+    const v = e.target.value.replace(/[^\d]/g, '');
+    setCustom(v);
+    setAmount(v ? Number(v) : '');
   };
 
-  const handleInputChange = (field, value) => {
-    setDonorInfo(prev => ({ ...prev, [field]: value }));
-  };
+  // ---- exact shared height for both columns ----
+  const FIXED_HEIGHT = 520;
 
   return (
-    <PageWrap>
-      <GridPattern />
-
-      {/* ===== Hero / Header ===== */}
-      <Hero>
-        <HeroGlow />
-        <Container maxWidth="lg">
-          <Breadcrumbs
-            sx={{ color: alpha('#fff', 0.95), mb: 1 }}
-            separator={<ArrowForwardIos sx={{ fontSize: 12, opacity: 0.9 }} />}
+    <Box sx={{ minHeight: '100vh', bgcolor: '#E8E5DD', py: 4 }}>
+      <Container maxWidth="xl">
+        {/* HERO */}
+        <Box sx={{ textAlign: 'center', mb: 6, pt: 4 }}>
+          <Typography
+            variant="overline"
+            sx={{
+              color: '#666',
+              letterSpacing: 2,
+              fontSize: '0.8rem',
+              mb: 3,
+              display: 'block',
+            }}
           >
-            <Link color="inherit" underline="hover" href="/">
-              <HomeOutlined sx={{ fontSize: 16, mr: 0.5, mb: -0.2 }} />
-              Home
-            </Link>
-            <Typography color={alpha('#fff', 0.9)}>Get Involved</Typography>
-            <Typography color="#fff" fontWeight={600}>Donate</Typography>
-          </Breadcrumbs>
-
-          <Typography variant="h3" sx={{ fontWeight: 800, letterSpacing: -0.5 }}>
-            Fuel Mental Resilience
-          </Typography>
-          <Typography variant="h6" sx={{ mt: 1.5, opacity: 0.95, maxWidth: 680, lineHeight: 1.5 }}>
-            Your gift funds outreach, workshops, and resources that help youth build courage,
-            kindness, and lifelong coping skills.
+            MENTAL HEALTH OUTREACH
           </Typography>
 
-          <Box sx={{ mt: 3, display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
-            <OutlineBtn variant="outlined" color="inherit" href="#give">
-              Make a Gift
-            </OutlineBtn>
-            <OutlineBtn variant="outlined" color="inherit" href="#impact">
-              See Your Impact
-            </OutlineBtn>
-          </Box>
-        </Container>
-      </Hero>
+          <Typography
+            variant="h2"
+            component="h1"
+            sx={{
+              fontSize: { xs: '2rem', md: '3.5rem' },
+              fontWeight: 400,
+              color: '#333',
+              lineHeight: 1.3,
+              maxWidth: '900px',
+              mx: 'auto',
+              fontFamily: 'serif',
+            }}
+          >
+            HEADER
+            <br />
+            DESCRIPTION
+            <br />-
+          </Typography>
+        </Box>
 
-      {/* ===== Main Content ===== */}
-      <PageSection id="give">
-        <Container maxWidth="lg">
-          <Grid container spacing={4}>
-            {/* Left: Donation Form */}
-            <Grid item xs={12} lg={8}>
-              <GlassCard>
-                <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
-                  <Typography variant="h4" sx={{ fontWeight: 800, mb: 1 }}>
-                    Make a Donation
-                  </Typography>
-                  <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4 }}>
-                    Every contribution—large or small—moves this mission forward.
-                  </Typography>
+        {/* BODY */}
+        <Grid container spacing={3} sx={{ alignItems: 'stretch' }}>
+          {/* Left: Vertical image card */}
+          <Grid item xs={12} md={6}>
+            <Card
+              sx={{
+                height: { xs: 420, md: FIXED_HEIGHT },
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: 2,
+              }}
+            >
+              {/* Using an <img> with the imported asset ensures correct pathing */}
+              <Box sx={{ position: 'absolute', inset: 0 }}>
+                <img
+                  src={vertImg}
+                  alt="Foundation outreach"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                    filter: 'contrast(1) brightness(0.95)',
+                  }}
+                />
+              </Box>
 
-                  {/* Donation Type */}
-                  <FormControl component="fieldset" sx={{ mb: 3 }}>
-                    <FormLabel component="legend" sx={{ fontWeight: 700, color: 'text.primary', mb: 1.5 }}>
-                      Donation Type
-                    </FormLabel>
-                    <RadioGroup
-                      value={donationType}
-                      onChange={(e) => setDonationType(e.target.value)}
-                      row
-                    >
-                      <FormControlLabel
-                        value="one-time"
-                        control={<Radio sx={{ color: '#2FA652', '&.Mui-checked': { color: '#2FA652' } }} />}
-                        label="One-time"
-                      />
-                      <FormControlLabel
-                        value="monthly"
-                        control={<Radio sx={{ color: '#2FA652', '&.Mui-checked': { color: '#2FA652' } }} />}
-                        label="Monthly"
-                      />
-                    </RadioGroup>
-                  </FormControl>
+              {/* Optional vignette */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    'radial-gradient(100% 100% at 50% 50%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.25) 100%)',
+                  pointerEvents: 'none',
+                }}
+              />
+            </Card>
+          </Grid>
 
-                  {/* Amount Selection */}
-                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.5 }}>
-                    Select Amount
-                  </Typography>
-                  <Grid container spacing={1.5} sx={{ mb: 3 }}>
-                    {predefinedAmounts.map((amount) => {
-                      const active = selectedAmount === amount && customAmount === '';
-                      return (
-                        <Grid item key={amount}>
-                          <Chip
-                            label={`$${amount.toLocaleString()}`}
-                            onClick={() => handleAmountSelect(amount)}
-                            sx={{
-                              borderRadius: 2,
-                              px: 2,
-                              py: 1,
-                              fontWeight: 700,
-                              fontSize: '1rem',
-                              cursor: 'pointer',
-                              bgcolor: active ? '#2FA652' : '#fff',
-                              color: active ? '#fff' : 'text.primary',
-                              border: `1px solid ${active ? '#2FA652' : alpha('#000', 0.1)}`,
-                              '&:hover': {
-                                bgcolor: active ? '#2a9a4c' : alpha('#2FA652', 0.06)
-                              }
-                            }}
-                          />
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
+          {/* Right: Donation form */}
+          <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
+            <Card
+              sx={{
+                height: { xs: 420, md: FIXED_HEIGHT },
+                borderRadius: 2,
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Typography
+                  variant="h4"
+                  sx={{ fontFamily: 'serif', color: '#333', fontWeight: 500 }}
+                >
+                  Make a Gift
+                </Typography>
+                <Typography sx={{ color: '#555', mb: 1 }}>
+                  Your support advances outreach, education, and community programs.
+                </Typography>
 
+                <Divider />
+
+                <Typography variant="overline" sx={{ color: '#666' }}>
+                  Frequency
+                </Typography>
+                <ToggleButtonGroup
+                  color="primary"
+                  exclusive
+                  value={freq}
+                  onChange={(_, v) => v && setFreq(v)}
+                  sx={{
+                    borderRadius: 999,
+                    width: 'fit-content',
+                    bgcolor: '#F4F2EC',
+                    '& .MuiToggleButton-root': {
+                      textTransform: 'none',
+                      px: 2.5,
+                      border: 0,
+                      '&.Mui-selected': { bgcolor: '#E8E5DD' },
+                    },
+                  }}
+                >
+                  <ToggleButton value="one-time">One-time</ToggleButton>
+                  <ToggleButton value="monthly">Monthly</ToggleButton>
+                </ToggleButtonGroup>
+
+                <Typography variant="overline" sx={{ color: '#666', mt: 1 }}>
+                  Amount
+                </Typography>
+                <Stack direction="row" spacing={1} flexWrap="wrap">
+                  {presetAmounts.map((a) => (
+                    <Chip
+                      key={a}
+                      label={`$${a}`}
+                      onClick={() => handleSelectAmount(a)}
+                      color={amount === a && !custom ? 'primary' : 'default'}
+                      variant={amount === a && !custom ? 'filled' : 'outlined'}
+                      sx={{ borderRadius: 999 }}
+                    />
+                  ))}
                   <TextField
-                    fullWidth
-                    label="Custom Amount"
-                    value={customAmount}
-                    onChange={handleCustomAmountChange}
-                    placeholder="Enter custom amount"
-                    inputMode="decimal"
+                    value={custom}
+                    onChange={handleCustomChange}
+                    placeholder="Custom"
+                    inputMode="numeric"
+                    sx={{ minWidth: 160 }}
                     InputProps={{
                       startAdornment: (
-                        <InputAdornment position="start">
-                          <Typography sx={{ color: 'text.secondary' }}>$</Typography>
-                        </InputAdornment>
-                      )
+                        <InputAdornment position="start">$</InputAdornment>
+                      ),
                     }}
-                    sx={{ mb: 4 }}
                   />
+                </Stack>
 
-                  <Divider sx={{ my: 3 }} />
+                <Divider sx={{ my: 1 }} />
 
-                  {/* Donor Information */}
-                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
-                    Your Information
-                  </Typography>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="First Name"
-                        value={donorInfo.firstName}
-                        onChange={(e) => handleInputChange('firstName', e.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="Last Name"
-                        value={donorInfo.lastName}
-                        onChange={(e) => handleInputChange('lastName', e.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="Email Address"
-                        type="email"
-                        value={donorInfo.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="Phone Number (Optional)"
-                        value={donorInfo.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
-                      />
-                    </Grid>
-                  </Grid>
-
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
                   <Button
-                    variant="contained"
-                    size="large"
-                    fullWidth
+                    component={RouterLink}
+                    to="/donate/checkout"
+                    size={isMobile ? 'medium' : 'large'}
+                    disabled={!amount || Number.isNaN(Number(amount))}
                     sx={{
-                      mt: 4,
-                      py: 2,
-                      backgroundColor: '#2FA652',
-                      fontSize: '1.1rem',
-                      fontWeight: 800,
+                      color: '#111',
+                      bgcolor: '#fff',
+                      px: 3,
+                      py: 1.25,
+                      borderRadius: 999,
                       textTransform: 'none',
-                      borderRadius: 2,
-                      boxShadow: '0 8px 20px rgba(47,166,82,0.35)',
-                      '&:hover': { backgroundColor: '#29964a' }
+                      fontWeight: 600,
+                      '&:hover': { bgcolor: 'rgba(0,0,0,0.06)' },
                     }}
-                    startIcon={<CreditCardOutlined />}
                   >
-                    Donate ${displayAmount.toLocaleString()} {donationType === 'monthly' ? 'Monthly' : 'Today'}
+                    Donate {freq === 'monthly' ? 'Monthly' : 'Now'}
+                    {amount ? ` — $${amount}` : ''}
                   </Button>
-
-                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 1.5, gap: 1 }}>
-                    <SecurityOutlined sx={{ fontSize: 18, color: 'text.secondary' }} />
-                    <Typography variant="caption" color="text.secondary">
-                      Secure donation processing
-                    </Typography>
-                  </Box>
-
-                  {/* Trust strip */}
-                  <CTAStrip>
-                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                      Prefer to give by check or employer match?
-                    </Typography>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                      <OutlineBtn variant="outlined" href="#other-ways">Other ways to give</OutlineBtn>
-                      <OutlineBtn variant="outlined" href="#faq">FAQ</OutlineBtn>
-                    </Box>
-                  </CTAStrip>
-                </CardContent>
-              </GlassCard>
-            </Grid>
-
-            {/* Right: Sticky Sidebar */}
-            <Grid item xs={12} lg={4}>
-              <Sticky>
-                <SidePaper sx={{ p: 3, mb: 3 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
-                    Campaign Progress
-                  </Typography>
-                  <Box sx={{ mb: 1.5, display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography variant="body2" color="text.secondary">
-                      ${currentRaised.toLocaleString()} raised
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      ${currentGoal.toLocaleString()} goal
-                    </Typography>
-                  </Box>
-                  <LinearProgress
-                    variant="determinate"
-                    value={progressPercentage}
-                    sx={{
-                      height: 10,
-                      borderRadius: 6,
-                      backgroundColor: alpha('#2FA652', 0.15),
-                      '& .MuiLinearProgress-bar': { backgroundColor: '#2FA652' }
-                    }}
-                  />
-                  <Typography variant="body2" sx={{ mt: 1.2, textAlign: 'center' }} color="text.secondary">
-                    {Math.round(progressPercentage)}% of goal reached
-                  </Typography>
-                </SidePaper>
-
-                <SidePaper id="impact" sx={{ p: 3, mb: 3 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 800, mb: 1.5 }}>
-                    Your Impact
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>$25 can provide:</Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
-                    Mental health resources for one person for a month
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>$100 can provide:</Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
-                    Crisis intervention training for community volunteers
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>$250 can provide:</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    A mental health workshop for an entire school
-                  </Typography>
-                </SidePaper>
-
-                <SidePaper id="faq" sx={{ p: 3 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
-                    Questions?
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
-                    Need help with your donation or have questions about our mission?
-                  </Typography>
                   <Button
+                    component={RouterLink}
+                    to="/donate/ways-to-give"
                     variant="outlined"
-                    size="small"
-                    sx={{
-                      color: '#2FA652',
-                      borderColor: '#2FA652',
-                      textTransform: 'none',
-                      '&:hover': {
-                        borderColor: '#29964a',
-                        backgroundColor: alpha('#2FA652', 0.06)
-                      }
-                    }}
+                    sx={{ textTransform: 'none', borderRadius: 999, px: 3, py: 1.25 }}
                   >
-                    Contact Us
+                    Ways to Give
                   </Button>
-                </SidePaper>
-              </Sticky>
-            </Grid>
-          </Grid>
-        </Container>
-      </PageSection>
+                </Stack>
 
-      {/* ===== Footer Band (optional) ===== */}
-      <Box sx={{ py: 6, borderTop: `1px solid ${alpha('#000', 0.08)}` }}>
-        <Container maxWidth="lg">
-          <Typography variant="body2" color="text.secondary">
-            Clark21 Foundation is a 501(c)(3) nonprofit. Donations are tax-deductible as allowed by law.
-          </Typography>
-        </Container>
-      </Box>
-    </PageWrap>
+                <Box sx={{ flexGrow: 1 }} />
+
+                <Typography variant="caption" sx={{ color: '#666' }}>
+                  SC21 Foundation is a 501(c)(3). Contributions are tax-deductible as
+                  allowed by law.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 
-export default DonationPage;
+export default DonationsPage;

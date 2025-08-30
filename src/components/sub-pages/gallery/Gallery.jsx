@@ -33,13 +33,14 @@ import PhotoCameraBackRoundedIcon from "@mui/icons-material/PhotoCameraBackRound
 
 const Page = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
-  background: `radial-gradient(1200px 600px at 10% -10%, ${alpha(
-    theme.palette.primary.main, 0.22
-  )} 0%, transparent 60%), radial-gradient(900px 500px at 90% 110%, ${alpha(
-    theme.palette.secondary.main, 0.18
-  )} 0%, transparent 60%), linear-gradient(180deg, ${alpha(
-    theme.palette.background.default, 1
-  )}, ${alpha(theme.palette.background.default, 1)})`,
+  // background: `radial-gradient(1200px 600px at 10% -10%, ${alpha(
+  //   theme.palette.primary.main, 0.22
+  // )} 0%, transparent 60%), radial-gradient(900px 500px at 90% 110%, ${alpha(
+  //   theme.palette.secondary.main, 0.18
+  // )} 0%, transparent 60%), linear-gradient(180deg, ${alpha(
+  //   theme.palette.background.default, 1
+  // )}, ${alpha(theme.palette.background.default, 1)})`,
+  background: "#E8E5DD",
   color: theme.palette.text.primary,
 }));
 
@@ -185,7 +186,7 @@ export default function Gallery() {
 
   return (
     <Page>
-      <Container sx={{ py: { xs: 6, md: 10 } }}>
+      <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
         <SectionHeader
           title="Gallery"
           subtitle="Moments that tell our story—clinics, workshops, and community in motion."

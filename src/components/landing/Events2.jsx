@@ -1,5 +1,5 @@
 // src/components/EdutainmentCoursesMUI.jsx
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Box,
   Container,
@@ -8,51 +8,79 @@ import {
   IconButton,
   useTheme,
   useMediaQuery,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 
 /* ===================== Styled ===================== */
 const Section = styled(Box)(({ theme }) => ({
-  backgroundColor: '#fff',
+  backgroundColor: "#E8E5DD",
   paddingTop: theme.spacing(7.5),
   paddingBottom: theme.spacing(7.5),
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
 }));
 
+const RegisterBtn = styled(Button)(({ theme }) => ({
+  borderRadius: 999,
+  padding: "12px 20px",
+  textTransform: "none",
+  fontWeight: 700,
+  fontSize: 16,
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 10,
+  backdropFilter: "blur(6px)",
+  color: "#fff",
+  background:
+    "linear-gradient(135deg, rgba(47,166,82,0.95), rgba(26,132,58,0.95))",
+  boxShadow:
+    "0 8px 20px rgba(47,166,82,0.25), inset 0 1px 0 rgba(255,255,255,0.15)",
+  border: "1px solid rgba(47,166,82,0.35)",
+  transition: "transform .15s ease, box-shadow .2s ease, background .2s ease",
+  "&:hover": {
+    transform: "translateY(-1px)",
+    boxShadow:
+      "0 12px 28px rgba(47,166,82,0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
+    background: "linear-gradient(135deg, rgba(39,150,72,1), rgba(22,118,52,1))",
+  },
+  "&:active": {
+    transform: "translateY(0)",
+  },
+}));
+
 const HeaderRow = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'flex-start',
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "flex-start",
   marginBottom: theme.spacing(6.25),
-  [theme.breakpoints.down('md')]: {
-    flexDirection: 'column',
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
     gap: theme.spacing(3.75),
   },
 }));
 
 const ViewAllBtn = styled(Button)({
   borderRadius: 50,
-  padding: '12px 24px',
-  textTransform: 'none',
+  padding: "12px 24px",
+  textTransform: "none",
   fontWeight: 600,
   fontSize: 16,
-  border: '2px solid #333',
-  color: '#333',
-  '&:hover': { backgroundColor: '#333', color: '#fff', borderColor: '#333' },
+  border: "2px solid #333",
+  color: "#333",
+  "&:hover": { backgroundColor: "#333", color: "#fff", borderColor: "#333" },
 });
 
 const CarouselContainer = styled(Box)({
-  position: 'relative',
-  overflow: 'hidden',
+  position: "relative",
+  overflow: "hidden",
   marginBottom: 40,
 });
 
 const CarouselTrack = styled(Box)(({ translateX }) => ({
-  display: 'flex',
+  display: "flex",
   gap: 30,
-  transition: 'transform 0.5s ease',
+  transition: "transform 0.5s ease",
   transform: `translateX(${translateX}px)`,
 }));
 
@@ -61,50 +89,50 @@ const RADIUS = 16;
 
 const ImageShell = styled(Box)({
   height: 300,
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: 'white',
-  textAlign: 'center',
-  padding: '40px 20px',
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  color: "white",
+  textAlign: "center",
+  padding: "40px 20px",
   borderRadius: RADIUS,
-  overflow: 'hidden',
+  overflow: "hidden",
 });
 
 const ImageBg = styled(Box)({
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
+  backgroundSize: "cover",
+  backgroundPosition: "center",
   zIndex: 1,
   borderRadius: RADIUS,
 });
 
-const ImageBgImg = styled('img')({
-  position: 'absolute',
+const ImageBgImg = styled("img")({
+  position: "absolute",
   inset: 0,
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
-  objectPosition: 'center',
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  objectPosition: "center",
   zIndex: 1,
   borderRadius: RADIUS,
-  display: 'block',
+  display: "block",
 });
 
 const Overlay = styled(Box)({
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
-  background: 'linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3))',
+  background: "linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3))",
   zIndex: 2,
   borderRadius: RADIUS,
-  pointerEvents: 'none',
+  pointerEvents: "none",
 });
 
 const ImageContent = styled(Box)({
-  position: 'relative',
+  position: "relative",
   zIndex: 3,
 });
 
@@ -114,7 +142,7 @@ const HeaderTag = styled(Typography)({
   fontWeight: 300,
   letterSpacing: 2,
   marginBottom: 20,
-  textTransform: 'uppercase',
+  textTransform: "uppercase",
 });
 
 const CourseH3 = styled(Typography)({
@@ -137,101 +165,99 @@ const CourseSub = styled(Typography)({
 });
 
 const BottomBar = styled(Box)({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
   marginTop: 40,
 });
 
 const NavButtons = styled(Box)({
-  display: 'flex',
+  display: "flex",
   gap: 12,
 });
 
 const NavBtn = styled(IconButton)({
   width: 40,
   height: 40,
-  borderRadius: '50%',
-  border: '2px solid #ddd',
-  backgroundColor: '#fff',
-  color: '#666',
-  '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' },
+  borderRadius: "50%",
+  border: "2px solid #ddd",
+  backgroundColor: "#fff",
+  color: "#666",
+  "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
 });
 
 const EnrollmentBtn = styled(Button)({
-  padding: '12px 24px',
-  background: 'transparent',
-  border: '2px solid #333',
+  padding: "12px 24px",
+  background: "transparent",
+  border: "2px solid #333",
   borderRadius: 50,
-  color: '#333',
+  color: "#333",
   fontSize: 16,
   fontWeight: 600,
-  textTransform: 'none',
-  '&:hover': { background: '#333', color: '#fff' },
+  textTransform: "none",
+  "&:hover": { background: "#333", color: "#fff" },
 });
 
 /* ===================== Data ===================== */
 const courses = [
   {
-    key: 'video',
-    headerTag: 'ilovecreatives',
-    h3: 'Video Creator',
-    h4: 'Course',
-    sub: 'With Rachel Nguyen',
-    title: "Video Creator Course with That's Chic",
-    body: `"I've developed my skills and am feeling more confident in my own creative process. I'm interviewing for new jobs that I never would have felt qualified for without taking the course!" — Andrea Miller`,
-    image: '/image1.JPG',
+    key: "walkout",
+    headerTag: "Mental Health Awareness",
+    h3: "Mental Health Walkout",
+    h4: "Community Event",
+    sub: "Join Us for a Walkout to Raise Awareness",
+    title: "Walkout for Mental Health Awareness",
+    body: `"This walkout helped me realize that we're not alone in our struggles. It's empowering to see so many people come together to speak out." — Alex Johnson`,
+    image: "/image1.JPG",
     bgStyle: {
       background:
-        'linear-gradient(135deg, rgba(139,69,19,0.8), rgba(160,82,45,0.8))',
+        "linear-gradient(135deg, rgba(255,99,71,0.8), rgba(255,69,0,0.8))", // A red-orange gradient, symbolizing urgency and activism
     },
   },
   {
-    key: 'graphic',
-    headerTag: 'Created & Taught by the Design Agency:',
-    subTop: 'ilovecreatives Studio',
-    italic: 'Graphic Design',
-    bold: 'COURSE',
-    title: 'Graphic Design Course',
-    body:
-      '"I have had so many people reaching out to work on projects and on brands from my portfolio." — Sophie Dumon',
-    image: '/image4.JPG',
+    key: "workshop",
+    headerTag: "Empowering the Mind",
+    h3: "Mindfulness Workshop",
+    h4: "Workshop",
+    sub: "Led by Mental Health Professionals",
+    title: "Mindfulness Workshop for Stress Relief",
+    body: '"This workshop helped me find calm amidst the chaos. The breathing exercises and mindfulness techniques have changed my perspective." — Jamie Lee',
+    image: "/image2.JPG",
     bgStyle: {
       background:
-        'linear-gradient(135deg, rgba(135,206,235,0.9), rgba(176,224,230,0.9))',
+        "linear-gradient(135deg, rgba(144,238,144,0.9), rgba(60,179,113,0.9))", // A calm green gradient, representing peace and mindfulness
     },
   },
   {
-    key: 'brand',
-    headerTag: 'ilovecreatives',
-    h3: 'Brand Strategy',
-    h4: 'Intensive',
-    sub: 'With Creative Coach Team',
-    title: 'Brand Strategy Intensive',
-    body:
-      'A guided sprint to clarify your story, audience, and offer — then turn it into a polished portfolio or landing page.',
-    image: '/image5.JPG',
+    key: "support",
+    headerTag: "Mental Health Support",
+    h3: "Group Therapy",
+    h4: "Support Group",
+    sub: "Facilitated by Certified Therapists",
+    title: "Support Group for Mental Health Healing",
+    body: "A safe space to connect with others and share experiences in order to heal together as a community.",
+    image: "/image3.JPG",
     bgStyle: {
       background:
-        'linear-gradient(135deg, rgba(52,152,219,0.85), rgba(41,128,185,0.85))',
+        "linear-gradient(135deg, rgba(70,130,180,0.85), rgba(100,149,237,0.85))", // A blue gradient, symbolizing trust and healing
     },
   },
   {
-    key: 'photo',
-    headerTag: 'ilovecreatives',
-    h3: 'Photography',
-    h4: 'Bootcamp',
-    sub: 'With Visiting Artists',
-    title: 'Photography Bootcamp',
-    body:
-      'Master lighting, composition, and editing with hands-on assignments and real-world critique.',
-    image: '/image1.JPG',
+    key: "webinar",
+    headerTag: "Mental Health Education",
+    h3: "Resilience Webinar",
+    h4: "Webinar",
+    sub: "With Mental Health Experts",
+    title: "Building Resilience Through Mental Health Education",
+    body: "Join us for an insightful webinar to understand how resilience can positively impact mental health and well-being.",
+    image: "/image4.JPG",
     bgStyle: {
       background:
-        'linear-gradient(135deg, rgba(142,68,173,0.85), rgba(155,89,182,0.85))',
+        "linear-gradient(135deg, rgba(255,228,181,0.85), rgba(255,239,179,0.85))", // A soft yellow gradient to invoke positivity and hope
     },
   },
 ];
+
 
 /* ===================== Component ===================== */
 export default function EdutainmentCoursesMUI() {
@@ -239,7 +265,7 @@ export default function EdutainmentCoursesMUI() {
   const [containerW, setContainerW] = useState(0);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const GAP = 30;
   const PEEK = isMobile ? 48 : 80; // constant peeks (both sides)
@@ -280,12 +306,12 @@ export default function EdutainmentCoursesMUI() {
 
   // Adaptive mask (don’t fade the real edge on first/last)
   const maskBoth =
-    'linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))';
+    "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))";
   const maskLeft =
-    'linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 100%)';
+    "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 100%)";
   const maskRight =
-    'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))';
-  const maskNone = 'linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,1))';
+    "linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))";
+  const maskNone = "linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,1))";
 
   const maskImage =
     currentSlide === 0 && currentSlide === maxSlide
@@ -297,7 +323,8 @@ export default function EdutainmentCoursesMUI() {
       : maskBoth;
 
   const nextSlide = () => setCurrentSlide((p) => (p >= maxSlide ? 0 : p + 1));
-  const previousSlide = () => setCurrentSlide((p) => (p <= 0 ? maxSlide : p - 1));
+  const previousSlide = () =>
+    setCurrentSlide((p) => (p <= 0 ? maxSlide : p - 1));
 
   return (
     <Section>
@@ -311,9 +338,9 @@ export default function EdutainmentCoursesMUI() {
                 fontSize: { xs: 36, sm: 48 },
                 fontWeight: 400,
                 lineHeight: 1.2,
-                color: '#333',
+                color: "#333",
                 mb: 1,
-                letterSpacing: '-0.5px',
+                letterSpacing: "-0.5px",
               }}
             >
               Get Involved Today
@@ -323,14 +350,14 @@ export default function EdutainmentCoursesMUI() {
               sx={{
                 fontSize: { xs: 22, sm: 28 },
                 fontWeight: 400,
-                color: '#333',
+                color: "#333",
                 mb: 2,
-                letterSpacing: '-0.3px',
+                letterSpacing: "-0.3px",
               }}
             >
               Fill out the form to join us!
             </Typography>
-            <Typography sx={{ fontSize: 16, color: '#666', fontWeight: 500 }}>
+            <Typography sx={{ fontSize: 16, color: "#666", fontWeight: 500 }}>
               ★ Enroll today or join a waitlist for more info.
             </Typography>
           </Box>
@@ -350,10 +377,17 @@ export default function EdutainmentCoursesMUI() {
         >
           <CarouselTrack translateX={translateX}>
             {courses.map((course) => (
-              <Box key={course.key} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px` }}>
+              <Box
+                key={course.key}
+                sx={{ flex: `0 0 ${Math.max(cardW, 0)}px` }}
+              >
                 <ImageShell>
                   {course.image ? (
-                    <ImageBgImg src={course.image} alt={course.title} loading="lazy" />
+                    <ImageBgImg
+                      src={course.image}
+                      alt={course.title}
+                      loading="lazy"
+                    />
                   ) : (
                     <ImageBg sx={course.bgStyle} />
                   )}
@@ -374,8 +408,8 @@ export default function EdutainmentCoursesMUI() {
                           sx={{
                             fontSize: 48,
                             fontWeight: 400,
-                            fontStyle: 'italic',
-                            color: '#2c5530',
+                            fontStyle: "italic",
+                            color: "#2c5530",
                             mb: 1,
                             lineHeight: 1,
                           }}
@@ -386,8 +420,8 @@ export default function EdutainmentCoursesMUI() {
                           sx={{
                             fontSize: 56,
                             fontWeight: 800,
-                            letterSpacing: '-2px',
-                            color: '#000',
+                            letterSpacing: "-2px",
+                            color: "#000",
                             lineHeight: 1,
                           }}
                         >
@@ -404,16 +438,25 @@ export default function EdutainmentCoursesMUI() {
                     sx={{
                       fontSize: 24,
                       fontWeight: 600,
-                      color: '#333',
+                      color: "#333",
                       mb: 2,
                       lineHeight: 1.3,
                     }}
                   >
                     {course.title}
                   </Typography>
-                  <Typography sx={{ fontSize: 15, lineHeight: 1.6, color: '#666' }}>
+                  <Typography
+                    sx={{ fontSize: 15, lineHeight: 1.6, color: "#666" }}
+                  >
                     {course.body}
                   </Typography>
+                  {/* <RegisterBtn
+                    onClick={() => console.log("Register:", course.key)}
+                    href={`/events/${course.key}`} // or your form link
+                  >
+                    <CalendarDays size={18} />
+                    Register Now
+                  </RegisterBtn> */}
                 </Box>
               </Box>
             ))}
