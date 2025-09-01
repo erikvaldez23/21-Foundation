@@ -24,6 +24,7 @@ import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRound
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import PhotoCameraBackRoundedIcon from "@mui/icons-material/PhotoCameraBackRounded";
+import GalleryHero from "./GalleryHero"
 
 /* =========================
    Gallery Sub-Page
@@ -186,11 +187,8 @@ export default function Gallery() {
 
   return (
     <Page>
-      <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
-        <SectionHeader
-          title="Gallery"
-          subtitle="Moments that tell our story—clinics, workshops, and community in motion."
-        />
+      <Container maxWidth="xl">
+       <GalleryHero />
         {/* Masonry Grid */}
         <ImageList
           variant="masonry"

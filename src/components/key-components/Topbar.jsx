@@ -28,7 +28,6 @@ const DEFAULT_LINKS = [
   { label: "Events", to: "/events" },
   { label: "Gallery", to: "/gallery" },
   { label: "Contact", to: "/contact" },
-  { label: "Cart", to: "/cart" },
 ];
 
 // ---------- Styled ----------

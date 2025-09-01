@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-const AboutHero = () => {
+const GiveHero = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -63,4 +63,4 @@ const AboutHero = () => {
   );
 };
 
-export default AboutHero;
+export default GiveHero;

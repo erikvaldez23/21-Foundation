@@ -255,11 +255,11 @@ const Hero2 = () => {
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
           <GlassButton>CONNECT WITH US</GlassButton>
-          <GlassButton onClick={handleAskQuestion}>ASK A QUESTION</GlassButton>
+          <GlassButton onClick={handleAskQuestion}>VIEW GALLERY</GlassButton>
         </Box>
       </Box>
 
-      {/* ---------- Desktop/Tablet: text bottom-left ---------- */}
+      {/* ---------- Desktop/Tablet: text bottom-le ft ---------- */}
       <Box
         sx={{
           display: { xs: "none", sm: "block" },
@@ -298,7 +298,7 @@ const Hero2 = () => {
         }}
       >
         <GlassButton>CONNECT WITH US</GlassButton>
-        <GlassButton onClick={handleAskQuestion}>ASK A QUESTION</GlassButton>
+        <GlassButton onClick={handleAskQuestion}>VIEW GALLERY</GlassButton>
       </Box>
 
       {/* On-screen arrow controls (like previous component) */}

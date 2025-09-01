@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-const AboutHero = () => {
+const ContactHero = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -51,7 +51,7 @@ const AboutHero = () => {
               fontFamily: 'serif'
             }}
           >
-            HEADER
+            CONTACT US
             <br />
             DESCRIPTION
             <br />
@@ -63,4 +63,4 @@ const AboutHero = () => {
   );
 };
 
-export default AboutHero;
+export default ContactHero;

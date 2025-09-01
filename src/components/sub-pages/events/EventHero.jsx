@@ -51,7 +51,7 @@ const KaleoLandingPage = () => {
               fontFamily: 'serif'
             }}
           >
-            HEADER
+            EVENTS
             <br />
             DESCRIPTION
             <br />
