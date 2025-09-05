@@ -7,9 +7,12 @@ import {
   Typography,
   Link as MuiLink,
   useScrollTrigger,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 /**
  * Drop-in Topbar with:
@@ -17,6 +20,7 @@ import { Link as RouterLink, useLocation } from "react-router-dom";
  * - React Router nav links with active state
  * - Smooth hover underline + subtle lift animation
  * - Glass/blur on scroll
+ * - Instagram icon at far right (opens IG in new tab)
  */
 
 // ---------- Defaults ----------
@@ -52,12 +56,8 @@ const NavLink = styled(MuiLink)(({ theme }) => ({
     background: alpha("#fff", 0.9),
     transition: "transform 240ms ease",
   },
-  "&:hover": {
-    transform: "translateY(-1px)",
-  },
-  "&:hover::after": {
-    transform: "scaleX(1)",
-  },
+  "&:hover": { transform: "translateY(-1px)" },
+  "&:hover::after": { transform: "scaleX(1)" },
   "&:focus-visible": {
     boxShadow: `0 0 0 3px ${alpha("#fff", 0.28)}`,
     borderRadius: 6,
@@ -92,10 +92,7 @@ const LogoLink = styled(Box)(({ theme }) => ({
   color: "#fff",
   transition: theme.transitions.create(["transform", "filter"], { duration: 220 }),
   cursor: "pointer",
-  "&:hover": {
-    transform: "translateY(-1px)",
-    filter: "brightness(1.05)",
-  },
+  "&:hover": { transform: "translateY(-1px)", filter: "brightness(1.05)" },
   "&:focus-visible": {
     boxShadow: `0 0 0 3px ${alpha("#fff", 0.28)}`,
     borderRadius: 10,
@@ -104,6 +101,24 @@ const LogoLink = styled(Box)(({ theme }) => ({
   "@media (prefers-reduced-motion: reduce)": {
     transition: "none",
     "&:hover": { transform: "none", filter: "none" },
+  },
+}));
+
+const SocialIcon = styled(IconButton)(({ theme }) => ({
+  marginLeft: theme.spacing(2.5),
+  color: "#fff",
+  borderRadius: 12,
+  transition: theme.transitions.create(["transform", "box-shadow", "background"], {
+    duration: 220,
+  }),
+  "&:hover": {
+    transform: "translateY(-1px)",
+    boxShadow: `0 0 0 6px ${alpha("#339c5e", 0.22)}`,
+    background: alpha("#339c5e", 0.14),
+  },
+  "&:focus-visible": {
+    boxShadow: `0 0 0 3px ${alpha("#fff", 0.28)}`,
+    outline: "none",
   },
 }));
 
@@ -121,6 +136,9 @@ export default function TopbarHero({
   homeTo = "/",
   showWordmark = false, // set true to display brand text next to logo
   wordmark = "",
+  // Socials
+  instagramUrl = "https://www.instagram.com/seanclark21foundation/",
+  showInstagram = true,
 }) {
   const scrolled = useScrollTrigger({ disableHysteresis: true, threshold });
   const location = useLocation();
@@ -128,48 +146,34 @@ export default function TopbarHero({
   const isActive = (link) => {
     if (!location) return !!link.current;
     if (!link?.to) return !!link.current;
-    // Exact match; switch to startsWith for section highlighting:
     return location.pathname === link.to;
   };
 
   return (
-  <AppBar
-  position={position}
-  sx={{
-    transition: (theme) =>
-      theme.transitions.create(
-        ["background-color", "backdrop-filter", "box-shadow", "border-color"],
-        { duration: 300 }
-      ),
-    background: scrolled
-      ? "#000"
-      // `linear-gradient(
-      //     135deg,
-      //     rgba(15, 15, 15, ${glassOpacity + 0.1}),
-      //     rgba(30, 30, 30, ${glassOpacity})
-      //   )`
-      : "transparent",
-    color: "#fff",
-    boxShadow: scrolled ? "0 8px 28px rgba(0,0,0,0.25)" : "none",
-    backdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
-    WebkitBackdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
-    borderBottom: scrolled
-      ? `1px solid ${alpha("#ffffff", 0.18)}`
-      : "1px solid transparent",
-    zIndex: (theme) => theme.zIndex.appBar,
-    p: 1,
-    ...sx,
-  }}
->
-
+    <AppBar
+      position={position}
+      sx={{
+        transition: (theme) =>
+          theme.transitions.create(
+            ["background-color", "backdrop-filter", "box-shadow", "border-color"],
+            { duration: 300 }
+          ),
+        background: scrolled ? "#000" : "transparent",
+        color: "#fff",
+        boxShadow: scrolled ? "0 8px 28px rgba(0,0,0,0.25)" : "none",
+        backdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
+        WebkitBackdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
+        borderBottom: scrolled
+          ? `1px solid ${alpha("#ffffff", 0.18)}`
+          : "1px solid transparent",
+        zIndex: (theme) => theme.zIndex.appBar,
+        p: 1,
+        ...sx,
+      }}
+    >
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* Left: Logo → routes home */}
-        <LogoLink
-          component={RouterLink}
-          to={homeTo}
-          aria-label="Go to home"
-          title="Home"
-        >
+        <LogoLink component={RouterLink} to={homeTo} aria-label="Go to home" title="Home">
           <Box
             component="img"
             src={logoSrc}
@@ -183,12 +187,10 @@ export default function TopbarHero({
           )}
         </LogoLink>
 
-        {/* Right: Nav links */}
+        {/* Right: Nav links + Instagram */}
         <Box component="nav" aria-label="Primary" sx={{ display: "flex", alignItems: "center" }}>
           {links.map((link) => {
             const active = isActive(link);
-
-            // Prefer React Router when a 'to' is present; fallback to href
             if (link.to) {
               return (
                 <NavLink
@@ -214,6 +216,21 @@ export default function TopbarHero({
               </NavLink>
             );
           })}
+
+          {showInstagram && (
+            <Tooltip title="Instagram" arrow>
+              <SocialIcon
+                component="a"
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Instagram"
+                size="large"
+              >
+                <InstagramIcon />
+              </SocialIcon>
+            </Tooltip>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

@@ -1,395 +1,297 @@
-// src/components/about/TeamShowcase.jsx
+// src/components/team/MeetTheExperts.jsx
 import React from "react";
 import {
+  Box,
   Container,
   Grid,
   Typography,
-  IconButton,
-  Box,
+  Card,
   Chip,
+  IconButton,
   Divider,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import EmailIcon from "@mui/icons-material/Email";
-import InstagramIcon from "@mui/icons-material/Instagram";
+import { motion } from "framer-motion";
 
-/* ----------------------- In-file team data ----------------------- */
-export const teamData = [
+/* ---------------------- Demo data (replace with real) ---------------------- */
+const TEAM = [
   {
-    name: "Issa Clark",
-    role: "Board Member",
-    bio: "Leads programs and partnerships that expand our impact across the community.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:alex@example.org" },
+    id: 1,
+    name: "Bartosz Drobny",
+    role: "Project Coordinator",
+    photo:
+      "https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1200&auto=format&fit=crop",
+    linkedin: "https://www.linkedin.com/",
   },
   {
-    name: "John Clark",
-    role: "Board Member",
-    bio: "Designs and runs our outreach initiatives with schools and local orgs.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", instagram: "#", email: "mailto:maya@example.org" },
+    id: 2,
+    name: "Edyta Radłowska",
+    role: "Office Manager",
+    photo:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop",
+    linkedin: "https://www.linkedin.com/",
   },
   {
-    name: "Tre' Clark",
-    role: "Board Member",
-    bio: "Keeps our events on track and our volunteers supported.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:jordan@example.org" },
-  },
-  {
-    name: "Christa Dubill",
-    role: "Committee Member",
-    bio: "Builds relationships with families, partners, and volunteers.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:sam@example.org" },
-  },
-  {
-    name: "Nayla Eid",
-    role: "Committee Member",
-    bio: "Builds relationships with families, partners, and volunteers.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:sam@example.org" },
-  },
-  {
-    name: "Michelle Hardgree",
-    role: "Committee Member",
-    bio: "Builds relationships with families, partners, and volunteers.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:sam@example.org" },
-  },
-  {
-    name: "Amber Hellwig",
-    role: "Committee Member",
-    bio: "Builds relationships with families, partners, and volunteers.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:sam@example.org" },
-  },
-  {
-    name: "Christina Pfaff",
-    role: "Committee Member",
-    bio: "Builds relationships with families, partners, and volunteers.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:sam@example.org" },
-  },
-  {
-    name: "Julia Pfaff",
-    role: "Committee Member",
-    bio: "Builds relationships with families, partners, and volunteers.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:sam@example.org" },
-  },
-  {
-    name: "Dean Wheeler",
-    role: "Committee Member",
-    bio: "Builds relationships with families, partners, and volunteers.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:sam@example.org" },
-  },
-  {
-    name: "Isabel Jaramillo",
-    role: "Committee Member",
-    bio: "Builds relationships with families, partners, and volunteers.",
-    photo: "/vert-image.JPG",
-    links: { linkedin: "#", email: "mailto:sam@example.org" },
+    id: 3,
+    name: "Krzysztof Wróbel",
+    role: "Chief Development Officer",
+    photo:
+      "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=1200&auto=format&fit=crop",
+    linkedin: "https://www.linkedin.com/",
   },
 ];
 
-/* ----------------------- Styled components ----------------------- */
-const Section = styled(Box)(({ theme }) => ({
-  backgroundColor: "#fff",
-  paddingTop: theme.spacing(12),
-  paddingBottom: theme.spacing(12),
-}));
+const COMMITTEE = [
+  {
+    id: "c1",
+    name: "Alex Johnson",
+    role: "Fundraising Committee",
+    photo:
+      "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=1200&auto=format&fit=crop",
+    linkedin: "https://www.linkedin.com/",
+  },
+  {
+    id: "c2",
+    name: "Priya Desai",
+    role: "Community Outreach",
+    photo:
+      "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?q=80&w=1200&auto=format&fit=crop",
+    linkedin: null,
+  },
+  {
+    id: "c3",
+    name: "Miguel Santos",
+    role: "Events Committee",
+    photo:
+      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=1200&auto=format&fit=crop",
+    linkedin: "https://www.linkedin.com/",
+  },
+  {
+    id: "c4",
+    name: "Sofia Park",
+    role: "Volunteer Coordination",
+    photo:
+      "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=1200&auto=format&fit=crop",
+    linkedin: null,
+  },
+];
 
-const GroupHeader = styled(Box)(({ theme }) => ({
+/* --------------------------------- Styles --------------------------------- */
+const PageWrap = styled(Box)({
+  backgroundColor: "#E8E5DD",
+});
+
+const HeaderRow = styled(Box)(({ theme }) => ({
   display: "flex",
-  alignItems: "baseline",
-  justifyContent: "space-between",
-  gap: 12,
-  marginTop: theme.spacing(6),
-  marginBottom: theme.spacing(2),
+  alignItems: "center",
+  gap: 10,
+  paddingBlock: theme.spacing(1.5),
 }));
 
-const CountPill = styled(Box)(({ theme }) => ({
-  fontSize: 12,
-  padding: "4px 10px",
-  borderRadius: 999,
-  border: `1px solid ${alpha("#000", 0.08)}`,
-  background: "#f7f7f7",
-  color: "rgba(0,0,0,.65)",
-}));
-
-const CardWrap = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: 20,
-  overflow: "hidden",
-  border: `1px solid ${alpha("#000", 0.08)}`,
-  background: "#f7f7f7",
-  boxShadow: "0 6px 24px rgba(0,0,0,.06)",
-  transform: "translateZ(0)",
-  transition: "transform .25s ease, box-shadow .25s ease",
-  willChange: "transform",
-  "&:hover": {
-    transform: "translateY(-4px)",
-    boxShadow: "0 10px 30px rgba(0,0,0,.10)",
+const DotBadge = styled("span")(({ theme }) => ({
+  display: "inline-grid",
+  gridTemplateColumns: "repeat(3, 8px)",
+  gap: 4,
+  marginTop: 2,
+  "& > i": {
+    width: 8,
+    height: 8,
+    borderRadius: 999,
+    background: theme.palette.text.primary,
+    opacity: 0.9,
   },
 }));
 
-const PhotoFrame = styled(Box)(({ theme }) => ({
-  position: "relative",
-  width: "100%",
-  paddingTop: "125%", // 4:5 portrait
+const TeamCard = styled(Card)(({ theme }) => ({
+  borderRadius: 14,
+  boxShadow: "none",
+  background: "#fafafa",
+  border: `1px solid ${alpha("#000", 0.08)}`,
+  overflow: "hidden",
+  // keep a tight, consistent footprint
+  height: "100%",
 }));
 
-const Img = styled("img")(({ theme }) => ({
-  position: "absolute",
-  inset: 0,
+const MediaWrap = styled(Box)(({ theme }) => ({
+  position: "relative",
+  overflow: "hidden",
+  aspectRatio: "4 / 3",
+  height: "clamp(200px, 24vw, 260px)",
+}));
+
+const MediaImg = styled(motion.img)(({ theme }) => ({
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  transition: "transform .6s cubic-bezier(.2,.6,.2,1)",
+  filter: "grayscale(100%)",
+  display: "block",
 }));
 
-const OverlayGrad = styled("div")(({ theme }) => ({
+const Overlay = styled("div")(() => ({
   position: "absolute",
-  inset: 0,
-  background:
-    "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.55) 100%)",
-  pointerEvents: "none",
+  left: 0,
+  right: 0,
+  bottom: 0,
+  height: "42%",
+  background: "linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0))",
+  zIndex: 1,
 }));
 
-const InfoBar = styled(Box)(({ theme }) => ({
+const OverlayText = styled(Box)(({ theme }) => ({
   position: "absolute",
+  bottom: 12,
   left: 12,
   right: 12,
-  bottom: 12,
-  borderRadius: 16,
-  padding: "14px 14px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
   color: "#fff",
-  background: alpha("#111", 0.18),
-  border: "1px solid rgba(255,255,255,.35)",
-  backdropFilter: "blur(10px)",
-  WebkitBackdropFilter: "blur(10px)",
+  zIndex: 2,
+  lineHeight: 1.2,
+  display: "grid",
+  gap: 2,
 }));
 
-const NameRole = styled(Box)(({ theme }) => ({ minWidth: 0 }));
-
-const Name = styled(Typography)(({ theme }) => ({
-  fontWeight: 800,
-  lineHeight: 1.1,
-  letterSpacing: 0.2,
-  fontSize: "1.125rem",
-  color: "#fff",
-}));
-
-const Role = styled(Typography)(({ theme }) => ({
-  fontSize: ".9rem",
-  opacity: 0.9,
-  color: "#fff",
-}));
-
-const Socials = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: 6,
-  "& .MuiIconButton-root": {
-    color: "#fff",
-    backdropFilter: "blur(2px)",
-    border: "1px solid rgba(255,255,255,.35)",
-    backgroundColor: alpha("#fff", 0.08),
-    width: 34,
-    height: 34,
-  },
-}));
-
-const RoleChip = styled(Chip)(({ theme }) => ({
+const LinkedinBadge = styled(IconButton)(({ theme }) => ({
   position: "absolute",
-  top: 12,
-  left: 12,
-  color: "#0e4c27",
-  fontWeight: 700,
-  background: "linear-gradient(135deg, #EAF6EF 0%, #DFF3E7 100%)",
-  border: "1px solid rgba(0,0,0,.08)",
+  top: 10,
+  right: 10,
+  width: 34,
+  height: 34,
+  borderRadius: 10,
+  background: "#fff",
+  color: "#0a66c2",
+  border: `1px solid ${alpha("#000", 0.12)}`,
+  boxShadow: "0 10px 20px rgba(0,0,0,0.12)",
+  zIndex: 3,
+  "&:hover": { background: "#f7f7f7" },
 }));
 
-/* ----------------------- Helpers ----------------------- */
-const normalizeMember = (m) => ({
-  name: m.name || "",
-  role: m.role || "",
-  bio: m.bio || "",
-  photo: m.photo || m.avatar || "/vert-image.JPG",
-  links: {
-    linkedin: (m.links && m.links.linkedin) || "#",
-    instagram: (m.links && m.links.instagram) || "#",
-    email: (m.links && m.links.email) || "#",
-  },
-});
-
-const isBoard = (m) =>
-  (m.role || "").toLowerCase().includes("board");
-const isCommittee = (m) =>
-  (m.role || "").toLowerCase().includes("committee");
-
-/* ----------------------- Component ----------------------- */
-export default function AboutTeam({
-  title = "Meet the Team",
-  subtitle = "The people guiding Reach, Include, and Support.",
-  team = teamData,
-  boardTitle = "Board of Directors",
-  committeeTitle = "Committee",
+/* --------------------------- Reusable Section UI --------------------------- */
+function TeamSection({
+  heading,
+  badgeLabel,
+  people,
+  topSpacing = { xs: 5, md: 8 },
+  bottomSpacing = { xs: 4, md: 6 },
+  gridSpacing = { xs: 2, md: 2.5 }, // slightly tighter by default
 }) {
-  const normalized = team.map(normalizeMember);
-
-  const board = normalized.filter(isBoard);
-  const committee = normalized.filter(isCommittee);
-  const others = normalized.filter(
-    (m) => !isBoard(m) && !isCommittee(m)
-  );
-
-  const placeholder =
-    "data:image/svg+xml;charset=utf-8," +
-    encodeURIComponent(
-      `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 750'>
-        <rect width='100%' height='100%' fill='#f1f1f1'/>
-        <text x='50%' y='50%' text-anchor='middle' dy='.35em'
-          font-family='system-ui, -apple-system, Segoe UI, Roboto'
-          font-size='24' fill='#999'>Team Member</text>
-      </svg>`
-    );
-
-  const SectionGrid = ({ data }) => (
-    <Grid container spacing={3}>
-      {data.map((m) => (
-        <Grid key={m.name} size={{ xs: 12, sm: 6, md: 4 }}>
-          <CardWrap>
-            <PhotoFrame>
-              <Img
-                src={m.photo}
-                alt={`${m.name} — ${m.role}`}
-                loading="lazy"
-                decoding="async"
-                onError={(e) => {
-                  e.currentTarget.src = placeholder;
-                }}
-              />
-              <OverlayGrad />
-              {m.role ? <RoleChip label={m.role} size="small" /> : null}
-              <InfoBar>
-                <NameRole>
-                  <Name noWrap>{m.name}</Name>
-                  {/* <Role noWrap title={m.bio}>{m.bio}</Role> */}
-                </NameRole>
-                <Socials>
-                  <IconButton
-                    aria-label={`${m.name} on LinkedIn`}
-                    href={m.links.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    size="small"
-                  >
-                    <LinkedInIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    aria-label={`${m.name} on Instagram`}
-                    href={m.links.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    size="small"
-                  >
-                    <InstagramIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    aria-label={`Email ${m.name}`}
-                    href={m.links.email}
-                    size="small"
-                  >
-                    <EmailIcon fontSize="small" />
-                  </IconButton>
-                </Socials>
-              </InfoBar>
-            </PhotoFrame>
-          </CardWrap>
-        </Grid>
-      ))}
-    </Grid>
-  );
-
   return (
-    <Section>
-      <Container maxWidth="lg">
-        {/* Page Title */}
+    <Box sx={{ pt: topSpacing, pb: bottomSpacing }}>
+      <HeaderRow>
+        <DotBadge aria-hidden>
+          <i />
+          <i />
+          <i />
+        </DotBadge>
         <Typography
-          variant="h3"
+          variant="h4"
           sx={{
-            fontFamily: "'Playfair Display', Georgia, serif",
-            fontWeight: 800,
-            textAlign: "center",
-            color: "#111",
+            fontWeight: 700,
+            letterSpacing: 0,
+            mr: 1,
+            fontSize: { xs: 24, sm: 28, md: 32 },
+            lineHeight: 1.1,
           }}
         >
-          {title}
+          {heading}
         </Typography>
-        <Typography
-          variant="subtitle1"
-          sx={{ textAlign: "center", color: "rgba(0,0,0,.6)", mt: 1, mb: 6 }}
-        >
-          {subtitle}
-        </Typography>
-
-        {/* Board Members */}
-        {board.length > 0 && (
-          <>
-            <GroupHeader>
-              <Typography
-                variant="h5"
-                sx={{ fontWeight: 800, color: "#111" }}
-              >
-                {boardTitle}
-              </Typography>
-              <CountPill>{board.length}</CountPill>
-            </GroupHeader>
-            <SectionGrid data={board} />
-            <Divider sx={{ my: 5 }} />
-          </>
+        <Box sx={{ flex: 1 }} />
+        {badgeLabel && (
+          <Chip
+            label={badgeLabel}
+            sx={{
+              borderRadius: 999,
+              bgcolor: "#D9F97F",
+              fontWeight: 600,
+              height: 28,
+            }}
+          />
         )}
+      </HeaderRow>
 
-        {/* Committee Members */}
-        {committee.length > 0 && (
-          <>
-            <GroupHeader>
-              <Typography
-                variant="h5"
-                sx={{ fontWeight: 800, color: "#111" }}
-              >
-                {committeeTitle}
-              </Typography>
-              <CountPill>{committee.length}</CountPill>
-            </GroupHeader>
-            <SectionGrid data={committee} />
-          </>
-        )}
+      {/* Subtle section underline to “anchor” the header without extra vertical gaps */}
+      <Divider
+        sx={{
+          mb: { xs: 2.25, md: 3 },
+          borderColor: alpha("#000", 0.08),
+        }}
+      />
 
-        {/* Fallback for anyone without Board/Committee in role */}
-        {others.length > 0 && (
-          <>
-            <Divider sx={{ my: 5 }} />
-            <GroupHeader>
-              <Typography
-                variant="h5"
-                sx={{ fontWeight: 800, color: "#111" }}
-              >
-                Team
-              </Typography>
-              <CountPill>{others.length}</CountPill>
-            </GroupHeader>
-            <SectionGrid data={others} />
-          </>
-        )}
+      <Grid container spacing={gridSpacing}>
+        {people.map((p) => (
+          <Grid key={p.id} item xs={12} sm={6} md={4} lg={3}>
+            <TeamCard
+              component={motion.div}
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 180, damping: 18 }}
+            >
+              <MediaWrap>
+                <MediaImg
+                  src={p.photo}
+                  alt={p.name}
+                  loading="lazy"
+                  initial={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 150, damping: 18 }}
+                />
+
+                <Overlay />
+
+                <OverlayText>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontWeight: 700, fontSize: { xs: 14, sm: 15 } }}
+                  >
+                    {p.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ opacity: 0.95, fontSize: { xs: 12.5, sm: 13 } }}
+                  >
+                    {p.role}
+                  </Typography>
+                </OverlayText>
+              </MediaWrap>
+            </TeamCard>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+  );
+}
+
+/* -------------------------------- Component -------------------------------- */
+export default function MeetTheExperts({
+  expertsTitle = "Meet the experts",
+  experts = TEAM,
+  committeeTitle = "Committee members",
+  committee = COMMITTEE,
+}) {
+  return (
+    <PageWrap>
+      <Container
+        maxWidth="lg"
+        sx={{
+          // tighten global vertical rhythm a touch
+          py: { xs: 5, md: 8 },
+        }}
+      >
+        {/* Experts Section */}
+        <TeamSection
+          heading={expertsTitle}
+          people={experts}
+          // slightly more presence for the first section
+          topSpacing={{ xs: 2, md: 2 }}
+          bottomSpacing={{ xs: 3.5, md: 5 }}
+        />
+
+        {/* Committee Section (same look, a bit tighter to reduce tall gaps) */}
+        <TeamSection
+          heading={committeeTitle}
+          people={committee}
+          topSpacing={{ xs: 3, md: 4 }}
+          bottomSpacing={{ xs: 0.5, md: 1 }}
+        />
       </Container>
-    </Section>
+    </PageWrap>
   );
 }

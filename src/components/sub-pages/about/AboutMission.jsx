@@ -18,8 +18,7 @@ import { motion } from "framer-motion";
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   overflow: "hidden",
-  background:
-    "linear-gradient(180deg, #E8E5DD 0%, #F2EFE9 100%)",
+  background: "#E8E5DD",
   paddingTop: theme.spacing(12),
   paddingBottom: theme.spacing(12),
 }));

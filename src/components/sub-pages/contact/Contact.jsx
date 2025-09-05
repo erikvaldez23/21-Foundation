@@ -1,329 +1,316 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Container,
   Grid,
   Card,
   CardContent,
-  CardHeader,
   Typography,
   TextField,
-  MenuItem,
-  FormControlLabel,
-  Checkbox,
+  Button,
   Divider,
-  IconButton,
-  Tooltip,
-  Snackbar,
-  Alert,
-  Link as MuiLink,
-  InputAdornment,
   Chip,
+  Stack,
+  IconButton,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
-import { LoadingButton } from "@mui/lab";
 import { motion } from "framer-motion";
-import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import PhoneIphoneRoundedIcon from "@mui/icons-material/PhoneIphoneRounded";
-import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
+import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
+import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
+import AccessTimeRoundedIcon from "@mui/icons-material/AccessTimeRounded";
 import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import VolunteerActivismRoundedIcon from "@mui/icons-material/VolunteerActivismRounded";
+import ContactHero from "./ContactHero"
 
-/* =========================
-   A compassionate outreach/contact page for a Foundation
-   - MUI + Framer Motion, soft gradients
-   - Validated form with loading + success state
-   - Sidebar with direct contact, social links, and mental health resources
-   ========================= */
+/**
+ * ContactSection
+ * — Clean, calming aesthetic to match ContactHero (beige bg, serif headings, soft edges)
+ * — Left: contact details, hours, quick actions
+ * — Right: elegant contact form with minimal distraction
+ */
 
-const Page = styled(Box)(({ theme }) => ({
-  minHeight: "100vh",
-  background: `linear-gradient(180deg, ${alpha(
-    theme.palette.primary.light,
-    0.15
-  )}, ${alpha(theme.palette.background.default, 1)})`,
-  color: theme.palette.text.primary,
-}));
-
-const Glass = styled(Card)(({ theme }) => ({
+const GlassCard = styled(Card)(({ theme }) => ({
   borderRadius: 20,
-  background: alpha("#fff", 0.05),
-  backdropFilter: "blur(10px)",
-  border: `1px solid ${alpha("#fff", 0.1)}`,
-  boxShadow:
-    "0 10px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.06)",
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
+  background: "#fff",
+  border: "1px solid rgba(0,0,0,0.06)",
+  boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
 }));
 
-const SectionHeader = ({ title, subtitle }) => (
-  <Box sx={{ textAlign: "center", mb: 6 }}>
-    <Typography
-      component={motion.h1}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      variant="h3"
-      sx={{ fontWeight: 700, letterSpacing: -0.4 }}
-    >
-      {title}
-    </Typography>
-    {subtitle && (
-      <Typography
-        component={motion.p}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.15 }}
-        variant="subtitle1"
-        sx={{ opacity: 0.8, mt: 1 }}
-      >
-        {subtitle}
-      </Typography>
-    )}
-  </Box>
-);
+const Label = styled(Typography)({
+  fontSize: 12,
+  letterSpacing: 2,
+  color: "#666",
+});
 
-export default function ContactOutreach() {
-  const [values, setValues] = useState({
+const SerifHeading = styled(Typography)({
+  fontFamily: "serif",
+  fontWeight: 400,
+  color: "#222",
+});
+
+const Field = styled(TextField)(({ theme }) => ({
+  "& .MuiOutlinedInput-root": {
+    borderRadius: 14,
+    background: "#FAF9F6",
+  },
+}));
+
+const ActionButton = styled(Button)(({ theme }) => ({
+  borderRadius: 999,
+  textTransform: "none",
+  padding: theme.spacing(1.2, 2),
+}));
+
+export default function ContactSection() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [form, setForm] = useState({
     name: "",
     email: "",
-    phone: "",
-    inquiry: "Support Request",
+    subject: "",
     message: "",
-    optIn: true,
   });
-  const [errors, setErrors] = useState({});
-  const [submitting, setSubmitting] = useState(false);
-  const [toast, setToast] = useState({ open: false, msg: "", ok: true });
-
-  const emailValid = useMemo(() => /\S+@\S+\.\S+/.test(values.email), [values.email]);
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, checked, type } = e.target;
-    setValues((v) => ({ ...v, [name]: type === "checkbox" ? checked : value }));
-  };
-
-  const validate = () => {
-    const next = {};
-    if (!values.name.trim()) next.name = "Please enter your name";
-    if (!values.email.trim()) next.email = "We need an email to reply";
-    if (values.email && !emailValid) next.email = "Enter a valid email";
-    if (!values.message.trim()) next.message = "Please share your thoughts or concerns";
-    setErrors(next);
-    return Object.keys(next).length === 0;
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
-    setSubmitting(true);
+    setSending(true);
     try {
-      await new Promise((r) => setTimeout(r, 1000)); // mock
-      setToast({ open: true, msg: "Thank you for reaching out. Our team will contact you soon.", ok: true });
-      setValues((v) => ({ ...v, message: "" }));
+      // TODO: wire up to your backend endpoint
+      // await fetch("/api/contact", { method: "POST", body: JSON.stringify(form) })
+      await new Promise((res) => setTimeout(res, 800));
+      setSent(true);
+      setForm({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
-      setToast({ open: true, msg: "Something went wrong. Please try again.", ok: false });
+      console.error(err);
     } finally {
-      setSubmitting(false);
+      setSending(false);
     }
   };
 
   return (
-    <Page>
-      <Container sx={{ py: { xs: 6, md: 10 } }}>
-        <SectionHeader
-          title="We’re Here to Listen and Support"
-          subtitle="Whether you’re seeking resources, sharing your story, or looking to collaborate, the Foundation welcomes you."
-        />
-
+    <Box sx={{ bgcolor: "#E8E5DD", py: { xs: 4, md: 8 } }}>
+      <ContactHero />
+      <Container maxWidth="xl">
         <Grid container spacing={4} alignItems="stretch">
-          {/* Left: Form */}
-          <Grid item xs={12} md={7} sx={{ display: "flex" }}>
-            <Glass
+          {/* LEFT: Info Panel */}
+          <Grid item xs={12} md={5}>
+            <GlassCard
+              component={motion.div}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.5 }}
+            >
+              <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+                <Label variant="overline">GET IN TOUCH</Label>
+                <SerifHeading variant="h4" sx={{ mt: 1, mb: 2 }}>
+                  We’re here to help
+                </SerifHeading>
+                <Typography sx={{ color: "#555", mb: 3, lineHeight: 1.7 }}>
+                  Whether you have a question about services, need support, or
+                  just want to say hello—reach out. We’ll respond as soon as we can.
+                </Typography>
+
+                <Stack spacing={2.25}>
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <PhoneIphoneRoundedIcon sx={{ color: "#333" }} />
+                    <Box>
+                      <Typography sx={{ fontWeight: 600, color: "#222" }}>
+                        (555) 123-4567
+                      </Typography>
+                      <Typography sx={{ color: "#666", fontSize: 14 }}>Call or text</Typography>
+                    </Box>
+                    <Box flexGrow={1} />
+                    <ActionButton
+                      variant="contained"
+                      href="tel:+15551234567"
+                      sx={{ bgcolor: "#222", color: "#fff" }}
+                      startIcon={<PhoneIphoneRoundedIcon />}
+                    >
+                      Call now
+                    </ActionButton>
+                  </Stack>
+
+                  <Divider />
+
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <EmailRoundedIcon sx={{ color: "#333" }} />
+                    <Box>
+                      <Typography sx={{ fontWeight: 600, color: "#222" }}>
+                        hello@clark21.org
+                      </Typography>
+                      <Typography sx={{ color: "#666", fontSize: 14 }}>General inquiries</Typography>
+                    </Box>
+                    <Box flexGrow={1} />
+                    <ActionButton
+                      variant="outlined"
+                      href="mailto:hello@clark21.org"
+                      endIcon={<OpenInNewRoundedIcon />}
+                      sx={{ borderColor: "#222", color: "#222" }}
+                    >
+                      Email us
+                    </ActionButton>
+                  </Stack>
+
+                  <Divider />
+
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <PlaceRoundedIcon sx={{ color: "#333" }} />
+                    <Box>
+                      <Typography sx={{ fontWeight: 600, color: "#222" }}>
+                        Dallas, Texas
+                      </Typography>
+                      <Typography sx={{ color: "#666", fontSize: 14 }}>By appointment</Typography>
+                    </Box>
+                  </Stack>
+
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <AccessTimeRoundedIcon sx={{ color: "#333" }} />
+                    <Box>
+                      <Typography sx={{ fontWeight: 600, color: "#222" }}>
+                        Hours
+                      </Typography>
+                      <Typography sx={{ color: "#666", fontSize: 14 }}>
+                        Mon–Fri: 9:00a–5:00p · Sat: 10:00a–2:00p · Sun: Closed
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Stack>
+
+                <Box sx={{ mt: 3 }}>
+                  <Chip
+                    label="Mental Health Outreach"
+                    sx={{
+                      bgcolor: "#F0EEE8",
+                      borderRadius: 2,
+                      color: "#333",
+                      border: "1px solid rgba(0,0,0,0.06)",
+                    }}
+                  />
+                </Box>
+              </CardContent>
+            </GlassCard>
+          </Grid>
+
+          {/* RIGHT: Form Panel */}
+          <Grid item xs={12} md={7}>
+            <GlassCard
               component={motion.form}
               onSubmit={handleSubmit}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              sx={{ p: { xs: 2.5, md: 4 }, flexGrow: 1 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
             >
-              <CardHeader
-                title={<Typography variant="h5" sx={{ fontWeight: 700 }}>Reach Out Confidentially</Typography>}
-                subheader={<Typography variant="body2" sx={{ opacity: 0.8 }}>Your message is safe with us. We aim to respond within 24 hours.</Typography>}
-              />
-              <CardContent sx={{ pt: 0, flexGrow: 1, display: "flex", flexDirection: "column" }}>
-                <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+              <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+                <SerifHeading variant="h5" sx={{ mb: 1 }}>
+                  Send us a message
+                </SerifHeading>
+                <Typography sx={{ color: "#666", mb: 3 }}>
+                  We typically respond within one business day.
+                </Typography>
+
+                <Grid container spacing={2}>
                   <Grid item xs={12} md={6}>
-                    <TextField
+                    <Field
                       fullWidth
+                      label="Full name"
                       name="name"
-                      label="Full Name"
-                      value={values.name}
+                      value={form.name}
                       onChange={handleChange}
-                      error={!!errors.name}
-                      helperText={errors.name}
-                      InputProps={{ startAdornment: (
-                        <InputAdornment position="start">
-                          <PersonRoundedIcon fontSize="small" />
-                        </InputAdornment>
-                      )}}
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <TextField
+                    <Field
                       fullWidth
-                      name="email"
                       label="Email"
+                      name="email"
                       type="email"
-                      value={values.email}
+                      value={form.email}
                       onChange={handleChange}
-                      error={!!errors.email}
-                      helperText={errors.email}
-                      InputProps={{ startAdornment: (
-                        <InputAdornment position="start">
-                          <EmailRoundedIcon fontSize="small" />
-                        </InputAdornment>
-                      )}}
                     />
                   </Grid>
-
                   <Grid item xs={12}>
-                    <TextField
-                      select
+                    <Field
                       fullWidth
-                      name="inquiry"
-                      label="I’m reaching out for"
-                      value={values.inquiry}
+                      label="Subject"
+                      name="subject"
+                      value={form.subject}
                       onChange={handleChange}
-                    >
-                      {["Support Request", "Volunteering", "Donations", "Partnership", "Other"].map((opt) => (
-                        <MenuItem key={opt} value={opt}>{opt}</MenuItem>
-                      ))}
-                    </TextField>
+                    />
                   </Grid>
-
-                  <Grid item xs={12} sx={{ flexGrow: 1, display: "flex" }}>
-                    <TextField
+                  <Grid item xs={12}>
+                    <Field
                       fullWidth
                       multiline
                       minRows={5}
+                      label="How can we help?"
                       name="message"
-                      label="Your message"
-                      placeholder="Please share what’s on your mind or how we can help."
-                      value={values.message}
+                      value={form.message}
                       onChange={handleChange}
-                      error={!!errors.message}
-                      helperText={errors.message}
-                      sx={{ flexGrow: 1 }}
                     />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={<Checkbox name="optIn" checked={values.optIn} onChange={handleChange} />}
-                      label={<Typography variant="body2">Keep me updated on programs and resources.</Typography>}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <LoadingButton
-                      type="submit"
-                      loading={submitting}
-                      variant="contained"
-                      size="large"
-                      endIcon={<SendRoundedIcon />}
-                      sx={{ borderRadius: 2, fontWeight: 700 }}
-                    >
-                      Send Message
-                    </LoadingButton>
                   </Grid>
                 </Grid>
-              </CardContent>
-            </Glass>
-          </Grid>
 
-          {/* Right: Support & Info */}
-          <Grid item xs={12} md={5} sx={{ display: "flex" }}>
-            <Glass sx={{ p: { xs: 2.5, md: 3 }, flexGrow: 1 }}>
-              <CardHeader title={<Typography variant="h6" sx={{ fontWeight: 700 }}>Get Immediate Support</Typography>} />
-              <CardContent sx={{ pt: 0, flexGrow: 1, display: "flex", flexDirection: "column" }}>
-                <Typography variant="body2" sx={{ mb: 2 }}>
-                  If you are in crisis or need urgent mental health support, please call 988 (U.S. Suicide & Crisis Lifeline) or your local emergency number.
-                </Typography>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mt: 3 }}>
+                  <ActionButton
+                    type="submit"
+                    variant="contained"
+                    disabled={sending}
+                    sx={{ bgcolor: "#222", color: "#fff" }}
+                  >
+                    {sending ? "Sending…" : sent ? "Message sent ✓" : "Send message"}
+                  </ActionButton>
 
-                <Divider sx={{ my: 2, opacity: 0.1 }} />
+                  <ActionButton
+                    variant="text"
+                    href="mailto:hello@clark21.org"
+                    startIcon={<EmailRoundedIcon />}
+                    sx={{ color: "#222" }}
+                  >
+                    Or email directly
+                  </ActionButton>
+                </Stack>
 
-                <Typography variant="subtitle2" sx={{ mb: 1 }}>Foundation Contact</Typography>
-                <InfoRow icon={<EmailRoundedIcon />} label="Email" value="support@foundation.org" href="mailto:support@foundation.org" />
-                <InfoRow icon={<PhoneIphoneRoundedIcon />} label="Phone" value="(555) 987-6543" href="tel:+15559876543" />
-                <InfoRow icon={<VolunteerActivismRoundedIcon />} label="Volunteer" value="Join our outreach programs" href="#" />
-
-                <Divider sx={{ my: 2, opacity: 0.1 }} />
-
-                <Typography variant="subtitle2" sx={{ mb: 1 }}>Follow & Share Hope</Typography>
-                <Box sx={{ display: "flex", gap: 1, mt: "auto" }}>
-                  <Tooltip title="Twitter/X">
-                    <IconButtonLink href="#" ariaLabel="Twitter"><TwitterIcon fontSize="small" /></IconButtonLink>
-                  </Tooltip>
-                  <Tooltip title="Instagram">
-                    <IconButtonLink href="#" ariaLabel="Instagram"><InstagramIcon fontSize="small" /></IconButtonLink>
-                  </Tooltip>
-                  <Tooltip title="LinkedIn">
-                    <IconButtonLink href="#" ariaLabel="LinkedIn"><LinkedInIcon fontSize="small" /></IconButtonLink>
-                  </Tooltip>
+                {/* Optional map or image placeholder for balance */}
+                <Box
+                  component={motion.div}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.6, delay: 0.15 }}
+                  sx={{
+                    mt: 4,
+                    height: 220,
+                    borderRadius: 16,
+                    overflow: "hidden",
+                    border: "1px solid rgba(0,0,0,0.06)",
+                    background:
+                      "linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02))",
+                    display: "grid",
+                    placeItems: "center",
+                    color: "#555",
+                  }}
+                >
+                  <Typography sx={{ fontSize: 14 }}>
+                    Map / image placeholder (optional)
+                  </Typography>
                 </Box>
               </CardContent>
-            </Glass>
+            </GlassCard>
           </Grid>
         </Grid>
       </Container>
-
-      <Snackbar
-        open={toast.open}
-        autoHideDuration={3800}
-        onClose={() => setToast({ ...toast, open: false })}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert onClose={() => setToast({ ...toast, open: false })} severity={toast.ok ? "success" : "error"} variant="filled" sx={{ width: "100%" }}>
-          {toast.msg}
-        </Alert>
-      </Snackbar>
-    </Page>
+    </Box>
   );
 }
-
-/* ===== Helpers ===== */
-const IconButtonLink = ({ href, children, ariaLabel }) => (
-  <IconButton
-    component={MuiLink}
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label={ariaLabel}
-    sx={{ border: "1px solid", borderColor: "divider", borderRadius: 2, bgcolor: "background.paper", '&:hover': { bgcolor: alpha('#fff', 0.08) } }}
-  >
-    {children}
-  </IconButton>
-);
-
-const InfoRow = ({ icon, label, value, href }) => (
-  <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
-    <Box sx={{ width: 36, height: 36, display: "grid", placeItems: "center", borderRadius: 2, bgcolor: alpha("#fff", 0.06), border: `1px solid ${alpha('#fff', 0.08)}` }}>{icon}</Box>
-    <Box sx={{ display: "grid" }}>
-      <Typography variant="caption" sx={{ opacity: 0.7 }}>{label}</Typography>
-      {href ? (
-        <MuiLink href={href} target="_blank" rel="noopener" underline="hover">
-          <Typography variant="body1" sx={{ fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 0.5 }}>{value}<OpenInNewRoundedIcon sx={{ fontSize: 16, opacity: 0.7 }} /></Typography>
-        </MuiLink>
-      ) : (
-        <Typography variant="body1" sx={{ fontWeight: 600 }}>{value}</Typography>
-      )}
-    </Box>
-  </Box>
-);

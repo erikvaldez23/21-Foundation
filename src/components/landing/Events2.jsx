@@ -44,9 +44,7 @@ const RegisterBtn = styled(Button)(({ theme }) => ({
       "0 12px 28px rgba(47,166,82,0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
     background: "linear-gradient(135deg, rgba(39,150,72,1), rgba(22,118,52,1))",
   },
-  "&:active": {
-    transform: "translateY(0)",
-  },
+  "&:active": { transform: "translateY(0)" },
 }));
 
 const HeaderRow = styled(Box)(({ theme }) => ({
@@ -54,10 +52,7 @@ const HeaderRow = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "flex-start",
   marginBottom: theme.spacing(6.25),
-  [theme.breakpoints.down("md")]: {
-    flexDirection: "column",
-    gap: theme.spacing(3.75),
-  },
+  [theme.breakpoints.down("md")]: { flexDirection: "column", gap: theme.spacing(3.75) },
 }));
 
 const ViewAllBtn = styled(Button)({
@@ -73,16 +68,23 @@ const ViewAllBtn = styled(Button)({
 
 const CarouselContainer = styled(Box)({
   position: "relative",
-  overflow: "hidden",
+  overflowX: "auto",
+  overflowY: "hidden",
   marginBottom: 40,
+  scrollSnapType: "x mandatory",
+  scrollBehavior: "smooth",
+  WebkitOverflowScrolling: "touch",
+  scrollbarWidth: "none",
+  msOverflowStyle: "none",
+  "&::-webkit-scrollbar": { display: "none" },
 });
 
-const CarouselTrack = styled(Box)(({ translateX }) => ({
+const CarouselTrack = styled(Box)({
   display: "flex",
   gap: 30,
-  transition: "transform 0.5s ease",
-  transform: `translateX(${translateX}px)`,
-}));
+  // children snap to start
+  "& > *": { scrollSnapAlign: "start" },
+});
 
 /* ----- Image area (rounded + clipping) ----- */
 const RADIUS = 16;
@@ -211,7 +213,7 @@ const courses = [
     image: "/image1.JPG",
     bgStyle: {
       background:
-        "linear-gradient(135deg, rgba(255,99,71,0.8), rgba(255,69,0,0.8))", // A red-orange gradient, symbolizing urgency and activism
+        "linear-gradient(135deg, rgba(255,99,71,0.8), rgba(255,69,0,0.8))",
     },
   },
   {
@@ -225,7 +227,7 @@ const courses = [
     image: "/image2.JPG",
     bgStyle: {
       background:
-        "linear-gradient(135deg, rgba(144,238,144,0.9), rgba(60,179,113,0.9))", // A calm green gradient, representing peace and mindfulness
+        "linear-gradient(135deg, rgba(144,238,144,0.9), rgba(60,179,113,0.9))",
     },
   },
   {
@@ -239,7 +241,7 @@ const courses = [
     image: "/image3.JPG",
     bgStyle: {
       background:
-        "linear-gradient(135deg, rgba(70,130,180,0.85), rgba(100,149,237,0.85))", // A blue gradient, symbolizing trust and healing
+        "linear-gradient(135deg, rgba(70,130,180,0.85), rgba(100,149,237,0.85))",
     },
   },
   {
@@ -253,16 +255,16 @@ const courses = [
     image: "/image4.JPG",
     bgStyle: {
       background:
-        "linear-gradient(135deg, rgba(255,228,181,0.85), rgba(255,239,179,0.85))", // A soft yellow gradient to invoke positivity and hope
+        "linear-gradient(135deg, rgba(255,228,181,0.85), rgba(255,239,179,0.85))",
     },
   },
 ];
 
-
 /* ===================== Component ===================== */
 export default function EdutainmentCoursesMUI() {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [containerW, setContainerW] = useState(0);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -272,7 +274,7 @@ export default function EdutainmentCoursesMUI() {
 
   const containerRef = useRef(null);
 
-  // Measure container width (full-bleed section)
+  // Measure container width
   useEffect(() => {
     if (!containerRef.current) return;
     const ro = new ResizeObserver(([entry]) => {
@@ -283,28 +285,57 @@ export default function EdutainmentCoursesMUI() {
   }, []);
 
   const visibleCount = isMobile ? 1 : 2;
-  const maxSlide = Math.max(0, courses.length - visibleCount);
 
-  // Fixed card width (does NOT change per slide)
+  // Fixed card width
   const cardW = useMemo(() => {
     if (!containerW) return 0;
     if (isMobile) return Math.max(0, containerW - 2 * PEEK);
     return Math.max(0, (containerW - 2 * PEEK - GAP) / 2);
   }, [containerW, isMobile, PEEK]);
 
-  // Base translate from slide index
-  const baseTranslate = useMemo(
-    () => -(cardW + GAP) * currentSlide,
-    [cardW, currentSlide, GAP]
-  );
+  // Edge fade mask logic based on scroll position
+  const updateEdges = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    const start = el.scrollLeft <= 1;
+    const end = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+    setAtStart(start);
+    setAtEnd(end);
+  };
 
-  // Edge adjustment: cancel container padding so first/last cards touch edges
-  const edgeAdjust =
-    currentSlide === 0 ? -PEEK : currentSlide === maxSlide ? PEEK : 0;
+  useEffect(() => {
+    updateEdges();
+    const el = containerRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateEdges, { passive: true });
+    return () => el.removeEventListener("scroll", updateEdges);
+  }, [containerW]);
 
-  const translateX = baseTranslate + edgeAdjust;
+  // Convert vertical two-finger scroll to horizontal scroll for trackpads
+  const onWheel = (e) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const verticalDominant = Math.abs(e.deltaY) > Math.abs(e.deltaX);
+    if (verticalDominant) {
+      el.scrollLeft += e.deltaY; // push vertical gesture sideways
+      e.preventDefault();
+    }
+    // horizontal gestures already work natively
+  };
 
-  // Adaptive mask (don’t fade the real edge on first/last)
+  const scrollByAmount = cardW + GAP;
+  const nextSlide = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: scrollByAmount, behavior: "smooth" });
+  };
+  const previousSlide = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: -scrollByAmount, behavior: "smooth" });
+  };
+
+  // Adaptive mask
   const maskBoth =
     "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))";
   const maskLeft =
@@ -314,17 +345,7 @@ export default function EdutainmentCoursesMUI() {
   const maskNone = "linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,1))";
 
   const maskImage =
-    currentSlide === 0 && currentSlide === maxSlide
-      ? maskNone
-      : currentSlide === 0
-      ? maskRight
-      : currentSlide === maxSlide
-      ? maskLeft
-      : maskBoth;
-
-  const nextSlide = () => setCurrentSlide((p) => (p >= maxSlide ? 0 : p + 1));
-  const previousSlide = () =>
-    setCurrentSlide((p) => (p <= 0 ? maxSlide : p - 1));
+    atStart && atEnd ? maskNone : atStart ? maskRight : atEnd ? maskLeft : maskBoth;
 
   return (
     <Section>
@@ -361,33 +382,24 @@ export default function EdutainmentCoursesMUI() {
               ★ Enroll today or join a waitlist for more info.
             </Typography>
           </Box>
-
-          <ViewAllBtn variant="outlined">View all Events →</ViewAllBtn>
         </HeaderRow>
       </Container>
 
-      {/* Full-bleed carousel (no x padding), constant card width */}
+      {/* Full-bleed carousel with native horizontal scroll + scroll-snap */}
       <Container maxWidth={false} disableGutters>
         <CarouselContainer
           ref={containerRef}
+          onWheel={onWheel}
           sx={{
-            pl: `${PEEK}px`,
-            pr: `${PEEK}px`,
+            overscrollBehaviorX: "contain",
           }}
         >
-          <CarouselTrack translateX={translateX}>
+          <CarouselTrack>
             {courses.map((course) => (
-              <Box
-                key={course.key}
-                sx={{ flex: `0 0 ${Math.max(cardW, 0)}px` }}
-              >
+              <Box key={course.key} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px` }}>
                 <ImageShell>
                   {course.image ? (
-                    <ImageBgImg
-                      src={course.image}
-                      alt={course.title}
-                      loading="lazy"
-                    />
+                    <ImageBgImg src={course.image} alt={course.title} loading="lazy" />
                   ) : (
                     <ImageBg sx={course.bgStyle} />
                   )}
@@ -445,15 +457,10 @@ export default function EdutainmentCoursesMUI() {
                   >
                     {course.title}
                   </Typography>
-                  <Typography
-                    sx={{ fontSize: 15, lineHeight: 1.6, color: "#666" }}
-                  >
+                  <Typography sx={{ fontSize: 15, lineHeight: 1.6, color: "#666" }}>
                     {course.body}
                   </Typography>
-                  {/* <RegisterBtn
-                    onClick={() => console.log("Register:", course.key)}
-                    href={`/events/${course.key}`} // or your form link
-                  >
+                  {/* <RegisterBtn href={`/events/${course.key}`}>
                     <CalendarDays size={18} />
                     Register Now
                   </RegisterBtn> */}
@@ -474,8 +481,6 @@ export default function EdutainmentCoursesMUI() {
               <ChevronRight size={16} />
             </NavBtn>
           </NavButtons>
-
-          <EnrollmentBtn>Enrollment Open</EnrollmentBtn>
         </BottomBar>
       </Container>
     </Section>

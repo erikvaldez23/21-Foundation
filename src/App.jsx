@@ -13,6 +13,7 @@ import Give from './components/sub-pages/give/Give'
 import Shop from './components/sub-pages/shop/Shop';
 import EventsHero from './components/sub-pages/events/EventHero';
 import Gallery from './components/sub-pages/gallery/Gallery';
+import ImpactPillars from './components/landing/ImpactPillars'
 
 const theme = createTheme({
   palette: {
@@ -34,6 +35,7 @@ function App() {
                 {/* <EventsHero /> */}
                 <Quote />
                 <Events2 />
+                <ImpactPillars />
               </>
             } 
           />

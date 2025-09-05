@@ -75,7 +75,7 @@ const KaleoLandingPage = () => {
             <Card 
               sx={{ 
                 height: 400,
-                width: 600,
+                width: 650,
                 position: 'relative',
                 overflow: 'hidden',
                 borderRadius: 2,
@@ -180,7 +180,7 @@ const KaleoLandingPage = () => {
             <Card 
               sx={{ 
                 height: 400,
-                width: 600,
+                width: 650,
                 position: 'relative',
                 overflow: 'hidden',
                 borderRadius: 2,

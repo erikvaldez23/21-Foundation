@@ -1,19 +1,14 @@
-import React, { useMemo, useState, useCallback, useEffect } from "react";
+import React, { useMemo, useState, useCallback, useEffect, useRef } from "react";
 import {
   Box,
   Container,
   Typography,
-  TextField,
-  MenuItem,
-  Chip,
   IconButton,
   Button,
   Dialog,
   DialogContent,
   DialogTitle,
   DialogActions,
-  ImageList,
-  ImageListItem,
   Tooltip,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
@@ -24,97 +19,235 @@ import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRound
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import PhotoCameraBackRoundedIcon from "@mui/icons-material/PhotoCameraBackRounded";
-import GalleryHero from "./GalleryHero"
+import GalleryHero from "./GalleryHero";
 
 /* =========================
    Gallery Sub-Page
-   - Masonry grid + filters
+   - Justified rows using REAL image aspect ratios
+   - Preserves portrait/landscape exactly
+   - Straight outer edges
    - Lightbox w/ keyboard nav
    ========================= */
 
 const Page = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
-  // background: `radial-gradient(1200px 600px at 10% -10%, ${alpha(
-  //   theme.palette.primary.main, 0.22
-  // )} 0%, transparent 60%), radial-gradient(900px 500px at 90% 110%, ${alpha(
-  //   theme.palette.secondary.main, 0.18
-  // )} 0%, transparent 60%), linear-gradient(180deg, ${alpha(
-  //   theme.palette.background.default, 1
-  // )}, ${alpha(theme.palette.background.default, 1)})`,
   background: "#E8E5DD",
   color: theme.palette.text.primary,
 }));
 
-const Glass = styled(Box)(({ theme }) => ({
-  borderRadius: 20,
-  background: alpha("#fff", 0.05),
-  backdropFilter: "blur(10px)",
-  border: `1px solid ${alpha("#fff", 0.08)}`,
-  boxShadow: "0 10px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.06)",
+const Row = styled("div")({
+  display: "flex",
+  gap: 12,
+  width: "100%",
+});
+
+const Tile = styled(motion.div)(({ h }) => ({
+  position: "relative",
+  height: h,
+  overflow: "hidden",
+  borderRadius: 8,
+  cursor: "zoom-in",
+  outline: "none",
+  flex: "0 0 auto",
 }));
 
-const SectionHeader = ({ title, subtitle }) => (
-  <Box sx={{ textAlign: { xs: "left", md: "center" }, mb: 4 }}>
-    <Typography
-      component={motion.h1}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      variant="h3"
-      sx={{ fontWeight: 800, letterSpacing: -0.4 }}
-    >
-      {title}
-    </Typography>
-    {subtitle && (
-      <Typography
-        component={motion.p}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.1 }}
-        variant="subtitle1"
-        sx={{ opacity: 0.85, mt: 1 }}
-      >
-        {subtitle}
-      </Typography>
-    )}
+const ImageCover = styled("img")({
+  width: "100%",
+  height: "100%",
+  objectFit: "cover", // row math matches real aspect, so cropping shouldn't occur
+  display: "block",
+});
+
+const SmallPill = ({ children }) => (
+  <Box
+    sx={{
+      px: 1,
+      py: 0.25,
+      fontSize: 12,
+      borderRadius: 999,
+      bgcolor: "rgba(255,255,255,0.08)",
+      border: "1px solid rgba(255,255,255,0.12)",
+      lineHeight: 1.6,
+    }}
+  >
+    {children}
   </Box>
 );
 
-// ---- Mock data (swap with your CMS / API) ----
-const ALBUMS = ["All Photos", "Events", "Clinics", "Workshops", "Community", "Behind the Scenes"];
-const TAGS = ["Youth", "Volunteers", "Coaches", "Family", "Highlights", "Awards", "Smiles"];
+const HoverOverlay = ({ children }) => (
+  <Box
+    component={motion.div}
+    initial={{ opacity: 0 }}
+    whileHover={{ opacity: 1 }}
+    transition={{ duration: 0.2 }}
+    sx={{
+      position: "absolute",
+      inset: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
+      p: 1.25,
+      background:
+        "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.45) 100%)",
+      color: "#fff",
+      pointerEvents: "none",
+    }}
+  >
+    {children}
+  </Box>
+);
 
+// ---- Sample data (swap with your CMS/API) ----
 const PHOTOS = [
-  // width/height help the masonry compute aspect ratio smoothly
-  { id: "p1",  src: "/image1.JPG",  w: 1200, h: 1600, album: "Events",    tags: ["Highlights", "Youth"],       title: "5K Fundraiser" },
-  { id: "p2",  src: "/image3.JPG",  w: 1600, h: 1066, album: "Clinics",   tags: ["Coaches", "Youth"],          title: "Skills Clinic" },
-  { id: "p3",  src: "/image4.JPG",  w: 1600, h: 1200, album: "Community", tags: ["Volunteers", "Family"],      title: "Community Night" },
-  { id: "p4",  src: "/image5.JPG",  w: 1200, h: 1200, album: "Workshops", tags: ["Highlights"],                 title: "Resilience Talk" },
-  { id: "p5",  src: "/image6.JPG",  w: 1200, h: 900,  album: "Events",    tags: ["Youth", "Smiles"],           title: "Warm-Up Circle" },
-  { id: "p6",  src: "/image7.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image8.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image9.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image10.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image11.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image12.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image13.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image14.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image15.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image16.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image17.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image18.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image19.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image20.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image21.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image22.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image23.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image24.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image25.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image26.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image27.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image28.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
-  { id: "p6",  src: "/image29.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],         title: "Medal Moment" },
+  { id: "p1",  src: "/image1.JPG",  w: 1200, h: 1600, album: "Events",    tags: ["Highlights", "Youth"],  title: "5K Fundraiser" },
+  { id: "p2",  src: "/image3.JPG",  w: 1600, h: 1066, album: "Clinics",   tags: ["Coaches", "Youth"],     title: "Skills Clinic" },
+  { id: "p3",  src: "/image4.JPG",  w: 1600, h: 1200, album: "Community", tags: ["Volunteers", "Family"], title: "Community Night" },
+  { id: "p4",  src: "/image5.JPG",  w: 1200, h: 1200, album: "Workshops", tags: ["Highlights"],            title: "Resilience Talk" },
+  { id: "p5",  src: "/image6.JPG",  w: 1200, h: 900,  album: "Events",    tags: ["Youth", "Smiles"],      title: "Warm-Up Circle" },
+  { id: "p6",  src: "/image7.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p7",  src: "/image8.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p8",  src: "/image9.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p9",  src: "/image10.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p10", src: "/image11.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p11", src: "/image12.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p12", src: "/image13.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p13", src: "/image14.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p14", src: "/image15.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p15", src: "/image16.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p16", src: "/image17.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p17", src: "/image18.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p18", src: "/image19.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p19", src: "/image20.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p20", src: "/image21.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p21", src: "/image22.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p22", src: "/image23.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p23", src: "/image24.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p24", src: "/image25.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p25", src: "/image26.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p26", src: "/image27.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p27", src: "/image28.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p28", src: "/image29.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
 ];
+
+/* ===== Utils: container width + real (natural) image sizes ===== */
+
+function useContainerWidth() {
+  const ref = useRef(null);
+  const [w, setW] = useState(0);
+  useEffect(() => {
+    if (!ref.current) return;
+    const ro = new ResizeObserver((entries) => {
+      for (const e of entries) setW(Math.floor(e.contentRect.width));
+    });
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, []);
+  return [ref, w];
+}
+
+/** Load each image and record its natural width/height (after EXIF orientation).
+ *  Falls back to provided w/h if loading fails. */
+function useNaturalSizes(items) {
+  const [sizes, setSizes] = useState({});
+  useEffect(() => {
+    let cancelled = false;
+    const seen = new Set();
+
+    items.forEach((it) => {
+      if (!it?.src || seen.has(it.id)) return;
+      seen.add(it.id);
+
+      const img = new Image();
+      img.decoding = "async";
+      img.onload = () => {
+        if (cancelled) return;
+        setSizes((s) => ({
+          ...s,
+          [it.id]: { w: img.naturalWidth || it.w || 1, h: img.naturalHeight || it.h || 1 },
+        }));
+      };
+      img.onerror = () => {
+        if (cancelled) return;
+        setSizes((s) => ({
+          ...s,
+          [it.id]: { w: it.w || 1, h: it.h || 1 },
+        }));
+      };
+      img.src = it.src;
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [items]);
+
+  // Return list with real (or fallback) sizes
+  return useMemo(
+    () =>
+      items.map((it) => {
+        const s = sizes[it.id];
+        return { ...it, w: s?.w ?? it.w ?? 1, h: s?.h ?? it.h ?? 1 };
+      }),
+    [items, sizes]
+  );
+}
+
+/** Build justified rows so total width (including gaps) == container width. */
+function buildJustifiedRows(items, containerWidth, gap, targetRowHMin = 220, targetRowHMax = 340) {
+  if (!containerWidth || !items.length) return [];
+  const rows = [];
+  let current = [];
+  let aspectSum = 0;
+  const maxW = containerWidth;
+
+  const flushRow = (imgs) => {
+    if (!imgs.length) return;
+    const sumAspect = imgs.reduce((s, it) => s + it.w / it.h, 0);
+    const gapsTotal = gap * (imgs.length - 1);
+    let rowH = (maxW - gapsTotal) / sumAspect;
+    rowH = Math.max(targetRowHMin, Math.min(targetRowHMax, rowH));
+    const widthScale = (maxW - gapsTotal) / (sumAspect * rowH);
+
+    const laid = imgs.map((it) => {
+      const aspect = it.w / it.h;
+      const w = Math.round(aspect * rowH * widthScale);
+      return { ...it, _w: w, _h: Math.round(rowH) };
+    });
+
+    // Distribute rounding error so the row width matches container exactly
+    const rowWidthNow = laid.reduce((s, it) => s + it._w, 0) + gapsTotal;
+    let delta = maxW - rowWidthNow;
+    let i = 0;
+    while (delta !== 0 && laid.length > 0) {
+      const step = delta > 0 ? 1 : -1;
+      laid[i % laid.length]._w += step;
+      delta -= step;
+      i++;
+    }
+
+    rows.push(laid);
+  };
+
+  for (const it of items) {
+    const aspect = it.w / it.h;
+    current.push(it);
+    aspectSum += aspect;
+
+    const gapsTotal = gap * (current.length - 1);
+    const predictedWidthAtMin = aspectSum * targetRowHMin + gapsTotal;
+    if (predictedWidthAtMin >= maxW) {
+      flushRow(current);
+      current = [];
+      aspectSum = 0;
+    }
+  }
+  if (current.length) flushRow(current); // justify last row too
+
+  return rows;
+}
+
+/* ============== Component ============== */
 
 export default function Gallery() {
   const [album, setAlbum] = useState("All Photos");
@@ -122,15 +255,11 @@ export default function Gallery() {
   const [activeTags, setActiveTags] = useState([]);
   const [lightbox, setLightbox] = useState({ open: false, index: 0, items: [] });
 
+  // Filter
   const filtered = useMemo(() => {
     let list = PHOTOS;
-
     if (album !== "All Photos") list = list.filter((p) => p.album === album);
-
-    if (activeTags.length > 0) {
-      list = list.filter((p) => activeTags.every((t) => p.tags?.includes(t)));
-    }
-
+    if (activeTags.length > 0) list = list.filter((p) => activeTags.every((t) => p.tags?.includes(t)));
     if (query.trim()) {
       const q = query.toLowerCase();
       list = list.filter(
@@ -140,22 +269,23 @@ export default function Gallery() {
     return list;
   }, [album, activeTags, query]);
 
-  // open lightbox on clicked photo
+  // Measure real image sizes (fixes wrong orientation/aspect)
+  const measured = useNaturalSizes(filtered);
+
+  // Lightbox
   const openAt = useCallback(
     (id) => {
-      const idx = filtered.findIndex((p) => p.id === id);
-      if (idx >= 0) setLightbox({ open: true, index: idx, items: filtered });
+      const idx = measured.findIndex((p) => p.id === id);
+      if (idx >= 0) setLightbox({ open: true, index: idx, items: measured });
     },
-    [filtered]
+    [measured]
   );
-
   const closeLightbox = () => setLightbox((s) => ({ ...s, open: false }));
-
   const goPrev = () =>
     setLightbox((s) => ({ ...s, index: (s.index - 1 + s.items.length) % s.items.length }));
-  const goNext = () => setLightbox((s) => ({ ...s, index: (s.index + 1) % s.items.length }));
+  const goNext = () =>
+    setLightbox((s) => ({ ...s, index: (s.index + 1) % s.items.length }));
 
-  // keyboard navigation
   useEffect(() => {
     if (!lightbox.open) return;
     const onKey = (e) => {
@@ -169,74 +299,64 @@ export default function Gallery() {
 
   const current = lightbox.items[lightbox.index];
 
-
   const downloadFile = (url, filename = "photo.jpg") => {
     fetch(url)
       .then((r) => r.blob())
       .then((blob) => {
         const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
+        const href = URL.createObjectURL(blob);
+        a.href = href;
         a.download = filename;
         document.body.appendChild(a);
         a.click();
         a.remove();
-        URL.revokeObjectURL(a.href);
+        URL.revokeObjectURL(href);
       })
       .catch(() => {});
   };
 
+  // Build justified rows from REAL sizes
+  const [wrapRef, width] = useContainerWidth();
+  const rows = useMemo(() => buildJustifiedRows(measured, width, 12, 220, 340), [measured, width]);
+
   return (
     <Page>
       <Container maxWidth="xl">
-       <GalleryHero />
-        {/* Masonry Grid */}
-        <ImageList
-          variant="masonry"
-          cols={getCols()}
-          gap={12}
-          sx={{
-            m: 0,
-            "& .MuiImageListItem-root": { borderRadius: 2, overflow: "hidden", position: "relative" },
-          }}
-          component={motion.div}
-          initial="hidden"
-          animate="show"
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
-        >
-          {filtered.map((item) => (
-            <ImageListItem
-              key={item.id}
-              onClick={() => openAt(item.id)}
-              sx={{ cursor: "zoom-in", outline: "none" }}
-              component={motion.div}
-              variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
-              whileHover={{ y: -2 }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`${item.src}?w=800&fit=crop`}
-                srcSet={`${item.src}?w=800&fit=crop&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
-              <HoverOverlay>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <PhotoCameraBackRoundedIcon fontSize="small" />
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
-                    {item.title}
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-                  <SmallPill>{item.album}</SmallPill>
-                  {(item.tags || []).slice(0, 2).map((t) => (
-                    <SmallPill key={t}>{t}</SmallPill>
-                  ))}
-                </Box>
-              </HoverOverlay>
-            </ImageListItem>
+        <GalleryHero />
+
+        {/* Justified Gallery (real aspect ratios) */}
+        <div ref={wrapRef} style={{ width: "100%" }}>
+          {rows.map((row, rIdx) => (
+            <Row key={`row-${rIdx}`} style={{ marginBottom: rIdx < rows.length - 1 ? 12 : 0 }}>
+              {row.map((item) => (
+                <Tile
+                  key={item.id}
+                  h={item._h}
+                  style={{ width: item._w, height: item._h }}
+                  onClick={() => openAt(item.id)}
+                  variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+                  whileHover={{ y: -2 }}
+                >
+                  <ImageCover src={item.src} alt={item.title} loading="lazy" decoding="async" />
+                  <HoverOverlay>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <PhotoCameraBackRoundedIcon fontSize="small" />
+                      <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                        {item.title}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                      <SmallPill>{item.album}</SmallPill>
+                      {(item.tags || []).slice(0, 2).map((t) => (
+                        <SmallPill key={t}>{t}</SmallPill>
+                      ))}
+                    </Box>
+                  </HoverOverlay>
+                </Tile>
+              ))}
+            </Row>
           ))}
-        </ImageList>
+        </div>
       </Container>
 
       {/* Lightbox */}
@@ -254,7 +374,15 @@ export default function Gallery() {
           },
         }}
       >
-        <DialogTitle sx={{ color: "#fff", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 1 }}>
+        <DialogTitle
+          sx={{
+            color: "#fff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 1,
+          }}
+        >
           <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>
             {current?.title || "Photo"}
           </Typography>
@@ -302,6 +430,7 @@ export default function Gallery() {
             </IconButton>
           </Box>
         </DialogTitle>
+
         <DialogContent
           sx={{
             p: { xs: 1.5, md: 2 },
@@ -332,8 +461,11 @@ export default function Gallery() {
             </AnimatePresence>
           )}
         </DialogContent>
+
         {current && (
-          <DialogActions sx={{ px: 2, pb: 2, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <DialogActions
+            sx={{ px: 2, pb: 2, display: "flex", alignItems: "center", justifyContent: "space-between" }}
+          >
             <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", alignItems: "center" }}>
               <SmallPill>{current.album}</SmallPill>
               {(current.tags || []).map((t) => (
@@ -353,55 +485,4 @@ export default function Gallery() {
       </Dialog>
     </Page>
   );
-}
-
-/* ============== Helpers & Small Components ============== */
-
-const SmallPill = ({ children }) => (
-  <Box
-    sx={{
-      px: 1,
-      py: 0.25,
-      fontSize: 12,
-      borderRadius: 999,
-      bgcolor: "rgba(255,255,255,0.08)",
-      border: "1px solid rgba(255,255,255,0.12)",
-      lineHeight: 1.6,
-    }}
-  >
-    {children}
-  </Box>
-);
-
-const HoverOverlay = ({ children }) => (
-  <Box
-    component={motion.div}
-    initial={{ opacity: 0 }}
-    whileHover={{ opacity: 1 }}
-    transition={{ duration: 0.2 }}
-    sx={{
-      position: "absolute",
-      inset: 0,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "flex-start",
-      justifyContent: "space-between",
-      p: 1.25,
-      background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.45) 100%)",
-      color: "#fff",
-      pointerEvents: "none",
-    }}
-  >
-    {children}
-  </Box>
-);
-
-// responsive columns
-function getCols() {
-  if (typeof window === "undefined") return 2;
-  const w = window.innerWidth;
-  if (w >= 1400) return 4;
-  if (w >= 1000) return 3;
-  if (w >= 600) return 2;
-  return 1;
 }
