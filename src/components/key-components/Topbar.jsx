@@ -145,6 +145,7 @@ export default function TopbarHero({
     <AppBar
       position={position}
       sx={{
+         top: 'calc(var(--headliner-h, 0px) + env(safe-area-inset-top))',
         transition: (theme) =>
           theme.transitions.create(
             [
@@ -153,6 +154,7 @@ export default function TopbarHero({
               "box-shadow",
               "border-color",
               "color",
+              "top",
             ],
             { duration: 400, easing: theme.transitions.easing.easeInOut }
           ),

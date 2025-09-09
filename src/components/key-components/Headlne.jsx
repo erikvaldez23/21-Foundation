@@ -9,15 +9,14 @@ import {
   Link as MuiLink,
 } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function SessionHeadliner({
-  formUrl,
-  message = "Be the first to hear about new programs and events.",
-  ctaText = "Sign Up",
-  storageKey = "headlinerDismissed",
-}) {
+export default function SessionHeadliner() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+
+  const storageKey = "headlinerDismissed";
+  const autoCloseMs = 10000; // 10 seconds
 
   // Show once per session
   useEffect(() => {
@@ -27,7 +26,14 @@ export default function SessionHeadliner({
     } catch {
       setOpen(true);
     }
-  }, [storageKey]);
+  }, []);
+
+  // Auto-close after 10s
+  useEffect(() => {
+    if (!open) return;
+    const timer = setTimeout(() => handleClose(), autoCloseMs);
+    return () => clearTimeout(timer);
+  }, [open]);
 
   // Measure height and expose as CSS var for layout offset
   useEffect(() => {
@@ -44,8 +50,6 @@ export default function SessionHeadliner({
     };
 
     setVar();
-
-    // Keep updated on resize/content changes
     const ro = new ResizeObserver(setVar);
     ro.observe(el);
     window.addEventListener("resize", setVar);
@@ -60,86 +64,92 @@ export default function SessionHeadliner({
     try {
       sessionStorage.setItem(storageKey, "1");
     } catch {}
-    // Remove the CSS var after close animation (optional tiny delay)
     setTimeout(() => {
       document.documentElement.style.removeProperty("--headliner-h");
-    }, 200);
+    }, 500); // match animation duration
   };
 
-  if (!open) return null;
-
   return (
-    <Box
-      ref={ref}
-      sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: (t) => t.zIndex.appBar + 2, // above AppBar
-        bgcolor: "#E8E5DD",
-        borderBottom: "1px solid rgba(0,0,0,0.1)",
-      }}
-      role="region"
-      aria-label="Site announcement"
-    >
-      <Container
-        maxWidth="xl"
-        sx={{
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr auto", md: "1fr auto auto" },
-          alignItems: "center",
-          gap: 1.5,
-          py: { xs: 1, md: 1.25 },
-        }}
-      >
-        <Typography
-          variant="body2"
-          sx={{ color: "#1a1a1a", fontWeight: 500, pr: 1 }}
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          ref={ref}
+          initial={{ y: -80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -80, opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1401, // above AppBar
+          }}
         >
-          {message}{" "}
-          {formUrl && (
-            <MuiLink
-              href={formUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              underline="always"
-              sx={{ color: "#339c5e", fontWeight: 600 }}
-            >
-              Learn more
-            </MuiLink>
-          )}
-        </Typography>
-
-        {formUrl && (
-          <Button
-            size="small"
-            variant="contained"
-            href={formUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Box
             sx={{
-              bgcolor: "#339c5e",
-              textTransform: "none",
-              fontWeight: 700,
-              borderRadius: 999,
-              px: 2.4,
-              "&:hover": { bgcolor: "#2d8a55" },
+              bgcolor: "#E8E5DD",
+              borderBottom: "1px solid rgba(0,0,0,0.1)",
             }}
+            role="region"
+            aria-label="Site announcement"
           >
-            {ctaText}
-          </Button>
-        )}
+            <Container
+              maxWidth="xl"
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr auto", md: "1fr auto auto" },
+                alignItems: "center",
+                gap: 1.5,
+                py: { xs: 1, md: 1.25 },
+              }}
+            >
+              <Typography
+                variant="body2"
+                sx={{ color: "#1a1a1a", fontWeight: 500, pr: 1 }}
+              >
+                Join us for the Walk-Out Event on September 14th — sign up today!{" "}
+                <MuiLink
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSc1vprOU16Iufa50z8ZFiuAo2J8QKp-6xgbZVekXy-ez-u36w/viewform?fbclid=PAZXh0bgNhZW0CMTEAAad7uVMx_QTaQKQPrjCh9AKhHWYicBqVYHi1tSeuz8rjPIOH_QhA8LTH6LjcxA_aem_n_N_eoOi31r__neqJ2THkQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="always"
+                  sx={{ color: "#339c5e", fontWeight: 600 }}
+                >
+                  Learn more
+                </MuiLink>
+              </Typography>
 
-        <IconButton
-          aria-label="Close announcement"
-          onClick={handleClose}
-          edge="end"
-          sx={{ color: "#1a1a1a" }}
-        >
-          <CloseRoundedIcon />
-        </IconButton>
-      </Container>
-    </Box>
+              <Button
+                size="small"
+                variant="contained"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSc1vprOU16Iufa50z8ZFiuAo2J8QKp-6xgbZVekXy-ez-u36w/viewform?fbclid=PAZXh0bgNhZW0CMTEAAad7uVMx_QTaQKQPrjCh9AKhHWYicBqVYHi1tSeuz8rjPIOH_QhA8LTH6LjcxA_aem_n_N_eoOi31r__neqJ2THkQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  bgcolor: "#339c5e",
+                  textTransform: "none",
+                  fontWeight: 700,
+                  borderRadius: 999,
+                  px: 2.4,
+                  "&:hover": { bgcolor: "#2d8a55" },
+                }}
+              >
+                Sign Up
+              </Button>
+
+              <IconButton
+                aria-label="Close announcement"
+                onClick={handleClose}
+                edge="end"
+                sx={{ color: "#1a1a1a" }}
+              >
+                <CloseRoundedIcon />
+              </IconButton>
+            </Container>
+          </Box>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

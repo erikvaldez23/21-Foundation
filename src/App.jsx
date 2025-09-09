@@ -15,6 +15,7 @@ import EventsHero from './components/sub-pages/events/EventHero';
 import Gallery from './components/sub-pages/gallery/Gallery';
 import ImpactPillars from './components/landing/ImpactPillars';
 import Headliner from './components/key-components/Headlne'
+import CTA from "./components/key-components/CTA"
 
 const theme = createTheme({
   palette: {
@@ -43,6 +44,7 @@ function App() {
                 <Quote />
                 <Events2 />
                 <ImpactPillars />
+                <CTA />
               </>
             } 
           />

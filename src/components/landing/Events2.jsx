@@ -378,9 +378,6 @@ export default function EdutainmentCoursesMUI() {
             >
               Fill out the form to join us!
             </Typography>
-            <Typography sx={{ fontSize: 16, color: "#666", fontWeight: 500 }}>
-              ★ Enroll today or join a waitlist for more info.
-            </Typography>
           </Box>
         </HeaderRow>
       </Container>
