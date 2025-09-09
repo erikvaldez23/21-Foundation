@@ -16,6 +16,7 @@ import Gallery from './components/sub-pages/gallery/Gallery';
 import ImpactPillars from './components/landing/ImpactPillars';
 import Headliner from './components/key-components/Headlne'
 import CTA from "./components/key-components/CTA"
+import LoadingAnimation from "./components/animate/LoadingAnimation/"
 
 const theme = createTheme({
   palette: {
@@ -39,6 +40,7 @@ function App() {
             path="/" 
             element={
               <>
+              <LoadingAnimation />
                 <HeroClark />
                 {/* <EventsHero /> */}
                 <Quote />

@@ -31,7 +31,7 @@ const pulseGlow = keyframes`
 
 /* ------------------------------- Wrappers ------------------------------ */
 const SectionBg = styled(Box)({
-  background: `linear-gradient(135deg, ${SURFACE} 0%, ${alpha(SURFACE, 0.8)} 100%)`,
+  background: `#E8E5DD`,
   position: "relative",
   overflow: "hidden",
   "&::before": {

@@ -128,6 +128,10 @@ const PHOTOS = [
   { id: "p26", src: "/image27.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
   { id: "p27", src: "/image28.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
   { id: "p28", src: "/image29.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p28", src: "/image30.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p28", src: "/image31.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p28", src: "/image32.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p28", src: "/image33.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
 ];
 
 /* ===== Utils: container width + real (natural) image sizes ===== */

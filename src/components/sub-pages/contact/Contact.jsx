@@ -98,7 +98,7 @@ export default function ContactSection() {
   };
 
   return (
-    <Box sx={{ bgcolor: "#E8E5DD", py: { xs: 4, md: 8 } }}>
+    <Box sx={{ bgcolor: "#E8E5DD" }}>
       <ContactHero />
       <Container maxWidth="xl">
         <Grid container spacing={4} alignItems="stretch">

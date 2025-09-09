@@ -57,7 +57,7 @@ const DonationsSection = ({
   disclaimer = "Donations are tax-deductible where applicable. You’ll receive an email receipt.",
   image = "/image29.JPG",
   imageCaption = "Your generosity in action.",
-  progress = { raised: 39000, goal: 60000 }, // set to null to hide
+  progress = { raised: 200, goal: 10000 }, // set to null to hide
   onDonate = (payload) => console.log("Donate payload:", payload),
 }) => {
   const [freq, setFreq] = useState(defaultFreq);
@@ -245,19 +245,6 @@ const DonationsSection = ({
                   },
                 }}
               />
-              <Typography
-                variant="caption"
-                sx={{
-                  display: "block",
-                  mt: 0.75,
-                  color: alpha(INK, 0.6),
-                  textAlign: { xs: "center", md: "left" },
-                }}
-              >
-                {displayAmount > 0
-                  ? `Selected: ${pretty(displayAmount)} ${freq === "monthly" ? "/ mo" : ""}`
-                  : "Enter any positive amount"}
-              </Typography>
             </Box>
 
             {/* Progress (thin, precise) */}
@@ -393,26 +380,6 @@ const DonationsSection = ({
                 display: "block",
               }}
             />
-            {imageCaption && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  left: 16,
-                  bottom: 16,
-                  px: 1.1,
-                  py: 0.6,
-                  borderRadius: 999,
-                  bgcolor: alpha("#000", 0.5),
-                  color: "#fff",
-                  border: `1px solid ${alpha("#fff", 0.16)}`,
-                  fontSize: 12.5,
-                  lineHeight: 1.2,
-                  backdropFilter: "blur(6px)",
-                }}
-              >
-                {imageCaption}
-              </Box>
-            )}
           </Box>
         </Box>
       </Container>

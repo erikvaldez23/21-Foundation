@@ -51,9 +51,9 @@ const GiveHero = () => {
               fontFamily: 'serif'
             }}
           >
-            HEADER
-            <br />
-            DESCRIPTION
+            DONATIONS
+            {/* <br /> */}
+            {/* DESCRIPTION */}
             <br />
             -
           </Typography>

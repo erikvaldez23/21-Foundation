@@ -99,7 +99,7 @@ const ArrowButton = styled(IconButton)({
 /* -------------------- Component -------------------- */
 const Hero2 = () => {
   const navigate = useNavigate();
-  const handleAskQuestion = () => navigate("/chat");
+  const handleAskQuestion = () => navigate("/gallery");
 
   const [index, setIndex] = useState(0);
   const [hoverPause, setHoverPause] = useState(false);
@@ -242,6 +242,19 @@ const Hero2 = () => {
         <Typography
           variant="h1"
           sx={{
+            fontSize: "1.4rem",
+            fontWeight: 300,
+            color: "white",
+            lineHeight: 1.2,
+            textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
+            mb: 3,
+          }}
+        >
+          988 Suicide & Crisis Hotline
+        </Typography>
+        <Typography
+          variant="h1"
+          sx={{
             fontSize: "2.2rem",
             fontWeight: 300,
             color: "white",
@@ -251,6 +264,18 @@ const Hero2 = () => {
           }}
         >
           LIVE LIKE SEAN, <br /> A FRIEND TO ALL
+        </Typography>
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: "2.2rem",
+            fontWeight: 300,
+            color: "white",
+            lineHeight: 1.2,
+            textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
+            mb: 3,
+          }}
+        >
         </Typography>
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
@@ -273,7 +298,21 @@ const Hero2 = () => {
         <Typography
           variant="h1"
           sx={{
+            fontSize: { sm: "1.5rem", md: "2rem", lg: "2.5rem" },
+            fontWeight: 400,
+            color: "#339c5e",
+            fontStyle:"italic",
+            lineHeight: 1.1,
+            textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
+          }}
+        >
+          988 Suicide & Crisis Hotline
+        </Typography>
+        <Typography
+          variant="h1"
+          sx={{
             fontSize: { sm: "2.5rem", md: "4rem", lg: "5rem" },
+            fontStyle:"italic",
             fontWeight: 400,
             color: "white",
             lineHeight: 1.1,
