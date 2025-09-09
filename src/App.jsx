@@ -13,7 +13,8 @@ import Give from './components/sub-pages/give/Give'
 import Shop from './components/sub-pages/shop/Shop';
 import EventsHero from './components/sub-pages/events/EventHero';
 import Gallery from './components/sub-pages/gallery/Gallery';
-import ImpactPillars from './components/landing/ImpactPillars'
+import ImpactPillars from './components/landing/ImpactPillars';
+import Headliner from './components/key-components/Headlne'
 
 const theme = createTheme({
   palette: {
@@ -25,6 +26,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+         <Headliner
+        formUrl="https://docs.google.com/forms/d/your-google-form-id/viewform"
+        message="Be the first to hear about new programs and events."
+        ctaText="Sign Up"
+        // storageKey="clark21_headliner_v1" // optional: change to re-show after updates
+      />
         <Topbar />
         <Routes>
           <Route 

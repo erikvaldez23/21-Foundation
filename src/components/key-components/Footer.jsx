@@ -94,7 +94,7 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
               color="text.secondary"
               sx={{ mb: 2, textAlign: { xs: "center", md: "left" } }}
             >
-              Building community, kindness, and support — together.
+              Live Like Sean, A Friend To All
             </Typography>
 
             <Box

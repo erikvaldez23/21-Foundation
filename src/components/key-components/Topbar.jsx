@@ -21,6 +21,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
  * - Smooth hover underline + subtle lift animation
  * - Glass/blur on scroll
  * - Instagram icon at far right (opens IG in new tab)
+ * - Animated font color (black on subpages until scroll, white otherwise)
  */
 
 // ---------- Defaults ----------
@@ -37,13 +38,13 @@ const DEFAULT_LINKS = [
 // ---------- Styled ----------
 const NavLink = styled(MuiLink)(({ theme }) => ({
   position: "relative",
-  color: "#fff",
+  color: "inherit",
   textDecoration: "none",
   marginLeft: theme.spacing(3),
   fontWeight: 500,
   display: "inline-block",
   outline: "none",
-  transition: theme.transitions.create(["transform", "color"], { duration: 200 }),
+  transition: "color 0.4s ease, transform 0.2s ease",
   "&::after": {
     content: '""',
     position: "absolute",
@@ -53,15 +54,12 @@ const NavLink = styled(MuiLink)(({ theme }) => ({
     width: "100%",
     transform: "scaleX(0)",
     transformOrigin: "left",
-    background: alpha("#fff", 0.9),
-    transition: "transform 240ms ease",
+    background: "currentColor",
+    opacity: 0.9,
+    transition: "transform 240ms ease, background-color 0.4s ease",
   },
   "&:hover": { transform: "translateY(-1px)" },
   "&:hover::after": { transform: "scaleX(1)" },
-  "&:focus-visible": {
-    boxShadow: `0 0 0 3px ${alpha("#fff", 0.28)}`,
-    borderRadius: 6,
-  },
   "@media (prefers-reduced-motion: reduce)": {
     transition: "none",
     "&::after": { transition: "none" },
@@ -80,7 +78,8 @@ const ActiveStyles = styled("span")(({ theme }) => ({
     bottom: -4,
     height: 2,
     width: "100%",
-    background: alpha("#fff", 0.9),
+    background: "currentColor",
+    opacity: 0.9,
   },
 }));
 
@@ -89,15 +88,10 @@ const LogoLink = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: theme.spacing(1.2),
   textDecoration: "none",
-  color: "#fff",
-  transition: theme.transitions.create(["transform", "filter"], { duration: 220 }),
+  color: "inherit",
+  transition: "color 0.4s ease, transform 0.2s ease, filter 0.3s ease",
   cursor: "pointer",
   "&:hover": { transform: "translateY(-1px)", filter: "brightness(1.05)" },
-  "&:focus-visible": {
-    boxShadow: `0 0 0 3px ${alpha("#fff", 0.28)}`,
-    borderRadius: 10,
-    outline: "none",
-  },
   "@media (prefers-reduced-motion: reduce)": {
     transition: "none",
     "&:hover": { transform: "none", filter: "none" },
@@ -106,19 +100,14 @@ const LogoLink = styled(Box)(({ theme }) => ({
 
 const SocialIcon = styled(IconButton)(({ theme }) => ({
   marginLeft: theme.spacing(2.5),
-  color: "#fff",
+  color: "inherit",
   borderRadius: 12,
-  transition: theme.transitions.create(["transform", "box-shadow", "background"], {
-    duration: 220,
-  }),
+  transition:
+    "color 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease",
   "&:hover": {
     transform: "translateY(-1px)",
     boxShadow: `0 0 0 6px ${alpha("#339c5e", 0.22)}`,
     background: alpha("#339c5e", 0.14),
-  },
-  "&:focus-visible": {
-    boxShadow: `0 0 0 3px ${alpha("#fff", 0.28)}`,
-    outline: "none",
   },
 }));
 
@@ -127,14 +116,13 @@ export default function TopbarHero({
   links = DEFAULT_LINKS,
   position = "fixed",
   threshold = 24,
-  glassOpacity = 0.38,
   blurPx = 10,
   sx,
   // Logo props
   logoSrc = "/logo-2.png",
   logoAlt = "Company Logo",
   homeTo = "/",
-  showWordmark = false, // set true to display brand text next to logo
+  showWordmark = false,
   wordmark = "",
   // Socials
   instagramUrl = "https://www.instagram.com/seanclark21foundation/",
@@ -142,6 +130,10 @@ export default function TopbarHero({
 }) {
   const scrolled = useScrollTrigger({ disableHysteresis: true, threshold });
   const location = useLocation();
+
+  const isHome = location?.pathname === (homeTo || "/");
+  // Subpages: black before scroll, white after. Home: always white.
+  const textColor = !isHome && !scrolled ? "#000" : "#fff";
 
   const isActive = (link) => {
     if (!location) return !!link.current;
@@ -155,17 +147,21 @@ export default function TopbarHero({
       sx={{
         transition: (theme) =>
           theme.transitions.create(
-            ["background-color", "backdrop-filter", "box-shadow", "border-color"],
-            { duration: 300 }
+            [
+              "background-color",
+              "backdrop-filter",
+              "box-shadow",
+              "border-color",
+              "color",
+            ],
+            { duration: 400, easing: theme.transitions.easing.easeInOut }
           ),
         background: scrolled ? "#000" : "transparent",
-        color: "#fff",
+        color: textColor,
         boxShadow: scrolled ? "0 8px 28px rgba(0,0,0,0.25)" : "none",
         backdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
         WebkitBackdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
-        borderBottom: scrolled
-          ? `1px solid ${alpha("#ffffff", 0.18)}`
-          : "1px solid transparent",
+        borderBottom: `1px solid ${alpha(textColor, scrolled ? 0.18 : 0)}`,
         zIndex: (theme) => theme.zIndex.appBar,
         p: 1,
         ...sx,
@@ -173,7 +169,19 @@ export default function TopbarHero({
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* Left: Logo → routes home */}
-        <LogoLink component={RouterLink} to={homeTo} aria-label="Go to home" title="Home">
+        <LogoLink
+          component={RouterLink}
+          to={homeTo}
+          aria-label="Go to home"
+          title="Home"
+          sx={{
+            "&:focus-visible": {
+              outline: "none",
+              boxShadow: `0 0 0 3px ${alpha(textColor, 0.28)}`,
+              borderRadius: 10,
+            },
+          }}
+        >
           <Box
             component="img"
             src={logoSrc}
@@ -181,7 +189,10 @@ export default function TopbarHero({
             sx={{ height: 50, width: "auto", display: "block" }}
           />
           {showWordmark && (
-            <Typography variant="h6" sx={{ fontWeight: 700, display: { xs: "none", md: "inline" } }}>
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: 700, display: { xs: "none", md: "inline" } }}
+            >
               {wordmark}
             </Typography>
           )}
@@ -191,6 +202,13 @@ export default function TopbarHero({
         <Box component="nav" aria-label="Primary" sx={{ display: "flex", alignItems: "center" }}>
           {links.map((link) => {
             const active = isActive(link);
+            const commonFocus = {
+              "&:focus-visible": {
+                outline: "none",
+                boxShadow: `0 0 0 3px ${alpha(textColor, 0.28)}`,
+                borderRadius: 6,
+              },
+            };
             if (link.to) {
               return (
                 <NavLink
@@ -199,7 +217,7 @@ export default function TopbarHero({
                   to={link.to}
                   underline="none"
                   aria-current={active ? "page" : undefined}
-                  sx={{ fontWeight: active ? 700 : 500 }}
+                  sx={{ fontWeight: active ? 700 : 500, ...commonFocus }}
                 >
                   {active ? <ActiveStyles>{link.label}</ActiveStyles> : link.label}
                 </NavLink>
@@ -210,7 +228,7 @@ export default function TopbarHero({
                 key={link.label}
                 href={link.href || "#"}
                 underline="none"
-                sx={{ fontWeight: active ? 700 : 500 }}
+                sx={{ fontWeight: active ? 700 : 500, ...commonFocus }}
               >
                 {active ? <ActiveStyles>{link.label}</ActiveStyles> : link.label}
               </NavLink>
@@ -226,6 +244,12 @@ export default function TopbarHero({
                 rel="noopener noreferrer"
                 aria-label="Open Instagram"
                 size="large"
+                sx={{
+                  "&:focus-visible": {
+                    outline: "none",
+                    boxShadow: `0 0 0 3px ${alpha(textColor, 0.28)}`,
+                  },
+                }}
               >
                 <InstagramIcon />
               </SocialIcon>

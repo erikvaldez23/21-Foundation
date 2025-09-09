@@ -28,10 +28,6 @@ const Radial = styled("div")(({ theme }) => ({
   position: "absolute",
   inset: -200,
   pointerEvents: "none",
-  background: `
-    radial-gradient(600px 600px at 10% 10%, ${alpha("#ffffff", 0.55)} 0%, transparent 55%),
-    radial-gradient(700px 700px at 90% 30%, ${alpha("#ffffff", 0.35)} 0%, transparent 60%)
-  `,
 }));
 
 const Headline = styled(Typography)(({ theme }) => ({

@@ -209,7 +209,7 @@ const courses = [
     h4: "Community Event",
     sub: "Join Us for a Walkout to Raise Awareness",
     title: "Walkout for Mental Health Awareness",
-    body: `"This walkout helped me realize that we're not alone in our struggles. It's empowering to see so many people come together to speak out." — Alex Johnson`,
+    body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!',
     image: "/image1.JPG",
     bgStyle: {
       background:
@@ -223,7 +223,7 @@ const courses = [
     h4: "Workshop",
     sub: "Led by Mental Health Professionals",
     title: "Mindfulness Workshop for Stress Relief",
-    body: '"This workshop helped me find calm amidst the chaos. The breathing exercises and mindfulness techniques have changed my perspective." — Jamie Lee',
+    body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!',
     image: "/image2.JPG",
     bgStyle: {
       background:
@@ -237,7 +237,7 @@ const courses = [
     h4: "Support Group",
     sub: "Facilitated by Certified Therapists",
     title: "Support Group for Mental Health Healing",
-    body: "A safe space to connect with others and share experiences in order to heal together as a community.",
+    body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!',
     image: "/image3.JPG",
     bgStyle: {
       background:
@@ -251,7 +251,7 @@ const courses = [
     h4: "Webinar",
     sub: "With Mental Health Experts",
     title: "Building Resilience Through Mental Health Education",
-    body: "Join us for an insightful webinar to understand how resilience can positively impact mental health and well-being.",
+    body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!',
     image: "/image4.JPG",
     bgStyle: {
       background:

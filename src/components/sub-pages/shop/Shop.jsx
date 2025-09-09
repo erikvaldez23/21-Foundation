@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Typography,
@@ -11,76 +11,78 @@ import {
   Chip,
   useTheme,
   useMediaQuery,
-} from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-
-// If your file is in /public, use "/image1.JPG" directly.
-// If it's in src/assets, import it like:
-// import teeImg from '../assets/image1.JPG';
+} from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 const products = [
   {
     id: 1,
-    title: 'Live Like Sean Tee',
+    title: "Live Like Sean Tee",
     price: 28,
-    image: '/image1.JPG', // <-- EXACT case if in /public
-    tag: 'Apparel',
-    slug: 'live-like-sean-tee',
+    image: "/shirt.jpg", // <-- EXACT case if in /public
+    tag: "Apparel",
+    slug: "live-like-sean-tee",
   },
   {
     id: 2,
-    title: 'Kelly Green Cap',
+    title: "Kelly Green Cap",
     price: 24,
-    image: '/image1.JPG', // <-- EXACT case if in /public
-    tag: 'Apparel',
-    slug: 'kelly-green-cap',
+    image: "/shirt.jpg", // <-- EXACT case if in /public
+    tag: "Apparel",
+    slug: "kelly-green-cap",
   },
   {
     id: 3,
-    title: 'Foundation Tote',
+    title: "Foundation Tote",
     price: 20,
-    image: '/image1.JPG', // <-- EXACT case if in /public
-    tag: 'Accessories',
-    slug: 'foundation-tote',
+    image: "/shirt.jpg", // <-- EXACT case if in /public
+    tag: "Accessories",
+    slug: "foundation-tote",
   },
   {
     id: 4,
-    title: 'Insulated Water Bottle',
+    title: "Insulated Water Bottle",
     price: 30,
-    image: '/image1.JPG', // <-- EXACT case if in /public
-    tag: 'Accessories',
-    slug: 'insulated-bottle',
+    image: "/shirt.jpg", // <-- EXACT case if in /public
+    tag: "Accessories",
+    slug: "insulated-bottle",
   },
   {
     id: 5,
-    title: 'Minimal Hoodie',
+    title: "Minimal Hoodie",
     price: 55,
-    image: '/image1.JPG', // <-- EXACT case if in /public
-    tag: 'Apparel',
-    slug: 'minimal-hoodie',
+    image: "/shirt.jpg", // <-- EXACT case if in /public
+    tag: "Apparel",
+    slug: "minimal-hoodie",
   },
   {
     id: 6,
-    title: 'Sticker Pack',
+    title: "Sticker Pack",
     price: 8,
-    image: '/image1.JPG', // <-- EXACT case if in /public
-    tag: 'Merch',
-    slug: 'sticker-pack',
+    image: "/shirt.jpg", // <-- EXACT case if in /public
+    tag: "Merch",
+    slug: "sticker-pack",
   },
 ];
 
 const Shop = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#E8E5DD', py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "#E8E5DD", py: 4 }}>
       <Container maxWidth="xl">
         {/* Header */}
-        <Box sx={{ textAlign: 'center', mb: 6, pt: 4 }}>
+        <Box sx={{ textAlign: "center", mb: 6, pt: 4 }}>
           <Typography
             variant="overline"
-            sx={{ color: '#666', letterSpacing: 2, fontSize: '0.8rem', mb: 3, display: 'block' }}
+            sx={{
+              color: "#666",
+              letterSpacing: 2,
+              fontSize: "0.8rem",
+              mb: 3,
+              display: "block",
+            }}
           >
             FOUNDATION SHOP
           </Typography>
@@ -88,13 +90,13 @@ const Shop = () => {
             variant="h2"
             component="h1"
             sx={{
-              fontSize: { xs: '2rem', md: '3.5rem' },
+              fontSize: { xs: "2rem", md: "3.5rem" },
               fontWeight: 400,
-              color: '#333',
+              color: "#333",
               lineHeight: 1.3,
-              maxWidth: '900px',
-              mx: 'auto',
-              fontFamily: 'serif',
+              maxWidth: "900px",
+              mx: "auto",
+              fontFamily: "serif",
             }}
           >
             PURPOSEFUL GOODS
@@ -105,126 +107,142 @@ const Shop = () => {
         </Box>
 
         {/* Products grid - force 3 per row */}
-      {/* Products grid - force 3 columns at all sizes */}
-<Box
-  sx={{
-    mt: 4,
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-    gap: 3, // MUI spacing units (theme.spacing * 3)
-  }}
->
-  {products.map((p) => (
-    <Box key={p.id}>
-      <Card
-        sx={{
-          height: 420,
-          position: 'relative',
-          borderRadius: 2,
-          overflow: 'hidden',
-          cursor: 'pointer',
-          transition: 'all 0.3s ease',
-          '&:hover': { transform: 'translateY(-2px)', boxShadow: theme.shadows[8] },
-        }}
-      >
-        {/* Image */}
-        <CardMedia
-          component="img"
-          src={p.image}
-          alt={p.title}
-          onError={(e) => {
-            e.currentTarget.src =
-              'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop';
-          }}
-          sx={{ height: '100%', filter: 'brightness(0.85)', objectFit: 'cover' }}
-        />
-
-        {/* Soft gradient overlay */}
+        {/* Products grid - force 3 columns at all sizes */}
         <Box
           sx={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.55) 100%)',
-          }}
-        />
-
-        {/* Tag */}
-        <Chip
-          label={p.tag}
-          size="small"
-          sx={{
-            position: 'absolute',
-            left: 16,
-            top: 16,
-            bgcolor: 'rgba(255,255,255,0.85)',
-            color: '#222',
-            fontWeight: 600,
-            letterSpacing: 0.4,
-            textTransform: 'uppercase',
-          }}
-        />
-
-        {/* Text + CTAs */}
-        <CardContent
-          sx={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: 0,
-            color: 'white',
-            textAlign: 'left',
-            p: 3,
+            mt: 4,
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: 3, // MUI spacing units (theme.spacing * 3)
           }}
         >
-          <Typography
-            variant="h5"
-            sx={{
-              fontFamily: 'serif',
-              fontWeight: 400,
-              lineHeight: 1.2,
-              textShadow: '1px 1px 2px rgba(0,0,0,0.35)',
-              mb: 1,
-            }}
-          >
-            {p.title}
-          </Typography>
+          {products.map((p) => (
+            <Box key={p.id}>
+              <Card
+                sx={{
+                  height: 420,
+                  position: "relative",
+                  borderRadius: 2,
+                  overflow: "hidden",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                    boxShadow: theme.shadows[8],
+                  },
+                }}
+              >
+                {/* Image */}
+                <CardMedia
+                  component="img"
+                  src={p.image}
+                  alt={p.title}
+                  onError={(e) => {
+                    e.currentTarget.src =
+                      "https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1600&auto=format&fit=crop";
+                  }}
+                  sx={{
+                    height: "100%",
+                    filter: "brightness(0.85)",
+                    objectFit: "cover",
+                  }}
+                />
 
-          <Typography variant="subtitle1" sx={{ opacity: 0.9, mb: 2 }}>
-            ${p.price.toFixed(2)}
-          </Typography>
+                {/* Soft gradient overlay */}
+                <Box
+                  sx={{
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                      "linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.55) 100%)",
+                  }}
+                />
 
-          <Box sx={{ width: 60, height: 2, bgcolor: 'white', opacity: 0.85, mb: 2 }} />
+                {/* Tag */}
+                <Chip
+                  label={p.tag}
+                  size="small"
+                  sx={{
+                    position: "absolute",
+                    left: 16,
+                    top: 16,
+                    bgcolor: "rgba(255,255,255,0.85)",
+                    color: "#222",
+                    fontWeight: 600,
+                    letterSpacing: 0.4,
+                    textTransform: "uppercase",
+                  }}
+                />
 
-          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                          
-            <Button
-              onClick={() => console.log('Add to cart:', p.slug)}
-              variant="contained"
-              size={isMobile ? 'small' : 'medium'}
-              sx={{
-                color: '#111',
-                bgcolor: 'rgba(255,255,255,0.92)',
-                textTransform: 'none',
-                fontWeight: 600,
-                '&:hover': { bgcolor: 'rgba(255,255,255,1)' },
-              }}
-            >
-              Add to cart
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
-    </Box>
-  ))}
-</Box>
+                {/* Text + CTAs */}
+                <CardContent
+                  sx={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    color: "white",
+                    textAlign: "left",
+                    p: 3,
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontFamily: "serif",
+                      fontWeight: 400,
+                      lineHeight: 1.2,
+                      textShadow: "1px 1px 2px rgba(0,0,0,0.35)",
+                      mb: 1,
+                    }}
+                  >
+                    {p.title}
+                  </Typography>
 
+                  <Typography variant="subtitle1" sx={{ opacity: 0.9, mb: 2 }}>
+                    ${p.price.toFixed(2)}
+                  </Typography>
+
+                  <Box
+                    sx={{
+                      width: 60,
+                      height: 2,
+                      bgcolor: "white",
+                      opacity: 0.85,
+                      mb: 2,
+                    }}
+                  />
+
+                  <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                    <Button
+                      onClick={() => console.log("Add to cart:", p.slug)}
+                      variant="contained"
+                      size={isMobile ? "small" : "medium"}
+                      sx={{
+                        color: "#111",
+                        bgcolor: "rgba(255,255,255,0.92)",
+                        textTransform: "none",
+                        fontWeight: 600,
+                        "&:hover": { bgcolor: "rgba(255,255,255,1)" },
+                      }}
+                    >
+                      Add to cart
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Box>
+          ))}
+        </Box>
 
         {/* Footer note */}
-        <Box sx={{ textAlign: 'center', mt: 8 }}>
-          <Typography variant="body2" sx={{ color: '#555', maxWidth: 680, mx: 'auto', lineHeight: 1.7 }}>
-            100% of proceeds support our outreach and programs. Every purchase fuels the mission to carry
-            Sean&apos;s spirit forward.
+        <Box sx={{ textAlign: "center", mt: 8 }}>
+          <Typography
+            variant="body2"
+            sx={{ color: "#555", maxWidth: 680, mx: "auto", lineHeight: 1.7 }}
+          >
+            100% of proceeds support our outreach and programs. Every purchase
+            fuels the mission to carry Sean&apos;s spirit forward.
           </Typography>
         </Box>
       </Container>

@@ -26,15 +26,6 @@ const SectionWrap = styled(Box)(({ theme }) => ({
   background: "#E8E5DD",
   borderTop: "1px solid rgba(0,0,0,0.05)",
   borderBottom: "1px solid rgba(0,0,0,0.05)",
-  // soft vignette so content feels centered
-  "&:before": {
-    content: '""',
-    position: "absolute",
-    inset: 0,
-    pointerEvents: "none",
-    background:
-      "radial-gradient(80% 50% at 50% 10%, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.03) 40%, transparent 70%)",
-  },
 }));
 
 const PillarCard = styled(Card)(({ theme }) => ({

@@ -3,7 +3,6 @@ import React from "react";
 import {
   Box,
   Container,
-  Grid,
   Typography,
   Card,
   Chip,
@@ -16,65 +15,16 @@ import { motion } from "framer-motion";
 
 /* ---------------------- Demo data (replace with real) ---------------------- */
 const TEAM = [
-  {
-    id: 1,
-    name: "Bartosz Drobny",
-    role: "Project Coordinator",
-    photo:
-      "https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1200&auto=format&fit=crop",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    id: 2,
-    name: "Edyta Radłowska",
-    role: "Office Manager",
-    photo:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    id: 3,
-    name: "Krzysztof Wróbel",
-    role: "Chief Development Officer",
-    photo:
-      "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=1200&auto=format&fit=crop",
-    linkedin: "https://www.linkedin.com/",
-  },
+  { id: 1, name: "Bartosz Drobny", role: "Project Coordinator", photo: "/image29.JPG", linkedin: null },
+  { id: 2, name: "Edyta Radłowska", role: "Office Manager", photo: "/image29.JPG", linkedin: null },
+  { id: 3, name: "Krzysztof Wróbel", role: "Chief Development Officer", photo: "/image29.JPG", linkedin: null },
 ];
 
 const COMMITTEE = [
-  {
-    id: "c1",
-    name: "Alex Johnson",
-    role: "Fundraising Committee",
-    photo:
-      "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=1200&auto=format&fit=crop",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    id: "c2",
-    name: "Priya Desai",
-    role: "Community Outreach",
-    photo:
-      "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?q=80&w=1200&auto=format&fit=crop",
-    linkedin: null,
-  },
-  {
-    id: "c3",
-    name: "Miguel Santos",
-    role: "Events Committee",
-    photo:
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=1200&auto=format&fit=crop",
-    linkedin: "https://www.linkedin.com/",
-  },
-  {
-    id: "c4",
-    name: "Sofia Park",
-    role: "Volunteer Coordination",
-    photo:
-      "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=1200&auto=format&fit=crop",
-    linkedin: null,
-  },
+  { id: "c1", name: "Alex Johnson", role: "Fundraising Committee", photo: "/image29.JPG", linkedin: null },
+  { id: "c2", name: "Priya Desai", role: "Community Outreach", photo: "/image29.JPG", linkedin: null },
+  { id: "c3", name: "Miguel Santos", role: "Events Committee", photo: "/image29.JPG", linkedin: null },
+  { id: "c4", name: "Sofia Park", role: "Volunteer Coordination", photo: "/image29.JPG", linkedin: null },
 ];
 
 /* --------------------------------- Styles --------------------------------- */
@@ -109,24 +59,37 @@ const TeamCard = styled(Card)(({ theme }) => ({
   background: "#fafafa",
   border: `1px solid ${alpha("#000", 0.08)}`,
   overflow: "hidden",
-  // keep a tight, consistent footprint
   height: "100%",
 }));
 
-const MediaWrap = styled(Box)(({ theme }) => ({
-  position: "relative",
-  overflow: "hidden",
-  aspectRatio: "4 / 3",
-  height: "clamp(200px, 24vw, 260px)",
+// ---- Responsive grid with tunable column sizing via props ----
+const CardsGrid = styled(Box, {
+  shouldForwardProp: (prop) =>
+    !["minPx", "vw", "maxPx"].includes(prop),
+})(({ theme, minPx = 240, vw = "26vw", maxPx = 320 }) => ({
+  display: "grid",
+  gap: theme.spacing(2),
+  gridTemplateColumns: `repeat(auto-fit, minmax(clamp(${minPx}px, ${vw}, ${maxPx}px), 1fr))`,
 }));
 
-const MediaImg = styled(motion.img)(({ theme }) => ({
+// Prevent custom prop from hitting the DOM, and let aspect-ratio control height
+const MediaWrap = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "aspect",
+})(({ aspect }) => ({
+  position: "relative",
+  overflow: "hidden",
+  width: "100%",
+  aspectRatio: aspect || "3 / 4",
+  minHeight: 200, // safety on very narrow screens
+}));
+
+const MediaImg = styled(motion.img)({
   width: "100%",
   height: "100%",
   objectFit: "cover",
   filter: "grayscale(100%)",
   display: "block",
-}));
+});
 
 const Overlay = styled("div")(() => ({
   position: "absolute",
@@ -170,9 +133,16 @@ function TeamSection({
   heading,
   badgeLabel,
   people,
+  aspectRatio = "3 / 4",
+  // grid sizing knobs:
+  columnMinPx = 240,
+  columnVW = "26vw",
+  columnMaxPx = 320,
+  // spacing:
   topSpacing = { xs: 5, md: 8 },
   bottomSpacing = { xs: 4, md: 6 },
-  gridSpacing = { xs: 2, md: 2.5 }, // slightly tighter by default
+  // text sizing tweaks for dense layouts
+  tightText = false,
 }) {
   return (
     <Box sx={{ pt: topSpacing, pb: bottomSpacing }}>
@@ -208,53 +178,60 @@ function TeamSection({
         )}
       </HeaderRow>
 
-      {/* Subtle section underline to “anchor” the header without extra vertical gaps */}
-      <Divider
-        sx={{
-          mb: { xs: 2.25, md: 3 },
-          borderColor: alpha("#000", 0.08),
-        }}
-      />
 
-      <Grid container spacing={gridSpacing}>
+      <CardsGrid minPx={columnMinPx} vw={columnVW} maxPx={columnMaxPx}>
         {people.map((p) => (
-          <Grid key={p.id} item xs={12} sm={6} md={4} lg={3}>
-            <TeamCard
-              component={motion.div}
-              whileHover={{ y: -4 }}
-              transition={{ type: "spring", stiffness: 180, damping: 18 }}
-            >
-              <MediaWrap>
-                <MediaImg
-                  src={p.photo}
-                  alt={p.name}
-                  loading="lazy"
-                  initial={{ scale: 1.02 }}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 150, damping: 18 }}
-                />
-
-                <Overlay />
-
-                <OverlayText>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontWeight: 700, fontSize: { xs: 14, sm: 15 } }}
-                  >
-                    {p.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ opacity: 0.95, fontSize: { xs: 12.5, sm: 13 } }}
-                  >
-                    {p.role}
-                  </Typography>
-                </OverlayText>
-              </MediaWrap>
-            </TeamCard>
-          </Grid>
+          <TeamCard
+            key={p.id}
+            component={motion.div}
+            whileHover={{ y: -4 }}
+            transition={{ type: "spring", stiffness: 180, damping: 18 }}
+          >
+            <MediaWrap aspect={p.aspect || aspectRatio}>
+              <MediaImg
+                src={p.photo}
+                alt={p.name}
+                loading="lazy"
+                initial={{ scale: 1.02 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 150, damping: 18 }}
+              />
+              {p.linkedin && (
+                <LinkedinBadge
+                  component="a"
+                  href={p.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${p.name} LinkedIn`}
+                >
+                  <LinkedInIcon fontSize="small" />
+                </LinkedinBadge>
+              )}
+              <Overlay />
+              <OverlayText>
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: tightText ? { xs: 13, sm: 14 } : { xs: 14, sm: 15 },
+                  }}
+                >
+                  {p.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    opacity: 0.95,
+                    fontSize: tightText ? { xs: 12, sm: 12.5 } : { xs: 12.5, sm: 13 },
+                  }}
+                >
+                  {p.role}
+                </Typography>
+              </OverlayText>
+            </MediaWrap>
+          </TeamCard>
         ))}
-      </Grid>
+      </CardsGrid>
     </Box>
   );
 }
@@ -268,28 +245,30 @@ export default function MeetTheExperts({
 }) {
   return (
     <PageWrap>
-      <Container
-        maxWidth="lg"
-        sx={{
-          // tighten global vertical rhythm a touch
-          py: { xs: 5, md: 8 },
-        }}
-      >
-        {/* Experts Section */}
+      <Container maxWidth="lg" sx={{ py: { xs: 5, md: 8 } }}>
+        {/* Experts: classic 3:4 cards, comfortable width */}
         <TeamSection
           heading={expertsTitle}
           people={experts}
-          // slightly more presence for the first section
+          aspectRatio="3 / 4"
+          columnMinPx={240}
+          columnVW="26vw"
+          columnMaxPx={320}
           topSpacing={{ xs: 2, md: 2 }}
           bottomSpacing={{ xs: 3.5, md: 5 }}
         />
 
-        {/* Committee Section (same look, a bit tighter to reduce tall gaps) */}
+        {/* Committee: VERTICAL (3:4) and NARROWER so more fit per row */}
         <TeamSection
           heading={committeeTitle}
           people={committee}
+          aspectRatio="3 / 4"          // vertical ratio
+          columnMinPx={170}            // narrower min width
+          columnVW="17vw"              // tighter vw target
+          columnMaxPx={220}            // smaller max width
           topSpacing={{ xs: 3, md: 4 }}
           bottomSpacing={{ xs: 0.5, md: 1 }}
+          tightText                    // slightly smaller text to match density
         />
       </Container>
     </PageWrap>
