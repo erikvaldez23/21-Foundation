@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-const KaleoLandingPage = () => {
+const LandingPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -53,8 +53,8 @@ const KaleoLandingPage = () => {
           >
             EVENTS
             <br />
-            DESCRIPTION
-            <br />
+            {/* DESCRIPTION */}
+            {/* <br /> */}
             -
           </Typography>
         </Box>
@@ -285,4 +285,4 @@ const KaleoLandingPage = () => {
   );
 };
 
-export default KaleoLandingPage;
+export default LandingPage;

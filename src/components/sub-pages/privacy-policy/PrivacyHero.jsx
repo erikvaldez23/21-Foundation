@@ -4,24 +4,30 @@ import {
   Typography,
   Container,
   Grid,
+  Card,
+  CardContent,
   Button,
   useTheme,
   useMediaQuery
 } from '@mui/material';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import { Link as RouterLink } from 'react-router-dom';
 
-const AboutHero = () => {
+const PrivacyHero = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Box sx={{ bgcolor: '#E8E5DD', py: { xs: 6, md: 10 } }}>
+    <Box sx={{ 
+      minHeight: '10vh',
+      bgcolor: '#E8E5DD',
+      py: 4
+    }}>
       <Container maxWidth="xl">
-        {/* Header */}
-        <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 8 }, pt: 2 }}>
-          <Typography
-            variant="overline"
-            sx={{
+        {/* Header Section */}
+        <Box sx={{ textAlign: 'center', mb: 6, pt: 4 }}>
+          <Typography 
+            variant="overline" 
+            sx={{ 
               color: '#666',
               letterSpacing: 2,
               fontSize: '0.8rem',
@@ -31,24 +37,25 @@ const AboutHero = () => {
           >
             MENTAL HEALTH OUTREACH
           </Typography>
-
-          <Typography
-            variant="h2"
-            component="h1"
+          
+          <Typography 
+            variant="h2" 
+            component="h1" 
             sx={{
               fontSize: { xs: '2rem', md: '3.5rem' },
               fontWeight: 400,
               color: '#333',
               lineHeight: 1.3,
-              maxWidth: 900,
+              maxWidth: '900px',
               mx: 'auto',
               fontFamily: 'serif'
             }}
           >
-            ABOUT US
+            Privacy Policy
+            {/* <br /> */}
+            {/* DESCRIPTION */}
             <br />
-            DESCRIPTION
-            <br />–
+            -
           </Typography>
         </Box>
       </Container>
@@ -56,4 +63,4 @@ const AboutHero = () => {
   );
 };
 
-export default AboutHero;
+export default PrivacyHero;

@@ -192,7 +192,7 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
             © {new Date().getFullYear()} {brand}. All rights reserved.
           </Typography>
           <Box sx={{ display: "flex", gap: 2, mx: { xs: "auto", sm: 0 } }}>
-            <Link href="#" underline="hover" color="inherit" variant="body2">
+            <Link href="/#/privacy-policy" underline="hover" color="inherit" variant="body2">
               Privacy Policy
             </Link>
             <Link href="#" underline="hover" color="inherit" variant="body2">

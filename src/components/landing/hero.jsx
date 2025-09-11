@@ -18,6 +18,7 @@ import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { motion, AnimatePresence } from "framer-motion";
 
 /* -------------------- Slideshow config -------------------- */
 // Replace with your actual assets
@@ -47,27 +48,31 @@ const Wrapper = styled(Box)({
   },
 });
 
-const SlideImg = styled(Box)({
+const SlideLayer = styled(motion.div)(() => ({
+  position: "absolute",
+  inset: 0,
+  width: "100%",
+  height: "100%",
+  overflow: "hidden",
+}));
+
+const SlideImg = styled(motion.img)(() => ({
   position: "absolute",
   inset: 0,
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  opacity: 0,
-  transition: "opacity 800ms ease",
-  willChange: "opacity",
+  willChange: "transform, opacity, filter",
   pointerEvents: "none",
-});
+}));
 
-const Overlay = styled(Box)({
+const Overlay = styled(motion.div)(() => ({
   position: "absolute",
   inset: 0,
-  background: "rgba(0,0,0,0.2)", // uniform overlay
   pointerEvents: "none",
-});
+}));
 
-
-const GlassButton = styled(Button)({
+const GlassButton = styled(motion(Button))({
   padding: "12px 20px",
   borderRadius: 14,
   textTransform: "none",
@@ -78,13 +83,14 @@ const GlassButton = styled(Button)({
   border: "1px solid rgba(255,255,255,0.18)",
   backdropFilter: "blur(6px)",
   WebkitBackdropFilter: "blur(6px)",
+  transition: "box-shadow 240ms ease",
   "&:hover": {
     background: "rgba(18,18,18,0.65)",
     borderColor: "rgba(255,255,255,0.25)",
   },
 });
 
-const ArrowButton = styled(IconButton)({
+const ArrowButton = styled(motion(IconButton))({
   position: "absolute",
   top: "50%",
   transform: "translateY(-50%)",
@@ -95,6 +101,28 @@ const ArrowButton = styled(IconButton)({
   zIndex: 10,
   "&:hover": { backgroundColor: "rgba(17,17,17,0.75)" },
 });
+
+/* -------------------- Animation variants -------------------- */
+const fadeInUp = {
+  initial: { opacity: 0, y: 20, filter: "blur(4px)" },
+  animate: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } },
+};
+
+const buttonVariants = {
+  initial: { opacity: 0, y: 12 },
+  animate: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.15 + i * 0.1, duration: 0.6, ease: "easeOut" },
+  }),
+  whileHover: { y: -2, boxShadow: "0 10px 30px rgba(0,0,0,0.35)" },
+  whileTap: { scale: 0.98 },
+};
+
+const arrowVariants = {
+  whileHover: { scale: 1.05, y: -2 },
+  whileTap: { scale: 0.96 },
+};
 
 /* -------------------- Component -------------------- */
 const Hero2 = () => {
@@ -189,23 +217,100 @@ const Hero2 = () => {
     });
   }, []);
 
+  /* -------------------- Slides with ✨Ken Burns + crossfade -------------------- */
   const slides = useMemo(
-    () =>
-      images.map((src, i) => (
-        <SlideImg
-          key={src + i}
-          component="img"
-          src={src}
-          alt="" // decorative
-          aria-hidden={i === index ? "false" : "true"}
-          loading={i === index ? "eager" : "lazy"}
-          decoding="async"
-          fetchpriority={i === index ? "high" : "auto"}
-          sx={{ opacity: i === index ? 1 : 0 }}
-        />
-      )),
-    [index]
+    () => (
+      <AnimatePresence initial={false} mode="wait">
+        {images.map((src, i) =>
+          i === index ? (
+            <SlideLayer
+              key={src + i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: isReducedMotion ? 0.2 : 0.8, ease: "easeOut" }}
+            >
+              <SlideImg
+                src={src}
+                alt=""
+                aria-hidden="false"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+                initial={{ scale: 1, x: 0, filter: "brightness(0.98)" }}
+                animate={{
+                  transition: { duration: AUTOPLAY_MS / 1000, ease: "linear" },
+                }}
+              />
+              {/* Subtle dark vignette */}
+              <Box
+                sx={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.15) 65%, rgba(0,0,0,0.35) 100%)",
+                  pointerEvents: "none",
+                }}
+              />
+            </SlideLayer>
+          ) : null
+        )}
+      </AnimatePresence>
+    ),
+    [index, isReducedMotion]
   );
+
+  /* -------------------- Ambient overlay pulse (kelly green accent) -------------------- */
+  const ambient = useMemo(
+    () => (
+      <Overlay
+        aria-hidden
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0.15, 0.25, 0.15] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          background:
+            "radial-gradient(40% 40% at 15% 85%, rgba(51,156,94,0.35) 0%, rgba(51,156,94,0.1) 35%, transparent 60%)",
+          mixBlendMode: "soft-light",
+        }}
+      />
+    ),
+    []
+  );
+
+  /* -------------------- Floating dust/particles (very subtle) -------------------- */
+  const particles = useMemo(() => {
+    const dots = Array.from({ length: 16 });
+    return (
+      <Box sx={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+        {dots.map((_, i) => (
+          <motion.span
+            key={i}
+            style={{
+              position: "absolute",
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: 3,
+              height: 3,
+              borderRadius: 3,
+              background: "rgba(255,255,255,0.6)",
+              filter: "blur(1px)",
+            }}
+            animate={{
+              y: [0, -10, 0],
+              opacity: [0.15, 0.4, 0.15],
+            }}
+            transition={{
+              duration: 6 + (i % 5),
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: (i % 10) * 0.3,
+            }}
+          />)
+        )}
+      </Box>
+    );
+  }, []);
 
   return (
     <Wrapper
@@ -221,10 +326,15 @@ const Hero2 = () => {
     >
       {/* Background slideshow */}
       {slides}
-      <Overlay />
+      {ambient}
+      {particles}
 
       {/* ---------- Mobile layout: centered text + stacked buttons ---------- */}
       <Box
+        component={motion.div}
+        variants={fadeInUp}
+        initial="initial"
+        animate="animate"
         sx={{
           display: { xs: "flex", sm: "none" },
           position: "absolute",
@@ -236,24 +346,30 @@ const Hero2 = () => {
           alignItems: "flex-start",
           textAlign: "left",
           width: "calc(100vw - 32px)",
-          maxWidth: 400,
+          maxWidth: 420,
         }}
       >
         <Typography
           variant="h1"
+          component={motion.h1}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0, transition: { duration: 0.7 } }}
           sx={{
             fontSize: "1.4rem",
             fontWeight: 300,
             color: "white",
             lineHeight: 1.2,
             textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
-            mb: 3,
+            mb: 2,
           }}
         >
           988 Suicide & Crisis Hotline
         </Typography>
         <Typography
           variant="h1"
+          component={motion.h2}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0, transition: { delay: 0.08, duration: 0.7 } }}
           sx={{
             fontSize: "2.2rem",
             fontWeight: 300,
@@ -265,27 +381,36 @@ const Hero2 = () => {
         >
           LIVE LIKE SEAN, <br /> A FRIEND TO ALL
         </Typography>
-        <Typography
-          variant="h1"
-          sx={{
-            fontSize: "2.2rem",
-            fontWeight: 300,
-            color: "white",
-            lineHeight: 1.2,
-            textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
-            mb: 3,
-          }}
-        >
-        </Typography>
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-          <GlassButton>CONNECT WITH US</GlassButton>
-          <GlassButton onClick={handleAskQuestion}>VIEW GALLERY</GlassButton>
+          <GlassButton
+            variants={buttonVariants}
+            initial="initial"
+            animate={buttonVariants.animate(0)}
+            whileHover="whileHover"
+            whileTap="whileTap"
+          >
+            CONNECT WITH US
+          </GlassButton>
+          <GlassButton
+            variants={buttonVariants}
+            initial="initial"
+            animate={buttonVariants.animate(1)}
+            whileHover="whileHover"
+            whileTap="whileTap"
+            onClick={handleAskQuestion}
+          >
+            VIEW GALLERY
+          </GlassButton>
         </Box>
       </Box>
 
-      {/* ---------- Desktop/Tablet: text bottom-le ft ---------- */}
+      {/* ---------- Desktop/Tablet: text bottom-left ---------- */}
       <Box
+        component={motion.div}
+        variants={fadeInUp}
+        initial="initial"
+        animate="animate"
         sx={{
           display: { xs: "none", sm: "block" },
           position: "absolute",
@@ -297,11 +422,14 @@ const Hero2 = () => {
       >
         <Typography
           variant="h1"
+          component={motion.h3}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0, transition: { duration: 0.7 } }}
           sx={{
             fontSize: { sm: "1.5rem", md: "2rem", lg: "2.5rem" },
             fontWeight: 400,
             color: "#339c5e",
-            fontStyle:"italic",
+            fontStyle: "italic",
             lineHeight: 1.1,
             textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
           }}
@@ -310,9 +438,12 @@ const Hero2 = () => {
         </Typography>
         <Typography
           variant="h1"
+          component={motion.h1}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0, transition: { delay: 0.08, duration: 0.7 } }}
           sx={{
             fontSize: { sm: "2.5rem", md: "4rem", lg: "5rem" },
-            fontStyle:"italic",
+            fontStyle: "italic",
             fontWeight: 400,
             color: "white",
             lineHeight: 1.1,
@@ -336,16 +467,36 @@ const Hero2 = () => {
           alignItems: "flex-end",
         }}
       >
-        <GlassButton>CONNECT WITH US</GlassButton>
-        <GlassButton onClick={handleAskQuestion}>VIEW GALLERY</GlassButton>
+        <GlassButton
+          variants={buttonVariants}
+          initial="initial"
+          animate={buttonVariants.animate(0)}
+          whileHover="whileHover"
+          whileTap="whileTap"
+        >
+          CONNECT WITH US
+        </GlassButton>
+        <GlassButton
+          variants={buttonVariants}
+          initial="initial"
+          animate={buttonVariants.animate(1)}
+          whileHover="whileHover"
+          whileTap="whileTap"
+          onClick={handleAskQuestion}
+        >
+          VIEW GALLERY
+        </GlassButton>
       </Box>
 
-      {/* On-screen arrow controls (like previous component) */}
+      {/* On-screen arrow controls */}
       {total > 1 && (
         <>
           <ArrowButton
             aria-label="Previous slide"
             onClick={prev}
+            variants={arrowVariants}
+            whileHover="whileHover"
+            whileTap="whileTap"
             sx={{ left: { xs: 8, sm: 16 } }}
           >
             <ChevronLeftIcon />
@@ -354,6 +505,9 @@ const Hero2 = () => {
           <ArrowButton
             aria-label="Next slide"
             onClick={next}
+            variants={arrowVariants}
+            whileHover="whileHover"
+            whileTap="whileTap"
             sx={{ right: { xs: 8, sm: 16 } }}
           >
             <ChevronRightIcon />

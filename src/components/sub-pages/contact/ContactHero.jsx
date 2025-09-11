@@ -53,8 +53,8 @@ const ContactHero = () => {
           >
             CONTACT US
             <br />
-            DESCRIPTION
-            <br />
+            {/* DESCRIPTION */}
+            {/* <br /> */}
             -
           </Typography>
         </Box>

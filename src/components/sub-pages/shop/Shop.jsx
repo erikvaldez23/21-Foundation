@@ -25,7 +25,7 @@ const products = [
   },
   {
     id: 2,
-    title: "Kelly Green Cap",
+    title: "Live Like Sean Tee",
     price: 24,
     image: "/shirt.jpg", // <-- EXACT case if in /public
     tag: "Apparel",
@@ -33,7 +33,7 @@ const products = [
   },
   {
     id: 3,
-    title: "Foundation Tote",
+    title: "Live Like Sean Tee",
     price: 20,
     image: "/shirt.jpg", // <-- EXACT case if in /public
     tag: "Accessories",
@@ -41,7 +41,7 @@ const products = [
   },
   {
     id: 4,
-    title: "Insulated Water Bottle",
+    title: "Live Like Sean Tee",
     price: 30,
     image: "/shirt.jpg", // <-- EXACT case if in /public
     tag: "Accessories",
@@ -49,7 +49,7 @@ const products = [
   },
   {
     id: 5,
-    title: "Minimal Hoodie",
+    title: "Live Like Sean Tee",
     price: 55,
     image: "/shirt.jpg", // <-- EXACT case if in /public
     tag: "Apparel",
@@ -57,7 +57,7 @@ const products = [
   },
   {
     id: 6,
-    title: "Sticker Pack",
+    title: "Live Like Sean Tee",
     price: 8,
     image: "/shirt.jpg", // <-- EXACT case if in /public
     tag: "Merch",

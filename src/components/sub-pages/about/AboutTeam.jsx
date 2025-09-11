@@ -25,6 +25,10 @@ const COMMITTEE = [
   { id: "c2", name: "Priya Desai", role: "Community Outreach", photo: "/image29.JPG", linkedin: null },
   { id: "c3", name: "Miguel Santos", role: "Events Committee", photo: "/image29.JPG", linkedin: null },
   { id: "c4", name: "Sofia Park", role: "Volunteer Coordination", photo: "/image29.JPG", linkedin: null },
+  { id: "c1", name: "Alex Johnson", role: "Fundraising Committee", photo: "/image29.JPG", linkedin: null },
+  { id: "c2", name: "Priya Desai", role: "Community Outreach", photo: "/image29.JPG", linkedin: null },
+  { id: "c3", name: "Miguel Santos", role: "Events Committee", photo: "/image29.JPG", linkedin: null },
+  { id: "c4", name: "Sofia Park", role: "Volunteer Coordination", photo: "/image29.JPG", linkedin: null },
 ];
 
 /* --------------------------------- Styles --------------------------------- */
@@ -245,7 +249,7 @@ export default function MeetTheExperts({
 }) {
   return (
     <PageWrap>
-      <Container maxWidth="lg" sx={{ py: { xs: 5, md: 8 } }}>
+      <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 } }}>
         {/* Experts: classic 3:4 cards, comfortable width */}
         <TeamSection
           heading={expertsTitle}

@@ -21,7 +21,6 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import GiveHero from "./GiveHero";
 import GiveImpact from "./GiveImpact";
-import GiveStory from "./GiveStory";
 import CTA from "./CTA";
 import GiveDonations from "./GivDonations"
 
@@ -35,7 +34,6 @@ const DonationsPage = () => {
         <GiveHero />
         {/* <GiveImpact /> */}
         <GiveDonations />
-        <GiveStory />
         <CTA />
       </Container>
     </Box>

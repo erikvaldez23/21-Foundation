@@ -13,18 +13,12 @@ import {
 import { styled, alpha } from "@mui/material/styles";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 /**
- * Drop-in Topbar with:
- * - Logo (clickable to route home)
- * - React Router nav links with active state
- * - Smooth hover underline + subtle lift animation
- * - Glass/blur on scroll
- * - Instagram icon at far right (opens IG in new tab)
- * - Animated font color (black on subpages until scroll, white otherwise)
+ * Animated Topbar (subtle fade-to-black on scroll)
  */
 
-// ---------- Defaults ----------
 const DEFAULT_LINKS = [
   { label: "Home", to: "/" },
   { label: "Give", to: "/give" },
@@ -35,7 +29,6 @@ const DEFAULT_LINKS = [
   { label: "Contact", to: "/contact" },
 ];
 
-// ---------- Styled ----------
 const NavLink = styled(MuiLink)(({ theme }) => ({
   position: "relative",
   color: "inherit",
@@ -111,29 +104,39 @@ const SocialIcon = styled(IconButton)(({ theme }) => ({
   },
 }));
 
-// ---------- Component ----------
+const MotionAppBar = motion(AppBar);
+const MotionToolbar = motion(Toolbar);
+
 export default function TopbarHero({
   links = DEFAULT_LINKS,
   position = "fixed",
   threshold = 24,
   blurPx = 10,
   sx,
-  // Logo props
   logoSrc = "/logo-2.png",
   logoAlt = "Company Logo",
   homeTo = "/",
   showWordmark = false,
   wordmark = "",
-  // Socials
   instagramUrl = "https://www.instagram.com/seanclark21foundation/",
   showInstagram = true,
 }) {
   const scrolled = useScrollTrigger({ disableHysteresis: true, threshold });
   const location = useLocation();
+  const { scrollYProgress } = useScroll();
+
+  // Animated background & color
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.12], [0, 1]);
+  const borderOpacity = useTransform(scrollYProgress, [0, 0.12], [0, 0.18]);
+  const blurAmount = useTransform(scrollYProgress, [0, 0.1], [0, blurPx]);
+  const dropShadow = useTransform(scrollYProgress, [0, 0.1], [0, 0.25]);
+  const barHeight = useTransform(scrollYProgress, [0, 0.1], [72, 64]);
+  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.12], [0, 0.35]);
 
   const isHome = location?.pathname === (homeTo || "/");
-  // Subpages: black before scroll, white after. Home: always white.
-  const textColor = !isHome && !scrolled ? "#000" : "#fff";
+
+  // Subpages: animate text color black → white with scroll
+  const textMotionColor = useTransform(scrollYProgress, [0, 0.12], ["#000", "#fff"]);
 
   const isActive = (link) => {
     if (!location) return !!link.current;
@@ -142,35 +145,73 @@ export default function TopbarHero({
   };
 
   return (
-    <AppBar
+    <MotionAppBar
+      key={isHome ? "topbar-home" : "topbar-sub"} // force remount between home/subpages
       position={position}
+      initial={{ y: -24, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       sx={{
-         top: 'calc(var(--headliner-h, 0px) + env(safe-area-inset-top))',
-        transition: (theme) =>
-          theme.transitions.create(
-            [
-              "background-color",
-              "backdrop-filter",
-              "box-shadow",
-              "border-color",
-              "color",
-              "top",
-            ],
-            { duration: 400, easing: theme.transitions.easing.easeInOut }
-          ),
-        background: scrolled ? "#000" : "transparent",
-        color: textColor,
+        top: "calc(var(--headliner-h, 0px) + env(safe-area-inset-top))",
+        background: "transparent", // animated layers handle bg
         boxShadow: scrolled ? "0 8px 28px rgba(0,0,0,0.25)" : "none",
-        backdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
-        WebkitBackdropFilter: scrolled ? `saturate(180%) blur(${blurPx}px)` : "none",
-        borderBottom: `1px solid ${alpha(textColor, scrolled ? 0.18 : 0)}`,
+        borderBottom: "1px solid transparent",
         zIndex: (theme) => theme.zIndex.appBar,
         p: 1,
         ...sx,
       }}
+      style={{
+        // Inline always wins; force white on Home, animate on subpages
+        color: isHome ? "#fff" : textMotionColor,
+        backdropFilter: scrolled ? `saturate(180%) blur(${blurAmount.get()}px)` : "none",
+        WebkitBackdropFilter: scrolled ? `saturate(180%) blur(${blurAmount.get()}px)` : "none",
+      }}
     >
-      <Toolbar sx={{ justifyContent: "space-between" }}>
-        {/* Left: Logo → routes home */}
+      {/* Animated background layers */}
+      <motion.div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundColor: "rgba(0,0,0,1)",
+          opacity: bgOpacity, // fade in black
+          pointerEvents: "none",
+        }}
+      />
+      <motion.div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background:
+            "linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(255,255,255,0))",
+          opacity: vignetteOpacity, // soft top-edge sheen
+          mixBlendMode: "overlay",
+        }}
+      />
+      <motion.div
+        aria-hidden
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 1,
+          backgroundColor: "currentColor",
+          opacity: borderOpacity, // divider fades in with bg
+          pointerEvents: "none",
+        }}
+      />
+
+      <MotionToolbar
+        sx={{ justifyContent: "space-between", minHeight: 0, py: 0.5, position: "relative" }}
+        style={{
+          height: barHeight,
+          boxShadow: scrolled ? `0 8px 24px rgba(0,0,0,${dropShadow.get()})` : "none",
+        }}
+      >
+        {/* Left: Logo */}
         <LogoLink
           component={RouterLink}
           to={homeTo}
@@ -179,20 +220,27 @@ export default function TopbarHero({
           sx={{
             "&:focus-visible": {
               outline: "none",
-              boxShadow: `0 0 0 3px ${alpha(textColor, 0.28)}`,
+              boxShadow: `0 0 0 3px ${alpha("#ffffff", 0.28)}`,
               borderRadius: 10,
             },
           }}
         >
-          <Box
-            component="img"
+          <motion.img
             src={logoSrc}
             alt={logoAlt}
-            sx={{ height: 50, width: "auto", display: "block" }}
+            style={{ height: 50, width: "auto", display: "block" }}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            whileHover={{ y: -1 }}
           />
           {showWordmark && (
             <Typography
               variant="h6"
+              component={motion.span}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               sx={{ fontWeight: 700, display: { xs: "none", md: "inline" } }}
             >
               {wordmark}
@@ -202,63 +250,68 @@ export default function TopbarHero({
 
         {/* Right: Nav links + Instagram */}
         <Box component="nav" aria-label="Primary" sx={{ display: "flex", alignItems: "center" }}>
-          {links.map((link) => {
+          {links.map((link, idx) => {
             const active = isActive(link);
-            const commonFocus = {
+            const focusStyles = {
               "&:focus-visible": {
                 outline: "none",
-                boxShadow: `0 0 0 3px ${alpha(textColor, 0.28)}`,
+                boxShadow: `0 0 0 3px ${alpha("#ffffff", 0.28)}`,
                 borderRadius: 6,
               },
             };
-            if (link.to) {
-              return (
-                <NavLink
-                  key={link.label}
-                  component={RouterLink}
-                  to={link.to}
-                  underline="none"
-                  aria-current={active ? "page" : undefined}
-                  sx={{ fontWeight: active ? 700 : 500, ...commonFocus }}
-                >
-                  {active ? <ActiveStyles>{link.label}</ActiveStyles> : link.label}
-                </NavLink>
-              );
-            }
-            return (
-              <NavLink
-                key={link.label}
-                href={link.href || "#"}
-                underline="none"
-                sx={{ fontWeight: active ? 700 : 500, ...commonFocus }}
-              >
-                {active ? <ActiveStyles>{link.label}</ActiveStyles> : link.label}
+            const LinkInner = active ? <ActiveStyles>{link.label}</ActiveStyles> : link.label;
+            const baseProps = {
+              key: link.label,
+              underline: "none",
+              sx: { fontWeight: active ? 700 : 500, ...focusStyles },
+              component: motion(MuiLink),
+              initial: { opacity: 0, y: 8 },
+              animate: { opacity: 1, y: 0 },
+              transition: { duration: 0.45, delay: 0.18 + idx * 0.06, ease: "easeOut" },
+            };
+            return link.to ? (
+              <NavLink {...baseProps} component={RouterLink} to={link.to}>
+                {LinkInner}
+              </NavLink>
+            ) : (
+              <NavLink {...baseProps} href={link.href || "#"}>
+                {LinkInner}
               </NavLink>
             );
           })}
 
           {showInstagram && (
             <Tooltip title="Instagram" arrow>
-              <SocialIcon
-                component="a"
+              <IconButton
+                component={motion.a}
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open Instagram"
                 size="large"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 sx={{
+                  marginLeft: 2.5,
+                  color: "inherit",
+                  borderRadius: 12,
+                  "&:hover": {
+                    boxShadow: `0 0 0 6px ${alpha("#339c5e", 0.22)}`,
+                    background: alpha("#339c5e", 0.14),
+                  },
                   "&:focus-visible": {
                     outline: "none",
-                    boxShadow: `0 0 0 3px ${alpha(textColor, 0.28)}`,
+                    boxShadow: `0 0 0 3px ${alpha("#ffffff", 0.28)}`,
                   },
                 }}
               >
                 <InstagramIcon />
-              </SocialIcon>
+              </IconButton>
             </Tooltip>
           )}
         </Box>
-      </Toolbar>
-    </AppBar>
+      </MotionToolbar>
+    </MotionAppBar>
   );
 }

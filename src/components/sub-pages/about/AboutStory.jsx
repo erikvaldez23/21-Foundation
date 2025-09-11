@@ -7,10 +7,8 @@ import {
   Button,
   Avatar,
   Chip,
-  useTheme,
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
-import { motion } from "framer-motion";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
 import Diversity3OutlinedIcon from "@mui/icons-material/Diversity3Outlined";
@@ -25,15 +23,14 @@ const SectionWrap = styled(Box)(({ theme }) => ({
   width: "100%",
   color: "#0e1113",
   background: "#E8E5DD",
-  borderTop: "1px solid rgba(0,0,0,0.08)",
-  borderBottom: "1px solid rgba(0,0,0,0.08)",
   overflow: "hidden",
 }));
 
 /* --------------------------------- UI --------------------------------- */
 const StoryMission = ({
   title = "Sean’s Story & Our Mission",
-  subtitle = "Inspired by Sean Clark’s spirit, our mission is to empower young people to thrive by fostering mental resiliency through the positive influence of sports, friendship, family and faith.",
+  subtitle =
+    "Inspired by Sean Clark’s spirit, our mission is to empower young people to thrive by fostering mental resiliency through the positive influence of sports, friendship, family and faith.",
   story =
     "Sean’s kindness, courage, and love for bringing people together continue to light the way for our work. What began as a tribute to his life has grown into a movement that champions mental well-being and community support for youth.",
   mission =
@@ -68,10 +65,8 @@ const StoryMission = ({
     },
   ],
 }) => {
-  const theme = useTheme();
-
   return (
-    <SectionWrap id="story" sx={{ py: { xs: 8, md: 12 } }}>
+    <SectionWrap id="story">
       <Container maxWidth="xl">
         {/* 1-col on xs; 40/60 from sm+ */}
         <Box
@@ -84,18 +79,12 @@ const StoryMission = ({
         >
           {/* Left: Media (40%) */}
           <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
             sx={{
               position: "relative",
               minHeight: { xs: 280, md: 460 },
               borderRadius: 3,
               overflow: "hidden",
               background: "#111",
-              // softer, modern
               boxShadow: "0 14px 28px rgba(0,0,0,0.12)",
               border: `1px solid ${alpha("#000", 0.08)}`,
             }}
@@ -136,11 +125,6 @@ const StoryMission = ({
 
           {/* Right: Content (60%), text over section bg (no card) */}
           <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -173,10 +157,7 @@ const StoryMission = ({
               {title}
             </Typography>
 
-            <Typography
-              variant="body1"
-              sx={{ color: alpha("#000", 0.8), mb: 2 }}
-            >
+            <Typography variant="body1" sx={{ color: alpha("#000", 0.8), mb: 2 }}>
               {subtitle}
             </Typography>
 
