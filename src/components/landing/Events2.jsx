@@ -10,7 +10,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+/* ===================== Design Tokens ===================== */
+const ACCENT = "#339c5e";
 
 /* ===================== Styled ===================== */
 const Section = styled(Box)(({ theme }) => ({
@@ -82,7 +85,6 @@ const CarouselContainer = styled(Box)({
 const CarouselTrack = styled(Box)({
   display: "flex",
   gap: 30,
-  // children snap to start
   "& > *": { scrollSnapAlign: "start" },
 });
 
@@ -166,13 +168,6 @@ const CourseSub = styled(Typography)({
   fontWeight: 300,
 });
 
-const BottomBar = styled(Box)({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  marginTop: 40,
-});
-
 const NavButtons = styled(Box)({
   display: "flex",
   gap: 12,
@@ -200,7 +195,36 @@ const EnrollmentBtn = styled(Button)({
   "&:hover": { background: "#333", color: "#fff" },
 });
 
+/* ----- CTA row + Kelly green button ----- */
+const CtaRow = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "flex-start",
+  alignItems: "center",
+  marginTop: theme.spacing(3),
+  borderRadius: 12,
+}));
+
+const KellyCta = styled(Button)(({ theme }) => ({
+  backgroundColor: ACCENT,
+  color: "#fff",
+  textTransform: "none",
+  fontWeight: 700,
+  fontSize: 16,
+  padding: "10px 18px",
+  borderRadius: 999,
+  boxShadow: "0 8px 20px rgba(51,156,94,0.32)",
+  "&:hover": {
+    backgroundColor: "#2e8c55",
+    boxShadow: "0 10px 24px rgba(51,156,94,0.42)",
+  },
+  "&:focus-visible": {
+    outline: "2px solid #1e5f3a",
+    outlineOffset: 2,
+  },
+}));
+
 /* ===================== Data ===================== */
+/* Add a formUrl (Google Form link) per event */
 const courses = [
   {
     key: "walkout",
@@ -209,53 +233,65 @@ const courses = [
     h4: "Community Event",
     sub: "Join Us for a Walkout to Raise Awareness",
     title: "Walkout for Mental Health Awareness",
-    body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!',
+    body:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!",
     image: "/image1.JPG",
+    href: "/events/walkout",
+    formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSc1vprOU16Iufa50z8ZFiuAo2J8QKp-6xgbZVekXy-ez-u36w/viewform?fbclid=PAZXh0bgNhZW0CMTEAAaeFgl7kG-vAq2XDzBVxRiSF5ULXZ51qUvhv7v_a3CVM3CExfvFxppIU6kgGpw_aem_VOgyAmN88FnTeJdyVp8q3A&pli=1",
     bgStyle: {
       background:
         "linear-gradient(135deg, rgba(255,99,71,0.8), rgba(255,69,0,0.8))",
     },
   },
   {
-    key: "workshop",
+    key: "workshop2",
     headerTag: "Empowering the Mind",
-    h3: "Mindfulness Workshop",
-    h4: "Workshop",
-    sub: "Led by Mental Health Professionals",
-    title: "Mindfulness Workshop for Stress Relief",
-    body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!',
+    h3: "Event 2",
+    h4: "Event Type",
+    sub: "Event Title",
+    title: "Event 2 Header",
+    body:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!",
     image: "/image2.JPG",
+    href: "/events/workshop2",
+    formUrl: "https://forms.gle/EXAMPLE_WORKSHOP2",
     bgStyle: {
       background:
         "linear-gradient(135deg, rgba(144,238,144,0.9), rgba(60,179,113,0.9))",
     },
   },
   {
-    key: "support",
-    headerTag: "Mental Health Support",
-    h3: "Group Therapy",
-    h4: "Support Group",
-    sub: "Facilitated by Certified Therapists",
-    title: "Support Group for Mental Health Healing",
-    body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!',
+    key: "workshop3",
+    headerTag: "Empowering the Mind",
+    h3: "Event 3",
+    h4: "Event Type",
+    sub: "Event Title",
+    title: "Event 3 Header",
+    body:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!",
     image: "/image3.JPG",
+    href: "/events/workshop3",
+    formUrl: "https://forms.gle/EXAMPLE_WORKSHOP3",
     bgStyle: {
       background:
-        "linear-gradient(135deg, rgba(70,130,180,0.85), rgba(100,149,237,0.85))",
+        "linear-gradient(135deg, rgba(144,238,144,0.9), rgba(60,179,113,0.9))",
     },
   },
   {
-    key: "webinar",
-    headerTag: "Mental Health Education",
-    h3: "Resilience Webinar",
-    h4: "Webinar",
-    sub: "With Mental Health Experts",
-    title: "Building Resilience Through Mental Health Education",
-    body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!',
+    key: "workshop4",
+    headerTag: "Empowering the Mind",
+    h3: "Event 4",
+    h4: "Event Type",
+    sub: "Event Title",
+    title: "Event 4 Header",
+    body:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!",
     image: "/image4.JPG",
+    href: "/events/workshop4",
+    formUrl: "https://forms.gle/EXAMPLE_WORKSHOP4",
     bgStyle: {
       background:
-        "linear-gradient(135deg, rgba(255,228,181,0.85), rgba(255,239,179,0.85))",
+        "linear-gradient(135deg, rgba(144,238,144,0.9), rgba(60,179,113,0.9))",
     },
   },
 ];
@@ -270,11 +306,10 @@ export default function EdutainmentCoursesMUI() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const GAP = 30;
-  const PEEK = isMobile ? 48 : 80; // constant peeks (both sides)
+  const PEEK = isMobile ? 48 : 80;
 
   const containerRef = useRef(null);
 
-  // Measure container width
   useEffect(() => {
     if (!containerRef.current) return;
     const ro = new ResizeObserver(([entry]) => {
@@ -286,14 +321,12 @@ export default function EdutainmentCoursesMUI() {
 
   const visibleCount = isMobile ? 1 : 2;
 
-  // Fixed card width
   const cardW = useMemo(() => {
     if (!containerW) return 0;
     if (isMobile) return Math.max(0, containerW - 2 * PEEK);
     return Math.max(0, (containerW - 2 * PEEK - GAP) / 2);
   }, [containerW, isMobile, PEEK]);
 
-  // Edge fade mask logic based on scroll position
   const updateEdges = () => {
     const el = containerRef.current;
     if (!el) return;
@@ -311,16 +344,14 @@ export default function EdutainmentCoursesMUI() {
     return () => el.removeEventListener("scroll", updateEdges);
   }, [containerW]);
 
-  // Convert vertical two-finger scroll to horizontal scroll for trackpads
   const onWheel = (e) => {
     const el = containerRef.current;
     if (!el) return;
     const verticalDominant = Math.abs(e.deltaY) > Math.abs(e.deltaX);
     if (verticalDominant) {
-      el.scrollLeft += e.deltaY; // push vertical gesture sideways
+      el.scrollLeft += e.deltaY;
       e.preventDefault();
     }
-    // horizontal gestures already work natively
   };
 
   const scrollByAmount = cardW + GAP;
@@ -335,24 +366,11 @@ export default function EdutainmentCoursesMUI() {
     el.scrollBy({ left: -scrollByAmount, behavior: "smooth" });
   };
 
-  // Adaptive mask
-  const maskBoth =
-    "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))";
-  const maskLeft =
-    "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 100%)";
-  const maskRight =
-    "linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0))";
-  const maskNone = "linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,1))";
-
-  const maskImage =
-    atStart && atEnd ? maskNone : atStart ? maskRight : atEnd ? maskLeft : maskBoth;
-
   return (
     <Section>
-      {/* Header in regular container */}
       <Container maxWidth="xl">
         <HeaderRow>
-          <Box>
+          <Box sx={{ width: "100%" }}>
             <Typography
               variant="h1"
               sx={{
@@ -378,19 +396,22 @@ export default function EdutainmentCoursesMUI() {
             >
               Fill out the form to join us!
             </Typography>
+
+            {/* Arrow controls under the header (left-aligned here) */}
+            <Box sx={{ display: "flex", justifyContent: "flex-start", gap: 1, mt: 1 }}>
+              <NavBtn onClick={previousSlide} aria-label="previous" disabled={atStart}>
+                <ChevronLeft size={16} />
+              </NavBtn>
+              <NavBtn onClick={nextSlide} aria-label="next" disabled={atEnd}>
+                <ChevronRight size={16} />
+              </NavBtn>
+            </Box>
           </Box>
         </HeaderRow>
       </Container>
 
-      {/* Full-bleed carousel with native horizontal scroll + scroll-snap */}
       <Container maxWidth={false} disableGutters>
-        <CarouselContainer
-          ref={containerRef}
-          onWheel={onWheel}
-          sx={{
-            overscrollBehaviorX: "contain",
-          }}
-        >
+        <CarouselContainer ref={containerRef} onWheel={onWheel} sx={{ overscrollBehaviorX: "contain" }}>
           <CarouselTrack>
             {courses.map((course) => (
               <Box key={course.key} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px` }}>
@@ -441,7 +462,8 @@ export default function EdutainmentCoursesMUI() {
                   </ImageContent>
                 </ImageShell>
 
-                <Box sx={{ p: 3.75 }}>
+                {/* Content + CTA row (left-aligned) */}
+                <Box sx={{ p: 3.75, display: "flex", flexDirection: "column" }}>
                   <Typography
                     component="h3"
                     sx={{
@@ -457,28 +479,23 @@ export default function EdutainmentCoursesMUI() {
                   <Typography sx={{ fontSize: 15, lineHeight: 1.6, color: "#666" }}>
                     {course.body}
                   </Typography>
-                  {/* <RegisterBtn href={`/events/${course.key}`}>
-                    <CalendarDays size={18} />
-                    Register Now
-                  </RegisterBtn> */}
+
+                  <CtaRow>
+                    <KellyCta
+                      component="a"
+                      href={course.formUrl || course.href || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open sign-up form for ${course.title}`}
+                    >
+                      Sign Up Now
+                    </KellyCta>
+                  </CtaRow>
                 </Box>
               </Box>
             ))}
           </CarouselTrack>
         </CarouselContainer>
-      </Container>
-
-      <Container maxWidth="xl">
-        <BottomBar>
-          <NavButtons>
-            <NavBtn onClick={previousSlide} aria-label="previous">
-              <ChevronLeft size={16} />
-            </NavBtn>
-            <NavBtn onClick={nextSlide} aria-label="next">
-              <ChevronRight size={16} />
-            </NavBtn>
-          </NavButtons>
-        </BottomBar>
       </Container>
     </Section>
   );

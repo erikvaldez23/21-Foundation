@@ -5,13 +5,16 @@ import {
   Container,
   Typography,
   Card,
-  Chip,
   IconButton,
-  Divider,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { motion } from "framer-motion";
+
+/* --------------------------- Brand / Design Tokens --------------------------- */
+const ACCENT = "#339c5e";
+const PAPER = "#fafafa";
+const CANVAS = "#E8E5DD";
 
 /* ---------------------- Demo data (replace with real) ---------------------- */
 const TEAM = [
@@ -25,58 +28,71 @@ const COMMITTEE = [
   { id: "c2", name: "Priya Desai", role: "Community Outreach", photo: "/image29.JPG", linkedin: null },
   { id: "c3", name: "Miguel Santos", role: "Events Committee", photo: "/image29.JPG", linkedin: null },
   { id: "c4", name: "Sofia Park", role: "Volunteer Coordination", photo: "/image29.JPG", linkedin: null },
-  { id: "c1", name: "Alex Johnson", role: "Fundraising Committee", photo: "/image29.JPG", linkedin: null },
-  { id: "c2", name: "Priya Desai", role: "Community Outreach", photo: "/image29.JPG", linkedin: null },
-  { id: "c3", name: "Miguel Santos", role: "Events Committee", photo: "/image29.JPG", linkedin: null },
-  { id: "c4", name: "Sofia Park", role: "Volunteer Coordination", photo: "/image29.JPG", linkedin: null },
+  { id: "c5", name: "Jordan Lee", role: "Sponsorships", photo: "/image29.JPG", linkedin: null },
+  { id: "c6", name: "Hannah Kim", role: "Logistics", photo: "/image29.JPG", linkedin: null },
+  { id: "c7", name: "Omar Ali", role: "Marketing", photo: "/image29.JPG", linkedin: null },
+  { id: "c8", name: "Grace Chen", role: "Volunteer Training", photo: "/image29.JPG", linkedin: null },
 ];
 
 /* --------------------------------- Styles --------------------------------- */
 const PageWrap = styled(Box)({
-  backgroundColor: "#E8E5DD",
+  backgroundColor: CANVAS,
 });
 
-const HeaderRow = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: 10,
-  paddingBlock: theme.spacing(1.5),
-}));
+/* ---------- Header: subtle, professional (accent pill + overline + rule) --- */
+const SectionHeader = ({ overline, title, subtitle }) => (
+  <Box sx={{ mb: { xs: 2.5, md: 3.5 } }}>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+      <Box
+        sx={{
+          width: 46,
+          height: 8,
+          borderRadius: 999,
+          bgcolor: ACCENT,
+          boxShadow: `0 0 0 6px ${alpha(ACCENT, 0.10)}`,
+        }}
+      />
+      {overline && (
+        <Typography
+          variant="overline"
+          sx={{ letterSpacing: 1, color: alpha("#000", 0.6) }}
+        >
+          {overline}
+        </Typography>
+      )}
+    </Box>
+    <Box sx={{ display: "flex", alignItems: "baseline", gap: 2 }}>
+      <Typography
+        variant="h3"
+        sx={{
+          fontWeight: 800,
+          lineHeight: 1.05,
+          fontSize: { xs: 28, sm: 34, md: 40 },
+        }}
+      >
+        {title}
+      </Typography>
+      <Box sx={{ flex: 1, height: 1, bgcolor: alpha("#000", 0.15) }} />
+    </Box>
+    {subtitle && (
+      <Typography sx={{ mt: 1.25, color: alpha("#000", 0.65), maxWidth: 880 }}>
+        {subtitle}
+      </Typography>
+    )}
+  </Box>
+);
 
-const DotBadge = styled("span")(({ theme }) => ({
-  display: "inline-grid",
-  gridTemplateColumns: "repeat(3, 8px)",
-  gap: 4,
-  marginTop: 2,
-  "& > i": {
-    width: 8,
-    height: 8,
-    borderRadius: 999,
-    background: theme.palette.text.primary,
-    opacity: 0.9,
-  },
-}));
-
+/* ------------------------------- Card Pieces ------------------------------- */
 const TeamCard = styled(Card)(({ theme }) => ({
   borderRadius: 14,
   boxShadow: "none",
-  background: "#fafafa",
+  background: PAPER,
   border: `1px solid ${alpha("#000", 0.08)}`,
   overflow: "hidden",
   height: "100%",
 }));
 
-// ---- Responsive grid with tunable column sizing via props ----
-const CardsGrid = styled(Box, {
-  shouldForwardProp: (prop) =>
-    !["minPx", "vw", "maxPx"].includes(prop),
-})(({ theme, minPx = 240, vw = "26vw", maxPx = 320 }) => ({
-  display: "grid",
-  gap: theme.spacing(2),
-  gridTemplateColumns: `repeat(auto-fit, minmax(clamp(${minPx}px, ${vw}, ${maxPx}px), 1fr))`,
-}));
-
-// Prevent custom prop from hitting the DOM, and let aspect-ratio control height
+// Media container uses aspect-ratio for consistent height; child overlays cover fully
 const MediaWrap = styled(Box, {
   shouldForwardProp: (prop) => prop !== "aspect",
 })(({ aspect }) => ({
@@ -88,28 +104,30 @@ const MediaWrap = styled(Box, {
 }));
 
 const MediaImg = styled(motion.img)({
+  position: "absolute",
+  inset: 0,
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  filter: "grayscale(100%)",
   display: "block",
+  zIndex: 0,
 });
 
-const Overlay = styled("div")(() => ({
+// Full-frame bottom fade (no % heights → reliable across browsers)
+const BottomFade = styled("div")({
   position: "absolute",
-  left: 0,
-  right: 0,
-  bottom: 0,
-  height: "42%",
-  background: "linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0))",
+  inset: 0,
+  pointerEvents: "none",
   zIndex: 1,
-}));
+  background:
+    "linear-gradient(to top, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.28) 28%, rgba(0,0,0,0.12) 44%, rgba(0,0,0,0) 60%)",
+});
 
-const OverlayText = styled(Box)(({ theme }) => ({
+const CaptionWrap = styled(Box)(({ theme }) => ({
   position: "absolute",
-  bottom: 12,
   left: 12,
   right: 12,
+  bottom: 12,
   color: "#fff",
   zIndex: 2,
   lineHeight: 1.2,
@@ -132,61 +150,59 @@ const LinkedinBadge = styled(IconButton)(({ theme }) => ({
   "&:hover": { background: "#f7f7f7" },
 }));
 
-/* --------------------------- Reusable Section UI --------------------------- */
-function TeamSection({
-  heading,
-  badgeLabel,
+/* ---------------------- Grids (auto-fit vs fixed 4×2) ---------------------- */
+const AutoGrid = styled(Box, {
+  shouldForwardProp: (prop) => !["minPx", "vw", "maxPx"].includes(prop),
+})(({ theme, minPx = 240, vw = "26vw", maxPx = 320 }) => ({
+  display: "grid",
+  gap: theme.spacing(2),
+  gridTemplateColumns: `repeat(auto-fit, minmax(clamp(${minPx}px, ${vw}, ${maxPx}px), 1fr))`,
+}));
+
+const CommitteeGrid = styled(Box)(({ theme }) => ({
+  display: "grid",
+  gap: theme.spacing(2),
+  gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+  [theme.breakpoints.down("lg")]: {
+    gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+  },
+  [theme.breakpoints.down("md")]: {
+    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+  },
+  [theme.breakpoints.down("sm")]: {
+    gridTemplateColumns: "1fr",
+  },
+}));
+
+/* ------------------------------- Subsections ------------------------------- */
+function PeopleGrid({
+  titleOverline,
+  title,
+  subtitle,
   people,
   aspectRatio = "3 / 4",
-  // grid sizing knobs:
+  variant = "auto", // 'auto' | 'committee'
   columnMinPx = 240,
   columnVW = "26vw",
   columnMaxPx = 320,
-  // spacing:
-  topSpacing = { xs: 5, md: 8 },
-  bottomSpacing = { xs: 4, md: 6 },
-  // text sizing tweaks for dense layouts
   tightText = false,
 }) {
+  const GridComp =
+    variant === "committee"
+      ? CommitteeGrid
+      : (props) => (
+          <AutoGrid {...props} minPx={columnMinPx} vw={columnVW} maxPx={columnMaxPx} />
+        );
+
+  const list = variant === "committee" ? people.slice(0, 8) : people;
+
   return (
-    <Box sx={{ pt: topSpacing, pb: bottomSpacing }}>
-      <HeaderRow>
-        <DotBadge aria-hidden>
-          <i />
-          <i />
-          <i />
-        </DotBadge>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 700,
-            letterSpacing: 0,
-            mr: 1,
-            fontSize: { xs: 24, sm: 28, md: 32 },
-            lineHeight: 1.1,
-          }}
-        >
-          {heading}
-        </Typography>
-        <Box sx={{ flex: 1 }} />
-        {badgeLabel && (
-          <Chip
-            label={badgeLabel}
-            sx={{
-              borderRadius: 999,
-              bgcolor: "#D9F97F",
-              fontWeight: 600,
-              height: 28,
-            }}
-          />
-        )}
-      </HeaderRow>
-
-
-      <CardsGrid minPx={columnMinPx} vw={columnVW} maxPx={columnMaxPx}>
-        {people.map((p) => (
+    <Box sx={{ pt: { xs: 2, md: 2 }, pb: { xs: 3, md: 4 } }}>
+      <SectionHeader overline={titleOverline} title={title} subtitle={subtitle} />
+      <GridComp>
+        {list.map((p, idx) => (
           <TeamCard
-            key={p.id}
+            key={p.id ?? idx}
             component={motion.div}
             whileHover={{ y: -4 }}
             transition={{ type: "spring", stiffness: 180, damping: 18 }}
@@ -197,9 +213,10 @@ function TeamSection({
                 alt={p.name}
                 loading="lazy"
                 initial={{ scale: 1.02 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 150, damping: 18 }}
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.4 }}
               />
+
               {p.linkedin && (
                 <LinkedinBadge
                   component="a"
@@ -211,8 +228,11 @@ function TeamSection({
                   <LinkedInIcon fontSize="small" />
                 </LinkedinBadge>
               )}
-              <Overlay />
-              <OverlayText>
+
+              {/* Full-frame bottom fade to ensure caption readability */}
+              <BottomFade />
+
+              <CaptionWrap>
                 <Typography
                   variant="subtitle1"
                   sx={{
@@ -231,48 +251,52 @@ function TeamSection({
                 >
                   {p.role}
                 </Typography>
-              </OverlayText>
+              </CaptionWrap>
             </MediaWrap>
           </TeamCard>
         ))}
-      </CardsGrid>
+      </GridComp>
     </Box>
   );
 }
 
 /* -------------------------------- Component -------------------------------- */
 export default function MeetTheExperts({
-  expertsTitle = "Meet the experts",
+  expertsTitleOverline = "Our Team",
+  expertsTitle = "Meet the Experts",
+  expertsSubtitle = null,
   experts = TEAM,
-  committeeTitle = "Committee members",
+
+  committeeTitleOverline = "Our Team",
+  committeeTitle = "Committee Members",
+  committeeSubtitle = null,
   committee = COMMITTEE,
 }) {
   return (
     <PageWrap>
       <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 } }}>
-        {/* Experts: classic 3:4 cards, comfortable width */}
-        <TeamSection
-          heading={expertsTitle}
+        {/* Experts — responsive auto-fit cards */}
+        <PeopleGrid
+          titleOverline={expertsTitleOverline}
+          title={expertsTitle}
+          subtitle={expertsSubtitle}
           people={experts}
           aspectRatio="3 / 4"
+          variant="auto"
           columnMinPx={240}
           columnVW="26vw"
           columnMaxPx={320}
-          topSpacing={{ xs: 2, md: 2 }}
-          bottomSpacing={{ xs: 3.5, md: 5 }}
         />
 
-        {/* Committee: VERTICAL (3:4) and NARROWER so more fit per row */}
-        <TeamSection
-          heading={committeeTitle}
+        {/* Committee — exactly 4 columns × 2 rows on desktop, responsive below */}
+        <PeopleGrid
+          titleOverline={committeeTitleOverline}
+          title={committeeTitle}
+          subtitle={committeeSubtitle}
           people={committee}
-          aspectRatio="3 / 4"          // vertical ratio
-          columnMinPx={170}            // narrower min width
-          columnVW="17vw"              // tighter vw target
-          columnMaxPx={220}            // smaller max width
-          topSpacing={{ xs: 3, md: 4 }}
-          bottomSpacing={{ xs: 0.5, md: 1 }}
-          tightText                    // slightly smaller text to match density
+          aspectRatio="3 / 4"
+          variant="committee"
+          tightText
         />
       </Container>
     </PageWrap>

@@ -21,14 +21,6 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import PhotoCameraBackRoundedIcon from "@mui/icons-material/PhotoCameraBackRounded";
 import GalleryHero from "./GalleryHero";
 
-/* =========================
-   Gallery Sub-Page
-   - Justified rows using REAL image aspect ratios
-   - Preserves portrait/landscape exactly
-   - Straight outer edges
-   - Lightbox w/ keyboard nav
-   ========================= */
-
 const Page = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
   background: "#E8E5DD",
@@ -46,7 +38,7 @@ const Tile = styled(motion.div)(({ h }) => ({
   height: h,
   overflow: "hidden",
   borderRadius: 8,
-  cursor: "zoom-in",
+  // cursor: "zoom-in",
   outline: "none",
   flex: "0 0 auto",
 }));
@@ -126,12 +118,12 @@ const PHOTOS = [
   { id: "p24", src: "/image25.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
   { id: "p25", src: "/image26.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
   { id: "p26", src: "/image27.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p27", src: "/image28.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p28", src: "/image29.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p28", src: "/image30.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p28", src: "/image31.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p28", src: "/image32.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p28", src: "/image33.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  // { id: "p27", src: "/image28.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  // { id: "p28", src: "/image29.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  // { id: "p28", src: "/image30.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  // { id: "p28", src: "/image31.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  // { id: "p28", src: "/image32.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  // { id: "p28", src: "/image33.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
 ];
 
 /* ===== Utils: container width + real (natural) image sizes ===== */
@@ -325,7 +317,7 @@ export default function Gallery() {
 
   return (
     <Page>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{pb: 8}}>
         <GalleryHero />
 
         {/* Justified Gallery (real aspect ratios) */}
@@ -364,7 +356,7 @@ export default function Gallery() {
       </Container>
 
       {/* Lightbox */}
-      <Dialog
+      {/* <Dialog
         open={lightbox.open}
         onClose={closeLightbox}
         maxWidth="lg"
@@ -486,7 +478,7 @@ export default function Gallery() {
             </Button>
           </DialogActions>
         )}
-      </Dialog>
+      </Dialog> */}
     </Page>
   );
 }

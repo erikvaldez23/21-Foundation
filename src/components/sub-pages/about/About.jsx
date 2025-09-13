@@ -1,5 +1,5 @@
 import React from "react";
-import Hero from "./AboutHero";
+import AboutHero from "./AboutHero";
 import Mission from "./AboutMission";
 import TeamShowcase from "./AboutTeam";
 import AboutStory from "./AboutStory"
@@ -7,7 +7,7 @@ import AboutStory from "./AboutStory"
 export default function AboutPage() {
   return (
     <>
-      <Hero />
+      <AboutHero />
       <AboutStory />
       {/* <Mission /> */}
       <TeamShowcase />

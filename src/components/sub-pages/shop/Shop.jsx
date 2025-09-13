@@ -19,7 +19,7 @@ const products = [
     id: 1,
     title: "Live Like Sean Tee",
     price: 28,
-    image: "/shirt.jpg", // <-- EXACT case if in /public
+    image: "/shop/black-shirt-front.png", 
     tag: "Apparel",
     slug: "live-like-sean-tee",
   },
@@ -27,7 +27,7 @@ const products = [
     id: 2,
     title: "Live Like Sean Tee",
     price: 24,
-    image: "/shirt.jpg", // <-- EXACT case if in /public
+    image: "/shop/cream-shirt-front.png", 
     tag: "Apparel",
     slug: "kelly-green-cap",
   },
@@ -35,7 +35,7 @@ const products = [
     id: 3,
     title: "Live Like Sean Tee",
     price: 20,
-    image: "/shirt.jpg", // <-- EXACT case if in /public
+    image: "/shirt.jpg", 
     tag: "Accessories",
     slug: "foundation-tote",
   },
@@ -43,7 +43,7 @@ const products = [
     id: 4,
     title: "Live Like Sean Tee",
     price: 30,
-    image: "/shirt.jpg", // <-- EXACT case if in /public
+    image: "/shirt.jpg",
     tag: "Accessories",
     slug: "insulated-bottle",
   },
@@ -51,7 +51,7 @@ const products = [
     id: 5,
     title: "Live Like Sean Tee",
     price: 55,
-    image: "/shirt.jpg", // <-- EXACT case if in /public
+    image: "/shirt.jpg", 
     tag: "Apparel",
     slug: "minimal-hoodie",
   },
@@ -59,7 +59,7 @@ const products = [
     id: 6,
     title: "Live Like Sean Tee",
     price: 8,
-    image: "/shirt.jpg", // <-- EXACT case if in /public
+    image: "/shirt.jpg",
     tag: "Merch",
     slug: "sticker-pack",
   },
@@ -105,15 +105,12 @@ const Shop = () => {
             <br />—
           </Typography>
         </Box>
-
-        {/* Products grid - force 3 per row */}
-        {/* Products grid - force 3 columns at all sizes */}
         <Box
           sx={{
             mt: 4,
             display: "grid",
             gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-            gap: 3, // MUI spacing units (theme.spacing * 3)
+            gap: 3,
           }}
         >
           {products.map((p) => (
@@ -144,7 +141,7 @@ const Shop = () => {
                   sx={{
                     height: "100%",
                     filter: "brightness(0.85)",
-                    objectFit: "cover",
+                    objectFit: "contain",
                   }}
                 />
 
