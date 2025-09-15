@@ -11,7 +11,6 @@ import AboutPage from "./components/sub-pages/about/About";
 import Contact from "./components/sub-pages/contact/Contact";
 import Give from "./components/sub-pages/give/Give";
 import Shop from "./components/sub-pages/shop/Shop";
-import EventsHero from "./components/sub-pages/events/EventHero";
 import Gallery from "./components/sub-pages/gallery/Gallery";
 import ImpactPillars from "./components/landing/ImpactPillars";
 import Headliner from "./components/key-components/Headlne";
@@ -20,6 +19,7 @@ import LoadingAnimation from "./components/animate/LoadingAnimation/";
 import PrivacyPolicy from "./components/sub-pages/privacy-policy/PrivacyPolicy";
 import ScrollToTop from "./components/animate/ScrollToTop";
 import EventDetail from "./components/sub-pages/events/EventDetails";
+import EventPage from "./components/sub-pages/events/EventPage";
 
 const theme = createTheme({
   palette: {
@@ -52,7 +52,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/give" element={<Give />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/events" element={<EventsHero />} />
+          <Route path="/events" element={<EventPage />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/events/:slug" element={<EventDetail />} />
