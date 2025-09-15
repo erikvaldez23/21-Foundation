@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link as RouterLink } from "react-router-dom";
 
 /* ===================== Design Tokens ===================== */
 const ACCENT = "#339c5e";
@@ -24,32 +25,6 @@ const Section = styled(Box)(({ theme }) => ({
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
 }));
 
-const RegisterBtn = styled(Button)(({ theme }) => ({
-  borderRadius: 999,
-  padding: "12px 20px",
-  textTransform: "none",
-  fontWeight: 700,
-  fontSize: 16,
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 10,
-  backdropFilter: "blur(6px)",
-  color: "#fff",
-  background:
-    "linear-gradient(135deg, rgba(47,166,82,0.95), rgba(26,132,58,0.95))",
-  boxShadow:
-    "0 8px 20px rgba(47,166,82,0.25), inset 0 1px 0 rgba(255,255,255,0.15)",
-  border: "1px solid rgba(47,166,82,0.35)",
-  transition: "transform .15s ease, box-shadow .2s ease, background .2s ease",
-  "&:hover": {
-    transform: "translateY(-1px)",
-    boxShadow:
-      "0 12px 28px rgba(47,166,82,0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
-    background: "linear-gradient(135deg, rgba(39,150,72,1), rgba(22,118,52,1))",
-  },
-  "&:active": { transform: "translateY(0)" },
-}));
-
 const HeaderRow = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
@@ -57,17 +32,6 @@ const HeaderRow = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(6.25),
   [theme.breakpoints.down("md")]: { flexDirection: "column", gap: theme.spacing(3.75) },
 }));
-
-const ViewAllBtn = styled(Button)({
-  borderRadius: 50,
-  padding: "12px 24px",
-  textTransform: "none",
-  fontWeight: 600,
-  fontSize: 16,
-  border: "2px solid #333",
-  color: "#333",
-  "&:hover": { backgroundColor: "#333", color: "#fff", borderColor: "#333" },
-});
 
 const CarouselContainer = styled(Box)({
   position: "relative",
@@ -90,8 +54,10 @@ const CarouselTrack = styled(Box)({
 
 /* ----- Image area (rounded + clipping) ----- */
 const RADIUS = 16;
+/* Extra space to push content above the bottom CTAs */
+const CTA_SPACE = 96;
 
-const ImageShell = styled(Box)({
+const ImageShell = styled(Box)(({ theme }) => ({
   height: 300,
   position: "relative",
   display: "flex",
@@ -100,10 +66,14 @@ const ImageShell = styled(Box)({
   justifyContent: "center",
   color: "white",
   textAlign: "center",
-  padding: "40px 20px",
+  /* add extra bottom padding to create space above the buttons */
+  padding: `40px 20px ${CTA_SPACE}px`,
   borderRadius: RADIUS,
   overflow: "hidden",
-});
+  [theme.breakpoints.down("sm")]: {
+    padding: `32px 16px ${CTA_SPACE + 8}px`,
+  },
+}));
 
 const ImageBg = styled(Box)({
   position: "absolute",
@@ -126,12 +96,28 @@ const ImageBgImg = styled("img")({
   display: "block",
 });
 
+/* Base overlay for general contrast */
 const Overlay = styled(Box)({
   position: "absolute",
   inset: 0,
   background: "linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3))",
   zIndex: 2,
   borderRadius: RADIUS,
+  pointerEvents: "none",
+});
+
+/* Extra bottom fade to help CTA readability */
+const BottomFade = styled(Box)({
+  position: "absolute",
+  left: 0,
+  right: 0,
+  bottom: 0,
+  height: 110,
+  borderBottomLeftRadius: RADIUS,
+  borderBottomRightRadius: RADIUS,
+  background:
+    "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.55) 100%)",
+  zIndex: 2,
   pointerEvents: "none",
 });
 
@@ -168,11 +154,6 @@ const CourseSub = styled(Typography)({
   fontWeight: 300,
 });
 
-const NavButtons = styled(Box)({
-  display: "flex",
-  gap: 12,
-});
-
 const NavBtn = styled(IconButton)({
   width: 40,
   height: 40,
@@ -183,48 +164,53 @@ const NavBtn = styled(IconButton)({
   "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
 });
 
-const EnrollmentBtn = styled(Button)({
-  padding: "12px 24px",
-  background: "transparent",
-  border: "2px solid #333",
-  borderRadius: 50,
-  color: "#333",
-  fontSize: 16,
-  fontWeight: 600,
-  textTransform: "none",
-  "&:hover": { background: "#333", color: "#fff" },
-});
-
-/* ----- CTA row + Kelly green button ----- */
-const CtaRow = styled(Box)(({ theme }) => ({
+/* ----- Transparent CTAs pinned to image bottom ----- */
+const ImageCtaBar = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  left: 16,
+  right: 16,
+  bottom: 24, // a bit more breathing room from the bottom edge
+  zIndex: 4,
   display: "flex",
-  justifyContent: "flex-start",
-  alignItems: "center",
-  marginTop: theme.spacing(3),
-  borderRadius: 12,
+  justifyContent: "center",
+  gap: 12,
+  flexWrap: "wrap",
+  [theme.breakpoints.down("sm")]: {
+    left: 12,
+    right: 12,
+    bottom: 20,
+    gap: 10,
+  },
 }));
 
-const KellyCta = styled(Button)(({ theme }) => ({
-  backgroundColor: ACCENT,
-  color: "#fff",
+const GhostBtn = styled(Button)(({ theme }) => ({
   textTransform: "none",
   fontWeight: 700,
-  fontSize: 16,
-  padding: "10px 18px",
+  fontSize: 14,
+  /* taller buttons for more vertical padding inside the button */
+  padding: "14px 18px",
   borderRadius: 999,
-  boxShadow: "0 8px 20px rgba(51,156,94,0.32)",
+  color: "#fff",
+  background: "rgba(255,255,255,0.04)",
+  backdropFilter: "blur(8px)",
+  WebkitBackdropFilter: "blur(8px)",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.18)",
+  transition:
+    "background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease",
   "&:hover": {
-    backgroundColor: "#2e8c55",
-    boxShadow: "0 10px 24px rgba(51,156,94,0.42)",
+    background: "rgba(255,255,255,0.12)",
+    borderColor: "rgba(255,255,255,0.9)",
+    boxShadow: "0 6px 16px rgba(0,0,0,0.24)",
+    transform: "translateY(-1px)",
   },
+  "&:active": { transform: "translateY(0)" },
   "&:focus-visible": {
-    outline: "2px solid #1e5f3a",
+    outline: "2px solid rgba(255,255,255,0.9)",
     outlineOffset: 2,
   },
 }));
 
 /* ===================== Data ===================== */
-/* Add a formUrl (Google Form link) per event */
 const courses = [
   {
     key: "walkout",
@@ -237,7 +223,8 @@ const courses = [
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!",
     image: "/image1.JPG",
     href: "/events/walkout",
-    formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSc1vprOU16Iufa50z8ZFiuAo2J8QKp-6xgbZVekXy-ez-u36w/viewform?fbclid=PAZXh0bgNhZW0CMTEAAaeFgl7kG-vAq2XDzBVxRiSF5ULXZ51qUvhv7v_a3CVM3CExfvFxppIU6kgGpw_aem_VOgyAmN88FnTeJdyVp8q3A&pli=1",
+    formUrl:
+      "https://docs.google.com/forms/d/e/1FAIpQLSc1vprOU16Iufa50z8ZFiuAo2J8QKp-6xgbZVekXy-ez-u36w/viewform",
     bgStyle: {
       background:
         "linear-gradient(135deg, rgba(255,99,71,0.8), rgba(255,69,0,0.8))",
@@ -296,6 +283,9 @@ const courses = [
   },
 ];
 
+/* ===================== Helpers ===================== */
+const isExternal = (url = "") => /^https?:\/\//i.test(url);
+
 /* ===================== Component ===================== */
 export default function EdutainmentCoursesMUI() {
   const [containerW, setContainerW] = useState(0);
@@ -318,8 +308,6 @@ export default function EdutainmentCoursesMUI() {
     ro.observe(containerRef.current);
     return () => ro.disconnect();
   }, []);
-
-  const visibleCount = isMobile ? 1 : 2;
 
   const cardW = useMemo(() => {
     if (!containerW) return 0;
@@ -410,90 +398,127 @@ export default function EdutainmentCoursesMUI() {
         </HeaderRow>
       </Container>
 
-      <Container maxWidth={false} disableGutters>
-        <CarouselContainer ref={containerRef} onWheel={onWheel} sx={{ overscrollBehaviorX: "contain" }}>
+      {/* Limit carousel width to xl as well */}
+      <Container maxWidth="xl">
+        <CarouselContainer
+          ref={containerRef}
+          onWheel={onWheel}
+          sx={{ overscrollBehaviorX: "contain" }}
+        >
           <CarouselTrack>
-            {courses.map((course) => (
-              <Box key={course.key} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px` }}>
-                <ImageShell>
-                  {course.image ? (
-                    <ImageBgImg src={course.image} alt={course.title} loading="lazy" />
-                  ) : (
-                    <ImageBg sx={course.bgStyle} />
-                  )}
-                  <Overlay />
-                  <ImageContent>
-                    {course.h3 ? (
-                      <>
-                        <HeaderTag>{course.headerTag}</HeaderTag>
-                        <CourseH3>{course.h3}</CourseH3>
-                        <CourseH4>{course.h4}</CourseH4>
-                        <CourseSub>{course.sub}</CourseSub>
-                      </>
+            {courses.map((course) => {
+              const signUpHref = course.formUrl || course.href || "#";
+              const learnMoreHref = course.href || course.formUrl || "#";
+
+              return (
+                <Box key={course.key} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px` }}>
+                  <ImageShell>
+                    {course.image ? (
+                      <ImageBgImg src={course.image} alt={course.title} loading="lazy" />
                     ) : (
-                      <>
-                        <HeaderTag>{course.headerTag}</HeaderTag>
-                        <CourseSub sx={{ mb: 2 }}>{course.subTop}</CourseSub>
-                        <Typography
-                          sx={{
-                            fontSize: 48,
-                            fontWeight: 400,
-                            fontStyle: "italic",
-                            color: "#2c5530",
-                            mb: 1,
-                            lineHeight: 1,
-                          }}
-                        >
-                          {course.italic}
-                        </Typography>
-                        <Typography
-                          sx={{
-                            fontSize: 56,
-                            fontWeight: 800,
-                            letterSpacing: "-2px",
-                            color: "#000",
-                            lineHeight: 1,
-                          }}
-                        >
-                          {course.bold}
-                        </Typography>
-                      </>
+                      <ImageBg sx={course.bgStyle} />
                     )}
-                  </ImageContent>
-                </ImageShell>
+                    <Overlay />
+                    <BottomFade />
 
-                {/* Content + CTA row (left-aligned) */}
-                <Box sx={{ p: 3.75, display: "flex", flexDirection: "column" }}>
-                  <Typography
-                    component="h3"
-                    sx={{
-                      fontSize: 24,
-                      fontWeight: 600,
-                      color: "#333",
-                      mb: 2,
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {course.title}
-                  </Typography>
-                  <Typography sx={{ fontSize: 15, lineHeight: 1.6, color: "#666" }}>
-                    {course.body}
-                  </Typography>
+                    <ImageContent>
+                      {course.h3 ? (
+                        <>
+                          <HeaderTag>{course.headerTag}</HeaderTag>
+                          <CourseH3>{course.h3}</CourseH3>
+                          <CourseH4>{course.h4}</CourseH4>
+                          <CourseSub>{course.sub}</CourseSub>
+                        </>
+                      ) : (
+                        <>
+                          <HeaderTag>{course.headerTag}</HeaderTag>
+                          <CourseSub sx={{ mb: 2 }}>{course.subTop}</CourseSub>
+                          <Typography
+                            sx={{
+                              fontSize: 48,
+                              fontWeight: 400,
+                              fontStyle: "italic",
+                              color: "#2c5530",
+                              mb: 1,
+                              lineHeight: 1,
+                            }}
+                          >
+                            {course.italic}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: 56,
+                              fontWeight: 800,
+                              letterSpacing: "-2px",
+                              color: "#000",
+                              lineHeight: 1,
+                            }}
+                          >
+                            {course.bold}
+                          </Typography>
+                        </>
+                      )}
+                    </ImageContent>
 
-                  <CtaRow>
-                    <KellyCta
-                      component="a"
-                      href={course.formUrl || course.href || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Open sign-up form for ${course.title}`}
+                    {/* Transparent CTAs on the image bottom */}
+                    <ImageCtaBar>
+                      {/* Sign Up: usually external form */}
+                      <GhostBtn
+                        component="a"
+                        href={signUpHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Sign up for ${course.title}`}
+                      >
+                        Sign Up Now
+                      </GhostBtn>
+
+                      {/* Learn More: internal route => RouterLink; external => <a> */}
+                      {isExternal(learnMoreHref) ? (
+                        <GhostBtn
+                          component="a"
+                          href={learnMoreHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Learn more about ${course.title}`}
+                          sx={{ borderColor: "rgba(255,255,255,0.6)" }}
+                        >
+                          Learn More
+                        </GhostBtn>
+                      ) : (
+                        <GhostBtn
+                          component={RouterLink}
+                          to={learnMoreHref}
+                          aria-label={`Learn more about ${course.title}`}
+                          sx={{ borderColor: "rgba(255,255,255,0.6)" }}
+                        >
+                          Learn More
+                        </GhostBtn>
+                      )}
+                    </ImageCtaBar>
+                  </ImageShell>
+
+                  {/* Content (no sign-up prompt below image anymore) */}
+                  <Box sx={{ p: 3.75, display: "flex", flexDirection: "column" }}>
+                    <Typography
+                      component="h3"
+                      sx={{
+                        fontSize: 24,
+                        fontWeight: 600,
+                        color: "#333",
+                        mb: 2,
+                        lineHeight: 1.3,
+                      }}
                     >
-                      Sign Up Now
-                    </KellyCta>
-                  </CtaRow>
+                      {course.title}
+                    </Typography>
+                    <Typography sx={{ fontSize: 15, lineHeight: 1.6, color: "#666" }}>
+                      {course.body}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
+              );
+            })}
           </CarouselTrack>
         </CarouselContainer>
       </Container>

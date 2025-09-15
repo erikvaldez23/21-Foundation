@@ -1,7 +1,8 @@
 import React from "react";
 import AboutHero from "./AboutHero";
 import Mission from "./AboutMission";
-import TeamShowcase from "./AboutTeam";
+import AboutTeam from "./AboutTeam2";
+import AboutTeam2 from "./AboutTeam2";
 import AboutStory from "./AboutStory"
 
 export default function AboutPage() {
@@ -10,7 +11,7 @@ export default function AboutPage() {
       <AboutHero />
       <AboutStory />
       {/* <Mission /> */}
-      <TeamShowcase />
+      <AboutTeam2 />
     </>
   );
 }

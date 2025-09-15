@@ -275,10 +275,6 @@ export default function ImpactPillars({
                 left: 0,
                 right: 0,
                 height: 3,
-                background: `linear-gradient(90deg, ${alpha(
-                  ACCENT,
-                  0.0
-                )} 0%, ${ACCENT} 30%, ${ACCENT} 70%, ${alpha(ACCENT, 0.0)} 100%)`,
               }}
             />
           </RightImageWrap>

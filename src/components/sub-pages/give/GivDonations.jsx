@@ -14,7 +14,6 @@ import {
   Divider,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
-import { motion } from "framer-motion";
 
 /* ---------------------------- Design Tokens ---------------------------- */
 const ACCENT = "#339c5e";            // Kelly green
@@ -100,13 +99,8 @@ const DonationsSection = ({
             alignItems: "stretch",
           }}
         >
-          {/* Left: Form (Apple-ish minimalism) */}
+          {/* Left: Form */}
           <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -177,7 +171,7 @@ const DonationsSection = ({
                   },
                 },
                 justifyContent: { xs: "center", md: "flex-start" },
-                gap: 1
+                gap: 1,
               }}
               aria-label="Donation frequency"
             >
@@ -281,7 +275,7 @@ const DonationsSection = ({
               </Box>
             )}
 
-            {/* CTA Row: Primary + Apple Pay style */}
+            {/* CTA Row */}
             <Box
               sx={{
                 mt: 3.5,
@@ -315,7 +309,7 @@ const DonationsSection = ({
                 {buttonLabel} {isValid ? `• ${pretty(displayAmount)}${freq === "monthly" ? "/mo" : ""}` : ""}
               </Button>
 
-              {/* Visual-only Apple Pay style button (wire up via Stripe/Apple Pay if desired) */}
+              {/* Visual-only Apple Pay style button */}
               <Button
                 size="large"
                 variant="outlined"
@@ -331,11 +325,9 @@ const DonationsSection = ({
                   "&:hover": { borderColor: alpha(INK, 0.35), bgcolor: "#fff" },
                 }}
                 onClick={() => {
-                  // integrate with Stripe Payment Request Button for Apple Pay here
                   onDonate({ frequency: freq, amount: Math.max(1, displayAmount), currency: "USD", method: "apple-pay" });
                 }}
               >
-                {/* Simple Apple Pay mark mimic without assets */}
                 <Box component="span" sx={{ fontSize: 16, fontWeight: 800, mr: 1 }}></Box> Pay
               </Button>
             </Box>
@@ -352,11 +344,6 @@ const DonationsSection = ({
 
           {/* Right: Vertical Image (40%) */}
           <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
             sx={{
               position: "relative",
               minHeight: { xs: 300, md: 560 },

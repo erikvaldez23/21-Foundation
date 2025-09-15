@@ -19,6 +19,7 @@ import CTA from "./components/key-components/CTA";
 import LoadingAnimation from "./components/animate/LoadingAnimation/";
 import PrivacyPolicy from "./components/sub-pages/privacy-policy/PrivacyPolicy";
 import ScrollToTop from "./components/animate/ScrollToTop";
+import EventDetail from "./components/sub-pages/events/EventDetails";
 
 const theme = createTheme({
   palette: {
@@ -40,10 +41,9 @@ function App() {
               <>
                 {/* <LoadingAnimation /> */}
                 <HeroClark />
-                {/* <EventsHero /> */}
                 <Quote />
                 <Events2 />
-                {/* <ImpactPillars /> */}
+                <ImpactPillars />
                 <CTA />
               </>
             }
@@ -55,6 +55,7 @@ function App() {
           <Route path="/events" element={<EventsHero />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/events/:slug" element={<EventDetail />} />
           {/* <Route path="/events/:slug" element={<EventDetailsPage />} /> */}
         </Routes>
         <Footer />

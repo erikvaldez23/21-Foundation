@@ -175,7 +175,7 @@ const sections = [
     title: "Contact Us",
     body: (
       <Typography>
-        Questions or requests? Reach us at <MuiLink href="mailto:info@seanclark21foundation.org">info@seanclark21foundation.org</MuiLink> or by mail at: Sean Clark 21 Foundation, Dallas, TX.
+        Questions or requests? Reach us at <MuiLink href="mailto:reachout@seanclark21foundation.org">reachout@seanclark21foundation.org</MuiLink> or by mail at: Sean Clark 21 Foundation, Dallas, TX.
       </Typography>
     ),
   },
@@ -223,7 +223,7 @@ const PrivacyPolicy = () => {
 
         {/* Sections */}
         {sections.map((s) => (
-          <Box key={s.id} sx={{ mb: 5 }}>
+          <Box key={s.id} sx={{ pb: 5 }}>
             <Anchor id={s.id} />
             <Typography variant="h5" sx={{ fontWeight: 800, mb: 1.5 }}>
               {s.title}
@@ -231,10 +231,6 @@ const PrivacyPolicy = () => {
             {s.body}
           </Box>
         ))}
-
-        <Typography sx={{ mt: 6, color: alpha(INK, 0.7), fontSize: 14 }}>
-          If any portion of this policy conflicts with local law, we will follow the law and apply the remainder of the policy.
-        </Typography>
       </Container>
     </PageWrap>
   );

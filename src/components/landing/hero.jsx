@@ -22,7 +22,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 /* -------------------- Slideshow config -------------------- */
 // Replace with your actual assets
-const images = ["/image1.JPG", "/image3.JPG", "/image4.JPG", "/image5.JPG"];
+const images = ["/image5.JPG", "/image4.JPG", "/image1.JPG"];
 const AUTOPLAY_MS = 6000;
 const WHEEL_LOCK_MS = 500;
 
@@ -105,7 +105,12 @@ const ArrowButton = styled(motion(IconButton))({
 /* -------------------- Animation variants -------------------- */
 const fadeInUp = {
   initial: { opacity: 0, y: 20, filter: "blur(4px)" },
-  animate: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } },
+  animate: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+  },
 };
 
 const buttonVariants = {
@@ -228,7 +233,10 @@ const Hero2 = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: isReducedMotion ? 0.2 : 0.8, ease: "easeOut" }}
+              transition={{
+                duration: isReducedMotion ? 0.2 : 0.8,
+                ease: "easeOut",
+              }}
             >
               <SlideImg
                 src={src}
@@ -247,8 +255,10 @@ const Hero2 = () => {
                 sx={{
                   position: "absolute",
                   inset: 0,
-                  background:
-                    "radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.15) 65%, rgba(0,0,0,0.35) 100%)",
+                   background: `
+      linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 15%, rgba(0,0,0,0) 35%),
+      radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.18) 35%, rgba(0,0,0,0.08) 65%, rgba(0,0,0,0.15) 100%)
+    `,
                   pointerEvents: "none",
                 }}
               />
@@ -306,8 +316,8 @@ const Hero2 = () => {
               ease: "easeInOut",
               delay: (i % 10) * 0.3,
             }}
-          />)
-        )}
+          />
+        ))}
       </Box>
     );
   }, []);
@@ -369,7 +379,11 @@ const Hero2 = () => {
           variant="h1"
           component={motion.h2}
           initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0, transition: { delay: 0.08, duration: 0.7 } }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: { delay: 0.08, duration: 0.7 },
+          }}
           sx={{
             fontSize: "2.2rem",
             fontWeight: 300,
@@ -390,7 +404,7 @@ const Hero2 = () => {
             whileHover="whileHover"
             whileTap="whileTap"
           >
-            CONNECT WITH US
+            LEARN MORE
           </GlassButton>
           <GlassButton
             variants={buttonVariants}
@@ -440,7 +454,11 @@ const Hero2 = () => {
           variant="h1"
           component={motion.h1}
           initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0, transition: { delay: 0.08, duration: 0.7 } }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: { delay: 0.08, duration: 0.7 },
+          }}
           sx={{
             fontSize: { sm: "2.5rem", md: "4rem", lg: "5rem" },
             fontStyle: "italic",
@@ -474,7 +492,7 @@ const Hero2 = () => {
           whileHover="whileHover"
           whileTap="whileTap"
         >
-          CONNECT WITH US
+          LEARN MORE
         </GlassButton>
         <GlassButton
           variants={buttonVariants}

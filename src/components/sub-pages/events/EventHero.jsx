@@ -18,7 +18,7 @@ const LandingPage = () => {
 
   return (
     <Box sx={{ 
-      minHeight: '100vh',
+      minHeight: '10vh',
       bgcolor: '#E8E5DD',
       py: 4
     }}>
@@ -60,7 +60,7 @@ const LandingPage = () => {
         </Box>
 
         {/* Cards Section */}
-        <Grid 
+        {/* <Grid 
           container 
           spacing={3} 
           sx={{ 
@@ -70,7 +70,6 @@ const LandingPage = () => {
             textAlign: 'center'
           }}
         >
-          {/* Left Card */}
           <Grid item xs={12} md={6}>
             <Card 
               sx={{ 
@@ -88,7 +87,6 @@ const LandingPage = () => {
                 mx: 'auto'
               }}
             >
-              {/* Background image */}
               <Box
                 sx={{
                   position: 'absolute',
@@ -100,7 +98,6 @@ const LandingPage = () => {
                   zIndex: 0
                 }}
               />
-              {/* Dark overlay for legibility */}
               <Box
                 sx={{
                   position: 'absolute',
@@ -110,7 +107,6 @@ const LandingPage = () => {
                   zIndex: 1
                 }}
               />
-              {/* Content */}
               <CardContent 
                 sx={{ 
                   position: 'relative',
@@ -146,7 +142,6 @@ const LandingPage = () => {
                 <Box sx={{ width: 60, height: 2, bgcolor: 'white', mt: 2, opacity: 0.8 }} />
               </CardContent>
 
-              {/* Bottom-right transparent button */}
               <Button
                 component={RouterLink}
                 to="/events/slow-mornings"
@@ -175,7 +170,6 @@ const LandingPage = () => {
             </Card>
           </Grid>
 
-          {/* Right Card */}
           <Grid item xs={12} md={6}>
             <Card 
               sx={{ 
@@ -193,7 +187,6 @@ const LandingPage = () => {
                 mx: 'auto'
               }}
             >
-              {/* Background image */}
               <Box
                 sx={{
                   position: 'absolute',
@@ -205,7 +198,6 @@ const LandingPage = () => {
                   zIndex: 0
                 }}
               />
-              {/* Dark overlay for legibility */}
               <Box
                 sx={{
                   position: 'absolute',
@@ -215,7 +207,6 @@ const LandingPage = () => {
                   zIndex: 1
                 }}
               />
-              {/* Content */}
               <CardContent 
                 sx={{ 
                   position: 'relative',
@@ -251,7 +242,6 @@ const LandingPage = () => {
                 <Box sx={{ width: 60, height: 2, bgcolor: 'white', mt: 2, opacity: 0.8 }} />
               </CardContent>
 
-              {/* Bottom-right transparent button */}
               <Button
                 component={RouterLink}
                 to="/events/rhythm-movement-earth"
@@ -279,7 +269,7 @@ const LandingPage = () => {
               </Button>
             </Card>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Container>
     </Box>
   );
