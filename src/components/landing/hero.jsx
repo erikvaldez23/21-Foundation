@@ -21,7 +21,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { motion, AnimatePresence } from "framer-motion";
 
 /* -------------------- Slideshow config -------------------- */
-// Replace with your actual assets
 const images = ["/image5.JPG", "/image4.JPG", "/image1.JPG"];
 const AUTOPLAY_MS = 6000;
 const WHEEL_LOCK_MS = 500;
@@ -29,13 +28,12 @@ const WHEEL_LOCK_MS = 500;
 /* -------------------- Styled elements -------------------- */
 const Wrapper = styled(Box)({
   position: "relative",
-  width: "100vw",
-  height: "100vh",
+  width: "100%", // avoid 100vw overflow
+  height: "100svh",
   minHeight: "100vh",
   color: "#fff",
   overflow: "hidden",
   display: "flex",
-  flexDirection: "column",
   justifyContent: "center",
   margin: 0,
   padding: 0,
@@ -44,19 +42,19 @@ const Wrapper = styled(Box)({
   overscrollBehavior: "none",
   WebkitOverflowScrolling: "touch",
   "@supports (-webkit-touch-callout: none)": {
-    minHeight: "-webkit-fill-available",
+    minHeight: "100svh",
   },
 });
 
-const SlideLayer = styled(motion.div)(() => ({
+const SlideLayer = styled(motion.div)({
   position: "absolute",
   inset: 0,
   width: "100%",
   height: "100%",
   overflow: "hidden",
-}));
+});
 
-const SlideImg = styled(motion.img)(() => ({
+const SlideImg = styled(motion.img)({
   position: "absolute",
   inset: 0,
   width: "100%",
@@ -64,13 +62,13 @@ const SlideImg = styled(motion.img)(() => ({
   objectFit: "cover",
   willChange: "transform, opacity, filter",
   pointerEvents: "none",
-}));
+});
 
-const Overlay = styled(motion.div)(() => ({
+const Overlay = styled(motion.div)({
   position: "absolute",
   inset: 0,
   pointerEvents: "none",
-}));
+});
 
 const GlassButton = styled(motion(Button))({
   padding: "12px 20px",
@@ -129,6 +127,18 @@ const arrowVariants = {
   whileTap: { scale: 0.96 },
 };
 
+/* -------------------- Reusable mobile heading style -------------------- */
+const mobileH1Base = {
+  fontWeight: 300,
+  color: "white",
+  lineHeight: 1.15,
+  textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
+  wordBreak: "break-word",
+  overflowWrap: "break-word",
+  hyphens: "auto",
+  WebkitHyphens: "auto",
+};
+
 /* -------------------- Component -------------------- */
 const Hero2 = () => {
   const navigate = useNavigate();
@@ -172,7 +182,7 @@ const Hero2 = () => {
     return () => clearInterval(id);
   }, [paused, total]);
 
-  // Keyboard arrows (← / →)
+  // Keyboard arrows
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "ArrowRight") next();
@@ -182,7 +192,7 @@ const Hero2 = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, [next, prev]);
 
-  // Wheel: react to horizontal intent only (ignore vertical scroll)
+  // Wheel (horizontal only)
   const onWheel = (e) => {
     const ax = Math.abs(e.deltaX);
     const ay = Math.abs(e.deltaY);
@@ -222,7 +232,7 @@ const Hero2 = () => {
     });
   }, []);
 
-  /* -------------------- Slides with ✨Ken Burns + crossfade -------------------- */
+  /* -------------------- Slides -------------------- */
   const slides = useMemo(
     () => (
       <AnimatePresence initial={false} mode="wait">
@@ -255,10 +265,10 @@ const Hero2 = () => {
                 sx={{
                   position: "absolute",
                   inset: 0,
-                   background: `
-      linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 15%, rgba(0,0,0,0) 35%),
-      radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.18) 35%, rgba(0,0,0,0.08) 65%, rgba(0,0,0,0.15) 100%)
-    `,
+                  background: `
+                    linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 15%, rgba(0,0,0,0) 35%),
+                    radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.18) 35%, rgba(0,0,0,0.08) 65%, rgba(0,0,0,0.15) 100%)
+                  `,
                   pointerEvents: "none",
                 }}
               />
@@ -270,7 +280,7 @@ const Hero2 = () => {
     [index, isReducedMotion]
   );
 
-  /* -------------------- Ambient overlay pulse (kelly green accent) -------------------- */
+  /* -------------------- Ambient overlay pulse -------------------- */
   const ambient = useMemo(
     () => (
       <Overlay
@@ -288,7 +298,7 @@ const Hero2 = () => {
     []
   );
 
-  /* -------------------- Floating dust/particles (very subtle) -------------------- */
+  /* -------------------- Floating particles -------------------- */
   const particles = useMemo(() => {
     const dots = Array.from({ length: 16 });
     return (
@@ -306,10 +316,7 @@ const Hero2 = () => {
               background: "rgba(255,255,255,0.6)",
               filter: "blur(1px)",
             }}
-            animate={{
-              y: [0, -10, 0],
-              opacity: [0.15, 0.4, 0.15],
-            }}
+            animate={{ y: [0, -10, 0], opacity: [0.15, 0.4, 0.15] }}
             transition={{
               duration: 6 + (i % 5),
               repeat: Infinity,
@@ -334,88 +341,100 @@ const Hero2 = () => {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {/* Background slideshow */}
       {slides}
       {ambient}
       {particles}
 
-      {/* ---------- Mobile layout: centered text + stacked buttons ---------- */}
+      {/* ---------- Mobile: true, automatic centering ---------- */}
       <Box
         component={motion.div}
         variants={fadeInUp}
         initial="initial"
         animate="animate"
         sx={{
-          display: { xs: "flex", sm: "none" },
           position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+          inset: 0,
+          display: { xs: "flex", sm: "none" },
+          alignItems: "center",
+          justifyContent: "center",
+          paddingLeft: "max(16px, env(safe-area-inset-left))",
+          paddingRight: "max(16px, env(safe-area-inset-right))",
+          boxSizing: "border-box",
           zIndex: 2,
-          flexDirection: "column",
-          alignItems: "flex-start",
-          textAlign: "left",
-          width: "calc(100vw - 32px)",
-          maxWidth: 420,
         }}
       >
-        <Typography
-          variant="h1"
-          component={motion.h1}
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0, transition: { duration: 0.7 } }}
+        <Box
           sx={{
-            fontSize: "1.4rem",
-            fontWeight: 300,
-            color: "white",
-            lineHeight: 1.2,
-            textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
-            mb: 2,
+            width: "min(92%, 520px)",
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            gap: 1.5,
           }}
         >
-          988 Suicide & Crisis Hotline
-        </Typography>
-        <Typography
-          variant="h1"
-          component={motion.h2}
-          initial={{ opacity: 0, y: 14 }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            transition: { delay: 0.08, duration: 0.7 },
-          }}
-          sx={{
-            fontSize: "2.2rem",
-            fontWeight: 300,
-            color: "white",
-            lineHeight: 1.2,
-            textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
-            mb: 3,
-          }}
-        >
-          LIVE LIKE SEAN, <br /> A FRIEND TO ALL
-        </Typography>
+          <Typography
+            component={motion.h1}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 0.7 } }}
+            sx={{
+              ...mobileH1Base,
+              fontSize: "clamp(1.05rem, 4.8vw, 1.5rem)",
+              mb: 0.5,
+            }}
+          >
+            988 Suicide &amp; Crisis Hotline
+          </Typography>
 
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-          <GlassButton
-            variants={buttonVariants}
-            initial="initial"
-            animate={buttonVariants.animate(0)}
-            whileHover="whileHover"
-            whileTap="whileTap"
+          <Typography
+            component={motion.h2}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { delay: 0.08, duration: 0.7 },
+            }}
+            sx={{
+              ...mobileH1Base,
+              fontSize: "clamp(1.65rem, 8.8vw, 2.6rem)",
+              mb: 1,
+            }}
           >
-            LEARN MORE
-          </GlassButton>
-          <GlassButton
-            variants={buttonVariants}
-            initial="initial"
-            animate={buttonVariants.animate(1)}
-            whileHover="whileHover"
-            whileTap="whileTap"
-            onClick={handleAskQuestion}
+            LIVE LIKE SEAN, <br /> A FRIEND TO ALL
+          </Typography>
+
+          {/* 50/50 grid buttons */}
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 1.25,
+              width: "100%",
+            }}
           >
-            VIEW GALLERY
-          </GlassButton>
+            <GlassButton
+              variants={buttonVariants}
+              initial="initial"
+              animate={buttonVariants.animate(0)}
+              whileHover="whileHover"
+              whileTap="whileTap"
+              fullWidth
+              sx={{ width: "100%", minHeight: 48 }}
+            >
+              LEARN MORE
+            </GlassButton>
+            <GlassButton
+              variants={buttonVariants}
+              initial="initial"
+              animate={buttonVariants.animate(1)}
+              whileHover="whileHover"
+              whileTap="whileTap"
+              onClick={handleAskQuestion}
+              fullWidth
+              sx={{ width: "100%", minHeight: 48 }}
+            >
+              VIEW GALLERY
+            </GlassButton>
+          </Box>
         </Box>
       </Box>
 
@@ -435,7 +454,6 @@ const Hero2 = () => {
         }}
       >
         <Typography
-          variant="h1"
           component={motion.h3}
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0, transition: { duration: 0.7 } }}
@@ -448,10 +466,9 @@ const Hero2 = () => {
             textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
           }}
         >
-          988 Suicide & Crisis Hotline
+          988 Suicide &amp; Crisis Hotline
         </Typography>
         <Typography
-          variant="h1"
           component={motion.h1}
           initial={{ opacity: 0, y: 14 }}
           animate={{
@@ -506,16 +523,16 @@ const Hero2 = () => {
         </GlassButton>
       </Box>
 
-      {/* On-screen arrow controls */}
+      {/* On-screen arrow controls (hidden on mobile) */}
       {total > 1 && (
-        <>
+        <Box sx={{ display: { xs: "none", sm: "block" } }}>
           <ArrowButton
             aria-label="Previous slide"
             onClick={prev}
             variants={arrowVariants}
             whileHover="whileHover"
             whileTap="whileTap"
-            sx={{ left: { xs: 8, sm: 16 } }}
+            sx={{ left: { sm: 16 } }}
           >
             <ChevronLeftIcon />
           </ArrowButton>
@@ -526,11 +543,11 @@ const Hero2 = () => {
             variants={arrowVariants}
             whileHover="whileHover"
             whileTap="whileTap"
-            sx={{ right: { xs: 8, sm: 16 } }}
+            sx={{ right: { sm: 16 } }}
           >
             <ChevronRightIcon />
           </ArrowButton>
-        </>
+        </Box>
       )}
 
       {/* Stepper dots (center bottom) */}

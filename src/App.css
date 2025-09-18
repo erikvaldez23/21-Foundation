@@ -2,12 +2,13 @@
 
 html, body, #root {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  background-color: #0a0a0a; /* Optional: dark background */
-  font-family: 'Inter', sans-serif !important; /* Customize as needed */
+  background-color: #0a0a0a;
+  font-family: 'Inter', sans-serif !important;
   overscroll-behavior: none;
 }
 
@@ -16,14 +17,18 @@ html, body, #root {
   box-sizing: inherit;
 }
 
-/* Optional: remove default list and link styles */
-ul, ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* Media should never exceed the viewport width */
+img, video, canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+/* Optional: prevent accidental body shifts from scrollbars */
+:root {
+  scrollbar-gutter: stable both-edges;
 }
+
+/* Optional resets */
+ul, ol { list-style: none; padding: 0; margin: 0; }
+a { text-decoration: none; color: inherit; }

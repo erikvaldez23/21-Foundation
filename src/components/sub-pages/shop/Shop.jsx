@@ -105,14 +105,18 @@ const Shop = () => {
             <br />—
           </Typography>
         </Box>
-        <Box
-          sx={{
-            mt: 4,
-            display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-            gap: 3,
-          }}
-        >
+<Box
+  sx={{
+    mt: 4,
+    display: "grid",
+    gridTemplateColumns: {
+      xs: "1fr",                          // 1 column on mobile
+      md: "repeat(3, minmax(0, 1fr))",    // keep 3 columns on desktop
+    },
+    gap: 3,
+  }}
+>
+
           {products.map((p) => (
             <Box key={p.id}>
               <Card

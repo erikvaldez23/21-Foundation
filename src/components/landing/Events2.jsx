@@ -19,18 +19,40 @@ const ACCENT = "#339c5e";
 /* ===================== Styled ===================== */
 const Section = styled(Box)(({ theme }) => ({
   backgroundColor: "#E8E5DD",
-  paddingTop: theme.spacing(7.5),
-  paddingBottom: theme.spacing(7.5),
+  // tighter vertical rhythm on phones, unchanged at md+
+  paddingTop: `max(${theme.spacing(5)}, env(safe-area-inset-top))`,
+  paddingBottom: `max(${theme.spacing(5)}, env(safe-area-inset-bottom))`,
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  [theme.breakpoints.up("sm")]: {
+    paddingTop: theme.spacing(6.5),
+    paddingBottom: theme.spacing(6.5),
+  },
+  [theme.breakpoints.up("md")]: {
+    paddingTop: theme.spacing(7.5),
+    paddingBottom: theme.spacing(7.5),
+  },
 }));
 
 const HeaderRow = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "flex-start",
-  marginBottom: theme.spacing(6.25),
-  [theme.breakpoints.down("md")]: { flexDirection: "column", gap: theme.spacing(3.75) },
+  marginBottom: theme.spacing(5), // a bit tighter on mobile by default
+  gap: theme.spacing(2),
+  [theme.breakpoints.up("sm")]: {
+    marginBottom: theme.spacing(6),
+    gap: theme.spacing(3),
+  },
+  [theme.breakpoints.up("md")]: {
+    // desktop/tablet matches original
+    marginBottom: theme.spacing(6.25),
+    gap: 0,
+    flexDirection: "row",
+  },
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+  },
 }));
 
 const CarouselContainer = styled(Box)({
@@ -58,7 +80,7 @@ const RADIUS = 16;
 const CTA_SPACE = 96;
 
 const ImageShell = styled(Box)(({ theme }) => ({
-  height: 300,
+  height: 260, // smaller default for phones
   position: "relative",
   display: "flex",
   flexDirection: "column",
@@ -66,12 +88,17 @@ const ImageShell = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   color: "white",
   textAlign: "center",
-  /* add extra bottom padding to create space above the buttons */
-  padding: `40px 20px ${CTA_SPACE}px`,
+  padding: `32px 16px ${CTA_SPACE + 8}px`, // a touch more space for CTA stack on mobile
   borderRadius: RADIUS,
   overflow: "hidden",
-  [theme.breakpoints.down("sm")]: {
-    padding: `32px 16px ${CTA_SPACE + 8}px`,
+  [theme.breakpoints.up("sm")]: {
+    height: 280,
+    padding: `36px 18px ${CTA_SPACE + 4}px`,
+  },
+  [theme.breakpoints.up("md")]: {
+    // desktop/tablet exactly as the original
+    height: 300,
+    padding: `40px 20px ${CTA_SPACE}px`,
   },
 }));
 
@@ -96,7 +123,6 @@ const ImageBgImg = styled("img")({
   display: "block",
 });
 
-/* Base overlay for general contrast */
 const Overlay = styled(Box)({
   position: "absolute",
   inset: 0,
@@ -106,7 +132,6 @@ const Overlay = styled(Box)({
   pointerEvents: "none",
 });
 
-/* Extra bottom fade to help CTA readability */
 const BottomFade = styled(Box)({
   position: "absolute",
   left: 0,
@@ -121,40 +146,50 @@ const BottomFade = styled(Box)({
   pointerEvents: "none",
 });
 
-const ImageContent = styled(Box)({
+const ImageContent = styled(Box)(({ theme }) => ({
   position: "relative",
   zIndex: 3,
-});
+  // keep lines from getting too long on phones
+  width: "min(92%, 720px)",
+  marginInline: "auto",
+}));
 
 /* ----- Text styles ----- */
-const HeaderTag = styled(Typography)({
-  fontSize: 12,
+const HeaderTag = styled(Typography)(({ theme }) => ({
   fontWeight: 300,
   letterSpacing: 2,
-  marginBottom: 20,
+  marginBottom: 14,
   textTransform: "uppercase",
-});
+  fontSize: 11, // smaller base for phones
+  [theme.breakpoints.up("sm")]: { fontSize: 12, marginBottom: 18 },
+  [theme.breakpoints.up("md")]: { fontSize: 12, marginBottom: 20 }, // original spacing at md+
+}));
 
-const CourseH3 = styled(Typography)({
-  fontSize: 42,
+const CourseH3 = styled(Typography)(({ theme }) => ({
   fontWeight: 300,
-  lineHeight: 1.1,
-  marginBottom: 8,
-});
+  lineHeight: 1.12,
+  marginBottom: 6,
+  fontSize: 28, // mobile
+  [theme.breakpoints.up("sm")]: { fontSize: 34, marginBottom: 7 },
+  [theme.breakpoints.up("md")]: { fontSize: 42, marginBottom: 8 }, // original
+}));
 
-const CourseH4 = styled(Typography)({
-  fontSize: 42,
+const CourseH4 = styled(Typography)(({ theme }) => ({
   fontWeight: 300,
-  marginBottom: 20,
-  lineHeight: 1.1,
-});
+  lineHeight: 1.12,
+  marginBottom: 16,
+  fontSize: 26, // mobile
+  [theme.breakpoints.up("sm")]: { fontSize: 34, marginBottom: 18 },
+  [theme.breakpoints.up("md")]: { fontSize: 42, marginBottom: 20 }, // original
+}));
 
-const CourseSub = styled(Typography)({
-  fontSize: 14,
+const CourseSub = styled(Typography)(({ theme }) => ({
   fontWeight: 300,
-});
+  fontSize: 13,
+  [theme.breakpoints.up("sm")]: { fontSize: 14 },
+}));
 
-const NavBtn = styled(IconButton)({
+const NavBtn = styled(IconButton)(({ theme }) => ({
   width: 40,
   height: 40,
   borderRadius: "50%",
@@ -162,33 +197,44 @@ const NavBtn = styled(IconButton)({
   backgroundColor: "#fff",
   color: "#666",
   "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
-});
+  // on tiny phones, keep them tappable but not overpowering
+  [theme.breakpoints.down("sm")]: {
+    width: 36,
+    height: 36,
+  },
+}));
 
 /* ----- Transparent CTAs pinned to image bottom ----- */
 const ImageCtaBar = styled(Box)(({ theme }) => ({
   position: "absolute",
-  left: 16,
-  right: 16,
-  bottom: 24, // a bit more breathing room from the bottom edge
+  left: 12,
+  right: 12,
+  bottom: 18,
   zIndex: 4,
   display: "flex",
   justifyContent: "center",
-  gap: 12,
+  gap: 10,
   flexWrap: "wrap",
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.up("sm")]: {
     left: 12,
     right: 12,
     bottom: 20,
     gap: 10,
+  },
+  [theme.breakpoints.up("md")]: {
+    // original spacing at md+
+    left: 16,
+    right: 16,
+    bottom: 24,
+    gap: 12,
   },
 }));
 
 const GhostBtn = styled(Button)(({ theme }) => ({
   textTransform: "none",
   fontWeight: 700,
-  fontSize: 14,
-  /* taller buttons for more vertical padding inside the button */
-  padding: "14px 18px",
+  fontSize: 13, // mobile size
+  padding: "12px 16px",
   borderRadius: 999,
   color: "#fff",
   background: "rgba(255,255,255,0.04)",
@@ -207,6 +253,15 @@ const GhostBtn = styled(Button)(({ theme }) => ({
   "&:focus-visible": {
     outline: "2px solid rgba(255,255,255,0.9)",
     outlineOffset: 2,
+  },
+  [theme.breakpoints.up("sm")]: {
+    fontSize: 14,
+    padding: "14px 18px",
+  },
+  [theme.breakpoints.up("md")]: {
+    // original at md+
+    fontSize: 14,
+    padding: "14px 18px",
   },
 }));
 
@@ -355,18 +410,19 @@ export default function EdutainmentCoursesMUI() {
   };
 
   return (
-    <Section>
+    <Section role="region" aria-label="Get involved carousel">
       <Container maxWidth="xl">
         <HeaderRow>
           <Box sx={{ width: "100%" }}>
             <Typography
               variant="h1"
               sx={{
-                fontSize: { xs: 36, sm: 48 },
+                // more restrained on phones
+                fontSize: { xs: 32, sm: 40, md: 48 }, // md matches original {sm:48}
                 fontWeight: 400,
-                lineHeight: 1.2,
+                lineHeight: { xs: 1.2, sm: 1.2 },
                 color: "#333",
-                mb: 1,
+                mb: { xs: 0.75, sm: 1, md: 1 },
                 letterSpacing: "-0.5px",
               }}
             >
@@ -375,18 +431,25 @@ export default function EdutainmentCoursesMUI() {
             <Typography
               variant="h2"
               sx={{
-                fontSize: { xs: 22, sm: 28 },
+                fontSize: { xs: 18, sm: 22, md: 28 }, // md matches original {sm:28}
                 fontWeight: 400,
                 color: "#333",
-                mb: 2,
+                mb: { xs: 1.25, sm: 2, md: 2 },
                 letterSpacing: "-0.3px",
               }}
             >
               Fill out the form to join us!
             </Typography>
 
-            {/* Arrow controls under the header (left-aligned here) */}
-            <Box sx={{ display: "flex", justifyContent: "flex-start", gap: 1, mt: 1 }}>
+            {/* Arrow controls under the header (left-aligned) */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                gap: 1,
+                mt: { xs: 0.5, sm: 1 },
+              }}
+            >
               <NavBtn onClick={previousSlide} aria-label="previous" disabled={atStart}>
                 <ChevronLeft size={16} />
               </NavBtn>
@@ -414,7 +477,12 @@ export default function EdutainmentCoursesMUI() {
                 <Box key={course.key} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px` }}>
                   <ImageShell>
                     {course.image ? (
-                      <ImageBgImg src={course.image} alt={course.title} loading="lazy" />
+                      <ImageBgImg
+                        src={course.image}
+                        alt={course.title}
+                        loading="lazy"
+                        decoding="async"
+                      />
                     ) : (
                       <ImageBg sx={course.bgStyle} />
                     )}
@@ -435,7 +503,7 @@ export default function EdutainmentCoursesMUI() {
                           <CourseSub sx={{ mb: 2 }}>{course.subTop}</CourseSub>
                           <Typography
                             sx={{
-                              fontSize: 48,
+                              fontSize: { xs: 32, sm: 42, md: 48 }, // md=48 matches spirit of original
                               fontWeight: 400,
                               fontStyle: "italic",
                               color: "#2c5530",
@@ -447,7 +515,7 @@ export default function EdutainmentCoursesMUI() {
                           </Typography>
                           <Typography
                             sx={{
-                              fontSize: 56,
+                              fontSize: { xs: 40, sm: 52, md: 56 }, // md=56 as original
                               fontWeight: 800,
                               letterSpacing: "-2px",
                               color: "#000",
@@ -498,21 +566,27 @@ export default function EdutainmentCoursesMUI() {
                     </ImageCtaBar>
                   </ImageShell>
 
-                  {/* Content (no sign-up prompt below image anymore) */}
-                  <Box sx={{ p: 3.75, display: "flex", flexDirection: "column" }}>
+                  {/* Content (unchanged at md+) */}
+                  <Box sx={{ p: { xs: 3, sm: 3.5, md: 3.75 }, display: "flex", flexDirection: "column" }}>
                     <Typography
                       component="h3"
                       sx={{
-                        fontSize: 24,
+                        fontSize: { xs: 20, sm: 22, md: 24 }, // md=24 original
                         fontWeight: 600,
                         color: "#333",
-                        mb: 2,
+                        mb: { xs: 1.25, sm: 1.5, md: 2 },
                         lineHeight: 1.3,
                       }}
                     >
                       {course.title}
                     </Typography>
-                    <Typography sx={{ fontSize: 15, lineHeight: 1.6, color: "#666" }}>
+                    <Typography
+                      sx={{
+                        fontSize: { xs: 14, sm: 15, md: 15 }, // md unchanged
+                        lineHeight: 1.6,
+                        color: "#666",
+                      }}
+                    >
                       {course.body}
                     </Typography>
                   </Box>

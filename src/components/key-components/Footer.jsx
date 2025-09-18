@@ -22,20 +22,33 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 // --- tweak this to match your site (e.g., 1200, 1280, 1440) ---
 const SITE_MAX_WIDTH = 1200;
 
-// ---- Styles ----
+/* ----------------------------- Styles ----------------------------- */
 const Wrapper = styled("footer")(({ theme }) => ({
   backgroundColor: "#E8E5DD",
   color: "#1a1a1a",
   borderTop: "1px solid #2c2c2c",
-  paddingTop: theme.spacing(6),
-  paddingBottom: theme.spacing(3),
+  paddingTop: `max(${theme.spacing(4)}, env(safe-area-inset-top))`,
+  paddingBottom: `max(${theme.spacing(2.5)}, env(safe-area-inset-bottom))`,
+  [theme.breakpoints.up("sm")]: {
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(3),
+  },
+  [theme.breakpoints.up("md")]: {
+    // desktop unchanged
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(3),
+  },
 }));
 
 const Heading = styled(Typography)(({ theme }) => ({
   fontFamily: "'Playfair Display', Georgia, serif",
   fontWeight: 700,
-  fontSize: "1.4rem",
-  marginBottom: theme.spacing(2),
+  // fluid on mobile, original feel at md+
+  fontSize: "clamp(1.1rem, 3.8vw, 1.4rem)",
+  marginBottom: theme.spacing(1.5),
+  [theme.breakpoints.up("sm")]: {
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const PillButton = styled(Button)(({ theme }) => ({
@@ -53,10 +66,23 @@ const SocialButton = styled(IconButton)(({ theme }) => ({
   borderRadius: 12,
   border: "1px solid rgba(0,0,0,0.12)",
   backgroundColor: "#fff",
+  width: 44,
+  height: 44,
   "&:hover": { backgroundColor: "#f7f7f7" },
+  [theme.breakpoints.up("sm")]: {
+    width: 48,
+    height: 48,
+  },
 }));
 
-export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
+export default function Footer({
+  brand = "Clark21Foundation",
+  onSubscribe,
+  instagramUrl = "https://www.instagram.com/seanclark21foundation/",
+  facebookUrl = "#",
+  xUrl = "#",
+  youtubeUrl = "#",
+}) {
   const [email, setEmail] = React.useState("");
 
   const handleSubscribe = () => {
@@ -66,18 +92,22 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
 
   return (
     <Wrapper>
-      {/* Use a full-width Container, then constrain + center with maxWidth */}
       <Container
         maxWidth={false}
         sx={{
           maxWidth: SITE_MAX_WIDTH,
           mx: "auto",
-          px: { xs: 2, sm: 3 },
+          // comfy edges on phones + safe areas
+          px: {
+            xs: "max(16px, env(safe-area-inset-left))",
+            sm: 3,
+          },
+          pr: { xs: "max(16px, env(safe-area-inset-right))", sm: 3 },
         }}
       >
         <Grid
           container
-          spacing={4}
+          spacing={{ xs: 3, sm: 4 }}
           alignItems="flex-start"
           justifyContent="space-between"
         >
@@ -85,14 +115,24 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
           <Grid item xs={12} md={4}>
             <Typography
               variant="h5"
-              sx={{ fontWeight: 800, mb: 1, textAlign: { xs: "center", md: "left" } }}
+              sx={{
+                fontWeight: 800,
+                mb: 0.75,
+                textAlign: { xs: "center", md: "left" },
+                fontSize: { xs: "1.25rem", sm: "1.35rem", md: "1.5rem" },
+                letterSpacing: { xs: 0.2, md: 0 },
+              }}
             >
               {brand}
             </Typography>
             <Typography
               variant="body2"
               color="text.secondary"
-              sx={{ mb: 2, textAlign: { xs: "center", md: "left" } }}
+              sx={{
+                mb: 2,
+                textAlign: { xs: "center", md: "left" },
+                fontSize: { xs: "0.95rem", sm: "1rem" },
+              }}
             >
               Live Like Sean, A Friend To All
             </Typography>
@@ -102,10 +142,42 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
               gap={1}
               sx={{ justifyContent: { xs: "center", md: "flex-start" } }}
             >
-              <SocialButton aria-label="Instagram"><InstagramIcon /></SocialButton>
-              <SocialButton aria-label="Facebook"><FacebookIcon /></SocialButton>
-              <SocialButton aria-label="X / Twitter"><XIcon /></SocialButton>
-              <SocialButton aria-label="YouTube"><YouTubeIcon /></SocialButton>
+              <SocialButton
+                aria-label="Instagram"
+                component="a"
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <InstagramIcon />
+              </SocialButton>
+              <SocialButton
+                aria-label="Facebook"
+                component="a"
+                href={facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FacebookIcon />
+              </SocialButton>
+              <SocialButton
+                aria-label="X / Twitter"
+                component="a"
+                href={xUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <XIcon />
+              </SocialButton>
+              <SocialButton
+                aria-label="YouTube"
+                component="a"
+                href={youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <YouTubeIcon />
+              </SocialButton>
             </Box>
           </Grid>
 
@@ -114,19 +186,32 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
             <Heading variant="h6" sx={{ textAlign: { xs: "center", sm: "left" } }}>
               Quick Links
             </Heading>
+
+            {/* 2-column on phones to reduce scrolling, single column at sm+ */}
             <Box
               sx={{
                 display: "grid",
-                gap: 1.2,
+                gap: 1.1,
+                gridTemplateColumns: { xs: "1fr 1fr", sm: "1fr" },
                 textAlign: { xs: "center", sm: "left" },
                 justifyItems: { xs: "center", sm: "start" },
               }}
             >
-              <Link href="#" underline="hover" color="inherit">About</Link>
-              <Link href="#" underline="hover" color="inherit">Events</Link>
-              <Link href="#" underline="hover" color="inherit">Give</Link>
-              <Link href="#" underline="hover" color="inherit">Shop</Link>
-              <Link href="#" underline="hover" color="inherit">Contact</Link>
+              <Link href="#/about" underline="hover" color="inherit">
+                About
+              </Link>
+              <Link href="#/events" underline="hover" color="inherit">
+                Events
+              </Link>
+              <Link href="#/give" underline="hover" color="inherit">
+                Give
+              </Link>
+              <Link href="#/shop" underline="hover" color="inherit">
+                Shop
+              </Link>
+              <Link href="#/contact" underline="hover" color="inherit">
+                Contact
+              </Link>
             </Box>
           </Grid>
 
@@ -138,7 +223,10 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
             <Typography
               variant="body2"
               color="text.secondary"
-              sx={{ mb: 2, textAlign: { xs: "center", sm: "left" } }}
+              sx={{
+                mb: { xs: 1.5, sm: 2 },
+                textAlign: { xs: "center", sm: "left" },
+              }}
             >
               Get updates on upcoming events and community programs.
             </Typography>
@@ -151,6 +239,8 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
               }}
               sx={{
                 display: "flex",
+                flexDirection: { xs: "column", sm: "row" },
+                alignItems: { xs: "stretch", sm: "center" },
                 gap: 1,
                 maxWidth: 520,
                 mx: { xs: "auto", sm: 0 },
@@ -158,10 +248,14 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
             >
               <TextField
                 fullWidth
-                size="medium"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                size="small"
                 placeholder="Your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                sx={{ backgroundColor: "#fff" }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -170,35 +264,59 @@ export default function Footer({ brand = "Clark21Foundation", onSubscribe }) {
                   ),
                 }}
               />
-              <PillButton type="submit">Subscribe</PillButton>
+              <PillButton
+                type="submit"
+                sx={{
+                  minHeight: 40,
+                  px: { xs: 2.25, sm: 2.5 },
+                  mt: { xs: 0.5, sm: 0 },
+                  width: { xs: "100%", sm: "auto" },
+                }}
+              >
+                Subscribe
+              </PillButton>
             </Box>
           </Grid>
         </Grid>
 
-        <Divider sx={{ my: 3, borderColor: "#2c2c2c" }} />
+        <Divider sx={{ my: { xs: 2, sm: 3 }, borderColor: "#2c2c2c" }} />
 
         {/* Bottom row */}
         <Box
           sx={{
             display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
             flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 1.5,
+            alignItems: { xs: "center", sm: "center" },
+            justifyContent: { xs: "center", sm: "space-between" },
+            gap: { xs: 1, sm: 1.5 },
             textAlign: { xs: "center", sm: "left" },
           }}
         >
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ order: { xs: 2, sm: 1 } }}
+          >
             © {new Date().getFullYear()} {brand}. All rights reserved.
           </Typography>
-          <Box sx={{ display: "flex", gap: 2, mx: { xs: "auto", sm: 0 } }}>
+
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              mx: { xs: "auto", sm: 0 },
+              order: { xs: 1, sm: 2 },
+              mb: { xs: 0.5, sm: 0 },
+            }}
+          >
             <Link href="/#/privacy-policy" underline="hover" color="inherit" variant="body2">
               Privacy Policy
             </Link>
-            <Link href="#" underline="hover" color="inherit" variant="body2">
+            <Link href="#/terms" underline="hover" color="inherit" variant="body2">
               Terms of Service
             </Link>
-            <Link href="#" underline="hover" color="inherit" variant="body2">
+            <Link href="#/accessibility" underline="hover" color="inherit" variant="body2">
               Accessibility
             </Link>
           </Box>

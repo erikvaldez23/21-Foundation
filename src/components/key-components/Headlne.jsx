@@ -7,6 +7,7 @@ import {
   Button,
   IconButton,
   Link as MuiLink,
+  useMediaQuery,
 } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,6 +18,7 @@ export default function SessionHeadliner() {
 
   const storageKey = "headlinerDismissed";
   const autoCloseMs = 10000; // 10 seconds
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   // Show once per session
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function SessionHeadliner() {
     }
   }, []);
 
-  // Auto-close after 10s
+  // Auto-close after N seconds
   useEffect(() => {
     if (!open) return;
     const timer = setTimeout(() => handleClose(), autoCloseMs);
@@ -66,18 +68,25 @@ export default function SessionHeadliner() {
     } catch {}
     setTimeout(() => {
       document.documentElement.style.removeProperty("--headliner-h");
-    }, 500); // match animation duration
+    }, prefersReducedMotion ? 0 : 500);
   };
+
+  // Motion variants (respect reduced motion)
+  const enter = prefersReducedMotion
+    ? { y: 0, opacity: 1, transition: { duration: 0 } }
+    : { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeInOut" } };
+  const exit = prefersReducedMotion
+    ? { y: 0, opacity: 0, transition: { duration: 0.2 } }
+    : { y: -80, opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } };
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
           ref={ref}
-          initial={{ y: -80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -80, opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          initial={{ y: prefersReducedMotion ? 0 : -80, opacity: prefersReducedMotion ? 1 : 0 }}
+          animate={enter}
+          exit={exit}
           style={{
             position: "fixed",
             top: 0,
@@ -88,25 +97,64 @@ export default function SessionHeadliner() {
         >
           <Box
             sx={{
+              position: "relative", // <-- anchor the absolute close button
               bgcolor: "#E8E5DD",
               borderBottom: "1px solid rgba(0,0,0,0.1)",
+              // add a touch more top padding so the absolute button doesn't overlap text
+              pt: { xs: "max(10px, env(safe-area-inset-top))", md: 0 },
+              pb: 0, // content container handles vertical rhythm
             }}
             role="region"
             aria-label="Site announcement"
           >
+            {/* ABSOLUTE close button at the VERY TOP-RIGHT */}
+            <IconButton
+              aria-label="Close announcement"
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                top: { xs: "max(2px, env(safe-area-inset-top))", md: 6 },
+                right: { xs: "max(6px, env(safe-area-inset-right))", md: 12 },
+                color: "#1a1a1a",
+                width: 40,
+                height: 40,
+                zIndex: 1,
+                "&:focus-visible": {
+                  outline: "2px solid rgba(0,0,0,0.35)",
+                  outlineOffset: 2,
+                  borderRadius: 8,
+                },
+              }}
+            >
+              <CloseRoundedIcon />
+            </IconButton>
+
             <Container
               maxWidth="xl"
               sx={{
                 display: "grid",
-                gridTemplateColumns: { xs: "1fr auto", md: "1fr auto auto" },
+                gridTemplateColumns: { xs: "1fr", md: "1fr auto" },
                 alignItems: "center",
-                gap: 1.5,
+                columnGap: 1.5,
+                rowGap: { xs: 1, md: 1.25 },
                 py: { xs: 1, md: 1.25 },
+                px: {
+                  xs: "max(16px, env(safe-area-inset-left))",
+                  md: 3,
+                },
+                pr: { xs: "max(16px, env(safe-area-inset-right))", md: 3 },
               }}
             >
+              {/* Message */}
               <Typography
                 variant="body2"
-                sx={{ color: "#1a1a1a", fontWeight: 500, pr: 1 }}
+                sx={{
+                  color: "#1a1a1a",
+                  fontWeight: 500,
+                  pr: { md: 1 },
+                  fontSize: { xs: "0.95rem", sm: "1rem" },
+                  lineHeight: { xs: 1.35, sm: 1.4 },
+                }}
               >
                 Join us for the Walk-Out Event on September 14th — sign up today!{" "}
                 <MuiLink
@@ -114,38 +162,45 @@ export default function SessionHeadliner() {
                   target="_blank"
                   rel="noopener noreferrer"
                   underline="always"
-                  sx={{ color: "#339c5e", fontWeight: 600 }}
+                  sx={{
+                    color: "#339c5e",
+                    fontWeight: 700,
+                    display: "inline-block",
+                    px: { xs: 0.25, sm: 0 },
+                    mx: { xs: 0.25, sm: 0 },
+                    borderRadius: 0.75,
+                    "&:focus-visible": {
+                      outline: "2px solid rgba(51,156,94,0.55)",
+                      outlineOffset: 2,
+                    },
+                  }}
                 >
                   Learn more
                 </MuiLink>
               </Typography>
 
-              <Button
-                size="small"
-                variant="contained"
-                href="https://docs.google.com/forms/d/e/1FAIpQLSc1vprOU16Iufa50z8ZFiuAo2J8QKp-6xgbZVekXy-ez-u36w/viewform?fbclid=PAZXh0bgNhZW0CMTEAAad7uVMx_QTaQKQPrjCh9AKhHWYicBqVYHi1tSeuz8rjPIOH_QhA8LTH6LjcxA_aem_n_N_eoOi31r__neqJ2THkQ"
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  bgcolor: "#339c5e",
-                  textTransform: "none",
-                  fontWeight: 700,
-                  borderRadius: 999,
-                  px: 2.4,
-                  "&:hover": { bgcolor: "#2d8a55" },
-                }}
-              >
-                Sign Up
-              </Button>
-
-              <IconButton
-                aria-label="Close announcement"
-                onClick={handleClose}
-                edge="end"
-                sx={{ color: "#1a1a1a" }}
-              >
-                <CloseRoundedIcon />
-              </IconButton>
+              {/* Sign Up button (full width on xs) */}
+              <Box sx={{ justifySelf: { md: "end" } }}>
+                <Button
+                  fullWidth
+                  size="small"
+                  variant="contained"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSc1vprOU16Iufa50z8ZFiuAo2J8QKp-6xgbZVekXy-ez-u36w/viewform?fbclid=PAZXh0bgNhZW0CMTEAAad7uVMx_QTaQKQPrjCh9AKhHWYicBqVYHi1tSeuz8rjPIOH_QhA8LTH6LjcxA_aem_n_N_eoOi31r__neqJ2THkQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    bgcolor: "#339c5e",
+                    textTransform: "none",
+                    fontWeight: 700,
+                    borderRadius: 999,
+                    px: { xs: 1.75, md: 2.4 },
+                    py: { xs: 0.75, md: 0.6 },
+                    "&:hover": { bgcolor: "#2d8a55" },
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </Box>
             </Container>
           </Box>
         </motion.div>
