@@ -28,24 +28,19 @@ const SectionWrap = styled(Box)(({ theme }) => ({
 
 /* --------------------------------- UI --------------------------------- */
 const StoryMission = ({
-  title = "Sean’s Story & Our Mission",
-  subtitle =
-    "Inspired by Sean Clark’s spirit, our mission is to empower young people to thrive by fostering mental resiliency through the positive influence of sports, friendship, family and faith.",
-  story =
-    "Sean’s kindness, courage, and love for bringing people together continue to light the way for our work. What began as a tribute to his life has grown into a movement that champions mental well-being and community support for youth.",
-  mission =
-    "We create programs that build resilience: youth sports and mentorship, access to mental health resources, and community initiatives that foster belonging. Every action is designed to help young people advocate for themselves and others.",
+  title = "About the Sean Clark 21 Foundation",
   ctaLabel = "Give in Sean’s Honor",
   onCta = () => {},
-  image = "/image29.JPG",
-  caption = "Outreach in action—every moment shaped by kindness and courage.",
+  image = "/about/about.JPG",
+  caption = "Promoting mental health awareness. Encouraging everyone to reach out.",
   pullquote = {
     name: "Family of Sean",
     role: "Founding Inspiration",
-    avatar: "/image29.JPG",
+    avatar: "/about/about.JPG",
     quote:
-      "Sean reminded us that small acts of kindness can change the course of a life.",
+      "If we all pay attention and approach others with kindness, we can make a difference and save lives.",
   },
+  // keep the same four chips (optional branding)
   pillars = [
     {
       label: "Sports + Mentorship",
@@ -92,7 +87,7 @@ const StoryMission = ({
             <Box
               component="img"
               src={image}
-              alt="Sean’s story"
+              alt="About the Sean Clark 21 Foundation"
               loading="lazy"
               decoding="async"
               sx={{
@@ -123,7 +118,7 @@ const StoryMission = ({
             </Box>
           </Box>
 
-          {/* Right: Content (60%), text over section bg (no card) */}
+          {/* Right: Content (60%), text over section bg */}
           <Box
             sx={{
               display: "flex",
@@ -142,7 +137,7 @@ const StoryMission = ({
                 fontSize: { xs: 11, md: 12 },
               }}
             >
-              OUR PURPOSE
+              ABOUT US
             </Typography>
 
             <Typography
@@ -157,12 +152,44 @@ const StoryMission = ({
               {title}
             </Typography>
 
-            <Typography variant="body1" sx={{ color: alpha("#000", 0.8), mb: 2 }}>
-              {subtitle}
+            {/* New Content */}
+            <Typography variant="body1" sx={{ color: alpha("#000", 0.85), mb: 2 }}>
+              The Sean Clark 21 Foundation was created to promote mental health
+              awareness following the devastating loss of our beloved son Sean
+              Clark, age 14. Unfortunately, most people encounter bullying,
+              anxiety, depression and feelings of distress at various points in
+              their lives.
             </Typography>
 
-            {/* Pillars as Chips */}
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.2, mb: 2.5 }}>
+            <Typography variant="body1" sx={{ color: alpha("#000", 0.85), mb: 2 }}>
+              The foundation aims to stop the stigma and taboo related to
+              speaking openly about mental health and suicide. We want to create
+              open communication and encourage anyone struggling with their
+              mental health to feel empowered to <strong>REACH OUT</strong> and
+              seek help—either through friends and family or by utilizing{" "}
+              <strong>#988</strong>, the number for the mental crisis hotline
+              nationwide.
+            </Typography>
+
+            <Typography variant="body1" sx={{ color: alpha("#000", 0.85), mb: 2 }}>
+              Mental health is not discriminatory; it affects all genders,
+              religions, social statuses and ages. We focus our efforts on the
+              younger population to try and target the problem at the root.
+              Suicide has been reported in children as young as 7 years old. The
+              Sean Clark 21 Foundation wants you to know you are never alone.
+              Our goal is to provide and spread information and awareness for
+              young people to know how to handle their feelings at the moment
+              they arise.
+            </Typography>
+
+            <Typography variant="body1" sx={{ color: alpha("#000", 0.85) }}>
+              Suicide can be preventable, and if we all pay attention and
+              approach others with kindness, we can make a difference and save
+              lives.
+            </Typography>
+
+            {/* Optional Pillars */}
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.2, mt: 2.5 }}>
               {pillars.map((p, i) => (
                 <Chip
                   key={i}
@@ -180,65 +207,6 @@ const StoryMission = ({
                 />
               ))}
             </Box>
-
-            {/* Story + Mission */}
-            <Typography variant="h6" sx={{ fontWeight: 700, mb: 0.75 }}>
-              Sean’s Story
-            </Typography>
-            <Typography variant="body1" sx={{ color: alpha("#000", 0.82), mb: 2 }}>
-              {story}
-            </Typography>
-
-            <Typography variant="h6" sx={{ fontWeight: 700, mb: 0.75 }}>
-              Our Mission
-            </Typography>
-            <Typography variant="body1" sx={{ color: alpha("#000", 0.82) }}>
-              {mission}
-            </Typography>
-
-            {/* Pull quote */}
-            {pullquote?.quote && (
-              <Box
-                sx={{
-                  mt: 3,
-                  p: 2,
-                  borderRadius: 2,
-                  background: alpha(ACCENT, 0.07),
-                  border: `1px solid ${alpha(ACCENT, 0.22)}`,
-                }}
-              >
-                <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1 }}>
-                  <FormatQuoteRoundedIcon
-                    fontSize="small"
-                    sx={{ color: alpha(ACCENT, 0.6), mt: "2px" }}
-                  />
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontStyle: "italic", lineHeight: 1.5 }}
-                  >
-                    “{pullquote.quote}”
-                  </Typography>
-                </Box>
-
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.25, mt: 1.25 }}>
-                  {pullquote.avatar && (
-                    <Avatar
-                      src={pullquote.avatar}
-                      alt={pullquote.name}
-                      sx={{ width: 28, height: 28 }}
-                    />
-                  )}
-                  <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                    {pullquote.name}
-                  </Typography>
-                  {pullquote.role && (
-                    <Typography variant="caption" sx={{ opacity: 0.7 }}>
-                      • {pullquote.role}
-                    </Typography>
-                  )}
-                </Box>
-              </Box>
-            )}
 
             {/* CTA */}
             <Box sx={{ mt: 3 }}>

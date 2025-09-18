@@ -20,6 +20,7 @@ import PrivacyPolicy from "./components/sub-pages/privacy-policy/PrivacyPolicy";
 import ScrollToTop from "./components/animate/ScrollToTop";
 import EventDetail from "./components/sub-pages/events/EventDetails";
 import EventPage from "./components/sub-pages/events/EventPage";
+import Banner from "./components/key-components/Banner"
 
 const theme = createTheme({
   palette: {
@@ -41,6 +42,7 @@ function App() {
               <>
                 {/* <LoadingAnimation /> */}
                 <HeroClark />
+                {/* <Banner /> */}
                 <Quote />
                 <Events2 />
                 <ImpactPillars />
