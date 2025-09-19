@@ -24,7 +24,7 @@ const GalleryHero = () => {
     }}>
       <Container maxWidth="xl">
         {/* Header Section */}
-        <Box sx={{ textAlign: 'center', mb: 6, pt: 4 }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 0 ,md: 6 }, pt: { xs: 8 , md: 4 }}}>
           <Typography 
             variant="overline" 
             sx={{ 
@@ -42,7 +42,7 @@ const GalleryHero = () => {
             variant="h2" 
             component="h1" 
             sx={{
-              fontSize: { xs: '2rem', md: '3.5rem' },
+              fontSize: { xs: '3rem', md: '3.5rem' },
               fontWeight: 400,
               color: '#333',
               lineHeight: 1.3,

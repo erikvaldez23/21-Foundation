@@ -20,6 +20,10 @@ export default function SessionHeadliner() {
   const autoCloseMs = 10000; // 10 seconds
   const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
+  // constants for spacing the close button
+  const CLOSE_SIZE = 40; // px
+  const CLOSE_PAD_XS = 8; // extra breathing room on mobile (px)
+
   // Show once per session
   useEffect(() => {
     try {
@@ -97,63 +101,54 @@ export default function SessionHeadliner() {
         >
           <Box
             sx={{
-              position: "relative", // <-- anchor the absolute close button
+              position: "relative",
               bgcolor: "#E8E5DD",
               borderBottom: "1px solid rgba(0,0,0,0.1)",
-              // add a touch more top padding so the absolute button doesn't overlap text
               pt: { xs: "max(10px, env(safe-area-inset-top))", md: 0 },
-              pb: 0, // content container handles vertical rhythm
+              pb: 0,
             }}
             role="region"
             aria-label="Site announcement"
           >
-            {/* ABSOLUTE close button at the VERY TOP-RIGHT */}
-            <IconButton
-              aria-label="Close announcement"
-              onClick={handleClose}
-              sx={{
-                position: "absolute",
-                top: { xs: "max(2px, env(safe-area-inset-top))", md: 6 },
-                right: { xs: "max(6px, env(safe-area-inset-right))", md: 12 },
-                color: "#1a1a1a",
-                width: 40,
-                height: 40,
-                zIndex: 1,
-                "&:focus-visible": {
-                  outline: "2px solid rgba(0,0,0,0.35)",
-                  outlineOffset: 2,
-                  borderRadius: 8,
-                },
-              }}
-            >
-              <CloseRoundedIcon />
-            </IconButton>
-
             <Container
               maxWidth="xl"
               sx={{
                 display: "grid",
-                gridTemplateColumns: { xs: "1fr", md: "1fr auto" },
-                alignItems: "center",
-                columnGap: 1.5,
+                // Mobile: close on its own top row; content centered beneath with a little drop (mt)
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  md: "1fr auto auto",
+                },
+                gridTemplateAreas: {
+                  xs: `"close"
+                       "message"
+                       "cta"`,
+                  md: `"message cta close"`,
+                },
+                alignItems: { xs: "start", md: "center" },
+                justifyItems: { xs: "center", md: "stretch" },
+                textAlign: { xs: "center", md: "left" },
                 rowGap: { xs: 1, md: 1.25 },
-                py: { xs: 1, md: 1.25 },
+                columnGap: { md: 1.5 },
+                // give the message/cta a tiny nudge down on mobile
+                py: { xs: 1.25, md: 1.25 },
                 px: {
                   xs: "max(16px, env(safe-area-inset-left))",
                   md: 3,
                 },
-                pr: { xs: "max(16px, env(safe-area-inset-right))", md: 3 },
               }}
             >
               {/* Message */}
               <Typography
                 variant="body2"
                 sx={{
+                  gridArea: "message",
                   color: "#1a1a1a",
                   fontWeight: 500,
                   pr: { md: 1 },
                   fontSize: { xs: "0.95rem", sm: "1rem" },
                   lineHeight: { xs: 1.35, sm: 1.4 },
+                  maxWidth: { xs: 780, md: "none" }, // keep nice line length when centered
                 }}
               >
                 Join us for the Walk-Out Event on September 14th — sign up today!{" "}
@@ -180,7 +175,13 @@ export default function SessionHeadliner() {
               </Typography>
 
               {/* Sign Up button (full width on xs) */}
-              <Box sx={{ justifySelf: { md: "end" } }}>
+              <Box
+                sx={{
+                  gridArea: "cta",
+                  justifySelf: { xs: "center", md: "end" },
+                  width: { xs: "100%", sm: "auto" },
+                }}
+              >
                 <Button
                   fullWidth
                   size="small"

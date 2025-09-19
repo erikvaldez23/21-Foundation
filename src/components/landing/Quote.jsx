@@ -69,7 +69,7 @@ export default function InspirationalQuote({
               fontWeight: 700,
               // Fluid size: ~22px on tiny phones → ~36px tablet → ~44px desktop
               fontSize: "clamp(1.375rem, 5.2vw, 2.75rem)",
-              lineHeight: { xs: 1.25, sm: 1.22, md: 1.18 },
+              lineHeight: { xs: 1.25, sm: 1.22, md: 1 },
               letterSpacing: { xs: 0.1, sm: 0.15 },
               textWrap: "balance",
               hyphens: "auto",

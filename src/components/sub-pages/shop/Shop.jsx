@@ -73,7 +73,7 @@ const Shop = () => {
     <Box sx={{ minHeight: "100vh", bgcolor: "#E8E5DD", py: 4 }}>
       <Container maxWidth="xl">
         {/* Header */}
-        <Box sx={{ textAlign: "center", mb: 6, pt: 4 }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 0 ,md: 6 }, pt: { xs: 8 , md: 4 }}}>
           <Typography
             variant="overline"
             sx={{
@@ -84,13 +84,13 @@ const Shop = () => {
               display: "block",
             }}
           >
-            FOUNDATION SHOP
+            MENTAL HEALTH OUTREACH
           </Typography>
           <Typography
             variant="h2"
             component="h1"
             sx={{
-              fontSize: { xs: "2rem", md: "3.5rem" },
+              fontSize: { xs: "3rem", md: "3.5rem" },
               fontWeight: 400,
               color: "#333",
               lineHeight: 1.3,
@@ -99,9 +99,9 @@ const Shop = () => {
               fontFamily: "serif",
             }}
           >
-            PURPOSEFUL GOODS
-            <br />
-            DESIGNED TO GIVE BACK
+            {/* PURPOSEFUL GOODS */}
+            {/* <br /> */}
+            SHOP
             <br />—
           </Typography>
         </Box>
