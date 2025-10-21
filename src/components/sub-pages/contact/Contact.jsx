@@ -121,7 +121,7 @@ export default function ContactSection() {
                   <PhoneIphoneRoundedIcon sx={{ color: "#333" }} />
                   <Box>
                     <Typography sx={{ fontWeight: 600, color: "#222" }}>
-                      (555) 123-4567
+                      (123) 456-7890
                     </Typography>
                     <Typography sx={{ color: "#666", fontSize: 14 }}>
                       Call or text
@@ -130,7 +130,7 @@ export default function ContactSection() {
                   <Box flexGrow={1} />
                   <ActionButton
                     variant="contained"
-                    href="tel:+15551234567"
+                    href="tel:+1111111111"
                     sx={{ bgcolor: "#222", color: "#fff" }}
                     startIcon={<PhoneIphoneRoundedIcon />}
                   >
@@ -144,7 +144,7 @@ export default function ContactSection() {
                   <EmailRoundedIcon sx={{ color: "#333" }} />
                   <Box>
                     <Typography sx={{ fontWeight: 600, color: "#222" }}>
-                      hello@clark21.org
+                      reachout@seanclark21foundation.org
                     </Typography>
                     <Typography sx={{ color: "#666", fontSize: 14 }}>
                       General inquiries
@@ -153,7 +153,7 @@ export default function ContactSection() {
                   <Box flexGrow={1} />
                   <ActionButton
                     variant="outlined"
-                    href="mailto:hello@clark21.org"
+                    href="mailto:reachout@seanclark21foundation.org"
                     endIcon={<OpenInNewRoundedIcon />}
                     sx={{ borderColor: "#222", color: "#222" }}
                   >
@@ -167,7 +167,7 @@ export default function ContactSection() {
                   <PlaceRoundedIcon sx={{ color: "#333" }} />
                   <Box>
                     <Typography sx={{ fontWeight: 600, color: "#222" }}>
-                      Dallas, Texas
+                      City, ST
                     </Typography>
                     <Typography sx={{ color: "#666", fontSize: 14 }}>
                       By appointment

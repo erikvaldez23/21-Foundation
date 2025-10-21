@@ -1,285 +1,220 @@
-// src/components/team/MeetTheExperts.jsx
+// src/components/team/MeetTheTeamOneImage.jsx
 import React from "react";
 import {
   Box,
   Container,
   Typography,
-  Card,
-  IconButton,
   Chip,
-  Divider,
+  Stack,
+  useTheme,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { motion } from "framer-motion";
 
 /* --------------------------- Brand / Design Tokens --------------------------- */
-const ACCENT = "#339c5e"; // Kelly green
-const CANVAS = "#E8E5DD"; // Warm paper canvas
-const INK = "#0e1113";    // Deep ink text
+const ACCENT = "#339c5e";   // Kelly green
+const CANVAS = "#E8E5DD";   // Paper canvas
 
-/* ---------------------- Demo data (replace with real) ---------------------- */
-const TEAM = [
-  { id: 1, name: "Isa Clark", role: "Role", linkedin: null },
-  { id: 2, name: "John Clark", role: "Role", linkedin: null },
-  { id: 3, name: "Tre' Clark", role: "Role", linkedin: null },
-];
-
-const COMMITTEE = [
-  { id: "c1", name: "Christina Pfaff", role: "Role", linkedin: null },
-  { id: "c2", name: "Michelle Hardgree", role: "Role", linkedin: null },
-  { id: "c3", name: "Amber Hellwig", role: "Role", linkedin: null },
-  { id: "c4", name: "Nayla Eid", role: "Role", linkedin: null },
-  { id: "c5", name: "Julia Pfaff", role: "Role", linkedin: null },
-  { id: "c6", name: "Christian Dubill", role: "Role", linkedin: null },
-  { id: "c7", name: "Dean Wheeler", role: "Role", linkedin: null },
-];
-
-/* --------------------------------- Styles --------------------------------- */
-const PageWrap = styled(Box)(({ theme }) => ({
-  background: `radial-gradient(1200px 600px at 20% -10%, ${alpha(ACCENT, 0.14)} 0%, rgba(0,0,0,0) 38%),
-               radial-gradient(1200px 600px at 80% 110%, ${alpha('#000', 0.08)} 0%, rgba(0,0,0,0) 42%), ${CANVAS}`,
-}));
-
-const SectionHeader = ({ overline, title, subtitle }) => (
-  <Box sx={{ mb: { xs: 3, md: 4.5 } }}>
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1.25, mb: 1 }}>
-      <Box sx={{
-        width: 46,
-        height: 8,
-        borderRadius: 999,
-        bgcolor: ACCENT,
-        boxShadow: `0 0 0 6px ${alpha(ACCENT, 0.12)}`,
-      }} />
-      {overline && (
-        <Typography variant="overline" sx={{ letterSpacing: 1, color: alpha(INK, 0.55) }}>
-          {overline}
-        </Typography>
-      )}
-    </Box>
-    <Box sx={{ display: "flex", alignItems: "baseline", gap: 2 }}>
-      <Typography
-        variant="h3"
-        sx={{
-          fontWeight: 800,
-          letterSpacing: -0.2,
-          lineHeight: 1.05,
-          fontSize: { xs: 28, sm: 36, md: 44 },
-          color: INK,
-        }}
-      >
-        {title}
-      </Typography>
-      <Box sx={{ flex: 1, height: 1, bgcolor: alpha(INK, 0.12) }} />
-    </Box>
-    {subtitle && (
-      <Typography sx={{ mt: 1.5, color: alpha(INK, 0.65), maxWidth: 880 }}>
-        {subtitle}
-      </Typography>
-    )}
-  </Box>
-);
-
-/* --------------------- Group Photo Frame + Unified Roster ------------------- */
-const GroupFrame = styled(Card)(({ theme }) => ({
-  position: "relative",
-  overflow: "hidden",
-  borderRadius: 24,
-  background: alpha("#fff", 0.6),
-  border: `1px solid ${alpha('#000', 0.06)}`,
-  boxShadow: `0 10px 30px ${alpha('#000', 0.12)}`,
-  backdropFilter: "saturate(140%) blur(10px)",
-}));
-
-const GroupPhotoWrap = styled(Box)(({ theme }) => ({
+/* ------------------------------ Styled Wrappers ------------------------------ */
+const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  // ▼ Make the hero image shorter (Apple-ish wide panorama)
-  aspectRatio: "21 / 9",
-  [theme.breakpoints.down('sm')]: { aspectRatio: "16 / 8" },
+  paddingBlock: theme.spacing(10),
+  // ✨ Your canvas + accent mist
+  background: `
+    /* soft accent glow top-right */
+    radial-gradient(1100px 700px at 85% -10%, ${alpha(ACCENT, 0.08)} 0%, transparent 60%),
+    /* soft accent glow bottom-left */
+    radial-gradient(900px 600px at 12% 110%, ${alpha(ACCENT, 0.07)} 0%, transparent 60%),
+    /* faint vertical lift so it feels layered */
+    linear-gradient(180deg, ${alpha("#fff", 0.2)}, ${alpha("#000", 0.04)}),
+    /* base canvas */
+    ${CANVAS}
+  `,
+  color: alpha("#000", 0.9),
   overflow: "hidden",
+  isolation: "isolate",
 }));
 
-const GroupImg = styled(motion.img)({
-  width: "100%",
-  height: "100%",
-  objectFit: "cover",
-  display: "block",
-  filter: "saturate(105%) contrast(102%)",
-});
-
-const GroupOverlay = styled("div")(({ theme }) => ({
-  position: "absolute",
-  inset: 0,
-  background: `linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.00) 48%, rgba(0,0,0,0.12) 100%),
-               radial-gradient(60% 60% at 50% 100%, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 60%)`,
-  pointerEvents: "none",
+const Shell = styled(Container)(({ theme }) => ({
+  "--radius": "28px",
+  position: "relative",
+  display: "grid",
+  gap: theme.spacing(6),
 }));
 
-const RosterShell = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(1.5, 2, 2.5, 2),
-  [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(2, 2.5, 3, 2.5),
+/** 
+ * A single hero image with a modern frame:
+ * - Subtle gradient border using mask
+ * - Soft shadow + glassy overlay on hover
+ * - Preserves image aspect ratio
+ */
+const PhotoFrame = styled("figure")(({ theme }) => ({
+  position: "relative",
+  margin: 0,
+  borderRadius: "28px",
+  overflow: "hidden",
+  boxShadow: `
+    0 10px 30px ${alpha("#000", 0.20)},
+    0 1px 0 ${alpha("#fff", 0.10)} inset
+  `,
+  // Gradient “ionic” edge
+  background:
+    `linear-gradient(135deg, ${alpha(ACCENT, 0.45)}, ${alpha("#fff", 0.4)}) border-box`,
+  border: "1px solid transparent",
+  mask:
+    "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0) border-box",
+  maskComposite: "exclude",
+  WebkitMaskComposite: "xor",
+
+  // Subtle interactive sheen
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    inset: 0,
+    background:
+      `linear-gradient(180deg, ${alpha("#000", 0.25)} 0%, ${alpha("#000", 0.15)} 55%, transparent 100%)`,
+    pointerEvents: "none",
+  },
+
+  "& img": {
+    display: "block",
+    width: "100%",
+    height: "auto",
+    objectFit: "cover",
+  },
+
+  // Hover micro-interaction
+  transition: "transform .6s cubic-bezier(.2,.8,.2,1)",
+  "&:hover": {
+    transform: "translateY(-2px)",
   },
 }));
 
-const RosterToolbar = styled(Box)(({ theme }) => ({
-  display: "flex",
+const Caption = styled("figcaption")(({ theme }) => ({
+  position: "absolute",
+  left: 20,
+  bottom: 14,
+  padding: "8px 12px",
+  borderRadius: 999,
+  fontSize: 12,
+  letterSpacing: 0.3,
+  background: alpha("#000", 0.45),
+  color: "#fff",
+  backdropFilter: "blur(6px)",
+  border: `1px solid ${alpha("#fff", 0.18)}`,
+}));
+
+/** Name chips — lightweight, elegant pills */
+const NamesWrap = styled(Stack)(({ theme }) => ({
+  justifyContent: "center",
   alignItems: "center",
   gap: theme.spacing(1.25),
-  padding: theme.spacing(1, 1.25),
+  flexWrap: "wrap",
+  rowGap: theme.spacing(1.25),
 }));
 
-const AccentPill = styled(Box)(({ theme }) => ({
-  height: 8,
-  width: 40,
+const NameChip = styled(Chip)(({ theme }) => ({
   borderRadius: 999,
-  background: `linear-gradient(90deg, ${alpha(ACCENT, 0.35)} 0%, ${alpha(ACCENT, 0.15)} 100%)`,
-  boxShadow: `0 0 0 6px ${alpha(ACCENT, 0.10)}`,
+  fontWeight: 500,
+  letterSpacing: 0.15,
+  backgroundColor: alpha("#fff", 0.6),
+  color: alpha("#000", 0.85),
+  border: `1px solid ${alpha("#000", 0.08)}`,
+  backdropFilter: "blur(4px)",
+  "&:hover": {
+    backgroundColor: alpha("#fff", 0.8),
+  },
+  "& .MuiChip-label": {
+    paddingInline: 12,
+  },
 }));
 
-const RosterGrid = styled(Box)(({ theme }) => ({
-  display: "grid",
-  gap: theme.spacing(1.25),
-  gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-  [theme.breakpoints.down("lg")]: { gridTemplateColumns: "repeat(3, 1fr)" },
-  [theme.breakpoints.down("md")]: { gridTemplateColumns: "repeat(2, 1fr)" },
-  [theme.breakpoints.down("sm")]: { gridTemplateColumns: "1fr" },
-}));
-
-const RosterItem = styled(motion.div)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: 12,
-  background: `linear-gradient(180deg, ${alpha('#fff', 0.90)} 0%, ${alpha('#fff', 0.75)} 100%)`,
-  border: `1px solid ${alpha('#000', 0.06)}`,
-  borderRadius: 16,
-  padding: "12px 14px",
-  backdropFilter: "saturate(140%) blur(8px)",
-  boxShadow: `0 2px 10px ${alpha('#000', 0.06)}`,
-}));
-
-const Name = styled(Typography)(({ theme }) => ({
-  fontWeight: 700,
-  fontSize: 15,
-  letterSpacing: 0.1,
-  lineHeight: 1.15,
-  color: INK,
-}));
-
-const Role = styled(Typography)(({ theme }) => ({
-  opacity: 0.8,
-  fontSize: 13.25,
-  lineHeight: 1.2,
-  color: alpha(INK, 0.9),
-}));
-
-const RoleChip = styled(Chip)(({ theme }) => ({
-  height: 22,
-  borderRadius: 999,
-  fontWeight: 600,
-  letterSpacing: 0.2,
-  background: alpha(ACCENT, 0.10),
-  color: alpha(INK, 0.85),
-  border: `1px solid ${alpha(ACCENT, 0.25)}`,
-  ".MuiChip-label": { padding: "0 8px", fontSize: 12 },
-}));
-
-/* -------------------------------- Component -------------------------------- */
-export default function MeetTheExperts({
-  overline = "Our Team",
+/* ------------------------------ Component ------------------------------ */
+export default function MeetTheTeamOneImage({
   title = "Meet the Team",
-  subtitle = "The people who make our initiatives possible.",
-  groupPhoto = "/about/team.JPG",
-  experts = TEAM,
-  committee = COMMITTEE,
+  subtitle = "People behind the mission",
+  photoSrc = "/about/team.JPG", // put your single full-team image here (public/ or proper import)
+  photoAlt = "Our team",
+  members = [
+    "Bartosz Drobny",
+    "Edyta Radłowska",
+    "Avery Brooks",
+    "Jordan Kim",
+    "Riley Nguyen",
+    "Taylor Chen",
+    "Sam Patel",
+    "Casey Morales",
+  ],
 }) {
-  // Merge experts + committee into a single roster
-  const roster = React.useMemo(() => {
-    const combined = [...experts, ...committee];
-    return combined.map((m, i) => ({ ...m, id: String(m.id ?? i) }));
-  }, [experts, committee]);
+  const theme = useTheme();
 
   return (
-    <PageWrap>
-      <Container maxWidth="xl" sx={{ py: { xs: 5, md: 8 } }}>
-        <SectionHeader overline={overline} title={title} subtitle={subtitle} />
+    <Section>
+      <Shell maxWidth="lg">
+        {/* Headline block */}
+        <Box sx={{ textAlign: "center" }}>
+          <Typography
+            variant="overline"
+            sx={{
+              letterSpacing: 2,
+              color: alpha("#000", 0.6),
+            }}
+          >
+            {subtitle}
+          </Typography>
 
-        <GroupFrame
-          component={motion.div}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-        >
-          {/* Big Group Photo (slightly smaller) */}
-          <GroupPhotoWrap>
-            <GroupImg
-              src={groupPhoto}
-              alt="Team group photo"
-              loading="lazy"
-              initial={{ scale: 1.005 }}
-              transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
-            />
-            <GroupOverlay />
-          </GroupPhotoWrap>
+          <Typography
+            variant="h3"
+            sx={{
+              mt: 1,
+              fontWeight: 800,
+              lineHeight: 1.1,
+              textWrap: "balance",
+            }}
+          >
+            {title}
+          </Typography>
 
-          {/* Unified Roster */}
-          <RosterShell>
-            <RosterToolbar>
-              <Typography variant="subtitle2" sx={{ fontWeight: 800, letterSpacing: 0.3, color: INK }}>
-                Team Roster
-              </Typography>
-              <Box sx={{ flex: 1 }} />
-              <AccentPill />
-            </RosterToolbar>
+          {/* Thin accent hairline */}
+          <Box
+            sx={{
+              mt: 2.5,
+              mx: "auto",
+              height: 2,
+              width: 88,
+              borderRadius: 2,
+              background: `linear-gradient(90deg, ${alpha(
+                ACCENT,
+                0
+              )}, ${ACCENT}, ${alpha(ACCENT, 0)})`,
+              opacity: 0.9,
+            }}
+          />
+        </Box>
 
-            <Divider sx={{ borderColor: alpha('#000', 0.06), mb: 1.25 }} />
+        {/* Hero photo */}
+        <PhotoFrame>
+          <img src={photoSrc} alt={photoAlt} />
+          <Caption>Team Photo</Caption>
+        </PhotoFrame>
 
-            <RosterGrid>
-              {roster.map((m, idx) => (
-                <RosterItem
-                  key={m.id}
-                  whileHover={{ y: -2, boxShadow: `0 10px 24px ${alpha('#000', 0.12)}` }}
-                  transition={{ duration: 0.35 }}
-                >
-                  <Box sx={{ display: "grid", gap: 0.25 }}>
-                    <Name>{m.name}</Name>
-                    <Role>{m.role}</Role>
-                  </Box>
+        {/* Names */}
+        <Box>
+          <Typography
+            variant="h6"
+            align="center"
+            sx={{ mb: 2, color: alpha("#000", 0.7), fontWeight: 700 }}
+          >
+            Our Team
+          </Typography>
 
-                  <Box sx={{ flex: 1 }} />
-
-                  {!!m.linkedin && (
-                    <IconButton
-                      size="small"
-                      component="a"
-                      href={m.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${m.name} LinkedIn`}
-                      sx={{
-                        borderRadius: 12,
-                        border: `1px solid ${alpha('#000', 0.1)}`,
-                        background: "#fff",
-                        boxShadow: `0 2px 8px ${alpha('#000', 0.08)}`,
-                        "&:hover": { background: alpha('#fff', 0.92) },
-                      }}
-                    >
-                      <LinkedInIcon fontSize="small" htmlColor="#0a66c2" />
-                    </IconButton>
-                  )}
-
-                  {/* Optional role chip (hide on xs for breathing room) */}
-                  <Box sx={{ display: { xs: "none", md: "block" } }}>
-                    <RoleChip label="Member" />
-                  </Box>
-                </RosterItem>
-              ))}
-            </RosterGrid>
-          </RosterShell>
-        </GroupFrame>
-      </Container>
-    </PageWrap>
+          <NamesWrap direction="row">
+            {members.map((name) => (
+              <NameChip key={name} label={name} />
+            ))}
+          </NamesWrap>
+        </Box>
+      </Shell>
+    </Section>
   );
 }

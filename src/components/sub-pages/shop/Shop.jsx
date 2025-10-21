@@ -13,6 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import CTA from "../../key-components/CTA"
 
 const products = [
   {
@@ -70,6 +71,7 @@ const Shop = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
+    <>
     <Box sx={{ minHeight: "100vh", bgcolor: "#E8E5DD", py: 4 }}>
       <Container maxWidth="xl">
         {/* Header */}
@@ -236,6 +238,7 @@ const Shop = () => {
           ))}
         </Box>
 
+
         {/* Footer note */}
         <Box sx={{ textAlign: "center", mt: 8 }}>
           <Typography
@@ -247,7 +250,11 @@ const Shop = () => {
           </Typography>
         </Box>
       </Container>
+
     </Box>
+
+        <CTA />
+</>
   );
 };
 

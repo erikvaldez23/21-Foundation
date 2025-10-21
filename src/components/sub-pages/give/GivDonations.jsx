@@ -27,8 +27,6 @@ const SectionWrap = styled(Box)(({ theme }) => ({
   width: "100%",
   color: INK,
   background: CANVAS,
-  borderTop: `1px solid ${HAIRLINE}`,
-  borderBottom: `1px solid ${HAIRLINE}`,
   overflow: "hidden",
 }));
 
