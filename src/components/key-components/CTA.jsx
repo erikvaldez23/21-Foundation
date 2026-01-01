@@ -9,12 +9,16 @@ import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 /* ----------------------------- Tokens ----------------------------- */
 const KELLY = "#339c5e";
 
+const Background = styled(Box)(({ theme }) => ({
+  background: "#E8E5DD",
+}));
 /* Full-bleed wrapper */
 const Wrap = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100vw",
   marginLeft: "calc(50% - 50vw)",
   marginRight: "calc(50% - 50vw)",
+  borderRadius: 22,
   color: "#fff",
   overflow: "hidden",
   background: `
@@ -51,7 +55,7 @@ const CTAButton = styled(Button)(({ theme }) => ({
 const CTABanner = ({
   title = "Honor Sean’s Legacy—Give Hope Today",
   subtitle =
-    "Your gift powers youth sports, counseling, and mentorship that build mental resiliency and community.",
+  "Your gift powers youth sports, counseling, and mentorship that build mental resiliency and community.",
   primaryLabel = "Donate Now",
   onPrimary = () => window.location.assign("/give"),
   secondaryLabel = "Give Monthly",
@@ -59,106 +63,108 @@ const CTABanner = ({
   extra = null,
 }) => {
   return (
-    <Wrap
-      component={motion.section}
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      <Pattern />
-
-      {/* full-width container with comfy gutters */}
-      <Container
-        maxWidth={false}
-        disableGutters
-        sx={{ py: { xs: 6, md: 8 }, px: { xs: 2, sm: 3, md: 4 } }}
+    <Background>
+      <Wrap
+        component={motion.section}
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* Centered column */}
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.05, duration: 0.55, ease: "easeOut" }}
-          sx={{
-            textAlign: "center",
-            maxWidth: 900,
-            mx: "auto",
-          }}
-        >
-          <Typography variant="overline" sx={{ letterSpacing: 2, opacity: 0.9 }}>
-            MAKE AN IMPACT
-          </Typography>
+        <Pattern />
 
-          <Typography
-            variant="h3"
-            component="h2"
+        {/* full-width container with comfy gutters */}
+        <Container
+          maxWidth={false}
+          disableGutters
+          sx={{ py: { xs: 6, md: 8 }, px: { xs: 2, sm: 3, md: 4 } }}
+        >
+          {/* Centered column */}
+          <Box
+            component={motion.div}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05, duration: 0.55, ease: "easeOut" }}
             sx={{
-              fontWeight: 900,
-              letterSpacing: -0.5,
-              mt: 0.5,
-              lineHeight: 1.15,
+              textAlign: "center",
+              maxWidth: 900,
+              mx: "auto",
             }}
           >
-            {title}
-          </Typography>
+            <Typography variant="overline" sx={{ letterSpacing: 2, opacity: 0.9 }}>
+              MAKE AN IMPACT
+            </Typography>
 
-          <Typography variant="body1" sx={{ mt: 1.5, opacity: 0.92 }}>
-            {subtitle}
-          </Typography>
-
-          {/* Buttons centered below subtitle */}
-          <Stack
-            direction="row"
-            spacing={1.5}
-            justifyContent="center"
-            alignItems="center"
-            useFlexGap
-            flexWrap="wrap"
-            sx={{ mt: 3 }}
-          >
-            <CTAButton
-              size="large"
-              variant="contained"
-              color="inherit"
-              onClick={onPrimary}
-              startIcon={<VolunteerActivismRoundedIcon />}
+            <Typography
+              variant="h3"
+              component="h2"
               sx={{
-                background: "#fff",
-                color: KELLY,
-                "&:hover": { background: alpha("#fff", 0.92) },
+                fontWeight: 900,
+                letterSpacing: -0.5,
+                mt: 0.5,
+                lineHeight: 1.15,
               }}
-              aria-label={primaryLabel}
             >
-              {primaryLabel}
-            </CTAButton>
+              {title}
+            </Typography>
 
-            <CTAButton
-              size="large"
-              variant="outlined"
-              onClick={onSecondary}
-              startIcon={<FavoriteRoundedIcon />}
-              sx={{
-                borderColor: alpha("#fff", 0.9),
-                color: "#fff",
-                "&:hover": { borderColor: "#fff", background: alpha("#fff", 0.08) },
-              }}
-              aria-label={secondaryLabel}
+            <Typography variant="body1" sx={{ mt: 1.5, opacity: 0.92 }}>
+              {subtitle}
+            </Typography>
+
+            {/* Buttons centered below subtitle */}
+            <Stack
+              direction="row"
+              spacing={1.5}
+              justifyContent="center"
+              alignItems="center"
+              useFlexGap
+              flexWrap="wrap"
+              sx={{ mt: 3 }}
             >
-              {secondaryLabel}
-            </CTAButton>
-          </Stack>
+              <CTAButton
+                size="large"
+                variant="contained"
+                color="inherit"
+                onClick={onPrimary}
+                startIcon={<VolunteerActivismRoundedIcon />}
+                sx={{
+                  background: "#fff",
+                  color: KELLY,
+                  "&:hover": { background: alpha("#fff", 0.92) },
+                }}
+                aria-label={primaryLabel}
+              >
+                {primaryLabel}
+              </CTAButton>
 
-          {/* Optional tiny line under buttons (centered) */}
-          {extra && (
-            <Box sx={{ mt: 1.5, opacity: 0.82 }}>
-              {extra}
-            </Box>
-          )}
-        </Box>
-      </Container>
-    </Wrap>
+              <CTAButton
+                size="large"
+                variant="outlined"
+                onClick={onSecondary}
+                startIcon={<FavoriteRoundedIcon />}
+                sx={{
+                  borderColor: alpha("#fff", 0.9),
+                  color: "#fff",
+                  "&:hover": { borderColor: "#fff", background: alpha("#fff", 0.08) },
+                }}
+                aria-label={secondaryLabel}
+              >
+                {secondaryLabel}
+              </CTAButton>
+            </Stack>
+
+            {/* Optional tiny line under buttons (centered) */}
+            {extra && (
+              <Box sx={{ mt: 1.5, opacity: 0.82 }}>
+                {extra}
+              </Box>
+            )}
+          </Box>
+        </Container>
+      </Wrap>
+    </Background>
   );
 };
 

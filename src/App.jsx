@@ -13,6 +13,7 @@ import Give from "./components/sub-pages/give/Give";
 import Shop from "./components/sub-pages/shop/Shop";
 import Gallery from "./components/sub-pages/gallery/Gallery";
 import ImpactPillars from "./components/landing/ImpactPillars";
+import ImpactPillars2 from "./components/landing/ImpactPillars2";
 import Headliner from "./components/key-components/Headlne";
 import CTA from "./components/key-components/CTA";
 import LoadingAnimation from "./components/animate/LoadingAnimation/";
@@ -45,7 +46,8 @@ function App() {
                 {/* <Banner /> */}
                 <Quote />
                 <Events2 />
-                <ImpactPillars />
+                {/* <ImpactPillars /> */}
+                <ImpactPillars2 />
                 <CTA />
               </>
             }

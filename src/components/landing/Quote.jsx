@@ -42,7 +42,7 @@ export default function InspirationalQuote({
       {/* <QuoteMark aria-hidden style={{ bottom: -48, right: 12 }}>”</QuoteMark> */}
 
       <Container
-        maxWidth="md"
+        maxWidth="lg"
         disableGutters
         sx={{
           // edge padding that respects safe areas on very small devices

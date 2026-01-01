@@ -88,17 +88,17 @@ const ImageShell = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   color: "white",
   textAlign: "center",
-  padding: `32px 16px ${CTA_SPACE + 8}px`, // a touch more space for CTA stack on mobile
+  padding: `32px 16px`, // a touch more space for CTA stack on mobile
   borderRadius: RADIUS,
   overflow: "hidden",
   [theme.breakpoints.up("sm")]: {
     height: 280,
-    padding: `36px 18px ${CTA_SPACE + 4}px`,
+    padding: `36px 18px`,
   },
   [theme.breakpoints.up("md")]: {
     // desktop/tablet exactly as the original
-    height: 300,
-    padding: `40px 20px ${CTA_SPACE}px`,
+    height: 340,
+    padding: `40px 20px`,
   },
 }));
 
@@ -212,7 +212,7 @@ const ImageCtaBar = styled(Box)(({ theme }) => ({
   bottom: 18,
   zIndex: 4,
   display: "flex",
-  justifyContent: "center",
+  justifyContent: "flex-end",
   gap: 10,
   flexWrap: "wrap",
   [theme.breakpoints.up("sm")]: {
@@ -474,7 +474,7 @@ export default function EdutainmentCoursesMUI() {
               const learnMoreHref = course.href || course.formUrl || "#";
 
               return (
-                <Box key={course.key} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px` }}>
+                <Box key={course.key} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px`, display: "flex", flexDirection: "column" }}>
                   <ImageShell>
                     {course.image ? (
                       <ImageBgImg
@@ -541,33 +541,11 @@ export default function EdutainmentCoursesMUI() {
                         Sign Up Now
                       </GhostBtn>
 
-                      {/* Learn More: internal route => RouterLink; external => <a> */}
-                      {isExternal(learnMoreHref) ? (
-                        <GhostBtn
-                          component="a"
-                          href={learnMoreHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Learn more about ${course.title}`}
-                          sx={{ borderColor: "rgba(255,255,255,0.6)" }}
-                        >
-                          Learn More
-                        </GhostBtn>
-                      ) : (
-                        <GhostBtn
-                          component={RouterLink}
-                          to={learnMoreHref}
-                          aria-label={`Learn more about ${course.title}`}
-                          sx={{ borderColor: "rgba(255,255,255,0.6)" }}
-                        >
-                          Learn More
-                        </GhostBtn>
-                      )}
                     </ImageCtaBar>
                   </ImageShell>
 
                   {/* Content (unchanged at md+) */}
-                  <Box sx={{ p: { xs: 3, sm: 3.5, md: 3.75 }, display: "flex", flexDirection: "column" }}>
+                  {/* <Box sx={{ p: { xs: 3, sm: 3.5, md: 3.75 }, display: "flex", flexDirection: "column", flex: 1, justifyContent: "center" }}>
                     <Typography
                       component="h3"
                       sx={{
@@ -589,13 +567,13 @@ export default function EdutainmentCoursesMUI() {
                     >
                       {course.body}
                     </Typography>
-                  </Box>
+                  </Box> */}
                 </Box>
               );
             })}
           </CarouselTrack>
         </CarouselContainer>
       </Container>
-    </Section>
+    </Section >
   );
 }

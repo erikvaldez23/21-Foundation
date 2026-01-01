@@ -69,7 +69,7 @@ export default function SessionHeadliner() {
     setOpen(false);
     try {
       sessionStorage.setItem(storageKey, "1");
-    } catch {}
+    } catch { }
     setTimeout(() => {
       document.documentElement.style.removeProperty("--headliner-h");
     }, prefersReducedMotion ? 0 : 500);
@@ -202,6 +202,20 @@ export default function SessionHeadliner() {
                   Sign Up
                 </Button>
               </Box>
+
+              {/* Close Button */}
+              <IconButton
+                onClick={handleClose}
+                sx={{
+                  gridArea: "close",
+                  justifySelf: { xs: "end", md: "end" },
+                  color: "#000000",
+                  "&:hover": { bgcolor: "rgba(0,0,0,0.05)" },
+                }}
+                aria-label="Close"
+              >
+                <CloseRoundedIcon />
+              </IconButton>
             </Container>
           </Box>
         </motion.div>

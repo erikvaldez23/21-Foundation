@@ -92,38 +92,38 @@ const HoverOverlay = ({ children }) => (
 
 // ---- Sample data (swap with your CMS/API) ----
 const PHOTOS = [
-  { id: "p1",  src: "/image1.JPG",  w: 1200, h: 1600, album: "Events",    tags: ["Highlights", "Youth"],  title: "5K Fundraiser" },
-  { id: "p2",  src: "/image3.JPG",  w: 1600, h: 1066, album: "Clinics",   tags: ["Coaches", "Youth"],     title: "Skills Clinic" },
-  { id: "p3",  src: "/image4.JPG",  w: 1600, h: 1200, album: "Community", tags: ["Volunteers", "Family"], title: "Community Night" },
-  { id: "p4",  src: "/image5.JPG",  w: 1200, h: 1200, album: "Workshops", tags: ["Highlights"],            title: "Resilience Talk" },
-  { id: "p5",  src: "/image6.JPG",  w: 1200, h: 900,  album: "Events",    tags: ["Youth", "Smiles"],      title: "Warm-Up Circle" },
-  { id: "p6",  src: "/image7.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p7",  src: "/image8.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p8",  src: "/image9.JPG",  w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p9",  src: "/image10.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p10", src: "/image11.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p11", src: "/image12.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p12", src: "/image13.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p13", src: "/image14.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p14", src: "/image15.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p15", src: "/image16.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p16", src: "/image17.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p17", src: "/image18.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p18", src: "/image19.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p19", src: "/image20.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p20", src: "/image21.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p21", src: "/image22.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p22", src: "/image23.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p23", src: "/image24.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p24", src: "/image25.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p25", src: "/image26.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  { id: "p26", src: "/image27.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  // { id: "p27", src: "/image28.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  // { id: "p28", src: "/image29.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  // { id: "p28", src: "/image30.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  // { id: "p28", src: "/image31.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  // { id: "p28", src: "/image32.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
-  // { id: "p28", src: "/image33.JPG", w: 1600, h: 900,  album: "Clinics",   tags: ["Coaches", "Awards"],    title: "Medal Moment" },
+  { id: "p1", src: "/image1.JPG", w: 1200, h: 1600, album: "Events", tags: ["Highlights", "Youth"], title: "5K Fundraiser" },
+  { id: "p2", src: "/image3.JPG", w: 1600, h: 1066, album: "Clinics", tags: ["Coaches", "Youth"], title: "Skills Clinic" },
+  { id: "p3", src: "/image4.JPG", w: 1600, h: 1200, album: "Community", tags: ["Volunteers", "Family"], title: "Community Night" },
+  { id: "p4", src: "/image5.JPG", w: 1200, h: 1200, album: "Workshops", tags: ["Highlights"], title: "Resilience Talk" },
+  { id: "p5", src: "/image6.JPG", w: 1200, h: 900, album: "Events", tags: ["Youth", "Smiles"], title: "Warm-Up Circle" },
+  { id: "p6", src: "/image7.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p7", src: "/image8.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p8", src: "/image9.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p9", src: "/image10.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p10", src: "/image11.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p11", src: "/image12.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p12", src: "/image13.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p13", src: "/image14.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p14", src: "/image15.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p15", src: "/image16.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p16", src: "/image17.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p17", src: "/image18.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p18", src: "/image19.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p19", src: "/image20.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p20", src: "/image21.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p21", src: "/image22.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p22", src: "/image23.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p23", src: "/image24.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p24", src: "/image25.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p25", src: "/image26.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p26", src: "/image27.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p27", src: "/image28.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p28", src: "/image29.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p28", src: "/image30.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p28", src: "/image31.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p28", src: "/image32.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
+  { id: "p28", src: "/image33.JPG", w: 1600, h: 900, album: "Clinics", tags: ["Coaches", "Awards"], title: "Medal Moment" },
 ];
 
 /* ===== Utils: container width + real (natural) image sizes ===== */
@@ -190,55 +190,69 @@ function useNaturalSizes(items) {
 }
 
 /** Build justified rows so total width (including gaps) == container width. */
-function buildJustifiedRows(items, containerWidth, gap, targetRowHMin = 220, targetRowHMax = 340) {
+function buildJustifiedRows(items, containerWidth, gap, targetRowHeight = 300) {
   if (!containerWidth || !items.length) return [];
   const rows = [];
   let current = [];
-  let aspectSum = 0;
-  const maxW = containerWidth;
-
-  const flushRow = (imgs) => {
-    if (!imgs.length) return;
-    const sumAspect = imgs.reduce((s, it) => s + it.w / it.h, 0);
-    const gapsTotal = gap * (imgs.length - 1);
-    let rowH = (maxW - gapsTotal) / sumAspect;
-    rowH = Math.max(targetRowHMin, Math.min(targetRowHMax, rowH));
-    const widthScale = (maxW - gapsTotal) / (sumAspect * rowH);
-
-    const laid = imgs.map((it) => {
-      const aspect = it.w / it.h;
-      const w = Math.round(aspect * rowH * widthScale);
-      return { ...it, _w: w, _h: Math.round(rowH) };
-    });
-
-    // Distribute rounding error so the row width matches container exactly
-    const rowWidthNow = laid.reduce((s, it) => s + it._w, 0) + gapsTotal;
-    let delta = maxW - rowWidthNow;
-    let i = 0;
-    while (delta !== 0 && laid.length > 0) {
-      const step = delta > 0 ? 1 : -1;
-      laid[i % laid.length]._w += step;
-      delta -= step;
-      i++;
-    }
-
-    rows.push(laid);
-  };
+  let currentWidth = 0; // Width of images at targetHeight + gaps
 
   for (const it of items) {
     const aspect = it.w / it.h;
-    current.push(it);
-    aspectSum += aspect;
+    const wAtTarget = aspect * targetRowHeight;
 
-    const gapsTotal = gap * (current.length - 1);
-    const predictedWidthAtMin = aspectSum * targetRowHMin + gapsTotal;
-    if (predictedWidthAtMin >= maxW) {
-      flushRow(current);
+    current.push(it);
+    currentWidth += wAtTarget + gap;
+
+    // If adding this item makes the row wider than container (minus last gap adjustment), flush it
+    // We check if we are "close enough" or over. 
+    // Actually, justified layout usually adds items until it's over, then shrinks back, OR adds until just under and expands.
+    // Let's add until > containerWidth, then decide whether to keep the last item or push to next row.
+    // Simple approach: accumulate until > containerWidth.
+
+    if (currentWidth - gap > containerWidth) {
+      // Row is full. Calculate exact height to make it flush.
+      // Total width needed = sum(aspect * h) + (n-1)*gap = containerWidth
+      // h * sum(aspect) = containerWidth - (n-1)*gap
+      // h = (containerWidth - (n-1)*gap) / sum(aspect)
+
+      const gapsTotal = gap * (current.length - 1);
+      const aspectSum = current.reduce((sum, img) => sum + img.w / img.h, 0);
+      let rowH = (containerWidth - gapsTotal) / aspectSum;
+
+      // If rowH is ridiculously small (e.g. < 150), maybe we should have pushed the last item to next row?
+      // But for now, let's just stick to the standard algorithm: fill until full.
+
+      const laid = current.map((img) => {
+        const aspect = img.w / img.h;
+        const w = Math.round(aspect * rowH);
+        return { ...img, _w: w, _h: Math.round(rowH) };
+      });
+
+      // Fix rounding errors
+      const currentTotalW = laid.reduce((s, i) => s + i._w, 0) + gapsTotal;
+      let delta = containerWidth - currentTotalW;
+      let i = 0;
+      while (delta !== 0 && laid.length > 0) {
+        const step = delta > 0 ? 1 : -1;
+        laid[i % laid.length]._w += step;
+        delta -= step;
+        i++;
+      }
+
+      rows.push(laid);
       current = [];
-      aspectSum = 0;
+      currentWidth = 0;
     }
   }
-  if (current.length) flushRow(current); // justify last row too
+
+  // Last row: do not justify, just left align at target height
+  if (current.length > 0) {
+    const laid = current.map((img) => {
+      const aspect = img.w / img.h;
+      return { ...img, _w: Math.round(aspect * targetRowHeight), _h: targetRowHeight };
+    });
+    rows.push(laid);
+  }
 
   return rows;
 }
@@ -308,7 +322,7 @@ export default function Gallery() {
         a.remove();
         URL.revokeObjectURL(href);
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   // Build justified rows from REAL sizes
@@ -317,7 +331,7 @@ export default function Gallery() {
 
   return (
     <Page>
-      <Container maxWidth="xl" sx={{pb: 8}}>
+      <Container maxWidth="xl" sx={{ pb: 8 }}>
         <GalleryHero />
 
         {/* Justified Gallery (real aspect ratios) */}
