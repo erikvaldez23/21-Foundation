@@ -1,6 +1,7 @@
 import React from 'react';
 import EventHero from './EventHero';
 import EventContent from './EventsContent';
+import CTA from "../../key-components/CTA";
 
 
 export default function EventPage() {
@@ -8,6 +9,7 @@ export default function EventPage() {
     <>
       <EventHero />
       <EventContent />
+      <CTA />
     </>
   );
 }

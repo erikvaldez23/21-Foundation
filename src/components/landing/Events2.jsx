@@ -63,9 +63,22 @@ const CarouselContainer = styled(Box)({
   scrollSnapType: "x mandatory",
   scrollBehavior: "smooth",
   WebkitOverflowScrolling: "touch",
-  scrollbarWidth: "none",
-  msOverflowStyle: "none",
-  "&::-webkit-scrollbar": { display: "none" },
+  scrollbarWidth: "thin",
+  scrollbarColor: "rgba(0,0,0,0.2) transparent",
+  paddingBottom: 16, // Move scrollbar down away from content
+  "&::-webkit-scrollbar": {
+    height: 6,
+  },
+  "&::-webkit-scrollbar-track": {
+    background: "transparent",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "rgba(0,0,0,0.2)",
+    borderRadius: 4,
+    "&:hover": {
+      backgroundColor: "rgba(0,0,0,0.3)",
+    },
+  },
 });
 
 const CarouselTrack = styled(Box)({
@@ -417,25 +430,28 @@ export default function EdutainmentCoursesMUI() {
             <Typography
               variant="h1"
               sx={{
-                // more restrained on phones
-                fontSize: { xs: 32, sm: 40, md: 48 }, // md matches original {sm:48}
-                fontWeight: 400,
-                lineHeight: { xs: 1.2, sm: 1.2 },
-                color: "#333",
-                mb: { xs: 0.75, sm: 1, md: 1 },
-                letterSpacing: "-0.5px",
+                fontWeight: 800,
+                fontSize: { xs: "12vw", md: "4rem" },
+                lineHeight: 1.2,
+                color: "#339c5e",
+                letterSpacing: "-0.04em",
+                textTransform: "capitalize",
+                background: "linear-gradient(135deg, #111 0%, #339c5e 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                mb: 2
               }}
             >
               Get Involved Today
             </Typography>
             <Typography
-              variant="h2"
+              variant="body1"
               sx={{
-                fontSize: { xs: 18, sm: 22, md: 28 }, // md matches original {sm:28}
-                fontWeight: 400,
-                color: "#333",
-                mb: { xs: 1.25, sm: 2, md: 2 },
-                letterSpacing: "-0.3px",
+                color: "text.secondary",
+                maxWidth: "800px",
+                fontSize: "1.2rem",
+                lineHeight: 1.6,
+                mb: 3
               }}
             >
               Fill out the form to join us!

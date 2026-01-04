@@ -20,6 +20,7 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import PhotoCameraBackRoundedIcon from "@mui/icons-material/PhotoCameraBackRounded";
 import GalleryHero from "./GalleryHero";
+import CTA from "../../key-components/CTA";
 
 const Page = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
@@ -493,6 +494,7 @@ export default function Gallery() {
           </DialogActions>
         )}
       </Dialog> */}
+      <CTA />
     </Page>
   );
 }

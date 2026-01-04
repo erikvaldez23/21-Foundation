@@ -1,29 +1,17 @@
 // components/Hero2.jsx
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  useRef,
-  useCallback,
-} from "react";
+import React, { useMemo } from "react";
 import {
   Typography,
   Button,
   Box,
-  MobileStepper,
   useMediaQuery,
-  IconButton,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
-/* -------------------- Slideshow config -------------------- */
-const images = ["/image5.JPG", "/image4.JPG", "/image1.JPG"];
-const AUTOPLAY_MS = 6000;
-const WHEEL_LOCK_MS = 500;
+/* -------------------- Config -------------------- */
+const HERO_IMAGE = "/image5.JPG";
 
 /* -------------------- Styled elements -------------------- */
 const Wrapper = styled(Box)({
@@ -38,9 +26,6 @@ const Wrapper = styled(Box)({
   margin: 0,
   padding: 0,
   boxSizing: "border-box",
-  touchAction: "manipulation",
-  overscrollBehavior: "none",
-  WebkitOverflowScrolling: "touch",
   "@supports (-webkit-touch-callout: none)": {
     minHeight: "100svh",
   },
@@ -60,7 +45,6 @@ const SlideImg = styled(motion.img)({
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  willChange: "transform, opacity, filter",
   pointerEvents: "none",
 });
 
@@ -88,18 +72,6 @@ const GlassButton = styled(motion(Button))({
   },
 });
 
-const ArrowButton = styled(motion(IconButton))({
-  position: "absolute",
-  top: "50%",
-  transform: "translateY(-50%)",
-  backgroundColor: "rgba(17,17,17,0.55)",
-  color: "#fff",
-  width: 44,
-  height: 44,
-  zIndex: 10,
-  "&:hover": { backgroundColor: "rgba(17,17,17,0.75)" },
-});
-
 /* -------------------- Animation variants -------------------- */
 const fadeInUp = {
   initial: { opacity: 0, y: 20, filter: "blur(4px)" },
@@ -122,11 +94,6 @@ const buttonVariants = {
   whileTap: { scale: 0.98 },
 };
 
-const arrowVariants = {
-  whileHover: { scale: 1.05, y: -2 },
-  whileTap: { scale: 0.96 },
-};
-
 /* -------------------- Reusable mobile heading style -------------------- */
 const mobileH1Base = {
   fontWeight: 300,
@@ -143,142 +110,7 @@ const mobileH1Base = {
 const Hero2 = () => {
   const navigate = useNavigate();
   const handleAskQuestion = () => navigate("/gallery");
-
-  const [index, setIndex] = useState(0);
-  const [hoverPause, setHoverPause] = useState(false);
-  const [offscreenPause, setOffscreenPause] = useState(false);
   const isReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-  const total = images.length;
-
-  const wrapperRef = useRef(null);
-  const wheelLockRef = useRef(false);
-  const lastWheelTs = useRef(0);
-  const touchStartRef = useRef({ x: 0, y: 0 });
-
-  const go = useCallback((i) => setIndex((p) => (i + total) % total), [total]);
-  const next = useCallback(() => go(index + 1), [go, index]);
-  const prev = useCallback(() => go(index - 1), [go, index]);
-
-  // Pause autoplay when hero is mostly off-screen
-  useEffect(() => {
-    const el = wrapperRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => setOffscreenPause(!entry.isIntersecting),
-      { threshold: 0.25 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const paused = hoverPause || offscreenPause || isReducedMotion || total <= 1;
-
-  // Autoplay
-  useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % total);
-    }, AUTOPLAY_MS);
-    return () => clearInterval(id);
-  }, [paused, total]);
-
-  // Keyboard arrows
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "ArrowRight") next();
-      if (e.key === "ArrowLeft") prev();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [next, prev]);
-
-  // Wheel (horizontal only)
-  const onWheel = (e) => {
-    const ax = Math.abs(e.deltaX);
-    const ay = Math.abs(e.deltaY);
-    if (ax <= ay || ax < 20) return;
-
-    const now = performance.now();
-    if (now - lastWheelTs.current < 120) return;
-    lastWheelTs.current = now;
-
-    if (wheelLockRef.current) return;
-    wheelLockRef.current = true;
-
-    e.deltaX > 0 ? next() : prev();
-    setTimeout(() => (wheelLockRef.current = false), WHEEL_LOCK_MS);
-  };
-
-  // Touch swipe
-  const onTouchStart = (e) => {
-    const t = e.touches[0];
-    touchStartRef.current = { x: t.clientX, y: t.clientY };
-  };
-  const onTouchEnd = (e) => {
-    const t = e.changedTouches[0];
-    const dx = t.clientX - touchStartRef.current.x;
-    const dy = t.clientY - touchStartRef.current.y;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-      (dx < 0 ? next : prev)();
-    }
-  };
-
-  // Preload images
-  useEffect(() => {
-    images.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-      if (img.decode) img.decode().catch(() => {});
-    });
-  }, []);
-
-  /* -------------------- Slides -------------------- */
-  const slides = useMemo(
-    () => (
-      <AnimatePresence initial={false} mode="wait">
-        {images.map((src, i) =>
-          i === index ? (
-            <SlideLayer
-              key={src + i}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{
-                duration: isReducedMotion ? 0.2 : 0.8,
-                ease: "easeOut",
-              }}
-            >
-              <SlideImg
-                src={src}
-                alt=""
-                aria-hidden="false"
-                loading="eager"
-                decoding="async"
-                fetchpriority="high"
-                initial={{ scale: 1, x: 0, filter: "brightness(0.98)" }}
-                animate={{
-                  transition: { duration: AUTOPLAY_MS / 1000, ease: "linear" },
-                }}
-              />
-              {/* Subtle dark vignette */}
-              <Box
-                sx={{
-                  position: "absolute",
-                  inset: 0,
-                  background: `
-                    linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 15%, rgba(0,0,0,0) 35%),
-                    radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.18) 35%, rgba(0,0,0,0.08) 65%, rgba(0,0,0,0.15) 100%)
-                  `,
-                  pointerEvents: "none",
-                }}
-              />
-            </SlideLayer>
-          ) : null
-        )}
-      </AnimatePresence>
-    ),
-    [index, isReducedMotion]
-  );
 
   /* -------------------- Ambient overlay pulse -------------------- */
   const ambient = useMemo(
@@ -330,18 +162,35 @@ const Hero2 = () => {
   }, []);
 
   return (
-    <Wrapper
-      ref={wrapperRef}
-      role="region"
-      aria-roledescription="carousel"
-      aria-label="Hero slideshow"
-      onMouseEnter={() => setHoverPause(true)}
-      onMouseLeave={() => setHoverPause(false)}
-      onWheel={onWheel}
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
-    >
-      {slides}
+    <Wrapper role="region" aria-label="Hero section">
+      {/* Static Background Image */}
+      <SlideLayer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <SlideImg
+          src={HERO_IMAGE}
+          alt=""
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          initial={{ scale: 1, filter: "brightness(0.98)" }}
+        />
+        {/* Subtle dark vignette */}
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            background: `
+              linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 15%, rgba(0,0,0,0) 35%),
+              radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.18) 35%, rgba(0,0,0,0.08) 65%, rgba(0,0,0,0.15) 100%)
+            `,
+            pointerEvents: "none",
+          }}
+        />
+      </SlideLayer>
+
       {ambient}
       {particles}
 
@@ -522,65 +371,6 @@ const Hero2 = () => {
           VIEW GALLERY
         </GlassButton>
       </Box>
-
-      {/* On-screen arrow controls (hidden on mobile) */}
-      {total > 1 && (
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          <ArrowButton
-            aria-label="Previous slide"
-            onClick={prev}
-            variants={arrowVariants}
-            whileHover="whileHover"
-            whileTap="whileTap"
-            sx={{ left: { sm: 16 } }}
-          >
-            <ChevronLeftIcon />
-          </ArrowButton>
-
-          <ArrowButton
-            aria-label="Next slide"
-            onClick={next}
-            variants={arrowVariants}
-            whileHover="whileHover"
-            whileTap="whileTap"
-            sx={{ right: { sm: 16 } }}
-          >
-            <ChevronRightIcon />
-          </ArrowButton>
-        </Box>
-      )}
-
-      {/* Stepper dots (center bottom) */}
-      {total > 1 && (
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: 18,
-            left: 0,
-            right: 0,
-            display: "flex",
-            justifyContent: "center",
-            zIndex: 3,
-          }}
-        >
-          <MobileStepper
-            steps={total}
-            position="static"
-            activeStep={index}
-            nextButton={null}
-            backButton={null}
-            sx={{
-              background: "transparent",
-              "& .MuiMobileStepper-dot": {
-                width: 7,
-                height: 7,
-                backgroundColor: "rgba(255,255,255,0.55)",
-              },
-              "& .MuiMobileStepper-dotActive": { backgroundColor: "#fff" },
-            }}
-          />
-        </Box>
-      )}
     </Wrapper>
   );
 };

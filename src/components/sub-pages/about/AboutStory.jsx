@@ -97,7 +97,7 @@ const StoryMission = ({
           <Box
             sx={{
               position: "relative",
-              height: { xs: 300, md: 600 },
+              height: { xs: 300, md: 800 },
               borderRadius: 4,
               overflow: "hidden",
               order: { xs: 2, md: 1 },

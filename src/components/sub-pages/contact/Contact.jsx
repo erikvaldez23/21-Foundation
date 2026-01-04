@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import ContactHero from "./ContactHero";
+import CTA from "../../key-components/CTA";
 
 /* ---------------------------- Styles ---------------------------- */
 const Page = styled(Box)({
@@ -208,6 +209,7 @@ export default function ContactSection() {
           </Box>
         </Box>
       </Container>
+      <CTA />
     </Page>
   );
 }

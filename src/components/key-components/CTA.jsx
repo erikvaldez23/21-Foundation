@@ -57,9 +57,9 @@ const CTABanner = ({
   subtitle =
   "Your gift powers youth sports, counseling, and mentorship that build mental resiliency and community.",
   primaryLabel = "Donate Now",
-  onPrimary = () => window.location.assign("/give"),
-  secondaryLabel = "Give Monthly",
-  onSecondary = () => window.location.assign("/give?frequency=monthly"),
+  onPrimary = () => window.location.assign("/#/give"),
+  secondaryLabel = "Learn More",
+  onSecondary = () => window.location.assign("/#/about"),
   extra = null,
 }) => {
   return (

@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
 import { Box, Container, Typography, Stack } from '@mui/material';
-import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
-import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
-import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
-import DomainAddOutlinedIcon from '@mui/icons-material/DomainAddOutlined';
+import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
+import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
 
 const servicesData = [
     {
         id: '01',
         title: 'Sports',
         description: 'Build mental resilience and confidence through coaching, teamwork, and healthy competition.',
-        icon: <HomeWorkOutlinedIcon sx={{ fontSize: 32 }} />,
+        icon: <SportsBasketballOutlinedIcon sx={{ fontSize: 32 }} />,
     },
     {
         id: '02',
         title: 'Friendship',
         description: 'Cultivate inclusive peer support networks where kindness and encouragement are the norm.',
-        icon: <MonetizationOnOutlinedIcon sx={{ fontSize: 32 }} />,
+        icon: <GroupsOutlinedIcon sx={{ fontSize: 32 }} />,
     },
     {
         id: '03',
         title: 'Family',
         description: 'Strengthen family bonds that nurture growth, stability, and a sense of belonging.',
-        icon: <DomainAddOutlinedIcon sx={{ fontSize: 32 }} />,
+        icon: <Diversity1OutlinedIcon sx={{ fontSize: 32 }} />,
     },
     {
         id: '04',
         title: 'Faith',
         description: 'Inspire courage, purpose, and compassion through values that guide and uplift.',
-        icon: <ApartmentOutlinedIcon sx={{ fontSize: 32 }} />,
+        icon: <VolunteerActivismOutlinedIcon sx={{ fontSize: 32 }} />,
     }
 ];
 
@@ -36,7 +36,7 @@ const ImpactPillars2 = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (
-        <Box sx={{ py: 20, background: "radial-gradient(1200px 600px at 50% -10%, rgba(51,156,94,0.10), transparent 60%), #E8E5DD", overflow: 'hidden', color: '#1a1a1a' }}>
+        <Box sx={{ py: 20, background: "#E8E5DD", overflow: 'hidden', color: '#1a1a1a' }}>
             <Container maxWidth="xl">
                 {/* Header */}
                 <Box sx={{ mb: 12, borderBottom: "1px solid rgba(0,0,0,0.1)", pb: 4 }}>
@@ -72,14 +72,8 @@ const ImpactPillars2 = () => {
                             sx={{
                                 borderBottom: "1px solid rgba(0,0,0,0.1)",
                                 py: 6,
-                                cursor: "pointer",
                                 transition: "all 0.4s ease",
                                 // opacity: activeIndex === index ? 1 : 0.4,
-                                "&:hover": {
-                                    opacity: 1,
-                                    bgcolor: "rgba(51, 156, 94, 0.08)",
-                                    pl: 2
-                                }
                             }}
                         >
                             <Stack
@@ -124,7 +118,6 @@ const ImpactPillars2 = () => {
                                             borderRadius: "50%",
                                             color: activeIndex === index ? "#339c5e" : "grey.500",
                                             transition: "all 0.3s ease",
-                                            transform: activeIndex === index ? "scale(1.1)" : "scale(1)"
                                         }}
                                     >
                                         {service.icon}
