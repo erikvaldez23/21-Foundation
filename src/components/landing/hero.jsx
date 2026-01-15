@@ -61,7 +61,7 @@ const GlassButton = styled(motion(Button))({
   fontWeight: 700,
   letterSpacing: 0.25,
   color: "#fff",
-  background: "rgba(18,18,18,0.45)",
+  background: "rgba(18,18,18,0.35)",
   border: "1px solid rgba(255,255,255,0.18)",
   backdropFilter: "blur(6px)",
   WebkitBackdropFilter: "blur(6px)",
@@ -204,21 +204,25 @@ const Hero2 = () => {
           position: "absolute",
           inset: 0,
           display: { xs: "flex", sm: "none" },
-          alignItems: "center",
-          justifyContent: "center",
-          paddingLeft: "max(16px, env(safe-area-inset-left))",
-          paddingRight: "max(16px, env(safe-area-inset-right))",
+          flexDirection: "column",
+          justifyContent: "space-between", // Pushes text to top, buttons to bottom
+          paddingTop: "max(120px, env(safe-area-inset-top))", // Below topbar
+          paddingBottom: "max(32px, env(safe-area-inset-bottom))",
+          paddingLeft: "max(24px, env(safe-area-inset-left))",
+          paddingRight: "max(24px, env(safe-area-inset-right))",
           boxSizing: "border-box",
           zIndex: 2,
         }}
       >
+        {/* Top Text Section - Centered */}
         <Box
           sx={{
-            width: "min(92%, 520px)",
+            width: "100%",
             textAlign: "center",
             display: "flex",
             flexDirection: "column",
-            gap: 1.5,
+            alignItems: "center",
+            gap: 0.5,
           }}
         >
           <Typography
@@ -245,45 +249,45 @@ const Hero2 = () => {
             sx={{
               ...mobileH1Base,
               fontSize: "clamp(1.65rem, 8.8vw, 2.6rem)",
-              mb: 1,
+              lineHeight: 1.1,
             }}
           >
             LIVE LIKE SEAN, <br /> A FRIEND TO ALL
           </Typography>
+        </Box>
 
-          {/* 50/50 grid buttons */}
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 1.25,
-              width: "100%",
-            }}
+        {/* Bottom Buttons - Single Row */}
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 1.25,
+            width: "100%",
+          }}
+        >
+          <GlassButton
+            variants={buttonVariants}
+            initial="initial"
+            animate={buttonVariants.animate(0)}
+            whileHover="whileHover"
+            whileTap="whileTap"
+            fullWidth
+            sx={{ width: "100%", minHeight: 48 }}
           >
-            <GlassButton
-              variants={buttonVariants}
-              initial="initial"
-              animate={buttonVariants.animate(0)}
-              whileHover="whileHover"
-              whileTap="whileTap"
-              fullWidth
-              sx={{ width: "100%", minHeight: 48 }}
-            >
-              LEARN MORE
-            </GlassButton>
-            <GlassButton
-              variants={buttonVariants}
-              initial="initial"
-              animate={buttonVariants.animate(1)}
-              whileHover="whileHover"
-              whileTap="whileTap"
-              onClick={handleAskQuestion}
-              fullWidth
-              sx={{ width: "100%", minHeight: 48 }}
-            >
-              VIEW GALLERY
-            </GlassButton>
-          </Box>
+            LEARN MORE
+          </GlassButton>
+          <GlassButton
+            variants={buttonVariants}
+            initial="initial"
+            animate={buttonVariants.animate(1)}
+            whileHover="whileHover"
+            whileTap="whileTap"
+            onClick={handleAskQuestion}
+            fullWidth
+            sx={{ width: "100%", minHeight: 48 }}
+          >
+            VIEW GALLERY
+          </GlassButton>
         </Box>
       </Box>
 

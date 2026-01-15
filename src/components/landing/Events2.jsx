@@ -55,7 +55,7 @@ const HeaderRow = styled(Box)(({ theme }) => ({
   },
 }));
 
-const CarouselContainer = styled(Box)({
+const CarouselContainer = styled(Box)(({ theme }) => ({
   position: "relative",
   overflowX: "auto",
   overflowY: "hidden",
@@ -79,7 +79,13 @@ const CarouselContainer = styled(Box)({
       backgroundColor: "rgba(0,0,0,0.3)",
     },
   },
-});
+  [theme.breakpoints.down("md")]: {
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
+}));
 
 const CarouselTrack = styled(Box)({
   display: "flex",
@@ -364,7 +370,7 @@ export default function EdutainmentCoursesMUI() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const GAP = 30;
-  const PEEK = isMobile ? 48 : 80;
+  const PEEK = isMobile ? 24 : 80;
 
   const containerRef = useRef(null);
 
@@ -422,6 +428,35 @@ export default function EdutainmentCoursesMUI() {
     el.scrollBy({ left: -scrollByAmount, behavior: "smooth" });
   };
 
+  /* ===================== Logic ===================== */
+  // Duplicate courses for "repeating" effect on mobile
+  // We use 5 sets to allow significant scrolling in both directions
+  const displayCourses = useMemo(() => {
+    if (!isMobile) return courses;
+    return [...courses, ...courses, ...courses, ...courses, ...courses].map((c, i) => ({
+      ...c,
+      uniqueKey: `${c.key}-${i}`, // ensure unique keys
+    }));
+  }, [isMobile]);
+
+  // Scroll to middle set on mount (mobile only)
+  useEffect(() => {
+    if (isMobile && containerRef.current && cardW > 0) {
+      // Approximate middle: 2 sets in. 
+      // Total 5 sets. Start at index = courses.length * 2
+      const setLength = courses.length;
+      const startIdx = setLength * 2;
+      const spacing = cardW + GAP;
+      // Calculate position: PEEK + (index * spacing) ? 
+      // Actually standard scrollLeft logic
+      // We want the startIdx item to be centered.
+      // With snap-align:center and padding, simpler to just scroll to approximate location
+      // But accurate position is needed for snap to settle nicely
+      const scrollPos = startIdx * spacing;
+      containerRef.current.scrollLeft = scrollPos;
+    }
+  }, [isMobile, cardW]); // Run when mobile or card width stabilizes
+
   return (
     <Section role="region" aria-label="Get involved carousel">
       <Container maxWidth="xl">
@@ -430,15 +465,11 @@ export default function EdutainmentCoursesMUI() {
             <Typography
               variant="h1"
               sx={{
-                fontWeight: 800,
+                fontFamily: "serif",
+                fontWeight: 400,
                 fontSize: { xs: "12vw", md: "4rem" },
                 lineHeight: 1.2,
-                color: "#339c5e",
-                letterSpacing: "-0.04em",
-                textTransform: "capitalize",
-                background: "linear-gradient(135deg, #111 0%, #339c5e 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                color: "#1a1a1a",
                 mb: 2
               }}
             >
@@ -460,16 +491,16 @@ export default function EdutainmentCoursesMUI() {
             {/* Arrow controls under the header (left-aligned) */}
             <Box
               sx={{
-                display: "flex",
+                display: { xs: "none", md: "flex" },
                 justifyContent: "flex-start",
                 gap: 1,
                 mt: { xs: 0.5, sm: 1 },
               }}
             >
-              <NavBtn onClick={previousSlide} aria-label="previous" disabled={atStart}>
+              <NavBtn onClick={previousSlide} aria-label="previous" disabled={atStart && !isMobile}>
                 <ChevronLeft size={16} />
               </NavBtn>
-              <NavBtn onClick={nextSlide} aria-label="next" disabled={atEnd}>
+              <NavBtn onClick={nextSlide} aria-label="next" disabled={atEnd && !isMobile}>
                 <ChevronRight size={16} />
               </NavBtn>
             </Box>
@@ -478,19 +509,26 @@ export default function EdutainmentCoursesMUI() {
       </Container>
 
       {/* Limit carousel width to xl as well */}
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" disableGutters={isMobile}>
         <CarouselContainer
           ref={containerRef}
           onWheel={onWheel}
-          sx={{ overscrollBehaviorX: "contain" }}
+          sx={{
+            overscrollBehaviorX: "contain",
+            // Visual centering on mobile: add padding equal to peek
+            paddingInline: isMobile ? `${PEEK}px` : 0
+          }}
         >
-          <CarouselTrack>
-            {courses.map((course) => {
+          <CarouselTrack sx={{
+            // Ensure centering
+            "& > *": { scrollSnapAlign: isMobile ? "center" : "start" }
+          }}>
+            {displayCourses.map((course) => {
               const signUpHref = course.formUrl || course.href || "#";
-              const learnMoreHref = course.href || course.formUrl || "#";
+              const uniqueKey = course.uniqueKey || course.key;
 
               return (
-                <Box key={course.key} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px`, display: "flex", flexDirection: "column" }}>
+                <Box key={uniqueKey} sx={{ flex: `0 0 ${Math.max(cardW, 0)}px`, display: "flex", flexDirection: "column" }}>
                   <ImageShell>
                     {course.image ? (
                       <ImageBgImg

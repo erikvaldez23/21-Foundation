@@ -162,9 +162,9 @@ const StoryMission = ({
               ))}
             </Box>
 
-            <ActionButton onClick={onCta}>
-              {ctaLabel}
-            </ActionButton>
+            {/* <ActionButton onClick={onCta}> */}
+            {/* {ctaLabel} */}
+            {/* </ActionButton> */}
           </Box>
         </Box>
       </Container>

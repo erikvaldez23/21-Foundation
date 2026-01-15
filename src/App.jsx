@@ -27,6 +27,9 @@ const theme = createTheme({
   palette: {
     primary: { main: "#339c5e" },
   },
+  typography: {
+    fontFamily: "serif",
+  },
 });
 
 function App() {

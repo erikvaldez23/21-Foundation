@@ -36,22 +36,18 @@ const ImpactPillars2 = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (
-        <Box sx={{ py: 20, background: "#E8E5DD", overflow: 'hidden', color: '#1a1a1a' }}>
+        <Box sx={{ py: { xs: 5, md: 10 }, background: "#E8E5DD", overflow: 'hidden', color: '#1a1a1a' }}>
             <Container maxWidth="xl">
                 {/* Header */}
                 <Box sx={{ mb: 12, borderBottom: "1px solid rgba(0,0,0,0.1)", pb: 4 }}>
                     <Typography
                         variant="h1"
                         sx={{
-                            fontWeight: 800,
+                            fontFamily: "serif",
+                            fontWeight: 400,
                             fontSize: { xs: "12vw", md: "4rem" },
                             lineHeight: 1.2,
-                            color: "#339c5e",
-                            letterSpacing: "-0.04em",
-                            textTransform: "capitalize",
-                            background: "linear-gradient(135deg, #111 0%, #339c5e 100%)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
+                            color: "#1a1a1a",
                             mb: 4
                         }}
                     >

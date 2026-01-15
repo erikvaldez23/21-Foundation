@@ -64,157 +64,158 @@ export default function MeetTheTeamOneImage({
   return (
     <Section>
       <Container maxWidth="xl">
-        <Grid container spacing={8}>
-          {/* Left Column: Header & Intro */}
-          <Grid item xs={12} md={5}>
-            <Box sx={{ position: "sticky", top: 40 }}>
-              <Box sx={{ mb: 6 }}>
-                <Typography
-                  variant="overline"
-                  sx={{
-                    letterSpacing: "0.15em",
-                    color: "#555",
-                    fontWeight: 600,
-                    display: "block",
-                    mb: 2,
-                    textTransform: "uppercase"
-                  }}
-                >
-                  {subtitle}
-                </Typography>
+        {/* Header Section */}
+        <Box sx={{ textAlign: "center", mb: 8 }}>
+          <Typography
+            variant="overline"
+            sx={{
+              letterSpacing: "0.15em",
+              color: "#555",
+              fontWeight: 600,
+              display: "block",
+              mb: 2,
+              textTransform: "uppercase"
+            }}
+          >
+            {subtitle}
+          </Typography>
 
-                <SerifHeading
-                  variant="h1"
-                  sx={{
-                    fontSize: { xs: "3rem", md: "4.5rem" },
-                    lineHeight: 0.95,
-                    mb: 4,
-                    letterSpacing: "-0.02em"
-                  }}
-                >
-                  {title}
-                </SerifHeading>
+          <SerifHeading
+            variant="h1"
+            sx={{
+              fontSize: { xs: "3rem", md: "4.5rem" },
+              lineHeight: 0.95,
+              mb: 4,
+              letterSpacing: "-0.02em"
+            }}
+          >
+            {title}
+          </SerifHeading>
 
-                <Typography variant="body1" sx={{ fontSize: "1.1rem", color: "#444", maxWidth: "400px", lineHeight: 1.7 }}>
-                  Our dedicated team works tirelessly to empower youth through resilience, kindness, and courage.
-                  Meet the people making it happen.
-                </Typography>
-              </Box>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: "1.1rem",
+              color: "#444",
+              maxWidth: "800px",
+              lineHeight: 1.7,
+              margin: "0 auto",
+              mb: 8
+            }}
+          >
+            Our dedicated team works tirelessly to empower youth through resilience, kindness, and courage.
+            Meet the people making it happen.
+          </Typography>
 
-              {/* Hero Photo Sidebar */}
-              <Box sx={{ position: "relative" }}>
-                <TeamImage src={photoSrc} alt={photoAlt} />
-                <Typography variant="caption" sx={{ display: "block", mt: 1, color: "#666", fontStyle: "italic" }}>
-                  The SC21 Team
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 12 }}>
+            <TeamImage
+              src={photoSrc}
+              alt={photoAlt}
+              sx={{
+                maxWidth: "1400px",
+                width: "100%",
+                height: "auto"
+              }}
+            />
+          </Box>
+        </Box>
 
-          {/* Right Column: Lists */}
-          <Grid item xs={12} md={7}>
+        {/* BOARD SECTION - Editorial List */}
+        <Box sx={{ mb: 12, maxWidth: "1200px", mx: "auto" }}>
+          <Typography
+            variant="h6"
+            sx={{
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "#888",
+              mb: 4,
+              borderBottom: "1px solid #1a1a1a",
+              pb: 2,
+              textAlign: "center"
+            }}
+          >
+            Board of Directors
+          </Typography>
 
-            {/* BOARD SECTION - Editorial List */}
-            <Box sx={{ mb: 12, pt: 2 }}>
-              <Typography
-                variant="h6"
+          <Box>
+            {boardMembers.map((name, index) => (
+              <Box
+                key={name}
                 sx={{
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  color: "#888",
-                  mb: 4,
-                  borderBottom: "1px solid #1a1a1a",
-                  pb: 2
+                  py: 4,
+                  borderBottom: "1px solid rgba(0,0,0,0.1)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  transition: "all 0.3s ease",
+                  cursor: "default",
+                  "&:hover": {
+                    paddingLeft: 2,
+                    borderColor: "#339c5e",
+                  }
                 }}
               >
-                Board of Directors
-              </Typography>
+                <Box>
+                  <Typography variant="h3" component="span" sx={{ fontFamily: "serif", fontSize: { xs: "1.8rem", md: "2.5rem" }, color: "#1a1a1a" }}>
+                    {name}
+                  </Typography>
+                </Box>
 
-              <Box>
-                {boardMembers.map((name, index) => (
-                  <Box
-                    key={name}
-                    sx={{
-                      py: 4,
-                      borderBottom: "1px solid rgba(0,0,0,0.1)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      transition: "all 0.3s ease",
-                      cursor: "default",
-                      "&:hover": {
-                        paddingLeft: 2,
-                        borderColor: "#339c5e",
-                      }
-                    }}
-                  >
-                    <Box>
-                      <Typography variant="h3" component="span" sx={{ fontFamily: "serif", fontSize: { xs: "2rem", md: "2.5rem" }, color: "#1a1a1a" }}>
-                        {name}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                      <Typography variant="body2" sx={{ color: "#666", textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "0.8rem" }}>
-                        Board Member
-                      </Typography>
-                      {/* Decorative Arrow */}
-                      <ArrowForwardIcon className="arrow-icon" sx={{ opacity: 0, transform: "translateX(-10px)", transition: "all 0.3s ease", color: "#339c5e" }} />
-                    </Box>
-                  </Box>
-                ))}
+                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                  <Typography variant="body2" sx={{ color: "#666", textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "0.8rem", display: { xs: "none", sm: "block" } }}>
+                    Board Member
+                  </Typography>
+                  {/* Decorative Arrow */}
+                  <ArrowForwardIcon className="arrow-icon" sx={{ opacity: 0, transform: "translateX(-10px)", transition: "all 0.3s ease", color: "#339c5e" }} />
+                </Box>
               </Box>
-            </Box>
+            ))}
+          </Box>
+        </Box>
 
-            {/* TEAM SECTION - Clean Grid */}
-            <Box>
-              <Typography
-                variant="h6"
-                sx={{
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  color: "#888",
-                  mb: 6,
-                  pb: 2,
-                  borderBottom: "1px solid #1a1a1a"
-                }}
-              >
-                Team Members
-              </Typography>
+        {/* TEAM SECTION - Clean Grid Redesign */}
+        <Box sx={{ maxWidth: "1200px", mx: "auto" }}>
+          <Typography
+            variant="h6"
+            sx={{
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "#888",
+              mb: 6,
+              pb: 2,
+              borderBottom: "1px solid #1a1a1a",
+              textAlign: "center"
+            }}
+          >
+            Team Members
+          </Typography>
 
-              <Grid container spacing={2}>
-                {teamMembers.map((name) => (
-                  <Grid item xs={6} sm={4} key={name}>
-                    <Box
-                      sx={{
-                        p: 3,
-                        bgcolor: "rgba(255,255,255,0.4)",
-                        borderRadius: "4px",
-                        transition: "all 0.2s",
-                        minHeight: "100px",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        "&:hover": {
-                          bgcolor: "#fff",
-                          boxShadow: "0 4px 12px rgba(0,0,0,0.03)"
-                        }
-                      }}
-                    >
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#1a1a1a", mb: 0.5 }}>
-                        {name}
-                      </Typography>
-                      <Typography variant="caption" sx={{ color: "#666" }}>
-                        Team Member
-                      </Typography>
-                    </Box>
-                  </Grid>
-                ))}
+          <Grid container spacing={4} justifyContent="center">
+            {teamMembers.map((name) => (
+              <Grid item xs={12} sm={6} md={3} key={name}>
+                <Box
+                  sx={{
+                    textAlign: "center",
+                    p: 2,
+                    border: "1px solid transparent",
+                    transition: "all 0.2s",
+                    "&:hover": {
+                      borderColor: "rgba(0,0,0,0.1)"
+                    }
+                  }}
+                >
+                  <Typography variant="h5" sx={{ fontFamily: "serif", color: "#1a1a1a", mb: 1 }}>
+                    {name}
+                  </Typography>
+                  <Typography variant="overline" sx={{ color: "#666", letterSpacing: "0.1em", fontSize: "0.75rem" }}>
+                    Team Member
+                  </Typography>
+                </Box>
               </Grid>
-            </Box>
-
+            ))}
           </Grid>
-        </Grid>
+        </Box>
+
       </Container>
     </Section>
   );
