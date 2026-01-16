@@ -39,7 +39,7 @@ const TeamImage = styled("img")({
 export default function MeetTheTeamOneImage({
   title = "Our Leadership",
   subtitle = "Guiding the Mission",
-  photoSrc = "/about/team.JPG",
+  photoSrc = "/about/team.png",
   photoAlt = "Our team",
   members = [
     "Isabel Clark",
@@ -108,13 +108,28 @@ export default function MeetTheTeamOneImage({
           </Typography>
 
           <Box sx={{ display: "flex", justifyContent: "center", mb: 12 }}>
+            {/* Desktop Image */}
             <TeamImage
               src={photoSrc}
               alt={photoAlt}
               sx={{
                 maxWidth: "1400px",
                 width: "100%",
-                height: "auto"
+                height: "auto",
+                display: { xs: "none", md: "block" },
+                borderRadius: 10,
+              }}
+            />
+            {/* Mobile Image */}
+            <TeamImage
+              src="/about/mobile-team.JPG"
+              alt={photoAlt}
+              sx={{
+                maxWidth: "1400px",
+                width: "100%",
+                height: "auto",
+                display: { xs: "block", md: "none" },
+                borderRadius: 6,
               }}
             />
           </Box>
@@ -190,30 +205,46 @@ export default function MeetTheTeamOneImage({
             Team Members
           </Typography>
 
-          <Grid container spacing={4} justifyContent="center">
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" },
+              gap: { xs: 2, md: 4 }
+            }}
+          >
             {teamMembers.map((name) => (
-              <Grid item xs={12} sm={6} md={3} key={name}>
-                <Box
+              <Box
+                key={name}
+                sx={{
+                  textAlign: "center",
+                  p: 2,
+                  border: "1px solid transparent",
+                  transition: "all 0.2s",
+                  "&:hover": {
+                    borderColor: "rgba(0,0,0,0.1)"
+                  }
+                }}
+              >
+                <Typography
+                  variant="h5"
                   sx={{
-                    textAlign: "center",
-                    p: 2,
-                    border: "1px solid transparent",
-                    transition: "all 0.2s",
-                    "&:hover": {
-                      borderColor: "rgba(0,0,0,0.1)"
-                    }
+                    fontFamily: "serif",
+                    color: "#1a1a1a",
+                    mb: 1,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    fontSize: { xs: "1.2rem", md: "1.5rem" }
                   }}
                 >
-                  <Typography variant="h5" sx={{ fontFamily: "serif", color: "#1a1a1a", mb: 1 }}>
-                    {name}
-                  </Typography>
-                  <Typography variant="overline" sx={{ color: "#666", letterSpacing: "0.1em", fontSize: "0.75rem" }}>
-                    Team Member
-                  </Typography>
-                </Box>
-              </Grid>
+                  {name}
+                </Typography>
+                <Typography variant="overline" sx={{ color: "#666", letterSpacing: "0.1em", fontSize: "0.75rem" }}>
+                  Team Member
+                </Typography>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         </Box>
 
       </Container>

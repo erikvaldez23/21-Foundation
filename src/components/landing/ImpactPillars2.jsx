@@ -112,7 +112,7 @@ const ImpactPillars2 = () => {
                                         sx={{
                                             p: 2,
                                             borderRadius: "50%",
-                                            color: activeIndex === index ? "#339c5e" : "grey.500",
+                                            color: "#339c5e",
                                             transition: "all 0.3s ease",
                                         }}
                                     >

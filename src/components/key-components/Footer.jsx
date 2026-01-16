@@ -96,7 +96,7 @@ export default function Footer({
       >
         <Grid
           container
-          rowSpacing={{ xs: 8, sm: 4 }}
+          rowSpacing={{ xs: 4, sm: 4 }}
           columnSpacing={{ xs: 0, sm: 4, md: 6 }}
           justifyContent="space-between"
           alignItems="flex-start"
@@ -144,7 +144,7 @@ export default function Footer({
                 gap={2}
                 sx={{
                   justifyContent: { xs: "center", md: "flex-start" },
-                  mb: { xs: 1, md: 0 },
+                  mb: { xs: 0, md: 0 },
                   width: "100%", // Force width 100% to ensure justifyContent center works effectively
                 }}
               >
@@ -210,10 +210,10 @@ export default function Footer({
                 flexDirection: "column",
                 alignItems: { xs: "center", md: "flex-end" },
                 textAlign: { xs: "center", md: "right" },
-                mt: { xs: 2, md: 0 } // Extra spacing on mobile
+                mt: { xs: 5, md: 0 } // Extra spacing on mobile
               }}
             >
-              <Heading variant="h6" sx={{ textAlign: { xs: "center", md: "right" }, width: "100%" }}>
+              <Heading variant="h6" sx={{ textAlign: { xs: "center", md: "right" }, width: "100%", fontSize: { xs: "2rem", md: "1.5rem" } }}>
                 Stay in the loop
               </Heading>
               <Typography
@@ -300,7 +300,7 @@ export default function Footer({
           </Grid>
         </Grid>
 
-        <Divider sx={{ my: { xs: 6, sm: 6 }, borderColor: "rgba(0,0,0,0.06)" }} />
+        <Divider sx={{ my: { xs: 4, sm: 6 }, borderColor: "rgba(0,0,0,0.06)" }} />
 
         {/* Bottom row */}
         <Box

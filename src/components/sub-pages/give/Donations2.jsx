@@ -152,7 +152,7 @@ const DonationsSection = ({
     };
 
     return (
-        <SectionWrap id="donate" sx={{ py: { xs: 8, md: 12 }, px: { xs: 2.5, md: 4 } }}>
+        <SectionWrap id="donate" sx={{ py: { xs: 4, md: 12 }, px: { xs: 1, md: 4 } }}>
             <Glow />
             <Container maxWidth="xl">
                 <Box
@@ -182,6 +182,7 @@ const DonationsSection = ({
                         <Typography
                             variant="h2"
                             sx={{
+                                display: { xs: "none", md: "block" },
                                 fontFamily: "'Playfair Display', serif",
                                 fontWeight: 800,
                                 letterSpacing: -0.5,

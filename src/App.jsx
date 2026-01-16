@@ -36,7 +36,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Headliner />
+        {/* <Headliner /> */}
         <ScrollToTop behavior="auto" />
         <Topbar />
         <Routes>

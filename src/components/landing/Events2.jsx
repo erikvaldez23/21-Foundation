@@ -21,7 +21,7 @@ const Section = styled(Box)(({ theme }) => ({
   backgroundColor: "#E8E5DD",
   // tighter vertical rhythm on phones, unchanged at md+
   paddingTop: `max(${theme.spacing(5)}, env(safe-area-inset-top))`,
-  paddingBottom: `max(${theme.spacing(5)}, env(safe-area-inset-bottom))`,
+  paddingBottom: `max(${theme.spacing(2)}, env(safe-area-inset-bottom))`,
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   [theme.breakpoints.up("sm")]: {
@@ -99,25 +99,24 @@ const RADIUS = 16;
 const CTA_SPACE = 96;
 
 const ImageShell = styled(Box)(({ theme }) => ({
-  height: 260, // smaller default for phones
+  height: 400, // smaller default for phones
   position: "relative",
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
+  alignItems: "flex-start", // Left align
+  justifyContent: "flex-end", // Bottom align
   color: "white",
-  textAlign: "center",
-  padding: `32px 16px`, // a touch more space for CTA stack on mobile
+  textAlign: "left", // Left align text
+  padding: `24px`, // Standard padding
   borderRadius: RADIUS,
   overflow: "hidden",
   [theme.breakpoints.up("sm")]: {
-    height: 280,
-    padding: `36px 18px`,
+    height: 400,
+    padding: `32px`,
   },
   [theme.breakpoints.up("md")]: {
-    // desktop/tablet exactly as the original
-    height: 340,
-    padding: `40px 20px`,
+    height: 500,
+    padding: `40px`,
   },
 }));
 
@@ -145,71 +144,50 @@ const ImageBgImg = styled("img")({
 const Overlay = styled(Box)({
   position: "absolute",
   inset: 0,
-  background: "linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3))",
+  background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.8) 100%)", // Darker bottom gradient
   zIndex: 2,
   borderRadius: RADIUS,
   pointerEvents: "none",
 });
 
 const BottomFade = styled(Box)({
-  position: "absolute",
-  left: 0,
-  right: 0,
-  bottom: 0,
-  height: 110,
-  borderBottomLeftRadius: RADIUS,
-  borderBottomRightRadius: RADIUS,
-  background:
-    "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.55) 100%)",
-  zIndex: 2,
-  pointerEvents: "none",
+  // Redundant with better Overlay gradient, but keeping for safety or removing if desired.
+  // Let's remove content here as Overlay covers it, or make it subtle
+  display: "none"
 });
 
 const ImageContent = styled(Box)(({ theme }) => ({
   position: "relative",
   zIndex: 3,
-  // keep lines from getting too long on phones
-  width: "min(92%, 720px)",
-  marginInline: "auto",
+  width: "100%", // Full width
+  paddingBottom: "60px", // Space for CTA
+  [theme.breakpoints.up("sm")]: {
+    width: "min(92%, 720px)",
+    marginInline: "auto",
+    paddingBottom: 0,
+  },
 }));
 
 /* ----- Text styles ----- */
-const HeaderTag = styled(Typography)(({ theme }) => ({
-  fontWeight: 300,
-  letterSpacing: 2,
-  marginBottom: 14,
-  textTransform: "uppercase",
-  fontSize: 11, // smaller base for phones
-  [theme.breakpoints.up("sm")]: { fontSize: 12, marginBottom: 18 },
-  [theme.breakpoints.up("md")]: { fontSize: 12, marginBottom: 20 }, // original spacing at md+
-}));
+const HeaderTag = styled(Typography)({ display: 'none' });
 
 const CourseH3 = styled(Typography)(({ theme }) => ({
-  fontWeight: 300,
-  lineHeight: 1.12,
-  marginBottom: 6,
-  fontSize: 28, // mobile
-  [theme.breakpoints.up("sm")]: { fontSize: 34, marginBottom: 7 },
-  [theme.breakpoints.up("md")]: { fontSize: 42, marginBottom: 8 }, // original
+  fontFamily: "'Playfair Display', serif",
+  lineHeight: 1.1,
+  marginBottom: 0,
+  color: "#fff",
+  fontSize: 36, // Mobile size
+  flex: 1, // Allow text to take available space
+  marginRight: 16, // Space between text and button
+  [theme.breakpoints.up("sm")]: { fontSize: 32 },
+  [theme.breakpoints.up("md")]: { fontSize: 40 },
 }));
 
-const CourseH4 = styled(Typography)(({ theme }) => ({
-  fontWeight: 300,
-  lineHeight: 1.12,
-  marginBottom: 16,
-  fontSize: 26, // mobile
-  [theme.breakpoints.up("sm")]: { fontSize: 34, marginBottom: 18 },
-  [theme.breakpoints.up("md")]: { fontSize: 42, marginBottom: 20 }, // original
-}));
-
-const CourseSub = styled(Typography)(({ theme }) => ({
-  fontWeight: 300,
-  fontSize: 13,
-  [theme.breakpoints.up("sm")]: { fontSize: 14 },
-}));
+const CourseH4 = styled(Typography)({ display: 'none' });
+const CourseSub = styled(Typography)({ display: 'none' });
 
 const NavBtn = styled(IconButton)(({ theme }) => ({
-  width: 40,
+  width: 30,
   height: 40,
   borderRadius: "50%",
   border: "2px solid #ddd",
@@ -226,61 +204,49 @@ const NavBtn = styled(IconButton)(({ theme }) => ({
 /* ----- Transparent CTAs pinned to image bottom ----- */
 const ImageCtaBar = styled(Box)(({ theme }) => ({
   position: "absolute",
-  left: 12,
-  right: 12,
-  bottom: 18,
+  left: 24,
+  right: 24,
+  bottom: 24,
   zIndex: 4,
   display: "flex",
-  justifyContent: "flex-end",
-  gap: 10,
-  flexWrap: "wrap",
+  justifyContent: "space-between",
+  alignItems: "flex-end", // Align to bottom
+  gap: 12,
   [theme.breakpoints.up("sm")]: {
-    left: 12,
-    right: 12,
-    bottom: 20,
-    gap: 10,
+    left: 24,
+    right: 24,
+    bottom: 30, // consistent spacing
   },
   [theme.breakpoints.up("md")]: {
-    // original spacing at md+
-    left: 16,
-    right: 16,
-    bottom: 24,
-    gap: 12,
+    left: 32,
+    right: 32,
+    bottom: 32,
   },
 }));
 
 const GhostBtn = styled(Button)(({ theme }) => ({
   textTransform: "none",
-  fontWeight: 700,
+  fontWeight: 600,
   fontSize: 13, // mobile size
-  padding: "12px 16px",
+  padding: "10px 20px",
   borderRadius: 999,
-  color: "#fff",
-  background: "rgba(255,255,255,0.04)",
-  backdropFilter: "blur(8px)",
-  WebkitBackdropFilter: "blur(8px)",
-  boxShadow: "0 4px 12px rgba(0,0,0,0.18)",
+  color: "#1a1a1a",
+  background: "#fff", // Solid white for pop
+  boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
   transition:
     "background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease",
   "&:hover": {
-    background: "rgba(255,255,255,0.12)",
-    borderColor: "rgba(255,255,255,0.9)",
-    boxShadow: "0 6px 16px rgba(0,0,0,0.24)",
+    background: "#f0f0f0",
     transform: "translateY(-1px)",
   },
   "&:active": { transform: "translateY(0)" },
-  "&:focus-visible": {
-    outline: "2px solid rgba(255,255,255,0.9)",
-    outlineOffset: 2,
-  },
   [theme.breakpoints.up("sm")]: {
     fontSize: 14,
-    padding: "14px 18px",
+    padding: "12px 24px",
   },
   [theme.breakpoints.up("md")]: {
-    // original at md+
     fontSize: 14,
-    padding: "14px 18px",
+    padding: "12px 24px",
   },
 }));
 
@@ -543,48 +509,11 @@ export default function EdutainmentCoursesMUI() {
                     <Overlay />
                     <BottomFade />
 
-                    <ImageContent>
-                      {course.h3 ? (
-                        <>
-                          <HeaderTag>{course.headerTag}</HeaderTag>
-                          <CourseH3>{course.h3}</CourseH3>
-                          <CourseH4>{course.h4}</CourseH4>
-                          <CourseSub>{course.sub}</CourseSub>
-                        </>
-                      ) : (
-                        <>
-                          <HeaderTag>{course.headerTag}</HeaderTag>
-                          <CourseSub sx={{ mb: 2 }}>{course.subTop}</CourseSub>
-                          <Typography
-                            sx={{
-                              fontSize: { xs: 32, sm: 42, md: 48 }, // md=48 matches spirit of original
-                              fontWeight: 400,
-                              fontStyle: "italic",
-                              color: "#2c5530",
-                              mb: 1,
-                              lineHeight: 1,
-                            }}
-                          >
-                            {course.italic}
-                          </Typography>
-                          <Typography
-                            sx={{
-                              fontSize: { xs: 40, sm: 52, md: 56 }, // md=56 as original
-                              fontWeight: 800,
-                              letterSpacing: "-2px",
-                              color: "#000",
-                              lineHeight: 1,
-                            }}
-                          >
-                            {course.bold}
-                          </Typography>
-                        </>
-                      )}
-                    </ImageContent>
-
-                    {/* Transparent CTAs on the image bottom */}
+                    {/* Single Row: Title + Button */}
                     <ImageCtaBar>
-                      {/* Sign Up: usually external form */}
+                      <CourseH3>
+                        {course.h3 || course.title}
+                      </CourseH3>
                       <GhostBtn
                         component="a"
                         href={signUpHref}
@@ -594,7 +523,6 @@ export default function EdutainmentCoursesMUI() {
                       >
                         Sign Up Now
                       </GhostBtn>
-
                     </ImageCtaBar>
                   </ImageShell>
 
