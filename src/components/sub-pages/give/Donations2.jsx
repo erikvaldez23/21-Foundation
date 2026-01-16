@@ -152,211 +152,219 @@ const DonationsSection = ({
     };
 
     return (
-        <SectionWrap id="donate" sx={{ py: { xs: 8, md: 12 }, px: 4 }}>
+        <SectionWrap id="donate" sx={{ py: { xs: 8, md: 12 }, px: { xs: 2.5, md: 4 } }}>
             <Glow />
             <Container maxWidth="xl">
-                {/* ---- GRID: 60% form / 40% image ---- */}
                 <Box
                     sx={{
                         display: "grid",
-                        gridTemplateColumns: { xs: "1fr", md: "60% 40%" },
-                        gap: { xs: 3, md: 6 },
-                        alignItems: "stretch",
+                        gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+                        gap: { xs: 6, md: 8 },
+                        alignItems: "center",
                     }}
                 >
-                    {/* Left: Form or Success Message */}
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            px: { xs: 2, md: 1 },
-                            textAlign: { xs: "center", md: "left" },
-                            maxWidth: 720,
-                            mx: { xs: "auto", md: 0 },
-                            minHeight: 400, // Prevent layout jump
-                        }}
-                    >
-                        {status === "success" ? (
-                            <Fade in>
-                                <Box sx={{ textAlign: "center", py: 4 }}>
-                                    <CheckCircleRoundedIcon
-                                        sx={{ fontSize: 64, color: ACCENT, mb: 2 }}
-                                    />
-                                    <Typography variant="h4" sx={{ fontWeight: 800, mb: 1 }}>
-                                        Thank You!
-                                    </Typography>
-                                    <Typography variant="body1" sx={{ opacity: 0.7, mb: 4 }}>
-                                        Your donation of <strong>{pretty(Math.max(1, displayAmount))}</strong> has been received.
-                                        <br />
-                                        Your support means the world to us.
-                                    </Typography>
-                                    <Button
-                                        variant="outlined"
-                                        onClick={handleReset}
-                                        sx={{
-                                            borderRadius: 12,
-                                            textTransform: "none",
-                                            fontWeight: 700,
-                                            borderColor: alpha(INK, 0.2),
-                                            color: INK,
-                                        }}
-                                    >
-                                        Make another donation
-                                    </Button>
-                                </Box>
-                            </Fade>
-                        ) : (
-                            <>
-                                <Typography
-                                    variant="overline"
+                    {/* Left: Content & Payment Methods */}
+                    <Box sx={{ maxWidth: 600, mx: { xs: "auto", md: 0 }, textAlign: { xs: "center", md: "left" } }}>
+                        <Typography
+                            variant="overline"
+                            sx={{
+                                display: "block",
+                                letterSpacing: 3,
+                                color: ACCENT,
+                                fontWeight: 700,
+                                mb: 2,
+                                fontSize: { xs: 11, md: 12 },
+                            }}
+                        >
+                            SUPPORT THE MISSION
+                        </Typography>
+
+                        <Typography
+                            variant="h2"
+                            sx={{
+                                fontFamily: "'Playfair Display', serif",
+                                fontWeight: 800,
+                                letterSpacing: -0.5,
+                                lineHeight: 1.1,
+                                fontSize: { xs: "2.5rem", md: "3.5rem" },
+                                mb: 3,
+                                color: INK,
+                            }}
+                        >
+                            {title}
+                        </Typography>
+
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                color: alpha(INK, 0.7),
+                                fontSize: { xs: "1.1rem", md: "1.25rem" },
+                                lineHeight: 1.6,
+                                mb: 6,
+                                maxWidth: "90%",
+                                mx: { xs: "auto", md: 0 },
+                            }}
+                        >
+                            {subtitle}
+                        </Typography>
+
+                        <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
+                            {[
+                                { label: "Venmo", value: "@SC21-Foundation", color: "#008CFF", icon: "V" },
+                                { label: "Cash App", value: "$SC21Foundation", color: "#00D632", icon: "$" },
+                                { label: "Zelle", value: "info@sc21foundation.org", color: "#6D1ED4", icon: "Z" },
+                            ].map((item) => (
+                                <Box
+                                    key={item.label}
                                     sx={{
-                                        display: "block",
-                                        letterSpacing: 2,
-                                        color: alpha(INK, 0.55),
-                                        mb: 1,
-                                        fontSize: { xs: 11, md: 12 },
+                                        p: 3,
+                                        borderRadius: 4,
+                                        bgcolor: "#fff",
+                                        border: "1px solid",
+                                        borderColor: "rgba(0,0,0,0.06)",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        gap: 3,
+                                        transition: "all 0.3s ease",
+                                        cursor: "default",
+                                        boxShadow: "0 4px 20px rgba(0,0,0,0.02)",
+                                        "&:hover": {
+                                            transform: "translateY(-2px)",
+                                            boxShadow: "0 12px 30px rgba(0,0,0,0.06)",
+                                            borderColor: alpha(item.color, 0.3),
+                                        },
                                     }}
                                 >
-                                    SUPPORT THE MISSION
-                                </Typography>
-
-                                <Typography
-                                    component="h2"
-                                    sx={{
-                                        fontWeight: 800,
-                                        letterSpacing: -0.4,
-                                        lineHeight: 1.06,
-                                        fontSize: { xs: "clamp(28px, 6vw, 40px)", md: 44 },
-                                    }}
-                                >
-                                    {title}
-                                </Typography>
-
-                                {subtitle && (
-                                    <Typography
-                                        variant="body1"
-                                        sx={{
-                                            mt: 1.25,
-                                            opacity: 0.82,
-                                            fontSize: { xs: "1rem", md: "1.05rem" },
-                                        }}
-                                    >
-                                        {subtitle}
-                                    </Typography>
-                                )}
-
-                                {/* Hairline divider for rhythm */}
-                                <Divider sx={{ my: { xs: 3, md: 3.5 }, borderColor: HAIRLINE }} />
-
-                                {/* Other Ways to Give Section */}
-                                <Box>
-                                    <Box sx={{ textAlign: "left", mb: 4 }}>
-                                    </Box>
-
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            gap: 4
-                                        }}
-                                    >
-                                        {/* Payment Apps List */}
-                                        <Box sx={{ display: "grid", gridTemplateColumns: "1fr", gap: 3 }}>
-                                            <Box sx={{ p: 2, borderRadius: 3, border: "1px solid rgba(0,0,0,0.06)", bgcolor: "#fff", display: "flex", alignItems: "center", gap: 2 }}>
-                                                <Box sx={{ width: 40, height: 40, bgcolor: "#008CFF", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 800, fontSize: "0.9rem" }}>V</Box>
-                                                <Box>
-                                                    <Typography variant="caption" sx={{ color: alpha(INK, 0.6), display: "block", lineHeight: 1 }}>Venmo</Typography>
-                                                    <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>@SC21-Foundation</Typography>
-                                                </Box>
-                                            </Box>
-
-                                            <Box sx={{ p: 2, borderRadius: 3, border: "1px solid rgba(0,0,0,0.06)", bgcolor: "#fff", display: "flex", alignItems: "center", gap: 2 }}>
-                                                <Box sx={{ width: 40, height: 40, bgcolor: "#00D632", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 800, fontSize: "0.9rem" }}>$</Box>
-                                                <Box>
-                                                    <Typography variant="caption" sx={{ color: alpha(INK, 0.6), display: "block", lineHeight: 1 }}>Cash App</Typography>
-                                                    <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>$SC21Foundation</Typography>
-                                                </Box>
-                                            </Box>
-
-                                            <Box sx={{ p: 2, borderRadius: 3, border: "1px solid rgba(0,0,0,0.06)", bgcolor: "#fff", display: "flex", alignItems: "center", gap: 2 }}>
-                                                <Box sx={{ width: 40, height: 40, bgcolor: "#6D1ED4", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 800, fontSize: "0.9rem" }}>Z</Box>
-                                                <Box>
-                                                    <Typography variant="caption" sx={{ color: alpha(INK, 0.6), display: "block", lineHeight: 1 }}>Zelle</Typography>
-                                                    <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>info@sc21foundation.org</Typography>
-                                                </Box>
-                                            </Box>
+                                    <Box sx={{ display: "flex", alignItems: "center", gap: 2.5 }}>
+                                        <Box
+                                            sx={{
+                                                width: 48,
+                                                height: 48,
+                                                borderRadius: 3,
+                                                bgcolor: alpha(item.color, 0.1),
+                                                color: item.color,
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                fontWeight: 800,
+                                                fontSize: "1.25rem",
+                                            }}
+                                        >
+                                            {item.icon}
                                         </Box>
-
-                                        {/* QR Code */}
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 3, p: 3, bgcolor: "rgba(0,0,0,0.02)", borderRadius: 4 }}>
-                                            <Box
-                                                sx={{
-                                                    width: 80,
-                                                    height: 80,
-                                                    bgcolor: "#fff",
-                                                    borderRadius: 2,
-                                                    border: "1px solid rgba(0,0,0,0.05)",
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    flexShrink: 0
-                                                }}
-                                            >
-                                                <Typography variant="caption" sx={{ color: "#999", fontSize: "0.6rem", textAlign: "center" }}>QR Code</Typography>
-                                            </Box>
-                                            <Box>
-                                                <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Scan to Pay</Typography>
-                                                <Typography variant="caption" sx={{ color: alpha(INK, 0.6), lineHeight: 1.4, display: "block" }}>
-                                                    Use your phone camera to scan and donate instantly.
-                                                </Typography>
-                                            </Box>
+                                        <Box sx={{ textAlign: "left" }}>
+                                            <Typography variant="body2" sx={{ fontWeight: 600, color: alpha(INK, 0.5) }}>
+                                                {item.label}
+                                            </Typography>
+                                            <Typography variant="h6" sx={{ fontWeight: 700, color: INK, fontSize: { xs: "1rem", sm: "1.1rem" } }}>
+                                                {item.value}
+                                            </Typography>
                                         </Box>
                                     </Box>
                                 </Box>
-                            </>
-                        )}
+                            ))}
+
+                            {/* QR Code Section */}
+                            <Box
+                                sx={{
+                                    mt: 2,
+                                    p: 3,
+                                    borderRadius: 4,
+                                    bgcolor: alpha(ACCENT, 0.04),
+                                    border: `1px dashed ${alpha(ACCENT, 0.3)}`,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 3,
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        width: 64,
+                                        height: 64,
+                                        bgcolor: "#fff",
+                                        borderRadius: 2,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+                                    }}
+                                >
+                                    <Typography variant="caption" sx={{ color: alpha(INK, 0.4), fontWeight: 600, fontSize: "0.65rem" }}>
+                                        QR Code
+                                    </Typography>
+                                </Box>
+                                <Box sx={{ textAlign: "left" }}>
+                                    <Typography variant="subtitle1" sx={{ fontWeight: 700, color: INK }}>
+                                        Scan to Pay
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: alpha(INK, 0.6) }}>
+                                        Use your camera to donate instantly.
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Box>
                     </Box>
 
-                    {/* Right: Vertical Image (40%) */}
+                    {/* Right: Feature Image */}
                     <Box
                         sx={{
                             position: "relative",
-                            minHeight: { xs: 300, md: 560 },
-                            borderRadius: 3,
+                            height: { xs: 400, md: 700 },
+                            width: "100%",
+                            borderRadius: { xs: 4, md: 6 },
                             overflow: "hidden",
-                            background: "#111",
-                            boxShadow: "0 10px 30px rgba(0,0,0,0.10)",
-                            border: `1px solid ${alpha("#000", 0.06)} `,
+                            boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
                         }}
                     >
                         <Box
                             component="img"
                             src={image}
-                            alt="Donation"
-                            loading="lazy"
-                            decoding="async"
+                            alt="Donation Impact"
                             sx={{
                                 width: "100%",
                                 height: "100%",
                                 objectFit: "cover",
-                                display: "block",
+                                transition: "transform 1s ease",
+                                "&:hover": { transform: "scale(1.03)" },
                             }}
                         />
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                inset: 0,
+                                background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%)",
+                            }}
+                        />
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                position: "absolute",
+                                bottom: 24,
+                                left: 24,
+                                color: "rgba(255,255,255,0.9)",
+                                fontWeight: 500,
+                                bgcolor: "rgba(0,0,0,0.3)",
+                                backdropFilter: "blur(10px)",
+                                py: 1,
+                                px: 2,
+                                borderRadius: 99,
+                            }}
+                        >
+                            {imageCaption}
+                        </Typography>
                     </Box>
                 </Box>
-
-
             </Container>
 
-            {/* Payment Modal */}
+            {/* Payment Modal (Preserved logic even if not triggered currently) */}
             <Dialog
                 open={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 maxWidth="sm"
                 fullWidth
                 PaperProps={{
-                    sx: { borderRadius: 3, p: 1 }
+                    sx: { borderRadius: 4, p: 2 }
                 }}
             >
                 <DialogContent>

@@ -26,7 +26,6 @@ const SITE_MAX_WIDTH = 1200;
 const Wrapper = styled("footer")(({ theme }) => ({
   backgroundColor: "#E8E5DD",
   color: "#1a1a1a",
-  borderTop: "1px solid #2c2c2c",
   paddingTop: `max(${theme.spacing(6)}, env(safe-area-inset-top))`,
   paddingBottom: `max(${theme.spacing(4)}, env(safe-area-inset-bottom))`,
   [theme.breakpoints.up("sm")]: {
@@ -97,18 +96,20 @@ export default function Footer({
       >
         <Grid
           container
-          rowSpacing={{ xs: 6, sm: 4 }}
-          columnSpacing={{ xs: 4, sm: 4 }}
+          rowSpacing={{ xs: 8, sm: 4 }}
+          columnSpacing={{ xs: 0, sm: 4, md: 6 }}
           justifyContent="space-between"
+          alignItems="flex-start"
         >
-          {/* Brand + Short blurb */}
-          <Grid item xs={12} md={4}>
+          {/* Brand + Social + Blurb */}
+          <Grid item xs={12} md={5} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' }, width: { xs: '100%', md: 'auto' } }}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: { xs: "center", md: "flex-start" },
                 textAlign: { xs: "center", md: "left" },
+                width: "100%", // Explicitly force full width
               }}
             >
               <Typography
@@ -116,8 +117,8 @@ export default function Footer({
                 sx={{
                   fontFamily: "'Playfair Display', serif",
                   fontWeight: 800,
-                  mb: 1.5,
-                  fontSize: { xs: "2rem", md: "2.25rem" },
+                  mb: 2,
+                  fontSize: { xs: "2.5rem", md: "2.25rem" },
                   letterSpacing: -0.5,
                   lineHeight: 1,
                 }}
@@ -127,10 +128,12 @@ export default function Footer({
               <Typography
                 variant="body1"
                 sx={{
-                  mb: 3,
-                  color: "rgba(0,0,0,0.7)",
-                  fontSize: { xs: "1.05rem", sm: "1.1rem" },
-                  maxWidth: { xs: "300px", md: "100%" },
+                  mb: 4,
+                  color: "rgba(0,0,0,0.65)",
+                  fontSize: { xs: "1.1rem", sm: "1.1rem" },
+                  maxWidth: { xs: "90%", md: "100%" }, // Ensure this doesn't constrain it off-center
+                  mx: { xs: "auto", md: 0 }, // Ensure margin auto handles centering if max-width kicks in
+                  lineHeight: 1.6,
                 }}
               >
                 Live Like Sean, A Friend To All
@@ -138,10 +141,11 @@ export default function Footer({
 
               <Box
                 display="flex"
-                gap={1.5}
+                gap={2}
                 sx={{
                   justifyContent: { xs: "center", md: "flex-start" },
-                  mb: { xs: 1, md: 0 }
+                  mb: { xs: 1, md: 0 },
+                  width: "100%", // Force width 100% to ensure justifyContent center works effectively
                 }}
               >
                 <SocialButton
@@ -151,7 +155,7 @@ export default function Footer({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <InstagramIcon />
+                  <InstagramIcon fontSize="medium" />
                 </SocialButton>
                 <SocialButton
                   aria-label="Facebook"
@@ -160,7 +164,7 @@ export default function Footer({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <FacebookIcon />
+                  <FacebookIcon fontSize="medium" />
                 </SocialButton>
                 <SocialButton
                   aria-label="X / Twitter"
@@ -169,7 +173,7 @@ export default function Footer({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <XIcon />
+                  <XIcon fontSize="medium" />
                 </SocialButton>
                 <SocialButton
                   aria-label="YouTube"
@@ -178,62 +182,48 @@ export default function Footer({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <YouTubeIcon />
+                  <YouTubeIcon fontSize="medium" />
                 </SocialButton>
               </Box>
             </Box>
           </Grid>
 
-          {/* Quick Links - Hidden on Mobile */}
+          {/* Quick Links (Ideally hidden or removed based on user request, keeping commented out if they want to restore) */}
+          {/* 
           <Grid item xs={12} sm={6} md={3} sx={{ display: { xs: "none", sm: "block" } }}>
-            <Heading variant="h6">
-              Quick Links
-            </Heading>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 1.5,
-              }}
-            >
+            <Heading variant="h6">Quick Links</Heading>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
               {["About", "Events", "Give", "Shop", "Contact"].map((text) => (
-                <Link
-                  key={text}
-                  href={`#/${text.toLowerCase()}`}
-                  underline="none"
-                  color="text.secondary"
-                  sx={{
-                    transition: "color 0.2s",
-                    "&:hover": { color: "#2FA652" },
-                    fontSize: "1.05rem"
-                  }}
-                >
+                <Link key={text} href={`#/${text.toLowerCase()}`} underline="none" color="text.secondary" sx={{ transition: "color 0.2s", "&:hover": { color: "#2FA652" }, fontSize: "1.05rem" }}>
                   {text}
                 </Link>
               ))}
             </Box>
-          </Grid>
+          </Grid> 
+          */}
 
           {/* Newsletter */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} md={6} lg={5}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: { xs: "center", sm: "flex-start" },
-                textAlign: { xs: "center", sm: "left" },
+                alignItems: { xs: "center", md: "flex-end" },
+                textAlign: { xs: "center", md: "right" },
+                mt: { xs: 2, md: 0 } // Extra spacing on mobile
               }}
             >
-              <Heading variant="h6">
+              <Heading variant="h6" sx={{ textAlign: { xs: "center", md: "right" }, width: "100%" }}>
                 Stay in the loop
               </Heading>
               <Typography
-                variant="body2"
+                variant="body1"
                 color="text.secondary"
                 sx={{
-                  mb: 3,
-                  fontSize: "1rem",
-                  maxWidth: { xs: "300px", sm: "100%" },
+                  mb: 4,
+                  fontSize: "1.05rem",
+                  maxWidth: { xs: "90%", md: "80%" },
+                  lineHeight: 1.6,
                 }}
               >
                 Get updates on upcoming events and community programs directly to your inbox.
@@ -249,8 +239,8 @@ export default function Footer({
                   display: "flex",
                   flexDirection: { xs: "column", sm: "row" },
                   gap: 1.5,
-                  width: { xs: "100%", sm: "auto" },
-                  maxWidth: { xs: "400px", sm: "none" }
+                  width: "100%",
+                  justifyContent: { xs: "center", md: "flex-end" },
                 }}
               >
                 <TextField
@@ -262,15 +252,18 @@ export default function Footer({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   sx={{
+                    maxWidth: { xs: "100%", sm: "300px" },
                     "& .MuiOutlinedInput-root": {
                       backgroundColor: "#fff",
-                      borderRadius: "9999px",
+                      borderRadius: "12px",
                       pr: 1,
+                      height: "56px",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
                       "& fieldset": {
-                        borderColor: "transparent",
+                        borderColor: "rgba(0,0,0,0.08)",
                       },
                       "&:hover fieldset": {
-                        borderColor: "rgba(0,0,0,0.1)",
+                        borderColor: "rgba(0,0,0,0.15)",
                       },
                       "&.Mui-focused fieldset": {
                         borderColor: "#2FA652",
@@ -289,7 +282,15 @@ export default function Footer({
                   type="submit"
                   sx={{
                     width: { xs: "100%", sm: "auto" },
-                    boxShadow: "0 4px 12px rgba(47, 166, 82, 0.2)",
+                    height: "56px",
+                    px: 4,
+                    fontSize: "1.05rem",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 14px rgba(47, 166, 82, 0.25)",
+                    "&:hover": {
+                      boxShadow: "0 6px 20px rgba(47, 166, 82, 0.35)",
+                      transform: "translateY(-1px)",
+                    }
                   }}
                 >
                   Subscribe
@@ -299,48 +300,48 @@ export default function Footer({
           </Grid>
         </Grid>
 
-        <Divider sx={{ my: { xs: 4, sm: 5 }, borderColor: "rgba(0,0,0,0.08)" }} />
+        <Divider sx={{ my: { xs: 6, sm: 6 }, borderColor: "rgba(0,0,0,0.06)" }} />
 
         {/* Bottom row */}
         <Box
           sx={{
             display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
+            flexDirection: { xs: "column-reverse", sm: "row" },
             alignItems: "center",
             justifyContent: "space-between",
             gap: 3,
             textAlign: "center",
+            opacity: 0.8,
           }}
         >
           <Typography
             variant="body2"
             color="text.secondary"
             sx={{
-              order: { xs: 2, sm: 1 },
-              opacity: 0.7,
+              fontWeight: 500
             }}
           >
-            © {new Date().getFullYear()} {brand}, Inc. All rights reserved.
+            © {new Date().getFullYear()} {brand}, Inc.
           </Typography>
 
           <Box
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", sm: "row" }, // Force vertical stack on mobile
+              flexDirection: "row",
+              flexWrap: "wrap",
               alignItems: "center",
               justifyContent: "center",
-              gap: { xs: 2, sm: 3 },
-              order: { xs: 1, sm: 2 },
+              gap: 3,
             }}
           >
-            {["Privacy Policy", "Terms of Service", "Accessibility"].map((text) => (
+            {["Privacy Policy", "Terms", "Accessibility"].map((text) => (
               <Link
                 key={text}
                 href="#"
                 underline="hover"
                 color="text.secondary"
                 variant="body2"
-                sx={{ opacity: 0.8 }}
+                sx={{ fontWeight: 500, transition: "color 0.2s", "&:hover": { color: "#1a1a1a" } }}
               >
                 {text}
               </Link>
