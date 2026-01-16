@@ -107,17 +107,31 @@ export default function MeetTheTeamOneImage({
             Meet the people making it happen.
           </Typography>
 
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 12 }}>
+        </Box>
+
+        {/* Two-Column Layout for Image & Board (Desktop) / Stacked (Mobile) */}
+        {/* Two-Column Layout for Image & Board via CSS Grid */}
+        {/* Two-Column Layout for Image & Board via CSS Grid */}
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+            gap: { xs: 8, md: 8 },
+            mb: 12
+          }}
+        >
+          {/* Left Column: Image */}
+          <Box sx={{ display: "flex", justifyContent: "center", height: "100%" }}>
             {/* Desktop Image */}
             <TeamImage
               src={photoSrc}
               alt={photoAlt}
               sx={{
-                maxWidth: "1400px",
                 width: "100%",
-                height: "auto",
+                height: "100%",
+                objectFit: "cover",
                 display: { xs: "none", md: "block" },
-                borderRadius: 10,
+                borderRadius: 4,
               }}
             />
             {/* Mobile Image */}
@@ -125,66 +139,58 @@ export default function MeetTheTeamOneImage({
               src="/about/mobile-team.JPG"
               alt={photoAlt}
               sx={{
-                maxWidth: "1400px",
                 width: "100%",
                 height: "auto",
                 display: { xs: "block", md: "none" },
-                borderRadius: 6,
+                borderRadius: 4,
               }}
             />
           </Box>
-        </Box>
 
-        {/* BOARD SECTION - Editorial List */}
-        <Box sx={{ mb: 12, maxWidth: "1200px", mx: "auto" }}>
-          <Typography
-            variant="h6"
-            sx={{
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              color: "#888",
-              mb: 4,
-              borderBottom: "1px solid #1a1a1a",
-              pb: 2,
-              textAlign: "center"
-            }}
-          >
-            Board of Directors
-          </Typography>
+          {/* Right Column: Board of Directors */}
+          <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <Typography
+              variant="h6"
+              sx={{
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                color: "#888",
+                mb: 4,
+                borderBottom: "1px solid #1a1a1a",
+                pb: 2,
+                textAlign: { xs: "center", md: "left" }
+              }}
+            >
+              Board of Directors
+            </Typography>
 
-          <Box>
-            {boardMembers.map((name, index) => (
-              <Box
-                key={name}
-                sx={{
-                  py: 4,
-                  borderBottom: "1px solid rgba(0,0,0,0.1)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  transition: "all 0.3s ease",
-                  cursor: "default",
-                  "&:hover": {
-                    paddingLeft: 2,
-                    borderColor: "#339c5e",
-                  }
-                }}
-              >
-                <Box>
-                  <Typography variant="h3" component="span" sx={{ fontFamily: "serif", fontSize: { xs: "1.8rem", md: "2.5rem" }, color: "#1a1a1a" }}>
-                    {name}
-                  </Typography>
+            <Box>
+              {boardMembers.map((name, index) => (
+                <Box
+                  key={name}
+                  sx={{
+                    py: 3,
+                    borderBottom: "1px solid rgba(0,0,0,0.1)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: { xs: "center", md: "space-between" },
+                    textAlign: { xs: "center", md: "left" },
+                  }}
+                >
+                  <Box>
+                    <Typography variant="h3" component="span" sx={{ fontFamily: "serif", fontSize: { xs: "1.8rem", md: "2.2rem" }, color: "#1a1a1a" }}>
+                      {name}
+                    </Typography>
+                  </Box>
+
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                    <Typography variant="body2" sx={{ color: "#666", textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "0.8rem", display: { xs: "none", sm: "block" } }}>
+                      Board Member
+                    </Typography>
+                  </Box>
                 </Box>
-
-                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <Typography variant="body2" sx={{ color: "#666", textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "0.8rem", display: { xs: "none", sm: "block" } }}>
-                    Board Member
-                  </Typography>
-                  {/* Decorative Arrow */}
-                  <ArrowForwardIcon className="arrow-icon" sx={{ opacity: 0, transform: "translateX(-10px)", transition: "all 0.3s ease", color: "#339c5e" }} />
-                </Box>
-              </Box>
-            ))}
+              ))}
+            </Box>
           </Box>
         </Box>
 
