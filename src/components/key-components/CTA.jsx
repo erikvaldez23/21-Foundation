@@ -119,7 +119,8 @@ const CTABanner = ({
     setStatus("processing");
 
     try {
-      const response = await fetch("http://localhost:3001/api/create-payment-intent", {
+      // const response = await fetch("http://localhost:3001/api/create-payment-intent", {
+      const response = await fetch("https://two1-foundation-server.onrender.com/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         // Ensure we send at least $1

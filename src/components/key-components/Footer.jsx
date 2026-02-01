@@ -84,7 +84,8 @@ export default function Footer({
     if (!email) return;
     setSubmitting(true);
     try {
-      const response = await fetch("http://localhost:3001/api/newsletter", {
+      // const response = await fetch("http://localhost:3001/api/newsletter", {
+      const response = await fetch("https://two1-foundation-server.onrender.com/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

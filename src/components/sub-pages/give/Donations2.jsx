@@ -99,7 +99,8 @@ const DonationsSection = ({
 
         try {
             // 1. Create PaymentIntent on the backend
-            const response = await fetch("http://localhost:3001/api/create-payment-intent", {
+            // const response = await fetch("http://localhost:3001/api/create-payment-intent", {
+            const response = await fetch("https://two1-foundation-server.onrender.com/api/create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ amount: Math.max(1, displayAmount), currency: "usd" }),
