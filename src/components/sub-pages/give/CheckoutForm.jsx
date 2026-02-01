@@ -51,10 +51,10 @@ const CheckoutForm = ({ amount, onSuccess, onCancel }) => {
         <form id="payment-form" onSubmit={handleSubmit}>
             <Box sx={{ mb: 3 }}>
                 <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
-                    Complete your donation
+                    Complete your purchase
                 </Typography>
                 <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
-                    Enter your payment details below to donate <strong>{amount}</strong>.
+                    Enter your payment details below to purchase <strong>{amount}</strong>.
                 </Typography>
 
                 <PaymentElement id="payment-element" options={{ layout: "tabs" }} />

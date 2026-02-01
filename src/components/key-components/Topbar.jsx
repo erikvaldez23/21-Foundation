@@ -31,7 +31,7 @@ import {
 const DEFAULT_LINKS = [
   { label: "Home", to: "/" },
   { label: "Give", to: "/give" },
-  // { label: "Shop", to: "/shop" },
+  { label: "Shop", to: "/shop" },
   { label: "About", to: "/about" },
   { label: "Events", to: "/events" },
   { label: "Gallery", to: "/gallery" },
@@ -602,7 +602,7 @@ export default function TopbarHero({
             })}
 
             {showInstagram && (
-              <Tooltip title="Instagram" arrow>
+              <Tooltip arrow>
                 <IconButton
                   component={motion.a}
                   href={instagramUrl}
@@ -618,12 +618,7 @@ export default function TopbarHero({
                     color: "inherit",
                     borderRadius: 12,
                     "&:hover": {
-                      boxShadow: `0 0 0 6px ${alpha("#339c5e", 0.22)}`,
-                      background: alpha("#339c5e", 0.14),
-                    },
-                    "&:focus-visible": {
-                      outline: "none",
-                      boxShadow: `0 0 0 3px ${alpha("#ffffff", 0.28)}`,
+                      color: "#339c5e",
                     },
                   }}
                 >

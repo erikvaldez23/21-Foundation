@@ -18,14 +18,16 @@ import {
     DialogContent,
 } from "@mui/material";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import VolunteerActivismRoundedIcon from "@mui/icons-material/VolunteerActivismRounded";
 import { styled, alpha } from "@mui/material/styles";
+import { motion, AnimatePresence } from "framer-motion";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
 // Initialize Stripe outside of component to avoid recreating stripe object on every render
 // REPLACE WITH YOUR PUBLISHABLE KEY
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const stripePromise = loadStripe("pk_test_51S5GVoJ4l6wcuQjqumKxBRRzSSA1MzkJOPBvQSaiamXz3efvVuuAcaqiScw7B4rEPc0yCIRbQGK3lZZz2RTIYsrz000Fg5ceCT");
 
 /* ---------------------------- Design Tokens ---------------------------- */
 const ACCENT = "#339c5e";            // Kelly green
@@ -201,13 +203,224 @@ const DonationsSection = ({
                                 color: alpha(INK, 0.7),
                                 fontSize: { xs: "1.1rem", md: "1.25rem" },
                                 lineHeight: 1.6,
-                                mb: 6,
+                                mb: 4,
                                 maxWidth: "90%",
                                 mx: { xs: "auto", md: 0 },
                             }}
                         >
                             {subtitle}
                         </Typography>
+
+                        {/* --- Stripe Donation Form --- */}
+                        <Box sx={{ mb: 6, minHeight: 300 }}>
+                            <AnimatePresence mode="wait">
+                                {status === "success" ? (
+                                    <motion.div
+                                        key="success-view"
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                textAlign: "center",
+                                                py: 6,
+                                                px: 4,
+                                                bgcolor: alpha(ACCENT, 0.04),
+                                                borderRadius: 6,
+                                                border: `1px dashed ${alpha(ACCENT, 0.3)}`,
+                                            }}
+                                        >
+                                            <motion.div
+                                                initial={{ scale: 0, rotate: -20 }}
+                                                animate={{ scale: 1, rotate: 0 }}
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 200,
+                                                    damping: 15,
+                                                    delay: 0.1,
+                                                }}
+                                            >
+                                                <VolunteerActivismRoundedIcon
+                                                    sx={{ fontSize: 80, color: ACCENT, mb: 2 }}
+                                                />
+                                            </motion.div>
+                                            <Typography variant="h4" sx={{ fontWeight: 800, color: INK, mb: 1 }}>
+                                                Thank You!
+                                            </Typography>
+                                            <Typography variant="body1" sx={{ color: alpha(INK, 0.7), mb: 4 }}>
+                                                Your support allows us to continue our mission. We are incredibly grateful.
+                                            </Typography>
+                                            <Button
+                                                onClick={handleReset}
+                                                sx={{
+                                                    textTransform: "none",
+                                                    fontWeight: 700,
+                                                    color: ACCENT,
+                                                    fontSize: "1rem",
+                                                    "&:hover": { bgcolor: alpha(ACCENT, 0.08) },
+                                                }}
+                                            >
+                                                Make another donation
+                                            </Button>
+                                        </Box>
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        key="form-view"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        {/* Hairline divider for rhythm */}
+                                        <Divider sx={{ my: 3, borderColor: HAIRLINE }} />
+
+                                        {/* Frequency */}
+                                        <ToggleButtonGroup
+                                            exclusive
+                                            value={freq}
+                                            onChange={(_, v) => v && setFreq(v)}
+                                            disabled={status === "processing"}
+                                            sx={{
+                                                "& .MuiToggleButton-root": {
+                                                    textTransform: "none",
+                                                    px: 2.25,
+                                                    borderRadius: 999,
+                                                    borderColor: alpha(INK, 0.12),
+                                                    transition: "background .2s ease, border-color .2s ease",
+                                                    "&.Mui-selected": {
+                                                        bgcolor: alpha(ACCENT, 0.12),
+                                                        borderColor: alpha(ACCENT, 0.4),
+                                                        color: ACCENT,
+                                                    },
+                                                },
+                                                justifyContent: { xs: "center", md: "flex-start" },
+                                                gap: 1,
+                                                mb: 2.25
+                                            }}
+                                            aria-label="Donation frequency"
+                                        >
+                                            <ToggleButton value="one-time">One-time</ToggleButton>
+                                            <ToggleButton value="monthly">Monthly</ToggleButton>
+                                        </ToggleButtonGroup>
+
+                                        {/* Presets */}
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                gap: 1,
+                                                flexWrap: "wrap",
+                                                justifyContent: { xs: "center", md: "flex-start" },
+                                                mb: 2.25
+                                            }}
+                                        >
+                                            {presets.map((p) => {
+                                                const active = !custom && amount === p;
+                                                return (
+                                                    <Chip
+                                                        key={p}
+                                                        label={pretty(p)}
+                                                        onClick={() => handlePreset(p)}
+                                                        clickable={status !== "processing"}
+                                                        variant={active ? "filled" : "outlined"}
+                                                        sx={{
+                                                            fontWeight: 700,
+                                                            borderRadius: 999,
+                                                            borderColor: active
+                                                                ? alpha(ACCENT, 0.35)
+                                                                : alpha(INK, 0.18),
+                                                            color: active ? "#fff" : INK,
+                                                            bgcolor: active ? ACCENT : alpha(ACCENT, 0.06),
+                                                            "&:hover": {
+                                                                bgcolor: active
+                                                                    ? alpha(ACCENT, 0.92)
+                                                                    : alpha(ACCENT, 0.12),
+                                                            },
+                                                            opacity: status === "processing" ? 0.6 : 1,
+                                                            pointerEvents: status === "processing" ? "none" : "auto",
+                                                        }}
+                                                    />
+                                                );
+                                            })}
+                                        </Box>
+
+                                        {/* Custom amount */}
+                                        <Box
+                                            sx={{ mb: 3, maxWidth: 360, mx: { xs: "auto", md: 0 } }}
+                                        >
+                                            <TextField
+                                                fullWidth
+                                                inputMode="numeric"
+                                                value={custom}
+                                                placeholder="Custom amount"
+                                                onChange={(e) => setCustom(e.target.value)}
+                                                disabled={status === "processing"}
+                                                aria-label="Custom donation amount"
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">$</InputAdornment>
+                                                    ),
+                                                }}
+                                                sx={{
+                                                    "& .MuiOutlinedInput-root": {
+                                                        borderRadius: 14,
+                                                        bgcolor: "#fff",
+                                                        transition:
+                                                            "box-shadow .2s ease, border-color .2s ease",
+                                                        "& fieldset": { borderColor: alpha(INK, 0.16) },
+                                                        "&:hover fieldset": {
+                                                            borderColor: alpha(ACCENT, 0.45),
+                                                        },
+                                                        "&.Mui-focused": {
+                                                            boxShadow: `0 0 0 3px ${alpha(ACCENT, 0.18)} `,
+                                                        },
+                                                        "&.Mui-focused fieldset": { borderColor: ACCENT },
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+
+                                        {/* Pay Button */}
+                                        <Button
+                                            size="large"
+                                            disableElevation
+                                            onClick={() => handleDonate("card")}
+                                            disabled={!isValid || status === "processing"}
+                                            sx={{
+                                                px: 3,
+                                                py: 1.5,
+                                                fontWeight: 800,
+                                                borderRadius: 12,
+                                                textTransform: "none",
+                                                bgcolor: isValid ? ACCENT : alpha(ACCENT, 0.35),
+                                                color: "#fff",
+                                                transition: "transform .06s ease, background .2s ease",
+                                                width: "100%",
+                                                maxWidth: 360,
+                                                "&:hover": {
+                                                    bgcolor: isValid
+                                                        ? alpha(ACCENT, 0.92)
+                                                        : alpha(ACCENT, 0.35),
+                                                    transform: isValid ? "translateY(-1px)" : "none",
+                                                },
+                                                "&:active": { transform: "translateY(0)" },
+                                            }}
+                                        >
+                                            {status === "processing" ? (
+                                                <CircularProgress size={24} color="inherit" />
+                                            ) : (
+                                                <>
+                                                    Donate {pretty(displayAmount)}
+                                                    {freq === "monthly" ? "/mo" : ""} with Card
+                                                </>
+                                            )}
+                                        </Button>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </Box>
 
                         <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
                             {[
@@ -267,7 +480,7 @@ const DonationsSection = ({
                             ))}
 
                             {/* QR Code Section */}
-                            <Box
+                            {/* <Box
                                 sx={{
                                     mt: 2,
                                     p: 3,
@@ -303,7 +516,7 @@ const DonationsSection = ({
                                         Use your camera to donate instantly.
                                     </Typography>
                                 </Box>
-                            </Box>
+                            </Box> */}
                         </Box>
                     </Box>
 

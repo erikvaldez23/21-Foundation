@@ -1,7 +1,19 @@
-require("dotenv").config();
+const path = require("path");
+// Explicitly load .env from the server directory
+require("dotenv").config({ path: path.join(__dirname, ".env") });
+
 const express = require("express");
 const cors = require("cors");
+
+// Verify Stripe key is loaded
+if (process.env.STRIPE_SECRET_KEY) {
+  console.log("Stripe key loaded successfully!");
+} else {
+  console.error("ERROR: STRIPE_SECRET_KEY is missing. Check your .env file at:", path.join(__dirname, ".env"));
+}
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const nodemailer = require("nodemailer");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -10,6 +22,24 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Nodemailer Transporter
+const transporter = nodemailer.createTransport({
+  service: process.env.EMAIL_SERVICE || 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
+// Verify transporter connection
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('Error connecting to email server:', error);
+  } else {
+    console.log('Server is ready to take our messages');
+  }
+});
+
 // Routes
 app.get("/", (req, res) => {
   res.send("21 Foundation API is running");
@@ -17,7 +47,7 @@ app.get("/", (req, res) => {
 
 app.post("/api/create-payment-intent", async (req, res) => {
   try {
-    const { amount, currency = "usd" } = req.body;
+    const { amount, currency = "usd", description, metadata } = req.body;
 
     if (!amount || amount < 1) {
       return res.status(400).json({ error: "Invalid amount" });
@@ -25,13 +55,13 @@ app.post("/api/create-payment-intent", async (req, res) => {
 
     // Create a PaymentIntent with the order amount and currency
     // Note: Amount is expected in the smallest currency unit (e.g., cents)
-    // If the frontend sends dollars, we multiply by 100 here, or ensure frontend sends cents.
-    // Let's assume frontend sends DOLLARS for simplicity in this example, so we convert to cents.
     const amountInCents = Math.round(amount * 100);
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInCents,
       currency: currency,
+      description: description,
+      metadata: metadata,
       automatic_payment_methods: {
         enabled: true,
       },
@@ -43,6 +73,32 @@ app.post("/api/create-payment-intent", async (req, res) => {
   } catch (error) {
     console.error("Error creating payment intent:", error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/contact', async (req, res) => {
+  const { name, phone, message, subject, email } = req.body;
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_USER, // Sending to yourself
+    subject: subject || `New Contact Form Submission from ${name}`,
+    html: `
+            <h3>New Contact Form Submission</h3>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Message:</strong></p>
+            <p>${message}</p>
+        `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'Email sent successfully!' });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ message: 'Failed to send email.' });
   }
 });
 

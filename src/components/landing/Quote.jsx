@@ -42,7 +42,7 @@ export default function InspirationalQuote({
       {/* <QuoteMark aria-hidden style={{ bottom: -48, right: 12 }}>”</QuoteMark> */}
 
       <Container
-        maxWidth="lg"
+        maxWidth="xl"
         disableGutters
         sx={{
           // edge padding that respects safe areas on very small devices
@@ -52,48 +52,72 @@ export default function InspirationalQuote({
         }}
       >
         <Box
-          component="blockquote"
           sx={{
-            m: 0,
-            // control measure (line length) for readability
-            maxWidth: 820,
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "30% 70%" },
+            gap: { xs: 4, md: 4 },
+            alignItems: "center",
             mx: "auto",
-            textAlign: "center",
           }}
         >
-          <Typography
-            variant="h2"
-            component="p"
+          <Box
             sx={{
-              fontFamily: "'Playfair Display', Georgia, serif",
-              fontWeight: 700,
-              // Fluid size: ~22px on tiny phones → ~36px tablet → ~44px desktop
-              fontSize: "clamp(1.375rem, 5.2vw, 2.75rem)",
-              lineHeight: { xs: 1.25, sm: 1.22, md: 1 },
-              letterSpacing: { xs: 0.1, sm: 0.15 },
-              textWrap: "balance",
-              hyphens: "auto",
-              WebkitHyphens: "auto",
-              mb: { xs: 1.5, sm: 2 },
+              display: "flex",
+              justifyContent: "center", // Center logo in its 30% slot
+              alignItems: "center",
             }}
           >
-            {quote}
-          </Typography>
+            <Box
+              component="img"
+              src="/logo1.png"
+              alt="Clark21Foundation Logo"
+              sx={{
+                width: "100%",
+                maxWidth: { xs: 240, sm: 300, md: "100%" }, // Fill the 30% slot on desktop
+                height: "auto",
+              }}
+            />
+          </Box>
 
-          <Typography
-            variant="subtitle1"
-            component="cite"
+          <Box
+            component="blockquote"
             sx={{
-              display: "block",
-              opacity: 0.92,
-              fontWeight: 600,
-              // slightly smaller on phones
-              fontSize: { xs: "0.95rem", sm: "1rem" },
-              letterSpacing: 0.2,
+              m: 0,
+              textAlign: { xs: "center", md: "left" },
             }}
           >
-            — {author}
-          </Typography>
+            <Typography
+              variant="h2"
+              component="p"
+              sx={{
+                fontFamily: "'Playfair Display', Georgia, serif",
+                fontWeight: 700,
+                fontSize: "clamp(1.375rem, 5.2vw, 2.75rem)",
+                lineHeight: { xs: 1.25, sm: 1.22, md: 1 },
+                letterSpacing: { xs: 0.1, sm: 0.15 },
+                textWrap: "balance",
+                hyphens: "auto",
+                WebkitHyphens: "auto",
+                mb: { xs: 1.5, sm: 2 },
+              }}
+            >
+              {quote}
+            </Typography>
+
+            <Typography
+              variant="subtitle1"
+              component="cite"
+              sx={{
+                display: "block",
+                opacity: 0.92,
+                fontWeight: 600,
+                fontSize: { xs: "0.95rem", sm: "1rem" },
+                letterSpacing: 0.2,
+              }}
+            >
+              — {author}
+            </Typography>
+          </Box>
         </Box>
       </Container>
     </Section>

@@ -25,7 +25,7 @@ import CheckoutForm from "./CheckoutForm";
 
 // Initialize Stripe outside of component to avoid recreating stripe object on every render
 // REPLACE WITH YOUR PUBLISHABLE KEY
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const stripePromise = loadStripe("pk_test_51S5GVoJ4l6wcuQjqumKxBRRzSSA1MzkJOPBvQSaiamXz3efvVuuAcaqiScw7B4rEPc0yCIRbQGK3lZZz2RTIYsrz000Fg5ceCT");
 
 /* ---------------------------- Design Tokens ---------------------------- */
 const ACCENT = "#339c5e";            // Kelly green

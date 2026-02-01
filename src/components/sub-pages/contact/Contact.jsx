@@ -12,6 +12,8 @@ import {
 import { styled } from "@mui/material/styles";
 import ContactHero from "./ContactHero";
 import CTA from "../../key-components/CTA";
+import { motion, AnimatePresence } from "framer-motion";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 /* ---------------------------- Styles ---------------------------- */
 const Page = styled(Box)({
@@ -84,12 +86,32 @@ export default function ContactSection() {
     e.preventDefault();
     setSending(true);
     try {
-      // TODO: wire up to your backend endpoint
-      await new Promise((res) => setTimeout(res, 800));
-      setSent(true);
-      setForm({ name: "", email: "", subject: "", message: "" });
+      const response = await fetch("http://localhost:3001/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+          // include phone if available in form state; adding it to ensure backend receives it
+          // Note: form state initialization currently includes name, email, subject, message. 
+          // If phone is not in state, it won't be sent. 
+          // The form UI doesn't explicitly bind phone. 
+          // We will send what we have.
+        }),
+      });
+
+      if (response.ok) {
+        setSent(true);
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to send message: ${errorData.message}`);
+      }
     } catch (err) {
       console.error(err);
+      alert("Network Error: Could not connect to backend.");
     } finally {
       setSending(false);
     }
@@ -120,9 +142,15 @@ export default function ContactSection() {
             </Typography>
 
             <Stack spacing={4} sx={{ mb: 8 }}>
-              <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Phone</Typography>
-                <Typography variant="body1" color="text.secondary">(123) 456-7890</Typography>
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                <Box>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Phone</Typography>
+                  <Typography variant="body1" color="text.secondary">(123) 456-7890</Typography>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Suicide Crisis Hotline</Typography>
+                  <Typography variant="body1" color="text.secondary">988</Typography>
+                </Box>
               </Box>
               <Box>
                 <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Email</Typography>
@@ -130,59 +158,119 @@ export default function ContactSection() {
               </Box>
             </Stack>
 
-            <form onSubmit={handleSubmit}>
-              <Stack spacing={4}>
-                <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3 }}>
-                  <MinimalField
-                    label="Name"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    fullWidth
-                    required
-                  />
-                  <MinimalField
-                    label="Email"
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    fullWidth
-                    required
-                  />
-                </Box>
-                <MinimalField
-                  label="Subject"
-                  name="subject"
-                  value={form.subject}
-                  onChange={handleChange}
-                  fullWidth
-                />
-                <MinimalField
-                  label="Message"
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  multiline
-                  minRows={4}
-                  fullWidth
-                  required
-                />
-                <Box>
-                  <ActionButton
-                    type="submit"
-                    variant="contained"
-                    disabled={sending}
+            <AnimatePresence mode="wait">
+              {!sent ? (
+                <motion.form
+                  key="contact-form"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                  onSubmit={handleSubmit}
+                >
+                  <Stack spacing={4}>
+                    <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3 }}>
+                      <MinimalField
+                        label="Name"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        fullWidth
+                        required
+                      />
+                      <MinimalField
+                        label="Email"
+                        name="email"
+                        type="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        fullWidth
+                        required
+                      />
+                    </Box>
+                    <MinimalField
+                      label="Subject"
+                      name="subject"
+                      value={form.subject}
+                      onChange={handleChange}
+                      fullWidth
+                    />
+                    <MinimalField
+                      label="Message"
+                      name="message"
+                      value={form.message}
+                      onChange={handleChange}
+                      multiline
+                      minRows={4}
+                      fullWidth
+                      required
+                    />
+                    <Box>
+                      <ActionButton
+                        type="submit"
+                        variant="contained"
+                        disabled={sending}
+                        sx={{
+                          bgcolor: "#1a1a1a",
+                          color: "#fff",
+                        }}
+                      >
+                        {sending ? "Sending..." : "Send Message"}
+                      </ActionButton>
+                    </Box>
+                  </Stack>
+                </motion.form>
+              ) : (
+                <motion.div
+                  key="success-message"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  <Box
                     sx={{
-                      bgcolor: "#1a1a1a",
-                      color: "#fff",
+                      p: 4,
+                      bgcolor: "#fff",
+                      borderRadius: 4,
+                      textAlign: "center",
+                      boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
+                      maxWidth: 400
                     }}
                   >
-                    {sending ? "Sending..." : sent ? "Message Sent" : "Send Message"}
-                  </ActionButton>
-                </Box>
-              </Stack>
-            </form>
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20,
+                        delay: 0.1
+                      }}
+                    >
+                      <CheckCircleRoundedIcon
+                        sx={{ fontSize: 64, color: "#339c5e", mb: 2 }}
+                      />
+                    </motion.div>
+                    <Typography variant="h5" sx={{ fontWeight: 700, mb: 1, color: "#1a1a1a" }}>
+                      Message Sent!
+                    </Typography>
+                    <Typography variant="body1" sx={{ color: "#666", mb: 3 }}>
+                      Thanks for reaching out. We'll get back to you shortly.
+                    </Typography>
+                    <Button
+                      onClick={() => setSent(false)}
+                      sx={{
+                        textTransform: "none",
+                        fontWeight: 600,
+                        color: "#339c5e"
+                      }}
+                    >
+                      Send another message
+                    </Button>
+                  </Box>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </Box>
 
           {/* RIGHT: Vertical Image */}
