@@ -29,8 +29,8 @@ const mockEvent = {
   image:
     "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1973&q=80",
   location: {
-    name: "Downtown Commons Park",
-    address: "123 Main St, Lubbock, TX 79401",
+    name: "Place",
+    address: "Street Address",
     mapUrl:
       "https://maps.google.com/?q=Downtown+Commons+Park+Lubbock+TX",
   },
@@ -39,7 +39,7 @@ const mockEvent = {
   timezone: "America/Chicago",
   cost: "Free",
   organizer: "Clark21 Foundation",
-  contactEmail: "info@clark21.org",
+  contactEmail: "reachout@seanclark21foundation.org",
   formUrl: "https://docs.google.com/forms/d/example",
   category: "Community Event",
   tags: ["Mental Health", "Community", "Awareness"],
@@ -111,8 +111,8 @@ function formatRange(start, end, tz) {
     return sameDay
       ? `${dateStr} • ${timeFmt.format(s)} – ${timeFmt.format(e)}`
       : `${dateStr} ${timeFmt.format(s)} → ${dateFmt.format(
-          e
-        )} ${timeFmt.format(e)}`;
+        e
+      )} ${timeFmt.format(e)}`;
   } catch {
     return "";
   }
@@ -126,7 +126,7 @@ export default function TextEventDetails() {
     <PageContainer>
       <EventHero />
 
-      <ContentSection maxWidth="md">
+      <ContentSection maxWidth="lg">
         {/* About */}
         <Typography
           variant="h4"

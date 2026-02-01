@@ -54,7 +54,7 @@ export default function InspirationalQuote({
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "30% 70%" },
+            gridTemplateColumns: { xs: "1fr", md: "20% 80%" },
             gap: { xs: 4, md: 4 },
             alignItems: "center",
             mx: "auto",
@@ -69,7 +69,7 @@ export default function InspirationalQuote({
           >
             <Box
               component="img"
-              src="/logo1.png"
+              src="/logo2.png"
               alt="Clark21Foundation Logo"
               sx={{
                 width: "100%",

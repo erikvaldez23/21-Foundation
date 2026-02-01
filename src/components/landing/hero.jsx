@@ -110,6 +110,7 @@ const mobileH1Base = {
 const Hero2 = () => {
   const navigate = useNavigate();
   const handleAskQuestion = () => navigate("/gallery");
+  const handleLearnMore = () => navigate("/about");
   const isReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   /* -------------------- Ambient overlay pulse -------------------- */
@@ -271,6 +272,7 @@ const Hero2 = () => {
             animate={buttonVariants.animate(0)}
             whileHover="whileHover"
             whileTap="whileTap"
+            onClick={handleLearnMore}
             fullWidth
             sx={{ width: "100%", minHeight: 48 }}
           >
@@ -361,6 +363,7 @@ const Hero2 = () => {
           animate={buttonVariants.animate(0)}
           whileHover="whileHover"
           whileTap="whileTap"
+          onClick={handleLearnMore}
         >
           LEARN MORE
         </GlassButton>
