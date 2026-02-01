@@ -49,45 +49,57 @@ const CheckoutForm = ({ amount, onSuccess, onCancel }) => {
 
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
-            <Box sx={{ mb: 3 }}>
-                <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
-                    Complete your purchase
-                </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
-                    Enter your payment details below to purchase <strong>{amount}</strong>.
-                </Typography>
-
+            <Box sx={{ mb: 2 }}>
                 <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
             </Box>
 
             {message && (
-                <Alert severity="error" sx={{ mb: 2 }}>
+                <Alert severity="error" sx={{ mb: 2, borderRadius: 2 }}>
                     {message}
                 </Alert>
             )}
 
-            <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
-                <Button
-                    onClick={onCancel}
-                    disabled={isLoading}
-                    sx={{ textTransform: "none", fontWeight: 600, color: "text.secondary" }}
-                >
-                    Cancel
-                </Button>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
                 <Button
                     type="submit"
                     disabled={isLoading || !stripe || !elements}
                     variant="contained"
                     disableElevation
+                    fullWidth
                     sx={{
                         textTransform: "none",
                         fontWeight: 700,
+                        fontSize: "1.05rem",
+                        height: 52,
+                        borderRadius: 3,
                         bgcolor: "#339c5e",
-                        "&:hover": { bgcolor: alpha("#339c5e", 0.9) },
-                        minWidth: 100,
+                        boxShadow: "0 10px 20px rgba(51, 156, 94, 0.25)",
+                        "&:hover": {
+                            bgcolor: alpha("#339c5e", 0.9),
+                            boxShadow: "0 10px 25px rgba(51, 156, 94, 0.35)",
+                            transform: "translateY(-1px)"
+                        },
+                        transition: "all 0.2s ease",
+                        color: "#fff"
                     }}
                 >
-                    {isLoading ? <CircularProgress size={24} color="inherit" /> : "Pay Now"}
+                    {isLoading ? <CircularProgress size={24} color="inherit" /> : `Donate ${amount} `}
+                </Button>
+
+                <Button
+                    onClick={onCancel}
+                    disabled={isLoading}
+                    fullWidth
+                    sx={{
+                        textTransform: "none",
+                        fontWeight: 600,
+                        color: "text.secondary",
+                        height: 48,
+                        borderRadius: 3,
+                        "&:hover": { bgcolor: "rgba(0,0,0,0.04)" }
+                    }}
+                >
+                    Cancel
                 </Button>
             </Box>
         </form>

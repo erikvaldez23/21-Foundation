@@ -4,8 +4,6 @@ import {
     Box,
     Container,
     Typography,
-    ToggleButtonGroup,
-    ToggleButton,
     Chip,
     TextField,
     InputAdornment,
@@ -62,7 +60,6 @@ const DonationsSection = ({
     title = "Make a Gift",
     subtitle = "Your support fuels outreach, mentorship, and counseling—advancing Sean’s legacy of kindness and courage.",
     presets = [25, 50, 100, 250, 500],
-    defaultFreq = "one-time",
     defaultAmount = 50,
     buttonLabel = "Donate",
     disclaimer = "Donations are tax-deductible where applicable. You’ll receive an email receipt.",
@@ -71,7 +68,6 @@ const DonationsSection = ({
     progress = { raised: 200, goal: 10000 }, // set to null to hide
     onDonate = (payload) => console.log("Donate payload:", payload),
 }) => {
-    const [freq, setFreq] = useState(defaultFreq);
     const [amount, setAmount] = useState(defaultAmount);
     const [custom, setCustom] = useState("");
     const [status, setStatus] = useState("idle"); // idle, processing, success
@@ -128,17 +124,16 @@ const DonationsSection = ({
     };
 
     const handlePaymentSuccess = () => {
-        setIsModalOpen(false);
+        // Keep modal open to show success message
         setStatus("success");
         const finalAmount = Math.max(1, displayAmount);
-        onDonate({ frequency: freq, amount: finalAmount, currency: "USD", method: "stripe" });
+        onDonate({ frequency: "one-time", amount: finalAmount, currency: "USD", method: "stripe" });
     };
 
     const handleReset = () => {
         setStatus("idle");
         setAmount(defaultAmount);
         setCustom("");
-        setFreq(defaultFreq);
         setClientSecret("");
     };
 
@@ -212,221 +207,137 @@ const DonationsSection = ({
                         </Typography>
 
                         {/* --- Stripe Donation Form --- */}
-                        <Box sx={{ mb: 6, minHeight: 300 }}>
+                        <Box sx={{ mb: 0, minHeight: 250 }}>
                             <AnimatePresence mode="wait">
-                                {status === "success" ? (
-                                    <motion.div
-                                        key="success-view"
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        transition={{ duration: 0.5 }}
+                                <motion.div
+                                    key="form-view"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    {/* Hairline divider for rhythm */}
+                                    <Divider sx={{ my: 3, borderColor: HAIRLINE }} />
+
+                                    {/* Presets */}
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            gap: 1,
+                                            flexWrap: "wrap",
+                                            justifyContent: { xs: "center", md: "flex-start" },
+                                            mb: 2.25
+                                        }}
                                     >
-                                        <Box
-                                            sx={{
-                                                textAlign: "center",
-                                                py: 6,
-                                                px: 4,
-                                                bgcolor: alpha(ACCENT, 0.04),
-                                                borderRadius: 6,
-                                                border: `1px dashed ${alpha(ACCENT, 0.3)}`,
-                                            }}
-                                        >
-                                            <motion.div
-                                                initial={{ scale: 0, rotate: -20 }}
-                                                animate={{ scale: 1, rotate: 0 }}
-                                                transition={{
-                                                    type: "spring",
-                                                    stiffness: 200,
-                                                    damping: 15,
-                                                    delay: 0.1,
-                                                }}
-                                            >
-                                                <VolunteerActivismRoundedIcon
-                                                    sx={{ fontSize: 80, color: ACCENT, mb: 2 }}
+                                        {presets.map((p) => {
+                                            const active = !custom && amount === p;
+                                            return (
+                                                <Chip
+                                                    key={p}
+                                                    label={pretty(p)}
+                                                    onClick={() => handlePreset(p)}
+                                                    clickable={status !== "processing"}
+                                                    variant={active ? "filled" : "outlined"}
+                                                    sx={{
+                                                        fontWeight: 700,
+                                                        borderRadius: 999,
+                                                        borderColor: active
+                                                            ? alpha(ACCENT, 0.35)
+                                                            : alpha(INK, 0.18),
+                                                        color: active ? "#fff" : INK,
+                                                        bgcolor: active ? ACCENT : alpha(ACCENT, 0.06),
+                                                        "&:hover": {
+                                                            bgcolor: active
+                                                                ? alpha(ACCENT, 0.92)
+                                                                : alpha(ACCENT, 0.12),
+                                                        },
+                                                        opacity: status === "processing" ? 0.6 : 1,
+                                                        pointerEvents: status === "processing" ? "none" : "auto",
+                                                    }}
                                                 />
-                                            </motion.div>
-                                            <Typography variant="h4" sx={{ fontWeight: 800, color: INK, mb: 1 }}>
-                                                Thank You!
-                                            </Typography>
-                                            <Typography variant="body1" sx={{ color: alpha(INK, 0.7), mb: 4 }}>
-                                                Your support allows us to continue our mission. We are incredibly grateful.
-                                            </Typography>
-                                            <Button
-                                                onClick={handleReset}
-                                                sx={{
-                                                    textTransform: "none",
-                                                    fontWeight: 700,
-                                                    color: ACCENT,
-                                                    fontSize: "1rem",
-                                                    "&:hover": { bgcolor: alpha(ACCENT, 0.08) },
-                                                }}
-                                            >
-                                                Make another donation
-                                            </Button>
-                                        </Box>
-                                    </motion.div>
-                                ) : (
-                                    <motion.div
-                                        key="form-view"
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.3 }}
+                                            );
+                                        })}
+                                    </Box>
+
+                                    {/* Custom amount */}
+                                    <Box
+                                        sx={{ mb: 3, maxWidth: 360, mx: { xs: "auto", md: 0 } }}
                                     >
-                                        {/* Hairline divider for rhythm */}
-                                        <Divider sx={{ my: 3, borderColor: HAIRLINE }} />
-
-                                        {/* Frequency */}
-                                        <ToggleButtonGroup
-                                            exclusive
-                                            value={freq}
-                                            onChange={(_, v) => v && setFreq(v)}
+                                        <TextField
+                                            fullWidth
+                                            inputMode="numeric"
+                                            value={custom}
+                                            placeholder="Custom amount"
+                                            onChange={(e) => setCustom(e.target.value.replace(/\D/g, ""))}
                                             disabled={status === "processing"}
+                                            aria-label="Custom donation amount"
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">$</InputAdornment>
+                                                ),
+                                            }}
                                             sx={{
-                                                "& .MuiToggleButton-root": {
-                                                    textTransform: "none",
-                                                    px: 2.25,
-                                                    borderRadius: 999,
-                                                    borderColor: alpha(INK, 0.12),
-                                                    transition: "background .2s ease, border-color .2s ease",
-                                                    "&.Mui-selected": {
-                                                        bgcolor: alpha(ACCENT, 0.12),
-                                                        borderColor: alpha(ACCENT, 0.4),
-                                                        color: ACCENT,
+                                                "& .MuiOutlinedInput-root": {
+                                                    borderRadius: 14,
+                                                    bgcolor: "#fff",
+                                                    transition:
+                                                        "box-shadow .2s ease, border-color .2s ease",
+                                                    "& fieldset": { borderColor: alpha(INK, 0.16) },
+                                                    "&:hover fieldset": {
+                                                        borderColor: alpha(ACCENT, 0.45),
                                                     },
-                                                },
-                                                justifyContent: { xs: "center", md: "flex-start" },
-                                                gap: 1,
-                                                mb: 2.25
-                                            }}
-                                            aria-label="Donation frequency"
-                                        >
-                                            <ToggleButton value="one-time">One-time</ToggleButton>
-                                            <ToggleButton value="monthly">Monthly</ToggleButton>
-                                        </ToggleButtonGroup>
-
-                                        {/* Presets */}
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                gap: 1,
-                                                flexWrap: "wrap",
-                                                justifyContent: { xs: "center", md: "flex-start" },
-                                                mb: 2.25
-                                            }}
-                                        >
-                                            {presets.map((p) => {
-                                                const active = !custom && amount === p;
-                                                return (
-                                                    <Chip
-                                                        key={p}
-                                                        label={pretty(p)}
-                                                        onClick={() => handlePreset(p)}
-                                                        clickable={status !== "processing"}
-                                                        variant={active ? "filled" : "outlined"}
-                                                        sx={{
-                                                            fontWeight: 700,
-                                                            borderRadius: 999,
-                                                            borderColor: active
-                                                                ? alpha(ACCENT, 0.35)
-                                                                : alpha(INK, 0.18),
-                                                            color: active ? "#fff" : INK,
-                                                            bgcolor: active ? ACCENT : alpha(ACCENT, 0.06),
-                                                            "&:hover": {
-                                                                bgcolor: active
-                                                                    ? alpha(ACCENT, 0.92)
-                                                                    : alpha(ACCENT, 0.12),
-                                                            },
-                                                            opacity: status === "processing" ? 0.6 : 1,
-                                                            pointerEvents: status === "processing" ? "none" : "auto",
-                                                        }}
-                                                    />
-                                                );
-                                            })}
-                                        </Box>
-
-                                        {/* Custom amount */}
-                                        <Box
-                                            sx={{ mb: 3, maxWidth: 360, mx: { xs: "auto", md: 0 } }}
-                                        >
-                                            <TextField
-                                                fullWidth
-                                                inputMode="numeric"
-                                                value={custom}
-                                                placeholder="Custom amount"
-                                                onChange={(e) => setCustom(e.target.value)}
-                                                disabled={status === "processing"}
-                                                aria-label="Custom donation amount"
-                                                InputProps={{
-                                                    startAdornment: (
-                                                        <InputAdornment position="start">$</InputAdornment>
-                                                    ),
-                                                }}
-                                                sx={{
-                                                    "& .MuiOutlinedInput-root": {
-                                                        borderRadius: 14,
-                                                        bgcolor: "#fff",
-                                                        transition:
-                                                            "box-shadow .2s ease, border-color .2s ease",
-                                                        "& fieldset": { borderColor: alpha(INK, 0.16) },
-                                                        "&:hover fieldset": {
-                                                            borderColor: alpha(ACCENT, 0.45),
-                                                        },
-                                                        "&.Mui-focused": {
-                                                            boxShadow: `0 0 0 3px ${alpha(ACCENT, 0.18)} `,
-                                                        },
-                                                        "&.Mui-focused fieldset": { borderColor: ACCENT },
+                                                    "&.Mui-focused": {
+                                                        boxShadow: `0 0 0 3px ${alpha(ACCENT, 0.18)} `,
                                                     },
-                                                }}
-                                            />
-                                        </Box>
-
-                                        {/* Pay Button */}
-                                        <Button
-                                            size="large"
-                                            disableElevation
-                                            onClick={() => handleDonate("card")}
-                                            disabled={!isValid || status === "processing"}
-                                            sx={{
-                                                px: 3,
-                                                py: 1.5,
-                                                fontWeight: 800,
-                                                borderRadius: 12,
-                                                textTransform: "none",
-                                                bgcolor: isValid ? ACCENT : alpha(ACCENT, 0.35),
-                                                color: "#fff",
-                                                transition: "transform .06s ease, background .2s ease",
-                                                width: "100%",
-                                                maxWidth: 360,
-                                                "&:hover": {
-                                                    bgcolor: isValid
-                                                        ? alpha(ACCENT, 0.92)
-                                                        : alpha(ACCENT, 0.35),
-                                                    transform: isValid ? "translateY(-1px)" : "none",
+                                                    "&.Mui-focused fieldset": { borderColor: ACCENT },
                                                 },
-                                                "&:active": { transform: "translateY(0)" },
                                             }}
-                                        >
-                                            {status === "processing" ? (
-                                                <CircularProgress size={24} color="inherit" />
-                                            ) : (
-                                                <>
-                                                    Donate {pretty(displayAmount)}
-                                                    {freq === "monthly" ? "/mo" : ""} with Card
-                                                </>
-                                            )}
-                                        </Button>
-                                    </motion.div>
-                                )}
+                                        />
+                                    </Box>
+
+                                    {/* Pay Button */}
+                                    <Button
+                                        size="large"
+                                        disableElevation
+                                        onClick={() => handleDonate("card")}
+                                        disabled={!isValid || status === "processing"}
+                                        sx={{
+                                            px: 3,
+                                            py: 1.5,
+                                            fontWeight: 800,
+                                            borderRadius: 12,
+                                            textTransform: "none",
+                                            bgcolor: isValid ? ACCENT : alpha(ACCENT, 0.35),
+                                            color: "#fff",
+                                            transition: "transform .06s ease, background .2s ease",
+                                            width: "100%",
+                                            maxWidth: 360,
+                                            "&:hover": {
+                                                bgcolor: isValid
+                                                    ? alpha(ACCENT, 0.92)
+                                                    : alpha(ACCENT, 0.35),
+                                                transform: isValid ? "translateY(-1px)" : "none",
+                                            },
+                                            "&:active": { transform: "translateY(0)" },
+                                        }}
+                                    >
+                                        {status === "processing" ? (
+                                            <CircularProgress size={24} color="inherit" />
+                                        ) : (
+                                            <>
+                                                Donate {pretty(displayAmount)} with Card
+                                            </>
+                                        )}
+                                    </Button>
+                                </motion.div>
                             </AnimatePresence>
                         </Box>
 
                         <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
                             {[
-                                { label: "Venmo", value: "@SC21-Foundation", color: "#008CFF", icon: "V" },
-                                { label: "Cash App", value: "$SC21Foundation", color: "#00D632", icon: "$" },
-                                { label: "Zelle", value: "info@sc21foundation.org", color: "#6D1ED4", icon: "Z" },
+                                { label: "Venmo", value: "@SC21-Foundation", color: "#008CFF", img: "/venmo-logo.png" },
+                                { label: "Cash App", value: "$SC21Foundation", color: "#00D632", img: "/cashapp-logo.png" },
+                                { label: "Zelle", value: "info@sc21foundation.org", color: "#6D1ED4", img: "/zelle-logo.png" },
                             ].map((item) => (
                                 <Box
                                     key={item.label}
@@ -453,19 +364,27 @@ const DonationsSection = ({
                                     <Box sx={{ display: "flex", alignItems: "center", gap: 2.5 }}>
                                         <Box
                                             sx={{
-                                                width: 48,
-                                                height: 48,
+                                                width: 56,
+                                                height: 56,
                                                 borderRadius: 3,
-                                                bgcolor: alpha(item.color, 0.1),
-                                                color: item.color,
+                                                bgcolor: "#fff", // alpha(item.color, 0.05) if transparent images
                                                 display: "flex",
                                                 alignItems: "center",
                                                 justifyContent: "center",
-                                                fontWeight: 800,
-                                                fontSize: "1.25rem",
+                                                p: 1,
+                                                border: `1px solid ${alpha(INK, 0.06)}`
                                             }}
                                         >
-                                            {item.icon}
+                                            <Box
+                                                component="img"
+                                                src={item.img}
+                                                alt={item.label}
+                                                sx={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    objectFit: "contain"
+                                                }}
+                                            />
                                         </Box>
                                         <Box sx={{ textAlign: "left" }}>
                                             <Typography variant="body2" sx={{ fontWeight: 600, color: alpha(INK, 0.5) }}>
@@ -486,7 +405,7 @@ const DonationsSection = ({
                                     p: 3,
                                     borderRadius: 4,
                                     bgcolor: alpha(ACCENT, 0.04),
-                                    border: `1px dashed ${alpha(ACCENT, 0.3)}`,
+                                    border: `1px dashed ${ alpha(ACCENT, 0.3) } `,
                                     display: "flex",
                                     alignItems: "center",
                                     gap: 3,
@@ -574,7 +493,14 @@ const DonationsSection = ({
             {/* Payment Modal (Preserved logic even if not triggered currently) */}
             <Dialog
                 open={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                onClose={() => {
+                    if (status === "success") {
+                        handleReset();
+                        setIsModalOpen(false);
+                    } else {
+                        setIsModalOpen(false);
+                    }
+                }}
                 maxWidth="sm"
                 fullWidth
                 PaperProps={{
@@ -582,14 +508,100 @@ const DonationsSection = ({
                 }}
             >
                 <DialogContent>
-                    {clientSecret && (
-                        <Elements options={options} stripe={stripePromise}>
-                            <CheckoutForm
-                                amount={pretty(displayAmount)}
-                                onSuccess={handlePaymentSuccess}
-                                onCancel={() => setIsModalOpen(false)}
-                            />
-                        </Elements>
+                    {status === "success" ? (
+                        <Box
+                            sx={{
+                                textAlign: "center",
+                                py: 5,
+                                px: 3,
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                background: `linear-gradient(to bottom, ${alpha(ACCENT, 0.05)} 0%, rgba(255,255,255,0) 100%)`,
+                                borderRadius: 3,
+                            }}
+                        >
+                            <motion.div
+                                initial={{ scale: 0, rotate: -20 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 200,
+                                    damping: 15,
+                                    delay: 0.1,
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        width: 100,
+                                        height: 100,
+                                        borderRadius: "50%",
+                                        bgcolor: alpha(ACCENT, 0.12),
+                                        mb: 3,
+                                        color: ACCENT,
+                                        boxShadow: `0 8px 32px ${alpha(ACCENT, 0.2)}`,
+                                    }}
+                                >
+                                    <VolunteerActivismRoundedIcon sx={{ fontSize: 48 }} />
+                                </Box>
+                            </motion.div>
+                            <Typography
+                                variant="h3"
+                                sx={{
+                                    fontFamily: "'Playfair Display', serif",
+                                    fontWeight: 800,
+                                    color: INK,
+                                    mb: 1.5,
+                                    fontSize: { xs: "2rem", sm: "2.5rem" }
+                                }}
+                            >
+                                Thank You!
+                            </Typography>
+                            <Typography variant="body1" sx={{ color: alpha(INK, 0.65), mb: 4, maxWidth: 360, lineHeight: 1.6 }}>
+                                Your support allows us to continue our mission. We are incredibly grateful.
+                            </Typography>
+                            <Button
+                                fullWidth
+                                disableElevation
+                                onClick={() => {
+                                    handleReset();
+                                    setIsModalOpen(false);
+                                }}
+                                sx={{
+                                    py: 1.5,
+                                    textTransform: "none",
+                                    fontWeight: 700,
+                                    color: '#fff',
+                                    fontSize: "1.05rem",
+                                    bgcolor: ACCENT,
+                                    borderRadius: 12,
+                                    transition: "all 0.2s ease",
+                                    "&:hover": {
+                                        bgcolor: "#267a49", // Darker shade of Kelly Green
+                                        transform: "translateY(-1px)",
+                                        boxShadow: "0 8px 20px -4px rgba(51, 156, 94, 0.4)"
+                                    },
+                                    "&:active": {
+                                        transform: "translateY(0)",
+                                    }
+                                }}
+                            >
+                                Close
+                            </Button>
+                        </Box>
+                    ) : (
+                        clientSecret && (
+                            <Elements options={options} stripe={stripePromise}>
+                                <CheckoutForm
+                                    amount={pretty(displayAmount)}
+                                    onSuccess={handlePaymentSuccess}
+                                    onCancel={() => setIsModalOpen(false)}
+                                />
+                            </Elements>
+                        )
                     )}
                 </DialogContent>
             </Dialog>

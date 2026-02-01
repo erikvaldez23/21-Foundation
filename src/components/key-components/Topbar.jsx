@@ -30,11 +30,11 @@ import {
 /* ------------------------------- Defaults ------------------------------- */
 const DEFAULT_LINKS = [
   { label: "Home", to: "/" },
-  { label: "Give", to: "/give" },
-  { label: "Shop", to: "/shop" },
   { label: "About", to: "/about" },
   { label: "Events", to: "/events" },
   { label: "Gallery", to: "/gallery" },
+  { label: "Shop", to: "/shop" },
+  { label: "Give", to: "/give" },
   { label: "Contact", to: "/contact" },
 ];
 

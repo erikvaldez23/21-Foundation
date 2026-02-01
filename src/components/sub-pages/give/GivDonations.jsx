@@ -4,8 +4,6 @@ import {
   Box,
   Container,
   Typography,
-  ToggleButtonGroup,
-  ToggleButton,
   Chip,
   TextField,
   InputAdornment,
@@ -16,8 +14,10 @@ import {
   Fade,
   Dialog,
   DialogContent,
+  IconButton,
 } from "@mui/material";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { styled, alpha } from "@mui/material/styles";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -60,7 +60,6 @@ const DonationsSection = ({
   title = "Make a Gift",
   subtitle = "Your support fuels outreach, mentorship, and counseling—advancing Sean’s legacy of kindness and courage.",
   presets = [25, 50, 100, 250, 500],
-  defaultFreq = "one-time",
   defaultAmount = 50,
   buttonLabel = "Donate",
   disclaimer = "Donations are tax-deductible where applicable. You’ll receive an email receipt.",
@@ -69,7 +68,6 @@ const DonationsSection = ({
   progress = { raised: 200, goal: 10000 }, // set to null to hide
   onDonate = (payload) => console.log("Donate payload:", payload),
 }) => {
-  const [freq, setFreq] = useState(defaultFreq);
   const [amount, setAmount] = useState(defaultAmount);
   const [custom, setCustom] = useState("");
   const [status, setStatus] = useState("idle"); // idle, processing, success
@@ -129,14 +127,13 @@ const DonationsSection = ({
     setIsModalOpen(false);
     setStatus("success");
     const finalAmount = Math.max(1, displayAmount);
-    onDonate({ frequency: freq, amount: finalAmount, currency: "USD", method: "stripe" });
+    onDonate({ frequency: "one-time", amount: finalAmount, currency: "USD", method: "stripe" });
   };
 
   const handleReset = () => {
     setStatus("idle");
     setAmount(defaultAmount);
     setCustom("");
-    setFreq(defaultFreq);
     setClientSecret("");
   };
 
@@ -149,6 +146,10 @@ const DonationsSection = ({
   const options = {
     clientSecret,
     appearance,
+    layout: {
+      type: 'tabs',
+      defaultCollapsed: false,
+    }
   };
 
   return (
@@ -249,34 +250,6 @@ const DonationsSection = ({
                 {/* Hairline divider for rhythm */}
                 <Divider sx={{ my: { xs: 3, md: 3.5 }, borderColor: HAIRLINE }} />
 
-                {/* Frequency */}
-                <ToggleButtonGroup
-                  exclusive
-                  value={freq}
-                  onChange={(_, v) => v && setFreq(v)}
-                  disabled={status === "processing"}
-                  sx={{
-                    "& .MuiToggleButton-root": {
-                      textTransform: "none",
-                      px: 2.25,
-                      borderRadius: 999,
-                      borderColor: alpha(INK, 0.12),
-                      transition: "background .2s ease, border-color .2s ease",
-                      "&.Mui-selected": {
-                        bgcolor: alpha(ACCENT, 0.12),
-                        borderColor: alpha(ACCENT, 0.4),
-                        color: ACCENT,
-                      },
-                    },
-                    justifyContent: { xs: "center", md: "flex-start" },
-                    gap: 1,
-                  }}
-                  aria-label="Donation frequency"
-                >
-                  <ToggleButton value="one-time">One-time</ToggleButton>
-                  <ToggleButton value="monthly">Monthly</ToggleButton>
-                </ToggleButtonGroup>
-
                 {/* Presets */}
                 <Box
                   sx={{
@@ -326,7 +299,7 @@ const DonationsSection = ({
                     inputMode="numeric"
                     value={custom}
                     placeholder="Custom amount"
-                    onChange={(e) => setCustom(e.target.value)}
+                    onChange={(e) => setCustom(e.target.value.replace(/\D/g, ""))}
                     disabled={status === "processing"}
                     aria-label="Custom donation amount"
                     InputProps={{
@@ -432,8 +405,7 @@ const DonationsSection = ({
                       <>
                         {buttonLabel}{" "}
                         {isValid
-                          ? `• ${pretty(displayAmount)}${freq === "monthly" ? "/mo" : ""
-                          } `
+                          ? `• ${pretty(displayAmount)} `
                           : ""}
                       </>
                     )}
@@ -517,11 +489,46 @@ const DonationsSection = ({
         onClose={() => setIsModalOpen(false)}
         maxWidth="sm"
         fullWidth
+        scroll="body"
+        BackdropProps={{
+          sx: {
+            backdropFilter: "blur(12px)",
+            backgroundColor: "rgba(14, 17, 19, 0.45)",
+          },
+        }}
         PaperProps={{
-          sx: { borderRadius: 3, p: 1 }
+          elevation: 24,
+          sx: {
+            borderRadius: 6,
+            p: 0,
+            overflow: "hidden",
+            boxShadow: "0 24px 60px rgba(0,0,0,0.15)",
+          }
         }}
       >
-        <DialogContent>
+        {/* Modal Header */}
+        <Box sx={{
+          px: 3, pt: 3, pb: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between"
+        }}>
+          <Typography variant="h6" sx={{ fontWeight: 800, color: INK, fontSize: "1.1rem" }}>
+            Complete Donation
+          </Typography>
+          <IconButton
+            onClick={() => setIsModalOpen(false)}
+            sx={{
+              color: alpha(INK, 0.5),
+              bgcolor: alpha(INK, 0.04),
+              "&:hover": { bgcolor: alpha(INK, 0.08), color: INK }
+            }}
+          >
+            <CloseRoundedIcon fontSize="small" />
+          </IconButton>
+        </Box>
+
+        <DialogContent sx={{ p: 4, pt: 2 }}>
           {clientSecret && (
             <Elements options={options} stripe={stripePromise}>
               <CheckoutForm

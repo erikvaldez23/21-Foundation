@@ -145,7 +145,7 @@ export default function ContactSection() {
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 <Box>
                   <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Phone</Typography>
-                  <Typography variant="body1" color="text.secondary">(123) 456-7890</Typography>
+                  <Typography variant="body1" color="text.secondary">(816) 616-6624</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Suicide Crisis Hotline</Typography>
