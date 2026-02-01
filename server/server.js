@@ -93,13 +93,54 @@ app.post('/api/contact', async (req, res) => {
         `,
   };
 
-  try {
+    try {
     await transporter.sendMail(mailOptions);
     res.status(200).json({ message: 'Email sent successfully!' });
   } catch (error) {
     console.error('Error sending email:', error);
     res.status(500).json({ message: 'Failed to send email.' });
   }
+});
+
+// --- Newsletter Routes ---
+const fs = require("fs");
+const SUBSCRIBERS_FILE = path.join(__dirname, "subscribers.json");
+
+// Helper to get subscribers
+const getSubscribers = () => {
+  if (!fs.existsSync(SUBSCRIBERS_FILE)) {
+    return [];
+  }
+  const data = fs.readFileSync(SUBSCRIBERS_FILE);
+  try {
+    return JSON.parse(data);
+  } catch (err) {
+    return [];
+  }
+};
+
+app.get("/api/newsletter", (req, res) => {
+  const subscribers = getSubscribers();
+  res.json(subscribers);
+});
+
+app.post("/api/newsletter", (req, res) => {
+  const { email } = req.body;
+  if (!email || !email.includes("@")) {
+    return res.status(400).json({ error: "Invalid email address" });
+  }
+
+  const subscribers = getSubscribers();
+
+  if (subscribers.includes(email)) {
+    return res.status(200).json({ message: "Email already subscribed" });
+  }
+
+  subscribers.push(email);
+  fs.writeFileSync(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2));
+
+  console.log(`New subscriber: ${email}`);
+  res.json({ message: "Successfully subscribed!" });
 });
 
 // Start server

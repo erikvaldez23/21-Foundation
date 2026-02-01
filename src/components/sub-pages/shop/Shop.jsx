@@ -79,28 +79,28 @@ const Shop = () => {
 
   // Payment State
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [size, setSize] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loadingConfig, setLoadingConfig] = useState(false);
 
-  // Handle Buy Now
-  const handleBuy = async (product) => {
+  // 2. Initialize Payment (called after size selection or immediately for non-apparel)
+  const initializePayment = async (product, size = null) => {
     setLoadingConfig(true);
-    setSelectedProduct(product);
 
     try {
-      // Create PaymentIntent on the backend
       const response = await fetch("http://localhost:3001/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           amount: product.price,
           currency: "usd",
-          description: `Purchase: ${product.title}`,
+          description: `Purchase: ${product.title} ${size ? `(Size: ${size})` : ""}`,
           metadata: {
             productId: product.id,
             productTitle: product.title,
-            productSlug: product.slug
+            productSlug: product.slug,
+            size: size
           }
         }),
       });
@@ -108,6 +108,8 @@ const Shop = () => {
       if (response.ok) {
         const data = await response.json();
         setClientSecret(data.clientSecret);
+        // If modal not open (fetched immediately), open it now
+        // If modal open (size selection), just updating content
         setIsModalOpen(true);
       } else {
         const errorData = await response.json();
@@ -118,6 +120,21 @@ const Shop = () => {
       alert("Network Error: Could not connect to backend (is it running on port 3001?)");
     } finally {
       setLoadingConfig(false);
+    }
+  };
+
+  // 1. Handle Buy Now Click
+  const handleBuy = (product) => {
+    setSelectedProduct(product);
+    setSize(null);
+    setClientSecret(""); // Reset previous session
+
+    if (product.tag === "Apparel") {
+      // Open modal for Size Selection first
+      setIsModalOpen(true);
+    } else {
+      // No size needed, fetch immediately
+      initializePayment(product, null);
     }
   };
 
@@ -337,14 +354,127 @@ const Shop = () => {
           }}
         >
           <DialogContent>
-            {clientSecret && (
-              <Elements options={options} stripe={stripePromise}>
-                <CheckoutForm
-                  amount={`$${selectedProduct?.price.toFixed(2)}`}
-                  onSuccess={handlePaymentSuccess}
-                  onCancel={() => setIsModalOpen(false)}
+            {/* 1. Size Selection Step (for Apparel) */}
+            {selectedProduct && selectedProduct.tag === "Apparel" && !clientSecret && (
+              <Box sx={{ textAlign: "center", py: 2 }}>
+                <Box
+                  component="img"
+                  src={selectedProduct.image}
+                  alt={selectedProduct.title}
+                  sx={{
+                    width: 180,
+                    height: 180,
+                    objectFit: "contain",
+                    borderRadius: 2,
+                    mb: 4,
+                    mx: "auto",
+                    mixBlendMode: "multiply"
+                  }}
                 />
-              </Elements>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
+                  Select Size
+                </Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
+                  For {selectedProduct.title}
+                </Typography>
+
+                <Box sx={{ display: "flex", gap: 1.5, justifyContent: "center", flexWrap: "wrap", mb: 4 }}>
+                  {["S", "M", "L", "XL", "2XL", "3XL"].map((s) => (
+                    <Chip
+                      key={s}
+                      label={s}
+                      onClick={() => setSize(s)}
+                      variant={size === s ? "filled" : "outlined"}
+                      sx={{
+                        width: 56,
+                        height: 56,
+                        borderRadius: "50%",
+                        cursor: "pointer",
+                        fontWeight: 700,
+                        fontSize: "1rem",
+                        transition: "all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                        bgcolor: size === s ? "#339c5e" : "transparent",
+                        color: size === s ? "#fff" : "text.primary",
+                        borderColor: size === s ? "#339c5e" : "rgba(0,0,0,0.15)",
+                        borderWidth: size === s ? 0 : 2,
+                        "& .MuiChip-label": {
+                          padding: 0,
+                        },
+                        "&:hover": {
+                          bgcolor: size === s ? "#2d8a53" : "rgba(51, 156, 94, 0.08)",
+                          borderColor: "#339c5e",
+                          transform: "scale(1.1)",
+                          boxShadow: "0 4px 12px rgba(0,0,0,0.08)"
+                        }
+                      }}
+                    />
+                  ))}
+                </Box>
+
+                <Button
+                  variant="contained"
+                  disabled={!size || loadingConfig}
+                  onClick={() => initializePayment(selectedProduct, size)}
+                  fullWidth
+                  sx={{
+                    py: 1.5,
+                    bgcolor: "#339c5e",
+                    fontWeight: 700,
+                    textTransform: "none",
+                    borderRadius: 2,
+                    "&:hover": { bgcolor: "#2d8a53" }
+                  }}
+                >
+                  {loadingConfig ? <CircularProgress size={24} color="inherit" /> : `Continue - $${selectedProduct.price.toFixed(2)}`}
+                </Button>
+              </Box>
+            )}
+
+            {/* 2. Payment Step */}
+            {clientSecret && selectedProduct && (
+              <>
+                <Box
+                  sx={{
+                    mb: 3,
+                    p: 2,
+                    borderRadius: 3,
+                    bgcolor: "rgba(0,0,0,0.03)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                    border: "1px solid rgba(0,0,0,0.06)"
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={selectedProduct.image}
+                    alt={selectedProduct.title}
+                    sx={{
+                      width: 60,
+                      height: 60,
+                      objectFit: "contain",
+                      borderRadius: 1,
+                      mixBlendMode: "multiply"
+                    }}
+                  />
+                  <Box>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+                      {selectedProduct.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                      ${selectedProduct.price.toFixed(2)} {size && `• Size: ${size}`}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Elements options={options} stripe={stripePromise}>
+                  <CheckoutForm
+                    amount={`$${selectedProduct.price.toFixed(2)}`}
+                    submitLabel={`Confirm Purchase - $${selectedProduct.price.toFixed(2)}`}
+                    onSuccess={handlePaymentSuccess}
+                    onCancel={() => setIsModalOpen(false)}
+                  />
+                </Elements>
+              </>
             )}
           </DialogContent>
         </Dialog>

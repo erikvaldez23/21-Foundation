@@ -11,6 +11,7 @@ import {
   InputAdornment,
   Button,
   Divider,
+  Dialog,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import EmailIcon from "@mui/icons-material/Email";
@@ -18,6 +19,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import XIcon from "@mui/icons-material/X";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import MarkEmailReadRoundedIcon from "@mui/icons-material/MarkEmailReadRounded";
+import { motion } from "framer-motion";
 
 // --- tweak this to match your site (e.g., 1200, 1280, 1440) ---
 const SITE_MAX_WIDTH = 1200;
@@ -74,10 +77,31 @@ export default function Footer({
   youtubeUrl = "#",
 }) {
   const [email, setEmail] = React.useState("");
+  const [submitting, setSubmitting] = React.useState(false);
+  const [successOpen, setSuccessOpen] = React.useState(false);
 
-  const handleSubscribe = () => {
-    if (onSubscribe) onSubscribe(email);
-    setEmail("");
+  const handleSubscribe = async () => {
+    if (!email) return;
+    setSubmitting(true);
+    try {
+      const response = await fetch("http://localhost:3001/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setSuccessOpen(true);
+        setEmail("");
+      } else {
+        alert(data.error || "Subscription failed");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Could not connect to server.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -349,6 +373,80 @@ export default function Footer({
           </Box>
         </Box>
       </Container>
+      {/* Success Modal */}
+      <Dialog
+        open={successOpen}
+        onClose={() => setSuccessOpen(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 4,
+            bgcolor: "#fff",
+            backgroundImage: "linear-gradient(to bottom, rgba(47, 166, 82, 0.03), rgba(255,255,255,0))",
+            boxShadow: "0 24px 48px rgba(0,0,0,0.08)",
+          }
+        }}
+      >
+        <Box sx={{ p: 4, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <motion.div
+            initial={{ scale: 0, rotate: -15 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+          >
+            <Box
+              sx={{
+                width: 80,
+                height: 80,
+                borderRadius: "50%",
+                bgcolor: "rgba(47, 166, 82, 0.1)",
+                color: "#2FA652",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: 3
+              }}
+            >
+              <MarkEmailReadRoundedIcon sx={{ fontSize: 40 }} />
+            </Box>
+          </motion.div>
+
+          <Typography variant="h4" sx={{
+            fontFamily: "'Playfair Display', serif",
+            fontWeight: 800,
+            mb: 1.5,
+            color: "#1a1a1a"
+          }}>
+            Welcome!
+          </Typography>
+
+          <Typography variant="body1" sx={{ color: "text.secondary", mb: 4, maxWidth: 360, lineHeight: 1.6 }}>
+            You're now on the list. We'll send updates on our latest events and outreach programs straight to your inbox.
+          </Typography>
+
+          <Button
+            onClick={() => setSuccessOpen(false)}
+            disableElevation
+            sx={{
+              bgcolor: "#2FA652",
+              color: "#fff",
+              fontWeight: 700,
+              px: 4,
+              py: 1.5,
+              borderRadius: 99,
+              textTransform: "none",
+              fontSize: "1rem",
+              minWidth: 140,
+              "&:hover": {
+                bgcolor: "#268a45",
+                transform: "translateY(-1px)",
+              }
+            }}
+          >
+            Got it
+          </Button>
+        </Box>
+      </Dialog>
     </Wrapper>
   );
 }

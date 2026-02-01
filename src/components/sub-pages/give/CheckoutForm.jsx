@@ -7,7 +7,7 @@ import {
 import { Box, Button, Typography, CircularProgress, Alert } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
-const CheckoutForm = ({ amount, onSuccess, onCancel }) => {
+const CheckoutForm = ({ amount, onSuccess, onCancel, submitLabel }) => {
     const stripe = useStripe();
     const elements = useElements();
 
@@ -83,7 +83,7 @@ const CheckoutForm = ({ amount, onSuccess, onCancel }) => {
                         color: "#fff"
                     }}
                 >
-                    {isLoading ? <CircularProgress size={24} color="inherit" /> : `Donate ${amount} `}
+                    {isLoading ? <CircularProgress size={24} color="inherit" /> : (submitLabel || `Donate ${amount}`)}
                 </Button>
 
                 <Button
