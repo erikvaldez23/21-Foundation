@@ -45,12 +45,12 @@ export default function MeetTheTeamOneImage({
     "Isabel Clark",
     "John Clark",
     "Tre Clark",
+    "Julia Pfaff",
     "Christa Dubill",
     "Nayla Eid",
     "Michelle Hardgree",
     "Amber Hellwig",
     "Christina Pfaff",
-    "Julia Pfaff",
     "Dean Wheeler",
     "Isabel Jaramillo"
   ],
@@ -208,7 +208,7 @@ export default function MeetTheTeamOneImage({
               textAlign: "center"
             }}
           >
-            Team Members
+            Committee Members
           </Typography>
 
           <Box
@@ -246,7 +246,7 @@ export default function MeetTheTeamOneImage({
                   {name}
                 </Typography>
                 <Typography variant="overline" sx={{ color: "#666", letterSpacing: "0.1em", fontSize: "0.75rem" }}>
-                  Team Member
+                  {name === "Julia Pfaff" ? "Committee Chair" : "Committee Member"}
                 </Typography>
               </Box>
             ))}

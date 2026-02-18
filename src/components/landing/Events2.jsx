@@ -255,9 +255,10 @@ const courses = [
   {
     key: "walkout",
     headerTag: "Mental Health Awareness",
-    h3: "Mental Health Walkout",
+    h3: "Sean’s Birthday Celebration @ AMC 2025",
     h4: "Community Event",
     sub: "Join Us for a Walkout to Raise Awareness",
+    date: "September 14, 2025",
     title: "Walkout for Mental Health Awareness",
     body:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!",
@@ -273,9 +274,10 @@ const courses = [
   {
     key: "workshop2",
     headerTag: "Empowering the Mind",
-    h3: "Event 2",
-    h4: "Event Type",
+    h3: "Reach-out Virginia Yoga Class",
+    h4: "Community Event",
     sub: "Event Title",
+    date: "June 21, 2026",
     title: "Event 2 Header",
     body:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!",
@@ -290,9 +292,10 @@ const courses = [
   {
     key: "workshop3",
     headerTag: "Empowering the Mind",
-    h3: "Event 3",
-    h4: "Event Type",
+    h3: "Reach Out Walk 2025",
+    h4: "Community Event",
     sub: "Event Title",
+    date: "August 15, 2025",
     title: "Event 3 Header",
     body:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!",
@@ -307,9 +310,10 @@ const courses = [
   {
     key: "workshop4",
     headerTag: "Empowering the Mind",
-    h3: "Event 4",
-    h4: "Event Type",
+    h3: "Throw Kindness, Dodge Hate",
+    h4: "Community Event",
     sub: "Event Title",
+    date: "August 10, 2026",
     title: "Event 4 Header",
     body:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet cumque consectetur recusandae nesciunt distinctio illum, similique, delectus libero nisi doloremque fuga ducimus, magnam aut deserunt fugit rerum? Commodi, odit delectus!",
@@ -511,18 +515,38 @@ export default function EdutainmentCoursesMUI() {
 
                     {/* Single Row: Title + Button */}
                     <ImageCtaBar>
-                      <CourseH3>
-                        {course.h3 || course.title}
-                      </CourseH3>
-                      <GhostBtn
-                        component="a"
-                        href={signUpHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Sign up for ${course.title}`}
-                      >
-                        Sign Up Now
-                      </GhostBtn>
+                      <Box sx={{ flex: 1, marginRight: 2 }}>
+                        {course.date && (
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              color: "rgba(255, 255, 255, 0.9)",
+                              fontWeight: 600,
+                              fontSize: "0.875rem",
+                              mb: 0.5,
+                              textTransform: "uppercase",
+                              letterSpacing: "0.05em",
+                            }}
+                          >
+                            {course.date}
+                          </Typography>
+                        )}
+                        <CourseH3>
+                          {course.h3 || course.title}
+                        </CourseH3>
+                      </Box>
+
+                      {(!course.date || new Date(course.date) >= new Date().setHours(0, 0, 0, 0)) && (
+                        <GhostBtn
+                          component="a"
+                          href={signUpHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Sign up for ${course.title}`}
+                        >
+                          Sign Up Now
+                        </GhostBtn>
+                      )}
                     </ImageCtaBar>
                   </ImageShell>
 

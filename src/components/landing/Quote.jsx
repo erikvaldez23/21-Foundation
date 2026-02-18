@@ -33,7 +33,7 @@ const QuoteMark = styled("span")(({ theme }) => ({
 
 export default function InspirationalQuote({
   quote = "Inspired by Sean Clark’s spirit, our mission is to empower young people to thrive by fostering mental resiliency through the positive influence of sports, friendship, family and faith—instilling a culture of kindness and courage to advocate for themselves and others.",
-  author = "Clark21Foundation",
+  author = "The Sean Clark 21 Foundation",
 }) {
   return (
     <Section role="region" aria-label="Inspirational quote">
@@ -70,7 +70,7 @@ export default function InspirationalQuote({
             <Box
               component="img"
               src="/logo2.png"
-              alt="Clark21Foundation Logo"
+              alt="The Sean Clark 21 Foundation Logo"
               sx={{
                 width: "100%",
                 maxWidth: { xs: 240, sm: 300, md: "100%" }, // Fill the 30% slot on desktop

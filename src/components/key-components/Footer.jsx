@@ -69,7 +69,7 @@ const SocialButton = styled(IconButton)(({ theme }) => ({
 }));
 
 export default function Footer({
-  brand = "Clark21Foundation",
+  brand = "The Sean Clark 21 Foundation",
   onSubscribe,
   instagramUrl = "https://www.instagram.com/seanclark21foundation/",
   facebookUrl = "#",
@@ -346,7 +346,7 @@ export default function Footer({
               fontWeight: 500
             }}
           >
-            © {new Date().getFullYear()} {brand}, Inc.
+            © {new Date().getFullYear()} {brand} Org
           </Typography>
 
           <Box

@@ -167,7 +167,7 @@ const EventContent = ({
 
   return (
     <Box sx={{ bgcolor: background }}>
-      <Container maxWidth={maxWidth} sx={{pb: 4 }}>
+      <Container maxWidth={maxWidth} sx={{ pb: 4 }}>
         <Grid
           container
           spacing={spacing}

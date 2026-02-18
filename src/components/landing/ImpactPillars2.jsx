@@ -37,7 +37,7 @@ const ImpactPillars2 = () => {
 
     return (
         <Box sx={{ py: { xs: 5, md: 10 }, background: "#E8E5DD", overflow: 'hidden', color: '#1a1a1a' }}>
-            <Container maxWidth="xl">
+            <Container maxWidth="lg">
                 {/* Header */}
                 <Box sx={{ mb: 12, borderBottom: "1px solid rgba(0,0,0,0.1)", pb: 4 }}>
                     <Typography
