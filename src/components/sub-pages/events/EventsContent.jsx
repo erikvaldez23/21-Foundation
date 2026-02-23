@@ -168,23 +168,23 @@ const EventContent = ({
   return (
     <Box sx={{ bgcolor: background }}>
       <Container maxWidth={maxWidth} sx={{ pb: 4 }}>
-        <Grid
-          container
-          spacing={spacing}
+        <Box
           sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
+            gap: spacing,
+            pt: 2,
+            px: { xs: 2, md: 0 },
             justifyContent: "center",
             alignItems: "stretch",
-            // increase vertical rhythm around the grid
           }}
         >
           {events.map((ev) => (
-            <Grid key={ev.id} item {...gridProps} sx={{ display: "flex" }}>
-              <Box sx={{ width: "100%" }}>
-                <EventCard event={ev} isMobile={isMobile} />
-              </Box>
-            </Grid>
+            <Box key={ev.id} sx={{ width: "100%", display: "flex" }}>
+              <EventCard event={ev} isMobile={isMobile} />
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );

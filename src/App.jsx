@@ -12,6 +12,7 @@ import Contact from "./components/sub-pages/contact/Contact";
 import Give from "./components/sub-pages/give/Give";
 import Shop from "./components/sub-pages/shop/Shop";
 import Gallery from "./components/sub-pages/gallery/Gallery";
+import EventGallery from "./components/sub-pages/gallery/EventGallery";
 import ImpactPillars from "./components/landing/ImpactPillars";
 import ImpactPillars2 from "./components/landing/ImpactPillars2";
 import Headliner from "./components/key-components/Headlne";
@@ -61,6 +62,7 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/events" element={<EventPage />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/gallery/:slug" element={<EventGallery />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/events/:slug" element={<EventDetail />} />
           {/* <Route path="/events/:slug" element={<EventDetailsPage />} /> */}
