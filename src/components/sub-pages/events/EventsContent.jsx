@@ -119,7 +119,7 @@ const EventCard = ({ event, isMobile }) => (
 const DEFAULT_EVENTS = [
   {
     id: "e1",
-    title: "REACH OUT WALK",
+    title: "SEAN'S BIRTHDAY CELEBRATION",
     date: "9/14/25",
     location: "LEAWOOD, KS 66224",
     image: "/image1.JPG",
@@ -127,7 +127,7 @@ const DEFAULT_EVENTS = [
   },
   {
     id: "e2",
-    title: "EVENT 2",
+    title: "REACH-OUT VIRGINIA YOGA CLASS",
     date: "DATE",
     location: "LOCATION",
     image: "/image2.JPG",
@@ -135,7 +135,7 @@ const DEFAULT_EVENTS = [
   },
   {
     id: "e3",
-    title: "EVENT 3",
+    title: "REACH-OUT WALK",
     date: "DATE",
     location: "LOCATION",
     image: "/image3.JPG",
@@ -143,8 +143,8 @@ const DEFAULT_EVENTS = [
   },
   {
     id: "e4",
-    title: "EVENT 4",
-    date: "DATE",
+    title: "THROW KINDNESS DODGE HATE",
+    date: "5/2/2026",
     location: "LOCATION",
     image: "/image4.JPG",
     to: "/events/rhythm-movement-earth",

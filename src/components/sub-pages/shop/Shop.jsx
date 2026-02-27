@@ -13,7 +13,9 @@ import {
   Dialog,
   DialogContent,
   CircularProgress,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CTA from "../../key-components/CTA"
@@ -39,38 +41,38 @@ const products = [
     tag: "Apparel",
     slug: "kelly-green-cap",
   },
-  {
-    id: 3,
-    title: "Live Like Sean Tee 3",
-    price: 20,
-    image: "/shirt.jpg",
-    tag: "Accessories",
-    slug: "foundation-tote",
-  },
-  {
-    id: 4,
-    title: "Live Like Sean Tee 4",
-    price: 30,
-    image: "/shirt.jpg",
-    tag: "Accessories",
-    slug: "insulated-bottle",
-  },
-  {
-    id: 5,
-    title: "Live Like Sean Tee 5",
-    price: 55,
-    image: "/shirt.jpg",
-    tag: "Apparel",
-    slug: "minimal-hoodie",
-  },
-  {
-    id: 6,
-    title: "Live Like Sean Tee 6",
-    price: 8,
-    image: "/shirt.jpg",
-    tag: "Merch",
-    slug: "sticker-pack",
-  },
+  // {
+  //   id: 3,
+  //   title: "Live Like Sean Tee 3",
+  //   price: 20,
+  //   image: "/shirt.jpg",
+  //   tag: "Accessories",
+  //   slug: "foundation-tote",
+  // },
+  // {
+  //   id: 4,
+  //   title: "Live Like Sean Tee 4",
+  //   price: 30,
+  //   image: "/shirt.jpg",
+  //   tag: "Accessories",
+  //   slug: "insulated-bottle",
+  // },
+  // {
+  //   id: 5,
+  //   title: "Live Like Sean Tee 5",
+  //   price: 55,
+  //   image: "/shirt.jpg",
+  //   tag: "Apparel",
+  //   slug: "minimal-hoodie",
+  // },
+  // {
+  //   id: 6,
+  //   title: "Live Like Sean Tee 6",
+  //   price: 8,
+  //   image: "/shirt.jpg",
+  //   tag: "Merch",
+  //   slug: "sticker-pack",
+  // },
 ];
 
 const Shop = () => {
@@ -200,7 +202,7 @@ const Shop = () => {
               display: "grid",
               gridTemplateColumns: {
                 xs: "1fr",                          // 1 column on mobile
-                md: "repeat(3, minmax(0, 1fr))",    // keep 3 columns on desktop
+                md: products.length === 2 ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))",
               },
               gap: 3,
             }}
@@ -332,7 +334,7 @@ const Shop = () => {
 
 
           {/* Footer note */}
-          <Box sx={{ textAlign: "center", mt: 8 }}>
+          {/* <Box sx={{ textAlign: "center", mt: 8 }}>
             <Typography
               variant="body2"
               sx={{ color: "#555", maxWidth: 680, mx: "auto", lineHeight: 1.7 }}
@@ -340,7 +342,7 @@ const Shop = () => {
               100% of proceeds support our outreach and programs. Every purchase
               fuels the mission to carry Sean&apos;s spirit forward.
             </Typography>
-          </Box>
+          </Box> */}
         </Container>
 
 
@@ -351,9 +353,21 @@ const Shop = () => {
           maxWidth="sm"
           fullWidth
           PaperProps={{
-            sx: { borderRadius: 4, p: 2 }
+            sx: { borderRadius: 4, p: 2, position: "relative" }
           }}
         >
+          <IconButton
+            onClick={() => setIsModalOpen(false)}
+            sx={{
+              position: "absolute",
+              right: 12,
+              top: 12,
+              color: "text.secondary",
+              zIndex: 10,
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
           <DialogContent>
             {/* 1. Size Selection Step (for Apparel) */}
             {selectedProduct && selectedProduct.tag === "Apparel" && !clientSecret && (

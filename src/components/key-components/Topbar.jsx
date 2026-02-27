@@ -229,7 +229,7 @@ function FancyDrawer({
             <img
               src={logoSrc}
               alt={logoAlt}
-              style={{ height: 46, width: "auto" }}
+              style={{ height: 60, width: "auto", filter: "brightness(2) contrast(1.2)" }}
             />
             {showWordmark && (
               <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
@@ -382,7 +382,8 @@ export default function TopbarHero({
   threshold = 24,
   blurPx = 10,
   sx,
-  logoSrc = "/logo-2.png",
+  // logoSrc = "/logo-2.png",
+  logoSrc = "/alt-logo2.png",
   logoAlt = "Company Logo",
   homeTo = "/",
   showWordmark = false,
@@ -537,7 +538,7 @@ export default function TopbarHero({
             <motion.img
               src={logoSrc}
               alt={logoAlt}
-              style={{ height: 50, width: "auto", display: "block" }}
+              style={{ height: 70, width: "auto", display: "block", filter: "brightness(2) contrast(1.2)" }}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
