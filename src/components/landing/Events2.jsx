@@ -115,7 +115,7 @@ const ImageShell = styled(Box)(({ theme }) => ({
     padding: `32px`,
   },
   [theme.breakpoints.up("md")]: {
-    height: 500,
+    height: 450,
     padding: `40px`,
   },
 }));
@@ -187,17 +187,31 @@ const CourseH4 = styled(Typography)({ display: 'none' });
 const CourseSub = styled(Typography)({ display: 'none' });
 
 const NavBtn = styled(IconButton)(({ theme }) => ({
-  width: 30,
-  height: 40,
+  position: "absolute",
+  top: "50%",
+  transform: "translateY(-50%)",
+  zIndex: 10,
+  width: 48,
+  height: 48,
   borderRadius: "50%",
-  border: "2px solid #ddd",
-  backgroundColor: "#fff",
-  color: "#666",
-  "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
-  // on tiny phones, keep them tappable but not overpowering
-  [theme.breakpoints.down("sm")]: {
-    width: 36,
-    height: 36,
+  border: "1px solid rgba(0,0,0,0.08)",
+  backgroundColor: "rgba(255,255,255,0.9)",
+  backdropFilter: "blur(8px)",
+  color: "#333",
+  boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
+  transition: "all 0.2s ease",
+  "&:hover": {
+    backgroundColor: "#fff",
+    transform: "translateY(-50%) scale(1.05)",
+    boxShadow: "0 6px 20px rgba(0,0,0,0.2)",
+  },
+  "&:disabled": {
+    opacity: 0,
+    pointerEvents: "none",
+  },
+  // Hide on smaller screens or adjust size if necessary
+  [theme.breakpoints.down("md")]: {
+    display: "none",
   },
 }));
 
@@ -458,28 +472,32 @@ export default function EdutainmentCoursesMUI() {
               Fill out the form to join us!
             </Typography>
 
-            {/* Arrow controls under the header (left-aligned) */}
-            <Box
-              sx={{
-                display: { xs: "none", md: "flex" },
-                justifyContent: "flex-start",
-                gap: 1,
-                mt: { xs: 0.5, sm: 1 },
-              }}
-            >
-              <NavBtn onClick={previousSlide} aria-label="previous" disabled={atStart && !isMobile}>
-                <ChevronLeft size={16} />
-              </NavBtn>
-              <NavBtn onClick={nextSlide} aria-label="next" disabled={atEnd && !isMobile}>
-                <ChevronRight size={16} />
-              </NavBtn>
-            </Box>
           </Box>
         </HeaderRow>
       </Container>
 
       {/* Limit carousel width to xl as well */}
-      <Container maxWidth="xl" disableGutters={isMobile}>
+      <Container maxWidth="xl" disableGutters={isMobile} sx={{ position: "relative" }}>
+
+        {/* Floating Arrows */}
+        <NavBtn
+          onClick={previousSlide}
+          aria-label="previous"
+          disabled={atStart && !isMobile}
+          sx={{ left: { xs: 8, md: 16 } }}
+        >
+          <ChevronLeft size={24} />
+        </NavBtn>
+
+        <NavBtn
+          onClick={nextSlide}
+          aria-label="next"
+          disabled={atEnd && !isMobile}
+          sx={{ right: { xs: 8, md: 16 } }}
+        >
+          <ChevronRight size={24} />
+        </NavBtn>
+
         <CarouselContainer
           ref={containerRef}
           onWheel={onWheel}
