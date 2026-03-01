@@ -36,7 +36,7 @@ const products = [
   {
     id: 2,
     title: "Cream Live Like Sean Tee",
-    price: 24,
+    price: 25,
     image: "/shop/cream-shirt-front.png",
     tag: "Apparel",
     slug: "kelly-green-cap",

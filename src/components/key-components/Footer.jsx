@@ -182,7 +182,7 @@ export default function Footer({
                 >
                   <InstagramIcon fontSize="medium" />
                 </SocialButton>
-                <SocialButton
+                {/* <SocialButton
                   aria-label="Facebook"
                   component="a"
                   href={facebookUrl}
@@ -190,8 +190,8 @@ export default function Footer({
                   rel="noopener noreferrer"
                 >
                   <FacebookIcon fontSize="medium" />
-                </SocialButton>
-                <SocialButton
+                </SocialButton> */}
+                {/* <SocialButton
                   aria-label="X / Twitter"
                   component="a"
                   href={xUrl}
@@ -199,8 +199,8 @@ export default function Footer({
                   rel="noopener noreferrer"
                 >
                   <XIcon fontSize="medium" />
-                </SocialButton>
-                <SocialButton
+                </SocialButton> */}
+                {/* <SocialButton
                   aria-label="YouTube"
                   component="a"
                   href={youtubeUrl}
@@ -208,7 +208,7 @@ export default function Footer({
                   rel="noopener noreferrer"
                 >
                   <YouTubeIcon fontSize="medium" />
-                </SocialButton>
+                </SocialButton> */}
               </Box>
             </Box>
           </Grid>

@@ -11,6 +11,8 @@ import {
     DialogTitle,
     DialogActions,
     Tooltip,
+    useTheme,
+    useMediaQuery,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion, AnimatePresence } from "framer-motion";
@@ -208,6 +210,8 @@ export default function EventGallery() {
     const { slug } = useParams();
     const navigate = useNavigate();
     const [lightbox, setLightbox] = useState({ open: false, index: 0, items: [] });
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const event = useMemo(() => EVENTS.find((e) => e.id === slug), [slug]);
     const eventPhotos = useMemo(() => PHOTOS.filter((p) => p.eventId === slug), [slug]);
@@ -283,38 +287,75 @@ export default function EventGallery() {
                     Back to Events
                 </Button>
 
-                <div ref={wrapRef} style={{ width: "100%" }}>
-                    {rows.map((row, rIdx) => (
-                        <Row key={`row-${rIdx}`} style={{ marginBottom: rIdx < rows.length - 1 ? 12 : 0 }}>
-                            {row.map((item) => (
-                                <Tile
-                                    key={item.id}
-                                    h={item._h}
-                                    style={{ width: item._w, height: item._h }}
-                                    onClick={() => openAt(item.id)}
-                                    variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
-                                    whileHover={{ y: -2 }}
-                                >
-                                    <ImageCover src={item.src} alt={item.title} loading="lazy" decoding="async" />
-                                    <HoverOverlay>
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                            <PhotoCameraBackRoundedIcon fontSize="small" />
-                                            <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
-                                                {item.title}
-                                            </Typography>
-                                        </Box>
-                                        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-                                            <SmallPill>{item.album}</SmallPill>
-                                            {(item.tags || []).slice(0, 2).map((t) => (
-                                                <SmallPill key={t}>{t}</SmallPill>
-                                            ))}
-                                        </Box>
-                                    </HoverOverlay>
-                                </Tile>
-                            ))}
-                        </Row>
-                    ))}
-                </div>
+                {isMobile ? (
+                    <Box
+                        sx={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr",
+                            gap: 4,
+                        }}
+                    >
+                        {measured.map((item) => (
+                            <Tile
+                                key={item.id}
+                                h="auto"
+                                style={{ width: "100%", aspectRatio: "16 / 10" }}
+                                onClick={() => openAt(item.id)}
+                                variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+                                whileHover={{ y: -2 }}
+                            >
+                                <ImageCover src={item.src} alt={item.title} loading="lazy" decoding="async" />
+                                <HoverOverlay>
+                                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                        <PhotoCameraBackRoundedIcon fontSize="small" />
+                                        <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                                            {item.title}
+                                        </Typography>
+                                    </Box>
+                                    <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                                        <SmallPill>{item.album}</SmallPill>
+                                        {(item.tags || []).slice(0, 2).map((t) => (
+                                            <SmallPill key={t}>{t}</SmallPill>
+                                        ))}
+                                    </Box>
+                                </HoverOverlay>
+                            </Tile>
+                        ))}
+                    </Box>
+                ) : (
+                    <div ref={wrapRef} style={{ width: "100%" }}>
+                        {rows.map((row, rIdx) => (
+                            <Row key={`row-${rIdx}`} style={{ marginBottom: rIdx < rows.length - 1 ? 12 : 0 }}>
+                                {row.map((item) => (
+                                    <Tile
+                                        key={item.id}
+                                        h={item._h}
+                                        style={{ width: item._w, height: item._h }}
+                                        onClick={() => openAt(item.id)}
+                                        variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+                                        whileHover={{ y: -2 }}
+                                    >
+                                        <ImageCover src={item.src} alt={item.title} loading="lazy" decoding="async" />
+                                        <HoverOverlay>
+                                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                                <PhotoCameraBackRoundedIcon fontSize="small" />
+                                                <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                                                    {item.title}
+                                                </Typography>
+                                            </Box>
+                                            <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                                                <SmallPill>{item.album}</SmallPill>
+                                                {(item.tags || []).slice(0, 2).map((t) => (
+                                                    <SmallPill key={t}>{t}</SmallPill>
+                                                ))}
+                                            </Box>
+                                        </HoverOverlay>
+                                    </Tile>
+                                ))}
+                            </Row>
+                        ))}
+                    </div>
+                )}
             </Container>
 
             <Dialog

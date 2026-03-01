@@ -338,7 +338,7 @@ const DonationsSection = ({
                             {[
                                 { label: "Venmo", value: "@SC21-Foundation", color: "#008CFF", img: "/venmo-logo.png" },
                                 { label: "Cash App", value: "$SC21Foundation", color: "#00D632", img: "/cashapp-logo.png" },
-                                { label: "Zelle", value: "info@sc21foundation.org", color: "#6D1ED4", img: "/zelle-logo.png" },
+                                // { label: "Zelle", value: "info@sc21foundation.org", color: "#6D1ED4", img: "/zelle-logo.png" },
                             ].map((item) => (
                                 <Box
                                     key={item.label}

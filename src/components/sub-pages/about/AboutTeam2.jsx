@@ -44,7 +44,7 @@ export default function MeetTheTeamOneImage({
   members = [
     "Isabel Clark",
     "John Clark",
-    "Tre Clark",
+    "Tre' Clark",
     "Julia Pfaff",
     "Christa Dubill",
     "Nayla Eid",
