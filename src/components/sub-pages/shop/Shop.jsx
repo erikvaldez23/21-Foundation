@@ -14,6 +14,8 @@ import {
   DialogContent,
   CircularProgress,
   IconButton,
+  TextField,
+  Grid,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { loadStripe } from "@stripe/stripe-js";
@@ -85,9 +87,23 @@ const Shop = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loadingConfig, setLoadingConfig] = useState(false);
+  const [currentStep, setCurrentStep] = useState(null); // 'size', 'shipping', 'payment'
+  const [shippingDetails, setShippingDetails] = useState({
+    firstName: "", lastName: "", email: "", phone: "",
+    address: "", apt: "", city: "", state: "", zip: "", note: ""
+  });
 
-  // 2. Initialize Payment (called after size selection or immediately for non-apparel)
-  const initializePayment = async (product, size = null) => {
+  const handleShippingChange = (e) => {
+    setShippingDetails(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const submitShipping = (e) => {
+    e.preventDefault();
+    initializePayment(selectedProduct, size, shippingDetails);
+  };
+
+  // 2. Initialize Payment
+  const initializePayment = async (product, size = null, shipping = {}) => {
     setLoadingConfig(true);
 
     try {
@@ -99,11 +115,28 @@ const Shop = () => {
           amount: product.price,
           currency: "usd",
           description: `Purchase: ${product.title} ${size ? `(Size: ${size})` : ""}`,
+          receipt_email: shipping.email || undefined,
+          shipping: shipping.firstName ? {
+            name: `${shipping.firstName} ${shipping.lastName}`.trim(),
+            address: {
+              line1: shipping.address,
+              line2: shipping.apt || undefined,
+              city: shipping.city,
+              state: shipping.state,
+              postal_code: shipping.zip,
+              country: "US"
+            }
+          } : undefined,
           metadata: {
             productId: product.id,
             productTitle: product.title,
             productSlug: product.slug,
-            size: size
+            size: size || "N/A",
+            customerName: `${shipping.firstName || ''} ${shipping.lastName || ''}`.trim(),
+            customerEmail: shipping.email || "",
+            customerPhone: shipping.phone || "",
+            shippingAddress: shipping.address ? `${shipping.address} ${shipping.apt ? `Apt ${shipping.apt}` : ''}, ${shipping.city}, ${shipping.state} ${shipping.zip}` : "",
+            orderNote: shipping.note || ""
           }
         }),
       });
@@ -111,8 +144,7 @@ const Shop = () => {
       if (response.ok) {
         const data = await response.json();
         setClientSecret(data.clientSecret);
-        // If modal not open (fetched immediately), open it now
-        // If modal open (size selection), just updating content
+        setCurrentStep("payment");
         setIsModalOpen(true);
       } else {
         const errorData = await response.json();
@@ -131,13 +163,19 @@ const Shop = () => {
     setSelectedProduct(product);
     setSize(null);
     setClientSecret(""); // Reset previous session
+    setShippingDetails({
+      firstName: "", lastName: "", email: "", phone: "",
+      address: "", apt: "", city: "", state: "", zip: "", note: ""
+    });
 
     if (product.tag === "Apparel") {
       // Open modal for Size Selection first
+      setCurrentStep("size");
       setIsModalOpen(true);
     } else {
-      // No size needed, fetch immediately
-      initializePayment(product, null);
+      // No size needed, go to shipping step directly
+      setCurrentStep("shipping");
+      setIsModalOpen(true);
     }
   };
 
@@ -370,7 +408,7 @@ const Shop = () => {
           </IconButton>
           <DialogContent>
             {/* 1. Size Selection Step (for Apparel) */}
-            {selectedProduct && selectedProduct.tag === "Apparel" && !clientSecret && (
+            {currentStep === "size" && selectedProduct && selectedProduct.tag === "Apparel" && (
               <Box sx={{ textAlign: "center", py: 2 }}>
                 <Box
                   component="img"
@@ -428,8 +466,8 @@ const Shop = () => {
 
                 <Button
                   variant="contained"
-                  disabled={!size || loadingConfig}
-                  onClick={() => initializePayment(selectedProduct, size)}
+                  disabled={!size}
+                  onClick={() => setCurrentStep("shipping")}
                   fullWidth
                   sx={{
                     py: 1.5,
@@ -440,13 +478,117 @@ const Shop = () => {
                     "&:hover": { bgcolor: "#2d8a53" }
                   }}
                 >
-                  {loadingConfig ? <CircularProgress size={24} color="inherit" /> : `Continue - $${selectedProduct.price.toFixed(2)}`}
+                  Continue
+                </Button>
+              </Box>
+            )}
+
+            {/* 1.5 Shipping & Contact Step */}
+            {currentStep === "shipping" && selectedProduct && (
+              <Box component="form" onSubmit={submitShipping} sx={{ py: 2 }}>
+                <Typography variant="h5" sx={{ fontWeight: 700, mb: 1, textAlign: "center", fontFamily: "serif" }}>
+                  Delivery Details
+                </Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary", textAlign: "center", mb: 4 }}>
+                  Where should we send your {selectedProduct.title}?
+                </Typography>
+
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "text.secondary", mb: 2, borderBottom: "1px solid rgba(0,0,0,0.1)", pb: 1 }}>
+                  Contact Info
+                </Typography>
+                <Grid container spacing={2.5} sx={{ mb: 4 }}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField required fullWidth label="First Name" name="firstName" value={shippingDetails.firstName} onChange={handleShippingChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "#fafafa", "&.Mui-focused": { bgcolor: "#fff", boxShadow: "0 4px 12px rgba(51, 156, 94, 0.08)" }, "& fieldset": { borderColor: "rgba(0,0,0,0.1)" }, "&:hover fieldset": { borderColor: "rgba(0,0,0,0.2)" }, "&.Mui-focused fieldset": { borderColor: "#339c5e", borderWidth: 2 } },
+                        "& .MuiInputLabel-root.Mui-focused": { color: "#339c5e", fontWeight: 600 }
+                      }} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField required fullWidth label="Last Name" name="lastName" value={shippingDetails.lastName} onChange={handleShippingChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "#fafafa", "&.Mui-focused": { bgcolor: "#fff", boxShadow: "0 4px 12px rgba(51, 156, 94, 0.08)" }, "& fieldset": { borderColor: "rgba(0,0,0,0.1)" }, "&:hover fieldset": { borderColor: "rgba(0,0,0,0.2)" }, "&.Mui-focused fieldset": { borderColor: "#339c5e", borderWidth: 2 } },
+                        "& .MuiInputLabel-root.Mui-focused": { color: "#339c5e", fontWeight: 600 }
+                      }} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField required fullWidth label="Email" type="email" name="email" value={shippingDetails.email} onChange={handleShippingChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "#fafafa", "&.Mui-focused": { bgcolor: "#fff", boxShadow: "0 4px 12px rgba(51, 156, 94, 0.08)" }, "& fieldset": { borderColor: "rgba(0,0,0,0.1)" }, "&:hover fieldset": { borderColor: "rgba(0,0,0,0.2)" }, "&.Mui-focused fieldset": { borderColor: "#339c5e", borderWidth: 2 } },
+                        "& .MuiInputLabel-root.Mui-focused": { color: "#339c5e", fontWeight: 600 }
+                      }} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField required fullWidth label="Phone" type="tel" name="phone" value={shippingDetails.phone} onChange={handleShippingChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "#fafafa", "&.Mui-focused": { bgcolor: "#fff", boxShadow: "0 4px 12px rgba(51, 156, 94, 0.08)" }, "& fieldset": { borderColor: "rgba(0,0,0,0.1)" }, "&:hover fieldset": { borderColor: "rgba(0,0,0,0.2)" }, "&.Mui-focused fieldset": { borderColor: "#339c5e", borderWidth: 2 } },
+                        "& .MuiInputLabel-root.Mui-focused": { color: "#339c5e", fontWeight: 600 }
+                      }} />
+                  </Grid>
+                </Grid>
+
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "text.secondary", mb: 2, borderBottom: "1px solid rgba(0,0,0,0.1)", pb: 1 }}>
+                  Shipping Address
+                </Typography>
+                <Grid container spacing={2.5}>
+                  <Grid item xs={12}>
+                    <TextField required fullWidth label="Address Line 1" name="address" value={shippingDetails.address} onChange={handleShippingChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "#fafafa", "&.Mui-focused": { bgcolor: "#fff", boxShadow: "0 4px 12px rgba(51, 156, 94, 0.08)" }, "& fieldset": { borderColor: "rgba(0,0,0,0.1)" }, "&:hover fieldset": { borderColor: "rgba(0,0,0,0.2)" }, "&.Mui-focused fieldset": { borderColor: "#339c5e", borderWidth: 2 } },
+                        "& .MuiInputLabel-root.Mui-focused": { color: "#339c5e", fontWeight: 600 }
+                      }} />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField fullWidth label="Apt, Suite, etc. (Optional)" name="apt" value={shippingDetails.apt} onChange={handleShippingChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "#fafafa", "&.Mui-focused": { bgcolor: "#fff", boxShadow: "0 4px 12px rgba(51, 156, 94, 0.08)" }, "& fieldset": { borderColor: "rgba(0,0,0,0.1)" }, "&:hover fieldset": { borderColor: "rgba(0,0,0,0.2)" }, "&.Mui-focused fieldset": { borderColor: "#339c5e", borderWidth: 2 } },
+                        "& .MuiInputLabel-root.Mui-focused": { color: "#339c5e", fontWeight: 600 }
+                      }} />
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <TextField required fullWidth label="City" name="city" value={shippingDetails.city} onChange={handleShippingChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "#fafafa", "&.Mui-focused": { bgcolor: "#fff", boxShadow: "0 4px 12px rgba(51, 156, 94, 0.08)" }, "& fieldset": { borderColor: "rgba(0,0,0,0.1)" }, "&:hover fieldset": { borderColor: "rgba(0,0,0,0.2)" }, "&.Mui-focused fieldset": { borderColor: "#339c5e", borderWidth: 2 } },
+                        "& .MuiInputLabel-root.Mui-focused": { color: "#339c5e", fontWeight: 600 }
+                      }} />
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <TextField required fullWidth label="State" name="state" value={shippingDetails.state} onChange={handleShippingChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "#fafafa", "&.Mui-focused": { bgcolor: "#fff", boxShadow: "0 4px 12px rgba(51, 156, 94, 0.08)" }, "& fieldset": { borderColor: "rgba(0,0,0,0.1)" }, "&:hover fieldset": { borderColor: "rgba(0,0,0,0.2)" }, "&.Mui-focused fieldset": { borderColor: "#339c5e", borderWidth: 2 } },
+                        "& .MuiInputLabel-root.Mui-focused": { color: "#339c5e", fontWeight: 600 }
+                      }} />
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <TextField required fullWidth label="ZIP Code" name="zip" value={shippingDetails.zip} onChange={handleShippingChange}
+                      sx={{
+                        "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "#fafafa", "&.Mui-focused": { bgcolor: "#fff", boxShadow: "0 4px 12px rgba(51, 156, 94, 0.08)" }, "& fieldset": { borderColor: "rgba(0,0,0,0.1)" }, "&:hover fieldset": { borderColor: "rgba(0,0,0,0.2)" }, "&.Mui-focused fieldset": { borderColor: "#339c5e", borderWidth: 2 } },
+                        "& .MuiInputLabel-root.Mui-focused": { color: "#339c5e", fontWeight: 600 }
+                      }} />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={loadingConfig}
+                  fullWidth
+                  sx={{
+                    mt: 3,
+                    py: 1.5,
+                    bgcolor: "#339c5e",
+                    fontWeight: 700,
+                    textTransform: "none",
+                    borderRadius: 2,
+                    "&:hover": { bgcolor: "#2d8a53" }
+                  }}
+                >
+                  {loadingConfig ? <CircularProgress size={24} color="inherit" /> : `Continue to Payment - $${selectedProduct.price.toFixed(2)}`}
                 </Button>
               </Box>
             )}
 
             {/* 2. Payment Step */}
-            {clientSecret && selectedProduct && (
+            {currentStep === "payment" && clientSecret && selectedProduct && (
               <>
                 <Box
                   sx={{
