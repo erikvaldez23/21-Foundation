@@ -50,7 +50,7 @@ export default function MeetTheTeamOneImage({
     "Nayla Eid",
     "Michelle Hardgree",
     "Amber Hellwig",
-    "Christina Pfaff",
+    "Cristina Pfaff",
     "Dean Wheeler",
     "Isabel Jaramillo"
   ],

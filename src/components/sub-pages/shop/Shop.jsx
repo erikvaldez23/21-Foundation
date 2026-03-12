@@ -31,7 +31,8 @@ const products = [
     id: 1,
     title: "Black Live Like Sean Tee",
     price: 28,
-    image: "/shop/black-shirt-front.png",
+    image: "/shop/black-shirt-front1.png",
+    imageBack: "/shop/black-shirt-back.png",
     tag: "Apparel",
     slug: "live-like-sean-tee",
   },
@@ -40,6 +41,7 @@ const products = [
     title: "Cream Live Like Sean Tee",
     price: 25,
     image: "/shop/cream-shirt-front.png",
+    imageBack: "/shop/cream-shirt-back.png",
     tag: "Apparel",
     slug: "kelly-green-cap",
   },
@@ -410,20 +412,34 @@ const Shop = () => {
             {/* 1. Size Selection Step (for Apparel) */}
             {currentStep === "size" && selectedProduct && selectedProduct.tag === "Apparel" && (
               <Box sx={{ textAlign: "center", py: 2 }}>
-                <Box
-                  component="img"
-                  src={selectedProduct.image}
-                  alt={selectedProduct.title}
-                  sx={{
-                    width: 180,
-                    height: 180,
-                    objectFit: "contain",
-                    borderRadius: 2,
-                    mb: 4,
-                    mx: "auto",
-                    mixBlendMode: "multiply"
-                  }}
-                />
+                <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 4 }}>
+                  <Box
+                    component="img"
+                    src={selectedProduct.image}
+                    alt={`${selectedProduct.title} Front`}
+                    sx={{
+                      width: { xs: 140, sm: 180 },
+                      height: { xs: 140, sm: 180 },
+                      objectFit: "contain",
+                      borderRadius: 2,
+                      mixBlendMode: "multiply"
+                    }}
+                  />
+                  {selectedProduct.imageBack && (
+                    <Box
+                      component="img"
+                      src={selectedProduct.imageBack}
+                      alt={`${selectedProduct.title} Back`}
+                      sx={{
+                        width: { xs: 140, sm: 180 },
+                        height: { xs: 140, sm: 180 },
+                        objectFit: "contain",
+                        borderRadius: 2,
+                        mixBlendMode: "multiply"
+                      }}
+                    />
+                  )}
+                </Box>
                 <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                   Select Size
                 </Typography>
