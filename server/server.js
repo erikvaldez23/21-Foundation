@@ -102,6 +102,80 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+app.post('/api/purchase-success', async (req, res) => {
+  const { product, size, shippingDetails } = req.body;
+
+  if (!product || !shippingDetails || !shippingDetails.email) {
+    return res.status(400).json({ error: "Missing required purchase details" });
+  }
+
+  const { title, price } = product;
+  const { 
+    firstName, lastName, email, phone, 
+    address, apt, city, state, zip, note 
+  } = shippingDetails;
+
+  const orderSummary = `
+    <h3>Order Summary</h3>
+    <p><strong>Item:</strong> ${title}</p>
+    ${size ? `<p><strong>Size:</strong> ${size}</p>` : ''}
+    <p><strong>Total Paid:</strong> $${price.toFixed(2)}</p>
+  `;
+
+  const shippingInfo = `
+    <h3>Shipping & Contact Information</h3>
+    <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Phone:</strong> ${phone}</p>
+    <p><strong>Address:</strong> ${address} ${apt ? `Apt/Suite ${apt}` : ''}</p>
+    <p>${city}, ${state} ${zip}</p>
+    ${note ? `<p><strong>Order Note:</strong> ${note}</p>` : ''}
+  `;
+
+  // 1. Email to the Foundation
+  const foundationMailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_USER, // Send to the foundation email
+    subject: `New Shop Purchase: ${title} from ${firstName} ${lastName}`,
+    html: `
+      <h2>New Purchase Alert!</h2>
+      <p>A new order has been placed on the 21 Foundation Shop.</p>
+      ${orderSummary}
+      ${shippingInfo}
+    `,
+  };
+
+  // 2. Email to the Purchaser
+  const purchaserMailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email, // Send to the customer's email
+    subject: `Thank You for Your Purchase - 21 Foundation`,
+    html: `
+      <h2>Thank You, ${firstName}!</h2>
+      <p>We've received your order and are preparing it for shipment.</p>
+      <p>100% of proceeds support our outreach and programs. Every purchase fuels the mission to carry Sean's spirit forward.</p>
+      <hr />
+      ${orderSummary}
+      ${shippingInfo}
+      <hr />
+      <p>If you have any questions, please reply to this email.</p>
+      <p>With Gratitude,<br/>The 21 Foundation Team</p>
+    `,
+  };
+
+  try {
+    // Send both emails concurrently
+    await Promise.all([
+      transporter.sendMail(foundationMailOptions),
+      transporter.sendMail(purchaserMailOptions)
+    ]);
+    res.status(200).json({ message: 'Purchase confirmation emails sent successfully!' });
+  } catch (error) {
+    console.error('Error sending purchase confirmation emails:', error);
+    res.status(500).json({ message: 'Failed to send purchase confirmation emails.' });
+  }
+});
+
 // --- Newsletter Routes ---
 const fs = require("fs");
 const SUBSCRIBERS_FILE = path.join(__dirname, "subscribers.json");
