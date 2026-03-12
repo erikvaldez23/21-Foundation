@@ -109,8 +109,8 @@ const Shop = () => {
     setLoadingConfig(true);
 
     try {
-      const response = await fetch("http://localhost:3001/api/create-payment-intent", {
-        // const response = await fetch("https://two1-foundation-server.onrender.com/api/create-payment-intent", {
+      // const response = await fetch("http://localhost:3001/api/create-payment-intent", {
+      const response = await fetch("https://two1-foundation-server.onrender.com/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -187,8 +187,8 @@ const Shop = () => {
 
     // Send confirmation emails
     try {
-      const response = await fetch("http://localhost:3001/api/purchase-success", {
-        // const response = await fetch("https://two1-foundation-server.onrender.com/api/purchase-success", {
+      // const response = await fetch("http://localhost:3001/api/purchase-success", {
+      const response = await fetch("https://two1-foundation-server.onrender.com/api/purchase-success", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
