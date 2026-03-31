@@ -11,6 +11,7 @@ import {
     DialogTitle,
     DialogActions,
     Tooltip,
+    Pagination,
     useTheme,
     useMediaQuery,
 } from "@mui/material";
@@ -111,49 +112,6 @@ function useContainerWidth() {
     return [ref, w];
 }
 
-function useNaturalSizes(items) {
-    const [sizes, setSizes] = useState({});
-    useEffect(() => {
-        let cancelled = false;
-        const seen = new Set();
-
-        items.forEach((it) => {
-            if (!it?.src || seen.has(it.id)) return;
-            seen.add(it.id);
-
-            const img = new Image();
-            img.decoding = "async";
-            img.onload = () => {
-                if (cancelled) return;
-                setSizes((s) => ({
-                    ...s,
-                    [it.id]: { w: img.naturalWidth || it.w || 1, h: img.naturalHeight || it.h || 1 },
-                }));
-            };
-            img.onerror = () => {
-                if (cancelled) return;
-                setSizes((s) => ({
-                    ...s,
-                    [it.id]: { w: it.w || 1, h: it.h || 1 },
-                }));
-            };
-            img.src = it.src;
-        });
-
-        return () => {
-            cancelled = true;
-        };
-    }, [items]);
-
-    return useMemo(
-        () =>
-            items.map((it) => {
-                const s = sizes[it.id];
-                return { ...it, w: s?.w ?? it.w ?? 1, h: s?.h ?? it.h ?? 1 };
-            }),
-        [items, sizes]
-    );
-}
 
 function buildJustifiedRows(items, containerWidth, gap, targetRowHeight = 300) {
     if (!containerWidth || !items.length) return [];
@@ -213,10 +171,25 @@ export default function EventGallery() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+    const [page, setPage] = useState(1);
+    const ITEMS_PER_PAGE = 20;
+
     const event = useMemo(() => EVENTS.find((e) => e.id === slug), [slug]);
     const eventPhotos = useMemo(() => PHOTOS.filter((p) => p.eventId === slug), [slug]);
 
-    const measured = useNaturalSizes(eventPhotos);
+    // Reset page to 1 when slug changes
+    useEffect(() => {
+        setPage(1);
+    }, [slug]);
+
+    const totalPages = Math.ceil(eventPhotos.length / ITEMS_PER_PAGE);
+
+    const currentPhotos = useMemo(() => {
+        const start = (page - 1) * ITEMS_PER_PAGE;
+        return eventPhotos.slice(start, start + ITEMS_PER_PAGE);
+    }, [eventPhotos, page]);
+
+    const measured = currentPhotos;
 
     const openAt = useCallback(
         (id) => {
@@ -304,7 +277,7 @@ export default function EventGallery() {
                                 variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
                                 whileHover={{ y: -2 }}
                             >
-                                <ImageCover src={item.src} alt={item.title} loading="lazy" decoding="async" />
+                                <ImageCover src={item.thumbSrc || item.src} alt={item.title} loading="lazy" decoding="async" />
                                 <HoverOverlay>
                                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                         <PhotoCameraBackRoundedIcon fontSize="small" />
@@ -335,7 +308,7 @@ export default function EventGallery() {
                                         variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
                                         whileHover={{ y: -2 }}
                                     >
-                                        <ImageCover src={item.src} alt={item.title} loading="lazy" decoding="async" />
+                                        <ImageCover src={item.thumbSrc || item.src} alt={item.title} loading="lazy" decoding="async" />
                                         <HoverOverlay>
                                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                                 <PhotoCameraBackRoundedIcon fontSize="small" />
@@ -355,6 +328,21 @@ export default function EventGallery() {
                             </Row>
                         ))}
                     </div>
+                )}
+                
+                {totalPages > 1 && (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8, mb: 2 }}>
+                        <Pagination 
+                            count={totalPages} 
+                            page={page} 
+                            onChange={(e, value) => {
+                                setPage(value);
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }} 
+                            color="primary" 
+                            size={isMobile ? "medium" : "large"}
+                        />
+                    </Box>
                 )}
             </Container>
 

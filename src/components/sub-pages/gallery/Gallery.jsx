@@ -39,7 +39,7 @@ const FolderCard = ({ event, isMobile }) => {
         sx={{
           position: "absolute",
           inset: 0,
-          backgroundImage: `url(${event.coverSrc})`, // Ensure event.coverSrc is matching galleryData schema
+          backgroundImage: `url('${event.coverSrc}')`, // Ensure event.coverSrc is matching galleryData schema
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

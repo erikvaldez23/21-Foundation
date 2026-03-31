@@ -35,7 +35,7 @@ const EventCard = ({ event, isMobile }) => (
       sx={{
         position: "absolute",
         inset: 0,
-        backgroundImage: `url(${event.image})`,
+        backgroundImage: `url('${event.image}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -119,16 +119,16 @@ const EventCard = ({ event, isMobile }) => (
 const DEFAULT_EVENTS = [
   {
     id: "e1",
-    title: "SEAN'S BIRTHDAY CELEBRATION",
-    date: "9/14/25",
+    title: "AMC EVENT",
+    date: "6/1/2025",
     location: "LEAWOOD, KS 66224",
     image: "/image1.JPG",
     to: "/events/slow-mornings",
   },
   {
     id: "e2",
-    title: "REACH-OUT VIRGINIA YOGA CLASS",
-    date: "DATE",
+    title: "YOGA CLASS",
+    date: "5/31/2025",
     location: "LOCATION",
     image: "/image2.JPG",
     to: "/events/rhythm-movement-earth",
@@ -136,7 +136,7 @@ const DEFAULT_EVENTS = [
   {
     id: "e3",
     title: "REACH-OUT WALK",
-    date: "DATE",
+    date: "9/14/2025",
     location: "LOCATION",
     image: "/image3.JPG",
     to: "/events/rhythm-movement-earth",

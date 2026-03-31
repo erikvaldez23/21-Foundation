@@ -65,7 +65,7 @@ const GroupImage = styled(motion.div)(({ src }) => ({
   position: "relative",
   width: "100%",
   minHeight: "44svh",
-  backgroundImage: `url(${src})`,
+  backgroundImage: `url('${src}')`,
   backgroundSize: "cover",
   backgroundPosition: "center",
   filter: "saturate(1.02) contrast(1.03)",
@@ -143,7 +143,7 @@ const FaceCrop = styled(motion.div, {
   position: "relative",
   width: "100%",
   aspectRatio: shape, // default portrait
-  backgroundImage: `url(${GROUP_PHOTO})`,
+  backgroundImage: `url('${GROUP_PHOTO}')`,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   /** Trick: oversize then reposition by backgroundPosition to “crop” the face zone. */
