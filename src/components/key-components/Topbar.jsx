@@ -33,7 +33,7 @@ const DEFAULT_LINKS = [
   { label: "About", to: "/about" },
   { label: "Events", to: "/events" },
   { label: "Gallery", to: "/gallery" },
-  { label: "Shop", to: "/shop" },
+  // { label: "Shop", to: "/shop" },
   { label: "Give", to: "/give" },
   { label: "Contact", to: "/contact" },
 ];

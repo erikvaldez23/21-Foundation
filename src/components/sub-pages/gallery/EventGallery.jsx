@@ -17,8 +17,6 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion, AnimatePresence } from "framer-motion";
-import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
-import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -33,11 +31,7 @@ const Page = styled(Box)(({ theme }) => ({
     color: theme.palette.text.primary,
 }));
 
-const Row = styled("div")({
-    display: "flex",
-    gap: 12,
-    width: "100%",
-});
+
 
 const Tile = styled(motion.div)(({ h }) => ({
     position: "relative",
@@ -96,73 +90,6 @@ const HoverOverlay = ({ children }) => (
     </Box>
 );
 
-/* ===== Utils: container width + real (natural) image sizes ===== */
-
-function useContainerWidth() {
-    const ref = useRef(null);
-    const [w, setW] = useState(0);
-    useEffect(() => {
-        if (!ref.current) return;
-        const ro = new ResizeObserver((entries) => {
-            for (const e of entries) setW(Math.floor(e.contentRect.width));
-        });
-        ro.observe(ref.current);
-        return () => ro.disconnect();
-    }, []);
-    return [ref, w];
-}
-
-
-function buildJustifiedRows(items, containerWidth, gap, targetRowHeight = 300) {
-    if (!containerWidth || !items.length) return [];
-    const rows = [];
-    let current = [];
-    let currentWidth = 0;
-
-    for (const it of items) {
-        const aspect = it.w / it.h;
-        const wAtTarget = aspect * targetRowHeight;
-
-        current.push(it);
-        currentWidth += wAtTarget + gap;
-
-        if (currentWidth - gap > containerWidth) {
-            const gapsTotal = gap * (current.length - 1);
-            const aspectSum = current.reduce((sum, img) => sum + img.w / img.h, 0);
-            let rowH = (containerWidth - gapsTotal) / aspectSum;
-
-            const laid = current.map((img) => {
-                const aspect = img.w / img.h;
-                const w = Math.round(aspect * rowH);
-                return { ...img, _w: w, _h: Math.round(rowH) };
-            });
-
-            const currentTotalW = laid.reduce((s, i) => s + i._w, 0) + gapsTotal;
-            let delta = containerWidth - currentTotalW;
-            let i = 0;
-            while (delta !== 0 && laid.length > 0) {
-                const step = delta > 0 ? 1 : -1;
-                laid[i % laid.length]._w += step;
-                delta -= step;
-                i++;
-            }
-
-            rows.push(laid);
-            current = [];
-            currentWidth = 0;
-        }
-    }
-
-    if (current.length > 0) {
-        const laid = current.map((img) => {
-            const aspect = img.w / img.h;
-            return { ...img, _w: Math.round(aspect * targetRowHeight), _h: targetRowHeight };
-        });
-        rows.push(laid);
-    }
-
-    return rows;
-}
 
 export default function EventGallery() {
     const { slug } = useParams();
@@ -233,8 +160,7 @@ export default function EventGallery() {
             .catch(() => { });
     };
 
-    const [wrapRef, width] = useContainerWidth();
-    const rows = useMemo(() => buildJustifiedRows(measured, width, 12, 220, 340), [measured, width]);
+
 
     if (!event) {
         return (
@@ -260,24 +186,37 @@ export default function EventGallery() {
                     Back to Events
                 </Button>
 
-                {isMobile ? (
-                    <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: "1fr",
-                            gap: 4,
-                        }}
-                    >
-                        {measured.map((item) => (
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '16px',
+                        width: '100%',
+                    }}
+                >
+                    {measured.map((item) => {
+                        const targetHeight = isMobile ? 180 : 250;
+                        const basisWidth = Math.round((item.w / item.h) * targetHeight);
+                        return (
                             <Tile
                                 key={item.id}
-                                h="auto"
-                                style={{ width: "100%", aspectRatio: "16 / 10" }}
+                                style={{
+                                    flexGrow: 1,
+                                    height: `${targetHeight}px`,
+                                    flexBasis: `${basisWidth}px`,
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                }}
                                 onClick={() => openAt(item.id)}
                                 variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
                                 whileHover={{ y: -2 }}
                             >
-                                <ImageCover src={item.thumbSrc || item.src} alt={item.title} loading="lazy" decoding="async" />
+                                <ImageCover 
+                                    src={item.thumbSrc || item.src} 
+                                    alt={item.title} 
+                                    loading="lazy" 
+                                    decoding="async" 
+                                />
                                 <HoverOverlay>
                                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                         <PhotoCameraBackRoundedIcon fontSize="small" />
@@ -293,42 +232,9 @@ export default function EventGallery() {
                                     </Box>
                                 </HoverOverlay>
                             </Tile>
-                        ))}
-                    </Box>
-                ) : (
-                    <div ref={wrapRef} style={{ width: "100%" }}>
-                        {rows.map((row, rIdx) => (
-                            <Row key={`row-${rIdx}`} style={{ marginBottom: rIdx < rows.length - 1 ? 12 : 0 }}>
-                                {row.map((item) => (
-                                    <Tile
-                                        key={item.id}
-                                        h={item._h}
-                                        style={{ width: item._w, height: item._h }}
-                                        onClick={() => openAt(item.id)}
-                                        variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
-                                        whileHover={{ y: -2 }}
-                                    >
-                                        <ImageCover src={item.thumbSrc || item.src} alt={item.title} loading="lazy" decoding="async" />
-                                        <HoverOverlay>
-                                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                                <PhotoCameraBackRoundedIcon fontSize="small" />
-                                                <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
-                                                    {item.title}
-                                                </Typography>
-                                            </Box>
-                                            <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-                                                <SmallPill>{item.album}</SmallPill>
-                                                {(item.tags || []).slice(0, 2).map((t) => (
-                                                    <SmallPill key={t}>{t}</SmallPill>
-                                                ))}
-                                            </Box>
-                                        </HoverOverlay>
-                                    </Tile>
-                                ))}
-                            </Row>
-                        ))}
-                    </div>
-                )}
+                        );
+                    })}
+                </Box>
                 
                 {totalPages > 1 && (
                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8, mb: 2 }}>
@@ -349,124 +255,86 @@ export default function EventGallery() {
             <Dialog
                 open={lightbox.open}
                 onClose={closeLightbox}
-                maxWidth="lg"
-                fullWidth
+                fullScreen
                 PaperProps={{
                     sx: {
-                        borderRadius: 3,
-                        background: alpha("#000", 0.7),
-                        backdropFilter: "blur(8px)",
-                        overflow: "hidden",
+                        background: "rgba(0,0,0,0.85)",
+                        backdropFilter: "blur(16px)",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
                     },
                 }}
             >
-                <DialogTitle
-                    sx={{
-                        color: "#fff",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: 1,
+                <IconButton 
+                    onClick={closeLightbox} 
+                    sx={{ 
+                        position: 'absolute', 
+                        top: { xs: 16, sm: 24 }, 
+                        right: { xs: 16, sm: 24 }, 
+                        color: '#fff', 
+                        bgcolor: 'rgba(255,255,255,0.1)', 
+                        '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' },
+                        zIndex: 10
                     }}
                 >
-                    <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>
-                        {current?.title || "Photo"}
-                    </Typography>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                        <Tooltip title="Previous">
-                            <span>
-                                <IconButton onClick={goPrev} disabled={!current} size="small" sx={{ color: "#fff" }}>
-                                    <ArrowBackIosNewRoundedIcon fontSize="small" />
-                                </IconButton>
-                            </span>
-                        </Tooltip>
-                        <Tooltip title="Next">
-                            <span>
-                                <IconButton onClick={goNext} disabled={!current} size="small" sx={{ color: "#fff" }}>
-                                    <ArrowForwardIosRoundedIcon fontSize="small" />
-                                </IconButton>
-                            </span>
-                        </Tooltip>
-                        <Tooltip title="Open original">
-                            <span>
-                                <IconButton
-                                    onClick={() => current && window.open(current.src, "_blank", "noopener,noreferrer")}
-                                    disabled={!current}
-                                    size="small"
-                                    sx={{ color: "#fff" }}
-                                >
-                                    <OpenInNewRoundedIcon fontSize="small" />
-                                </IconButton>
-                            </span>
-                        </Tooltip>
-                        <Tooltip title="Download">
-                            <span>
-                                <IconButton
-                                    onClick={() => current && downloadFile(current.src, `${current.title || "photo"}.jpg`)}
-                                    disabled={!current}
-                                    size="small"
-                                    sx={{ color: "#fff" }}
-                                >
-                                    <FileDownloadRoundedIcon fontSize="small" />
-                                </IconButton>
-                            </span>
-                        </Tooltip>
-                        <IconButton onClick={closeLightbox} size="small" sx={{ color: "#fff" }}>
-                            <CloseRoundedIcon fontSize="small" />
-                        </IconButton>
-                    </Box>
-                </DialogTitle>
+                    <CloseRoundedIcon />
+                </IconButton>
 
-                <DialogContent
-                    sx={{
-                        p: { xs: 1.5, md: 2 },
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        background: "rgba(0,0,0,0.6)",
+                <IconButton 
+                    onClick={goPrev} 
+                    disabled={!current}
+                    sx={{ 
+                        position: 'absolute', 
+                        left: { xs: 8, sm: 32 }, 
+                        top: '50%', 
+                        transform: 'translateY(-50%)', 
+                        color: '#fff', 
+                        bgcolor: 'rgba(255,255,255,0.1)', 
+                        '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' },
+                        zIndex: 10
                     }}
                 >
-                    {current && (
-                        <AnimatePresence mode="wait">
-                            <motion.img
-                                key={current.id}
-                                src={current.src}
-                                alt={current.title}
-                                initial={{ opacity: 0, scale: 0.98 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0.2, scale: 0.98 }}
-                                transition={{ duration: 0.25 }}
-                                style={{
-                                    width: "100%",
-                                    height: "auto",
-                                    objectFit: "contain",
-                                    borderRadius: 12,
-                                    boxShadow: "0 10px 40px rgba(0,0,0,0.4)",
-                                }}
-                            />
-                        </AnimatePresence>
-                    )}
-                </DialogContent>
+                    <ArrowBackIosNewRoundedIcon />
+                </IconButton>
+
+                <IconButton 
+                    onClick={goNext} 
+                    disabled={!current}
+                    sx={{ 
+                        position: 'absolute', 
+                        right: { xs: 8, sm: 32 }, 
+                        top: '50%', 
+                        transform: 'translateY(-50%)', 
+                        color: '#fff', 
+                        bgcolor: 'rgba(255,255,255,0.1)', 
+                        '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' },
+                        zIndex: 10
+                    }}
+                >
+                    <ArrowForwardIosRoundedIcon />
+                </IconButton>
 
                 {current && (
-                    <DialogActions
-                        sx={{ px: 2, pb: 2, display: "flex", alignItems: "center", justifyContent: "space-between" }}
-                    >
-                        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", alignItems: "center" }}>
-                            <SmallPill>{current.album}</SmallPill>
-                            {(current.tags || []).map((t) => (
-                                <SmallPill key={t}>{t}</SmallPill>
-                            ))}
-                        </Box>
-                        <Button
-                            variant="contained"
-                            onClick={() => downloadFile(current.src, `${current.title || "photo"}.jpg`)}
-                            startIcon={<FileDownloadRoundedIcon />}
-                            sx={{ borderRadius: 2, fontWeight: 800 }}
-                        >
-                            Download
-                        </Button>
-                    </DialogActions>
+                    <AnimatePresence mode="wait">
+                        <motion.img
+                            key={current.id}
+                            src={current.src}
+                            alt={current.title}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.3, ease: 'easeOut' }}
+                            style={{
+                                maxWidth: '90vw',
+                                maxHeight: '85vh',
+                                objectFit: 'contain',
+                                borderRadius: '8px',
+                                boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
+                            }}
+                        />
+                    </AnimatePresence>
                 )}
             </Dialog>
             <CTA />
