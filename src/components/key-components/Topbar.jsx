@@ -147,11 +147,18 @@ function FancyDrawer({
     exit: { y: 10, opacity: 0, transition: { duration: 0.2 } },
   };
 
-  // ESC to close
+  // ESC to close and Body scroll lock
   useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const onKey = (e) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [onClose]);
 
   return (

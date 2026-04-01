@@ -19,6 +19,7 @@ const EventCard = ({ event, isMobile }) => (
       overflow: "hidden",
       borderRadius: 2,
       mx: "auto",
+      maxWidth: { xs: 500, md: "100%" },
       // Responsive size: use aspect ratio instead of fixed width/height to avoid layout shift
       aspectRatio: "16 / 10",
       minHeight: { xs: 260, md: 400 },

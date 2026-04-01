@@ -24,6 +24,7 @@ const FolderCard = ({ event, isMobile }) => {
         overflow: "hidden",
         borderRadius: 2,
         mx: "auto",
+        maxWidth: { xs: 500, md: "100%" },
         aspectRatio: "16 / 10",
         minHeight: { xs: 260, md: 400 },
         width: "100%",
@@ -138,6 +139,8 @@ export default function Gallery() {
             mt: 4,
             pb: 2,
             width: '100%',
+            justifyContent: 'center',
+            justifyItems: 'center',
           }}
         >
           {EVENTS.map((event) => (
