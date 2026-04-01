@@ -130,37 +130,21 @@ function FancyDrawer({
 }) {
   const backdrop = {
     initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { duration: 0.22 } },
-    exit: { opacity: 0, transition: { duration: 0.18 } },
-  };
-
-  const panel = {
-    initial: { x: "8%", opacity: 0.6, filter: "blur(6px)" },
-    animate: {
-      x: "0%",
-      opacity: 1,
-      filter: "blur(0px)",
-      transition: { type: "spring", stiffness: 380, damping: 32 },
-    },
-    exit: {
-      x: "6%",
-      opacity: 0,
-      filter: "blur(4px)",
-      transition: { duration: 0.18, ease: "easeOut" },
-    },
+    animate: { opacity: 1, transition: { duration: 0.3 } },
+    exit: { opacity: 0, transition: { duration: 0.25, delay: 0.1 } },
   };
 
   const list = {
-    animate: { transition: { staggerChildren: 0.05, delayChildren: 0.06 } },
+    animate: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
   };
   const listItem = {
-    initial: { x: 12, opacity: 0 },
+    initial: { y: 20, opacity: 0 },
     animate: {
-      x: 0,
+      y: 0,
       opacity: 1,
-      transition: { duration: 0.28, ease: "easeOut" },
+      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
     },
-    exit: { x: 8, opacity: 0, transition: { duration: 0.16 } },
+    exit: { y: 10, opacity: 0, transition: { duration: 0.2 } },
   };
 
   // ESC to close
@@ -171,207 +155,113 @@ function FancyDrawer({
   }, [onClose]);
 
   return (
-    <>
-      {/* Backdrop */}
-      <motion.div
-        key="drawer-backdrop"
-        onClick={onClose}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={backdrop}
-        style={{
-          position: "fixed",
-          inset: 0,
-          background: "rgba(0,0,0,0.45)",
-          backdropFilter: "blur(2px)",
-          WebkitBackdropFilter: "blur(2px)",
-          zIndex: 1300,
-        }}
-      />
-
-      {/* Panel */}
-      <motion.aside
-        key="drawer-panel"
-        role="dialog"
-        aria-modal="true"
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={panel}
-        drag="x"
-        dragDirectionLock
-        dragConstraints={{ left: 0, right: 0 }}
-        onDragEnd={(_, info) => {
-          if (info.offset.x > 80 || info.velocity.x > 600) onClose();
-        }}
-        style={{
-          position: "fixed",
-          top: "env(safe-area-inset-top)",
-          right: 0,
-          bottom: "env(safe-area-inset-bottom)",
-          width: "min(86vw, 420px)",
-          background: "#E8E5DD",
-          color: "#000",
-          borderLeft: "1px solid rgba(255,255,255,0.12)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
-          zIndex: 1400,
-          display: "flex",
-          flexDirection: "column",
-          borderTopLeftRadius: 30,
-          borderBottomLeftRadius: 30
-        }}
-      >
-        {/* Header */}
-        <DrawerHeader>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <img
-              src={logoSrc}
-              alt={logoAlt}
-              style={{ height: 60, width: "auto", filter: "brightness(2) contrast(1.2)" }}
-            />
-            {showWordmark && (
-              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                {wordmark}
-              </Typography>
-            )}
-          </Box>
-          <IconButton
-            aria-label="Close menu"
-            onClick={onClose}
-            sx={{ color: "inherit", borderRadius: 2 }}
-          >
-            <CloseRoundedIcon />
-          </IconButton>
-        </DrawerHeader>
-
-        <Divider sx={{ borderColor: "rgba(255,255,255,0.12)" }} />
-
-        {/* Nav items */}
+    <motion.div
+      key="drawer-backdrop"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={backdrop}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(10, 11, 13, 0.95)", // sleek dark overlay
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        zIndex: 1400,
+        display: "flex",
+        flexDirection: "column",
+        color: "#fff",
+      }}
+    >
+      {/* Header */}
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 3, pt: `max(24px, env(safe-area-inset-top))` }}>
+        <IconButton
+          aria-label="Close menu"
+          onClick={onClose}
+          sx={{ color: "#fff", transition: 'transform 0.2s', '&:hover': { transform: 'rotate(90deg)' } }}
+          size="large"
+        >
+          <CloseRoundedIcon fontSize="large" />
+        </IconButton>
+      </Box>
+      {/* Nav items */}
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', px: 4 }}>
         <motion.div
           variants={list}
           initial="initial"
           animate="animate"
           exit="exit"
-          style={{ padding: "8px 8px 12px 8px", overflowY: "auto" }}
+          style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
         >
           {items.map((item) => {
             const Inner = (
-              <>
-                <ListItemText
-                  primary={item.label}
-                  primaryTypographyProps={{ fontSize: 16 }}
-                />
-                <ChevronRightRoundedIcon />
-              </>
+              <Typography 
+                variant="h3" 
+                sx={{ 
+                  fontWeight: item.active ? 800 : 400, 
+                  fontFamily: 'serif',
+                  opacity: item.active ? 1 : 0.7,
+                  transition: 'opacity 0.2s',
+                  '&:hover': { opacity: 1 }
+                }}
+              >
+                {item.label}
+              </Typography>
             );
             return (
               <motion.div key={item.key} variants={listItem}>
                 {item.to ? (
-                  <ListItemButton
-                    component={RouterLink}
-                    to={item.to}
-                    onClick={onClose}
-                    sx={{
-                      borderRadius: 2,
-                      my: 0.5,
-                      ...(item.active && {
-                        backgroundColor: "rgba(51,156,94,0.18)",
-                        "& .MuiListItemText-primary": { fontWeight: 700 },
-                      }),
-                    }}
+                  <MuiLink 
+                    component={RouterLink} 
+                    to={item.to} 
+                    onClick={onClose} 
+                    underline="none" 
+                    color="inherit"
                   >
                     {Inner}
-                  </ListItemButton>
+                  </MuiLink>
                 ) : (
-                  <ListItemButton
-                    component="a"
-                    href={item.href || "#"}
-                    onClick={onClose}
-                    sx={{ borderRadius: 2, my: 0.5 }}
+                  <MuiLink 
+                    href={item.href || "#"} 
+                    onClick={onClose} 
+                    underline="none" 
+                    color="inherit"
                   >
                     {Inner}
-                  </ListItemButton>
+                  </MuiLink>
                 )}
               </motion.div>
             );
           })}
         </motion.div>
+      </Box>
 
-        {/* Footer */}
-        <DrawerFooter>
-          {showInstagram && (
-            <>
-              {/* Mobile: full-width gradient button */}
-              <Box sx={{ display: { xs: "block", sm: "none" } }}>
-                <IconButton
-                  component="a"
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Open Instagram"
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "100%",
-                    borderRadius: 2,
-                    px: 1.5,
-                    py: 1.5,
-                    color: "#fff",
-                    border: "none",
-                    // Instagram gradient
-                    background:
-                      "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)",
-                    boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
-                    "&:hover": {
-                      filter: "brightness(1.05)",
-                      boxShadow: "0 8px 22px rgba(0,0,0,0.3)",
-                      background:
-                        "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)",
-                    },
-                    "&:focus-visible": {
-                      outline: "2px solid rgba(255,255,255,0.8)",
-                      outlineOffset: 2,
-                    },
-                  }}
-                >
-                  <InstagramIcon sx={{ mr: 1 }} />
-                  <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                    Follow us on Instagram
-                  </Typography>
-                </IconButton>
-              </Box>
-
-              {/* Tablet/Desktop: keep your original compact button + tooltip */}
-              <Box sx={{ display: { xs: "none", sm: "block" } }}>
-                <Tooltip title="Instagram" arrow>
-                  <IconButton
-                    component="a"
-                    href={instagramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Open Instagram"
-                    sx={{
-                      color: "#fff",
-                      borderRadius: 2,
-                      border: "1px solid rgba(255,255,255,0.22)",
-                      px: 1.5,
-                    }}
-                  >
-                    <InstagramIcon sx={{ mr: 1 }} />
-                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                      Follow us
-                    </Typography>
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            </>
-          )}
-        </DrawerFooter>
-      </motion.aside>
-    </>
+      {/* Footer */}
+      <Box sx={{ p: 4, pb: `max(32px, env(safe-area-inset-bottom))`, display: 'flex', justifyContent: 'center' }}>
+        {showInstagram && (
+          <IconButton
+            component="a"
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Instagram"
+            sx={{
+              color: "#fff",
+              border: "1px solid rgba(255,255,255,0.3)",
+              borderRadius: "50%",
+              p: 2,
+              transition: 'all 0.3s',
+              "&:hover": {
+                background: "rgba(255,255,255,1)",
+                color: "#111"
+              },
+            }}
+          >
+            <InstagramIcon fontSize="medium" />
+          </IconButton>
+        )}
+      </Box>
+    </motion.div>
   );
 }
 
@@ -633,18 +523,7 @@ export default function TopbarHero({
           <Box
             sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
           >
-            {showInstagram && (
-              <IconButton
-                component="a"
-                href={instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open Instagram"
-                sx={{ color: "inherit", mr: 0.5 }}
-              >
-                <InstagramIcon />
-              </IconButton>
-            )}
+
             <IconButton
               edge="end"
               aria-label="Open menu"

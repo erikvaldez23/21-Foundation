@@ -8,10 +8,10 @@ export const EVENTS = [
   },
   {
     id: "2",
-    title: "Yoga Class",
+    title: "Virginia-Yoga for Mental Health",
     date: "May 31, 2026",
     coverSrc: "/events/Yoga/thumbnails/PXL_20250531_161735842~2.jpg",
-    description: "Intensive skills training clinic for young athletes.",
+    description: "Yoga for Mental Health is a free yoga class for the community to promote mental wellness and self-care.",
   },
   {
     id: "3",

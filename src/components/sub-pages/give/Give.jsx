@@ -20,7 +20,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import GiveHero from "./GiveHero";
-import GiveImpact from "./GiveImpact";
+import GiveButterWidget from "./GiveButterWidget";
 import CTA from "../../key-components/CTA";
 import GiveDonations from "./GivDonations"
 import Donations from "./Donations2"
@@ -34,7 +34,8 @@ const DonationsPage = () => {
       <Container maxWidth="xl">
         <GiveHero />
         {/* <GiveImpact /> */}
-        <Donations />
+        <GiveButterWidget />
+        {/* <Donations /> */}
         {/* <GiveDonations /> */}
         <CTA />
       </Container>

@@ -119,7 +119,7 @@ const EventCard = ({ event, isMobile }) => (
 const DEFAULT_EVENTS = [
   {
     id: "e1",
-    title: "AMC EVENT",
+    title: "SEAN'S BIRTHDAY CELEBRATION AT AMC",
     date: "6/1/2025",
     location: "LEAWOOD, KS 66224",
     image: "/image1.JPG",
@@ -127,17 +127,17 @@ const DEFAULT_EVENTS = [
   },
   {
     id: "e2",
-    title: "YOGA CLASS",
+    title: "VIRGINIA-YOGA FOR MENTAL HEALTH",
     date: "5/31/2025",
-    location: "LOCATION",
+    location: "",
     image: "/image2.JPG",
     to: "/events/rhythm-movement-earth",
   },
   {
     id: "e3",
-    title: "REACH-OUT WALK",
+    title: "REACH-OUT WALK 2025",
     date: "9/14/2025",
-    location: "LOCATION",
+    location: "",
     image: "/image3.JPG",
     to: "/events/rhythm-movement-earth",
   },
@@ -145,7 +145,7 @@ const DEFAULT_EVENTS = [
     id: "e4",
     title: "THROW KINDNESS DODGE HATE",
     date: "5/2/2026",
-    location: "LOCATION",
+    location: "",
     image: "/image4.JPG",
     to: "/events/rhythm-movement-earth",
   },
@@ -174,9 +174,9 @@ const EventContent = ({
             gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
             gap: spacing,
             pt: 2,
-            px: { xs: 2, md: 0 },
             justifyContent: "center",
             alignItems: "stretch",
+            width: '100%',
           }}
         >
           {events.map((ev) => (

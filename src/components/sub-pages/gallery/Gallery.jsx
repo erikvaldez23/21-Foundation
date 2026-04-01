@@ -134,10 +134,10 @@ export default function Gallery() {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
-            gap: 4,
+            gap: { xs: 3, md: 4 },
             mt: 4,
             pb: 2,
-            px: { xs: 2, md: 0 }
+            width: '100%',
           }}
         >
           {EVENTS.map((event) => (
