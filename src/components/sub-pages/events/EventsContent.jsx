@@ -11,8 +11,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { EVENTS } from "./eventsData";
 
-const EventCard = ({ event, isMobile }) => (
+const EventCard = ({ event, isMobile, isSingle }) => (
   <Card
     sx={(theme) => ({
       position: "relative",
@@ -21,8 +22,8 @@ const EventCard = ({ event, isMobile }) => (
       mx: "auto",
       maxWidth: { xs: 500, md: "100%" },
       // Responsive size: use aspect ratio instead of fixed width/height to avoid layout shift
-      aspectRatio: "16 / 10",
-      minHeight: { xs: 260, md: 400 },
+      aspectRatio: isSingle ? "21 / 9" : "16 / 10",
+      minHeight: isSingle ? { xs: 360, md: 560 } : { xs: 260, md: 400 },
       width: "100%",
       transition: "transform .2s ease, box-shadow .2s ease",
       cursor: "pointer",
@@ -117,40 +118,14 @@ const EventCard = ({ event, isMobile }) => (
   </Card>
 );
 
-const DEFAULT_EVENTS = [
-  {
-    id: "e1",
-    title: "SEAN'S BIRTHDAY CELEBRATION AT AMC",
-    date: "6/1/2025",
-    location: "LEAWOOD, KS 66224",
-    image: "/image1.JPG",
-    to: "/events/slow-mornings",
-  },
-  {
-    id: "e2",
-    title: "VIRGINIA-YOGA FOR MENTAL HEALTH",
-    date: "5/31/2025",
-    location: "",
-    image: "/image2.JPG",
-    to: "/events/rhythm-movement-earth",
-  },
-  {
-    id: "e3",
-    title: "REACH-OUT WALK 2025",
-    date: "9/14/2025",
-    location: "",
-    image: "/image3.JPG",
-    to: "/events/rhythm-movement-earth",
-  },
-  {
-    id: "e4",
-    title: "THROW KINDNESS DODGE HATE",
-    date: "5/2/2026",
-    location: "",
-    image: "/image4.JPG",
-    to: "/events/rhythm-movement-earth",
-  },
-];
+const DEFAULT_EVENTS = EVENTS.map((ev) => ({
+  id: ev.slug,          // unique key for React
+  title: ev.title,
+  date: ev.date,
+  location: ev.location?.address || "",
+  image: ev.image,
+  to: `/events/${ev.slug}`,
+}));
 
 const EventContent = ({
   events = DEFAULT_EVENTS,
@@ -165,28 +140,52 @@ const EventContent = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSingle = events.length === 1;
 
   return (
-    <Box sx={{ bgcolor: background }}>
-      <Container maxWidth={maxWidth} sx={{ pb: 4 }}>
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
-            gap: spacing,
-            pt: 2,
-            justifyContent: "center",
-            alignItems: "stretch",
-            width: '100%',
-          }}
-        >
-          {events.map((ev) => (
-            <Box key={ev.id} sx={{ width: "100%", display: "flex" }}>
-              <EventCard event={ev} isMobile={isMobile} />
-            </Box>
-          ))}
-        </Box>
-      </Container>
+    <Box sx={{ bgcolor: background, pb: 5 }}>
+      <Box sx={{ zoom: { xs: 1, md: 0.85 } }}>
+        <Container maxWidth={maxWidth} sx={{ pb: 4 }}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: isSingle
+                ? "1fr"
+                : { xs: "1fr", md: "repeat(2, 1fr)" },
+              gap: spacing,
+              pt: 2,
+              justifyContent: "center",
+              alignItems: "stretch",
+              width: '100%',
+            }}
+          >
+            {events.map((ev, idx) => {
+              // If this is the last card AND there's an odd number AND we're in multi-col mode,
+              // let it span both columns so it fills the row.
+              const isLastOdd =
+                !isSingle && events.length % 2 !== 0 && idx === events.length - 1;
+              return (
+                <Box
+                  key={ev.id}
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    gridColumn: isLastOdd ? "1 / -1" : undefined,
+                    maxWidth: isLastOdd ? { md: "60%" } : undefined,
+                    mx: isLastOdd ? "auto" : undefined,
+                  }}
+                >
+                  <EventCard
+                    event={ev}
+                    isMobile={isMobile}
+                    isSingle={isSingle || isLastOdd}
+                  />
+                </Box>
+              );
+            })}
+          </Box>
+        </Container>
+      </Box>
     </Box>
   );
 };

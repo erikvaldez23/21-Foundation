@@ -34,6 +34,13 @@ export const EVENTS = [
     coverSrc: "/events/spreading-awareness/thumbnails/awareness(17).jpg",
     description: "An evening of celebration with volunteers and family.",
   },
+  {
+    id: "6",
+    title: "Mongolian BBQ Fundraiser",
+    date: "4/16/2026",
+    coverSrc: "/events/bbq/bbq(13).jpg",
+    description: "Fundraiser for the 21-Foundation.",
+  },
 ];
 
 export const PHOTOS = [
@@ -317,4 +324,18 @@ export const PHOTOS = [
   { id: "sa208", eventId: "5", src: "/events/spreading-awareness/awareness(208).HEIC", thumbSrc: "/events/spreading-awareness/thumbnails/awareness(208).jpg", w: 4032, h: 3024, album: "Spreading Awareness", tags: ["Spreading Awareness", "Community"], title: "Spreading Awareness" },
   { id: "sa209", eventId: "5", src: "/events/spreading-awareness/awareness(209).HEIC", thumbSrc: "/events/spreading-awareness/thumbnails/awareness(209).jpg", w: 5712, h: 4284, album: "Spreading Awareness", tags: ["Spreading Awareness", "Community"], title: "Spreading Awareness" },
   { id: "sa210", eventId: "5", src: "/events/spreading-awareness/awareness(210).JPG", thumbSrc: "/events/spreading-awareness/thumbnails/awareness(210).jpg", w: 3670, h: 2753, album: "Spreading Awareness", tags: ["Spreading Awareness", "Community"], title: "Spreading Awareness" },
+
+  { id: "bbq1", eventId: "6", src: "/events/bbq/bbq(1).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(1).jpg", w: 2477, h: 3458, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq2", eventId: "6", src: "/events/bbq/bbq(2).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(2).jpg", w: 2048, h: 1319, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq3", eventId: "6", src: "/events/bbq/bbq(3).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(3).jpg", w: 4032, h: 3024, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq4", eventId: "6", src: "/events/bbq/bbq(4).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(4).jpg", w: 4032, h: 3024, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq5", eventId: "6", src: "/events/bbq/bbq(5).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(5).jpg", w: 2048, h: 1542, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq6", eventId: "6", src: "/events/bbq/bbq(6).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(6).jpg", w: 3024, h: 4032, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq7", eventId: "6", src: "/events/bbq/bbq(7).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(7).jpg", w: 2048, h: 1542, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq8", eventId: "6", src: "/events/bbq/bbq(8).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(8).jpg", w: 4032, h: 3024, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq9", eventId: "6", src: "/events/bbq/bbq(9).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(9).jpg", w: 1873, h: 1572, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq10", eventId: "6", src: "/events/bbq/bbq(10).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(10).jpg", w: 1540, h: 1552, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq11", eventId: "6", src: "/events/bbq/bbq(11).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(11).jpg", w: 3328, h: 2842, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq12", eventId: "6", src: "/events/bbq/bbq(12).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(12).jpg", w: 1200, h: 1600, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
+  { id: "bbq13", eventId: "6", src: "/events/bbq/bbq(13).jpg", thumbSrc: "/events/bbq/thumbnails/bbq(13).jpg", w: 2048, h: 1542, album: "BBQ", tags: ["BBQ", "Community"], title: "BBQ" },
 ];

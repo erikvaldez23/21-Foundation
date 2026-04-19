@@ -84,6 +84,7 @@ const StoryMission = ({
 
   return (
     <SectionWrap id="story">
+      <Box sx={{ zoom: { xs: 1, md: 0.85 } }}>
       <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
         <Box
           sx={{
@@ -168,6 +169,7 @@ const StoryMission = ({
           </Box>
         </Box>
       </Container>
+      </Box>
     </SectionWrap>
   );
 };

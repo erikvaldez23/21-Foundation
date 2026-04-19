@@ -41,6 +41,7 @@ export default function InspirationalQuote({
       {/* <QuoteMark aria-hidden style={{ top: 12, left: 12 }}>“</QuoteMark> */}
       {/* <QuoteMark aria-hidden style={{ bottom: -48, right: 12 }}>”</QuoteMark> */}
 
+      <Box sx={{ zoom: { xs: 1, md: 0.85 } }}>
       <Container
         maxWidth="xl"
         disableGutters
@@ -120,6 +121,7 @@ export default function InspirationalQuote({
           </Box>
         </Box>
       </Container>
+      </Box>
     </Section>
   );
 }

@@ -63,6 +63,7 @@ export default function MeetTheTeamOneImage({
 
   return (
     <Section>
+      <Box sx={{ zoom: { xs: 1, md: 0.85 } }}>
       <Container maxWidth="xl">
         {/* Header Section */}
         <Box sx={{ textAlign: "center", mb: 8 }}>
@@ -254,6 +255,7 @@ export default function MeetTheTeamOneImage({
         </Box>
 
       </Container>
+      </Box>
     </Section>
   );
 }

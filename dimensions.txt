@@ -1,0 +1,1780 @@
+ALBUM: AMC
+public/events/AMC/IMG_3623.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/IMG_3623.JPEG
+  pixelWidth: 4032
+  pixelHeight: 2437
+public/events/AMC/IMG_3615.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/IMG_3615.JPEG
+  pixelWidth: 2674
+  pixelHeight: 3325
+public/events/AMC/DSC08379.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/DSC08379.JPEG
+  pixelWidth: 2048
+  pixelHeight: 1365
+public/events/AMC/DSC08348.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/DSC08348.JPEG
+  pixelWidth: 2048
+  pixelHeight: 1365
+public/events/AMC/DSC08328.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/DSC08328.JPEG
+  pixelWidth: 1365
+  pixelHeight: 2048
+public/events/AMC/IMG_3628.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/IMG_3628.JPEG
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/AMC/DSC08389.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/DSC08389.JPEG
+  pixelWidth: 2048
+  pixelHeight: 1365
+public/events/AMC/IMG_3606.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/IMG_3606.JPEG
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/AMC/DSC08385.JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/DSC08385.JPG
+  pixelWidth: 2047
+  pixelHeight: 1109
+public/events/AMC/IMG_3616.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/AMC/IMG_3616.JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+ALBUM: Walk
+public/events/Walk/walk(42).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(42).JPEG
+  pixelWidth: 2689
+  pixelHeight: 2017
+public/events/Walk/walk(23).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(23).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/Walk/walk(21).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(21).JPEG
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/Walk/walk(38).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(38).JPEG
+  pixelWidth: 3544
+  pixelHeight: 3024
+public/events/Walk/walk(8).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(8).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(40).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(40).JPEG
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/Walk/walk(18).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(18).JPEG
+  pixelWidth: 2098
+  pixelHeight: 2490
+public/events/Walk/walk(27).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(27).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(20).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(20).JPEG
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/Walk/walk(41).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(41).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/Walk/walk(9).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(9).JPEG
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/Walk/walk(39).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(39).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/Walk/walk(43).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(43).JPEG
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/Walk/walk(22).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(22).JPEG
+  pixelWidth: 3020
+  pixelHeight: 4026
+public/events/Walk/walk(26).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(26).JPEG
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/Walk/walk(19).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(19).JPEG
+  pixelWidth: 3021
+  pixelHeight: 2972
+public/events/Walk/walk(24).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(24).JPEG
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/Walk/walk(28).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(28).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(15).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(15).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/Walk/walk(31).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(31).JPEG
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/Walk/walk(1).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(1).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(33).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(33).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/Walk/walk(3).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(3).JPEG
+  pixelWidth: 4284
+  pixelHeight: 5712
+public/events/Walk/walk(17).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(17).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/Walk/walk(13).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(13).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(7).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(7).JPEG
+  pixelWidth: 2246
+  pixelHeight: 3734
+public/events/Walk/walk(37).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(37).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(5).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(5).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/Walk/walk(35).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(35).JPEG
+  pixelWidth: 3021
+  pixelHeight: 3253
+public/events/Walk/walk(11).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(11).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(2).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(2).JPEG
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/Walk/walk(16).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(16).JPEG
+  pixelWidth: 3021
+  pixelHeight: 2749
+public/events/Walk/walk(14).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(14).JPEG
+  pixelWidth: 2630
+  pixelHeight: 3544
+public/events/Walk/walk(29).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(29).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(30).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(30).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/Walk/walk(25).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(25).JPG
+  pixelWidth: 2047
+  pixelHeight: 1077
+public/events/Walk/walk(34).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(34).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(4).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(4).JPEG
+  pixelWidth: 1589
+  pixelHeight: 2563
+public/events/Walk/walk(32).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(32).jpg
+  pixelWidth: 898
+  pixelHeight: 1257
+public/events/Walk/walk(10).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(10).JPEG
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/Walk/walk(12).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(12).JPEG
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/Walk/walk(36).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(36).JPEG
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/Walk/walk(6).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Walk/walk(6).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+ALBUM: Yoga
+public/events/Yoga/PXL_20250531_153620652.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_153620652.JPEG
+  pixelWidth: 4080
+  pixelHeight: 3072
+public/events/Yoga/PXL_20250531_152042404.MP.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_152042404.MP.JPEG
+  pixelWidth: 4080
+  pixelHeight: 3072
+public/events/Yoga/PXL_20250531_151546632.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_151546632.JPEG
+  pixelWidth: 3072
+  pixelHeight: 4080
+public/events/Yoga/PXL_20250531_151841088.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_151841088.JPEG
+  pixelWidth: 3072
+  pixelHeight: 4080
+public/events/Yoga/PXL_20250531_161735842~2.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_161735842~2.JPEG
+  pixelWidth: 2955
+  pixelHeight: 1919
+public/events/Yoga/PXL_20250531_155139852.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_155139852.JPEG
+  pixelWidth: 3072
+  pixelHeight: 4080
+public/events/Yoga/PXL_20250531_153345173.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_153345173.JPEG
+  pixelWidth: 4080
+  pixelHeight: 3072
+public/events/Yoga/PXL_20250531_152940661.MP.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_152940661.MP.JPEG
+  pixelWidth: 4080
+  pixelHeight: 3072
+public/events/Yoga/PXL_20250531_155153311.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_155153311.JPEG
+  pixelWidth: 3072
+  pixelHeight: 4080
+public/events/Yoga/IMG_8397.JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/IMG_8397.JPG
+  pixelWidth: 1125
+  pixelHeight: 1800
+public/events/Yoga/PXL_20250531_153356630.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_153356630.JPEG
+  pixelWidth: 4080
+  pixelHeight: 3072
+public/events/Yoga/PXL_20250531_155202458.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_155202458.JPEG
+  pixelWidth: 4080
+  pixelHeight: 3072
+public/events/Yoga/PXL_20250531_154055424.MP.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_154055424.MP.JPEG
+  pixelWidth: 4080
+  pixelHeight: 3072
+public/events/Yoga/PXL_20250531_153615591.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_153615591.JPEG
+  pixelWidth: 3072
+  pixelHeight: 4080
+public/events/Yoga/PXL_20250531_155131827.MP.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_155131827.MP.JPEG
+  pixelWidth: 4080
+  pixelHeight: 3072
+public/events/Yoga/PXL_20250531_161902996.MP~2.JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/Yoga/PXL_20250531_161902996.MP~2.JPEG
+  pixelWidth: 2981
+  pixelHeight: 2667
+ALBUM: spreading-awareness
+public/events/spreading-awareness/awareness(54).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(54).HEIC
+  pixelWidth: 586
+  pixelHeight: 253
+public/events/spreading-awareness/awareness(110).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(110).jpg
+  pixelWidth: 2432
+  pixelHeight: 3242
+public/events/spreading-awareness/awareness(44).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(44).jpg
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(147).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(147).jpg
+  pixelWidth: 794
+  pixelHeight: 1123
+public/events/spreading-awareness/awareness(13).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(13).jpg
+  pixelWidth: 2734
+  pixelHeight: 3645
+public/events/spreading-awareness/awareness(132).heic:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(132).heic
+  pixelWidth: 720
+  pixelHeight: 720
+public/events/spreading-awareness/awareness(151).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(151).jpg
+  pixelWidth: 1758
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(94).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(94).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(161).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(161).JPEG
+  pixelWidth: 4211
+  pixelHeight: 5712
+public/events/spreading-awareness/awareness(106).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(106).jpg
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(52).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(52).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(2).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(2).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(153).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(153).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(192).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(192).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(29).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(29).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(203).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(203).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(91).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(91).jpg
+  pixelWidth: 2671
+  pixelHeight: 3524
+public/events/spreading-awareness/awareness(87).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(87).jpg
+  pixelWidth: 2714
+  pixelHeight: 3920
+public/events/spreading-awareness/awareness(35).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(35).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(68).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(68).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(184).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(184).jpg
+  pixelWidth: 1616
+  pixelHeight: 1080
+public/events/spreading-awareness/awareness(48).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(48).JPG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(187).jpeg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(187).jpeg
+  pixelWidth: 1616
+  pixelHeight: 1080
+public/events/spreading-awareness/awareness(37).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(37).HEIC
+  pixelWidth: 960
+  pixelHeight: 1280
+public/events/spreading-awareness/awareness(129).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(129).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(64).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(64).JPEG
+  pixelWidth: 1536
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(191).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(191).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(151).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(151).HEIC
+  pixelWidth: 1758
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(102).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(102).JPEG
+  pixelWidth: 1206
+  pixelHeight: 2622
+public/events/spreading-awareness/awareness(147).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(147).JPEG
+  pixelWidth: 794
+  pixelHeight: 1123
+public/events/spreading-awareness/awareness(1).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(1).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(171).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(171).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(25).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(25).JPG
+  pixelWidth: 2225
+  pixelHeight: 1320
+public/events/spreading-awareness/awareness(126).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(126).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(72).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(72).JPG
+  pixelWidth: 1127
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(96).heic:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(96).heic
+  pixelWidth: 3598
+  pixelHeight: 2834
+public/events/spreading-awareness/awareness(130).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(130).JPG
+  pixelWidth: 311
+  pixelHeight: 315
+public/events/spreading-awareness/awareness(64).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(64).jpg
+  pixelWidth: 1536
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(56).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(56).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(13).heic:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(13).heic
+  pixelWidth: 2734
+  pixelHeight: 3645
+public/events/spreading-awareness/awareness(188).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(188).jpg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(167).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(167).jpg
+  pixelWidth: 2438
+  pixelHeight: 3251
+public/events/spreading-awareness/awareness(148).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(148).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(92).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(92).HEIC
+  pixelWidth: 2314
+  pixelHeight: 2733
+public/events/spreading-awareness/awareness(189).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(189).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(166).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(166).JPG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(32).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(32).jpg
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(84).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(84).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(171).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(171).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(131).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(131).jpg
+  pixelWidth: 3540
+  pixelHeight: 1728
+public/events/spreading-awareness/awareness(65).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(65).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(109).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(109).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(127).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(127).JPG
+  pixelWidth: 1290
+  pixelHeight: 2476
+public/events/spreading-awareness/awareness(73).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(73).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(208).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(208).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(52).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(52).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(17).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(17).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(170).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(170).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(24).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(24).jpg
+  pixelWidth: 2416
+  pixelHeight: 4027
+public/events/spreading-awareness/awareness(106).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(106).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(110).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(110).HEIC
+  pixelWidth: 2432
+  pixelHeight: 3242
+public/events/spreading-awareness/awareness(155).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(155).HEIC
+  pixelWidth: 2316
+  pixelHeight: 2996
+public/events/spreading-awareness/awareness(49).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(49).jpg
+  pixelWidth: 3692
+  pixelHeight: 2769
+public/events/spreading-awareness/awareness(185).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(185).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(49).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(49).HEIC
+  pixelWidth: 3692
+  pixelHeight: 2769
+public/events/spreading-awareness/awareness(86).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(86).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(69).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(69).jpg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(112).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(112).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(90).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(90).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(202).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(202).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(197).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(197).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(9).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(9).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(27).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(27).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(74).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(74).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(193).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(193).JPG
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(28).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(28).jpg
+  pixelWidth: 3021
+  pixelHeight: 3496
+public/events/spreading-awareness/awareness(181).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(181).JPEG
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(89).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(89).HEIC
+  pixelWidth: 2681
+  pixelHeight: 3575
+public/events/spreading-awareness/awareness(107).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(107).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(53).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(53).jpg
+  pixelWidth: 2497
+  pixelHeight: 3329
+public/events/spreading-awareness/awareness(50).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(50).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(146).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(146).jpg
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(12).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(12).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(28).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(28).HEIC
+  pixelWidth: 3021
+  pixelHeight: 3496
+public/events/spreading-awareness/awareness(6).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(6).JPEG
+  pixelWidth: 3840
+  pixelHeight: 5120
+public/events/spreading-awareness/awareness(136).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(136).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(111).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(111).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(45).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(45).jpg
+  pixelWidth: 2314
+  pixelHeight: 2553
+public/events/spreading-awareness/awareness(146).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(146).JPEG
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(202).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(202).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(58).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(58).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(19).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(19).JPG
+  pixelWidth: 1179
+  pixelHeight: 749
+public/events/spreading-awareness/awareness(115).heic:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(115).heic
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(190).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(190).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(58).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(58).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(73).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(73).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(198).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(198).JPG
+  pixelWidth: 1079
+  pixelHeight: 1549
+public/events/spreading-awareness/awareness(177).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(177).jpg
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(23).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(23).jpg
+  pixelWidth: 2036
+  pixelHeight: 4015
+public/events/spreading-awareness/awareness(7).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(7).jpg
+  pixelWidth: 3053
+  pixelHeight: 5704
+public/events/spreading-awareness/awareness(149).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(149).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(120).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(120).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(74).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(74).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(209).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(209).jpg
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(136).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(136).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(62).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(62).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(97).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(97).HEIC
+  pixelWidth: 1200
+  pixelHeight: 1600
+public/events/spreading-awareness/awareness(174).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(174).HEIC
+  pixelWidth: 3021
+  pixelHeight: 3267
+public/events/spreading-awareness/awareness(131).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(131).HEIC
+  pixelWidth: 3540
+  pixelHeight: 1728
+public/events/spreading-awareness/awareness(161).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(161).jpg
+  pixelWidth: 4211
+  pixelHeight: 5712
+public/events/spreading-awareness/awareness(35).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(35).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(189).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(189).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(95).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(95).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(125).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(125).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(116).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(116).JPG
+  pixelWidth: 805
+  pixelHeight: 743
+public/events/spreading-awareness/awareness(42).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(42).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(68).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(68).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(133).heic:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(133).heic
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(141).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(141).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(15).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(15).JPG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(83).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(83).JPEG
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(157).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(157).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(10).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(10).HEIC
+  pixelWidth: 2813
+  pixelHeight: 2338
+public/events/spreading-awareness/awareness(55).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(55).HEIC
+  pixelWidth: 2462
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(100).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(100).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(54).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(54).jpg
+  pixelWidth: 586
+  pixelHeight: 253
+public/events/spreading-awareness/awareness(118).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(118).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(192).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(192).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(67).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(67).JPEG
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(194).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(194).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(205).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(205).JPG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(97).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(97).jpg
+  pixelWidth: 1200
+  pixelHeight: 1600
+public/events/spreading-awareness/awareness(71).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(71).HEIC
+  pixelWidth: 3051
+  pixelHeight: 3023
+public/events/spreading-awareness/awareness(184).jpeg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(184).jpeg
+  pixelWidth: 1616
+  pixelHeight: 1080
+public/events/spreading-awareness/awareness(78).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(78).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(200).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(200).JPEG
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(81).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(81).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(182).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(182).jpg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(39).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(39).JPG
+  pixelWidth: 3840
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(183).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(183).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(30).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(30).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(38).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(38).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(80).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(80).jpg
+  pixelWidth: 1295
+  pixelHeight: 1236
+public/events/spreading-awareness/awareness(26).jpeg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(26).jpeg
+  pixelWidth: 1244
+  pixelHeight: 1280
+public/events/spreading-awareness/awareness(8).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(8).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(96).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(96).jpg
+  pixelWidth: 3598
+  pixelHeight: 2834
+public/events/spreading-awareness/awareness(79).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(79).jpg
+  pixelWidth: 2595
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(204).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(204).JPG
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(156).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(156).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(113).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(113).HEIC
+  pixelWidth: 1536
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(195).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(195).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(101).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(101).jpg
+  pixelWidth: 3021
+  pixelHeight: 2735
+public/events/spreading-awareness/awareness(55).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(55).jpg
+  pixelWidth: 2462
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(156).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(156).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(29).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(29).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(91).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(91).HEIC
+  pixelWidth: 2671
+  pixelHeight: 3524
+public/events/spreading-awareness/awareness(140).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(140).jpg
+  pixelWidth: 2085
+  pixelHeight: 2780
+public/events/spreading-awareness/awareness(14).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(14).JPG
+  pixelWidth: 1535
+  pixelHeight: 1138
+public/events/spreading-awareness/awareness(159).jpeg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(159).jpeg
+  pixelWidth: 2448
+  pixelHeight: 1836
+public/events/spreading-awareness/awareness(51).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(51).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(117).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(117).jpg
+  pixelWidth: 1536
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(43).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(43).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(16).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(16).HEIC
+  pixelWidth: 3017
+  pixelHeight: 4024
+public/events/spreading-awareness/awareness(53).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(53).HEIC
+  pixelWidth: 2497
+  pixelHeight: 3329
+public/events/spreading-awareness/awareness(160).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(160).jpg
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(34).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(34).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(209).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(209).HEIC
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(137).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(137).JPG
+  pixelWidth: 1290
+  pixelHeight: 2323
+public/events/spreading-awareness/awareness(63).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(63).jpg
+  pixelWidth: 2225
+  pixelHeight: 1320
+public/events/spreading-awareness/awareness(208).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(208).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(170).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(170).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(135).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(135).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(121).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(121).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(75).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(75).jpg
+  pixelWidth: 1242
+  pixelHeight: 2208
+public/events/spreading-awareness/awareness(123).jpeg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(123).jpeg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(199).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(199).JPG
+  pixelWidth: 1125
+  pixelHeight: 1776
+public/events/spreading-awareness/awareness(176).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(176).jpg
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(22).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(22).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(6).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(6).jpg
+  pixelWidth: 3840
+  pixelHeight: 5120
+public/events/spreading-awareness/awareness(154).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(154).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(59).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(59).jpg
+  pixelWidth: 3631
+  pixelHeight: 2723
+public/events/spreading-awareness/awareness(182).jpeg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(182).jpeg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(18).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(18).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(32).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(32).HEIC
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(194).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(194).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(169).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(169).HEIC
+  pixelWidth: 4284
+  pixelHeight: 5712
+public/events/spreading-awareness/awareness(173).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(173).JPEG
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(86).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(86).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(37).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(37).jpg
+  pixelWidth: 960
+  pixelHeight: 1280
+public/events/spreading-awareness/awareness(163).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(163).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(90).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(90).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(60).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(60).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(134).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(134).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(120).heic:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(120).heic
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(158).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(158).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(76).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(76).jpg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(122).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(122).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(99).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(99).jpg
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(46).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(46).HEIC
+  pixelWidth: 2314
+  pixelHeight: 2075
+public/events/spreading-awareness/awareness(5).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(5).jpg
+  pixelWidth: 2652
+  pixelHeight: 3092
+public/events/spreading-awareness/awareness(21).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(21).jpg
+  pixelWidth: 1280
+  pixelHeight: 960
+public/events/spreading-awareness/awareness(175).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(175).JPG
+  pixelWidth: 359
+  pixelHeight: 631
+public/events/spreading-awareness/awareness(139).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(139).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(62).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(62).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(159).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(159).jpg
+  pixelWidth: 2448
+  pixelHeight: 1836
+public/events/spreading-awareness/awareness(157).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(157).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(104).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(104).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(141).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(141).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(118).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(118).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(180).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(180).JPG
+  pixelWidth: 1536
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(18).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(18).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(138).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(138).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(83).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(83).jpg
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(143).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(143).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(95).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(95).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(183).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(183).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(207).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(207).JPG
+  pixelWidth: 5712
+  pixelHeight: 3147
+public/events/spreading-awareness/awareness(76).jpeg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(76).jpeg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(60).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(60).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(179).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(179).JPG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(9).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(9).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(195).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(195).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(196).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(196).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(168).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(168).JPEG
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(56).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(56).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(102).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(102).jpg
+  pixelWidth: 1206
+  pixelHeight: 2622
+public/events/spreading-awareness/awareness(155).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(155).jpg
+  pixelWidth: 2316
+  pixelHeight: 2996
+public/events/spreading-awareness/awareness(44).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(44).HEIC
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(17).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(17).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(143).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(143).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(79).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(79).HEIC
+  pixelWidth: 2595
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(134).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(134).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(122).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(122).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(167).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(167).HEIC
+  pixelWidth: 2438
+  pixelHeight: 3251
+public/events/spreading-awareness/awareness(40).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(40).jpg
+  pixelWidth: 1536
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(40).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(40).HEIC
+  pixelWidth: 1536
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(41).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(41).jpg
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(115).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(115).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(16).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(16).jpg
+  pixelWidth: 3017
+  pixelHeight: 4024
+public/events/spreading-awareness/awareness(142).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(142).JPG
+  pixelWidth: 1289
+  pixelHeight: 2108
+public/events/spreading-awareness/awareness(126).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(126).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(163).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(163).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(154).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(154).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(80).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(80).HEIC
+  pixelWidth: 1295
+  pixelHeight: 1236
+public/events/spreading-awareness/awareness(188).jpeg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(188).jpeg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(38).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(38).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(57).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(57).JPG
+  pixelWidth: 984
+  pixelHeight: 1165
+public/events/spreading-awareness/awareness(103).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(103).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(178).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(178).JPG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(8).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(8).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(203).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(203).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(197).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(197).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(59).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(59).HEIC
+  pixelWidth: 3631
+  pixelHeight: 2723
+public/events/spreading-awareness/awareness(206).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(206).JPG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(114).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(114).JPEG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(94).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(94).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(210).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(210).JPG
+  pixelWidth: 3670
+  pixelHeight: 2753
+public/events/spreading-awareness/awareness(99).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(99).HEIC
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(139).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(139).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(82).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(82).jpg
+  pixelWidth: 4284
+  pixelHeight: 5712
+public/events/spreading-awareness/awareness(181).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(181).jpg
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(66).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(66).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(119).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(119).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(23).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(23).HEIC
+  pixelWidth: 2036
+  pixelHeight: 4015
+public/events/spreading-awareness/awareness(185).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(185).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(201).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(201).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(158).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(158).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(100).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(100).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(145).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(145).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(4).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(4).JPG
+  pixelWidth: 1179
+  pixelHeight: 1648
+public/events/spreading-awareness/awareness(20).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(20).JPG
+  pixelWidth: 1162
+  pixelHeight: 1280
+public/events/spreading-awareness/awareness(174).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(174).jpg
+  pixelWidth: 3021
+  pixelHeight: 3267
+public/events/spreading-awareness/awareness(124).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(124).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(69).jpeg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(69).jpeg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(77).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(77).jpg
+  pixelWidth: 3024
+  pixelHeight: 2223
+public/events/spreading-awareness/awareness(123).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(123).jpg
+  pixelWidth: 2016
+  pixelHeight: 1512
+public/events/spreading-awareness/awareness(98).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(98).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(177).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(177).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(82).heic:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(82).heic
+  pixelWidth: 4284
+  pixelHeight: 5712
+public/events/spreading-awareness/awareness(61).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(61).jpg
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(135).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(135).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(42).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(42).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(36).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(36).jpg
+  pixelWidth: 2210
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(162).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(162).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(119).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(119).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(24).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(24).HEIC
+  pixelWidth: 2416
+  pixelHeight: 4027
+public/events/spreading-awareness/awareness(169).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(169).jpg
+  pixelWidth: 4284
+  pixelHeight: 5712
+public/events/spreading-awareness/awareness(61).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(61).HEIC
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(186).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(186).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(85).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(85).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(77).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(77).JPEG
+  pixelWidth: 3024
+  pixelHeight: 2223
+public/events/spreading-awareness/awareness(128).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(128).JPG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(93).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(93).JPG
+  pixelWidth: 1284
+  pixelHeight: 1243
+public/events/spreading-awareness/awareness(201).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(201).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(107).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(107).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(111).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(111).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(190).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(190).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(50).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(50).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(104).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(104).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(5).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(5).HEIC
+  pixelWidth: 2652
+  pixelHeight: 3092
+public/events/spreading-awareness/awareness(78).heic:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(78).heic
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(153).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(153).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(85).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(85).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(108).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(108).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(11).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(11).jpg
+  pixelWidth: 2799
+  pixelHeight: 1761
+public/events/spreading-awareness/awareness(145).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(145).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(45).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(45).HEIC
+  pixelWidth: 2314
+  pixelHeight: 2553
+public/events/spreading-awareness/awareness(46).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(46).jpg
+  pixelWidth: 2314
+  pixelHeight: 2075
+public/events/spreading-awareness/awareness(112).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(112).jpg
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(31).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(31).JPG
+  pixelWidth: 1217
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(165).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(165).JPG
+  pixelWidth: 2048
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(66).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(66).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(132).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(132).jpg
+  pixelWidth: 720
+  pixelHeight: 720
+public/events/spreading-awareness/awareness(89).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(89).jpg
+  pixelWidth: 2681
+  pixelHeight: 3575
+public/events/spreading-awareness/awareness(7).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(7).HEIC
+  pixelWidth: 3053
+  pixelHeight: 5704
+public/events/spreading-awareness/awareness(70).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(70).JPG
+  pixelWidth: 1242
+  pixelHeight: 2206
+public/events/spreading-awareness/awareness(124).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(124).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(164).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(164).HEIC
+  pixelWidth: 3021
+  pixelHeight: 3018
+public/events/spreading-awareness/awareness(121).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(121).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(87).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(87).HEIC
+  pixelWidth: 2714
+  pixelHeight: 3920
+public/events/spreading-awareness/awareness(27).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(27).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(173).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(173).jpg
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(3).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(3).jpg
+  pixelWidth: 3021
+  pixelHeight: 3200
+public/events/spreading-awareness/awareness(140).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(140).HEIC
+  pixelWidth: 2085
+  pixelHeight: 2780
+public/events/spreading-awareness/awareness(108).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(108).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(196).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(196).JPEG
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(149).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(149).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(75).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(75).JPEG
+  pixelWidth: 1242
+  pixelHeight: 2208
+public/events/spreading-awareness/awareness(138).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(138).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(152).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(152).JPEG
+  pixelWidth: 1980
+  pixelHeight: 3520
+public/events/spreading-awareness/awareness(117).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(117).JPEG
+  pixelWidth: 1536
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(148).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(148).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(144).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(144).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(101).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(101).HEIC
+  pixelWidth: 3021
+  pixelHeight: 2735
+public/events/spreading-awareness/awareness(34).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(34).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(22).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(22).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(109).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(109).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(26).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(26).jpg
+  pixelWidth: 1244
+  pixelHeight: 1280
+public/events/spreading-awareness/awareness(172).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(172).JPG
+  pixelWidth: 1125
+  pixelHeight: 1792
+public/events/spreading-awareness/awareness(2).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(2).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(71).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(71).jpg
+  pixelWidth: 3051
+  pixelHeight: 3023
+public/events/spreading-awareness/awareness(125).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(125).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(43).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(43).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(67).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(67).jpg
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(133).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(133).jpg
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(88).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(88).JPG
+  pixelWidth: 3880
+  pixelHeight: 2910
+public/events/spreading-awareness/awareness(176).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(176).JPEG
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(30).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(30).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(164).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(164).jpg
+  pixelWidth: 3021
+  pixelHeight: 3018
+public/events/spreading-awareness/awareness(160).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(160).HEIC
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(3).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(3).HEIC
+  pixelWidth: 3021
+  pixelHeight: 3200
+public/events/spreading-awareness/awareness(81).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(81).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(47).JPG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(47).JPG
+  pixelWidth: <nil>
+  pixelHeight: <nil>
+public/events/spreading-awareness/awareness(113).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(113).jpg
+  pixelWidth: 1536
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(1).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(1).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(162).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(162).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(10).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(10).jpg
+  pixelWidth: 2813
+  pixelHeight: 2338
+public/events/spreading-awareness/awareness(144).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(144).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(12).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(12).JPEG
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(152).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(152).jpg
+  pixelWidth: 1980
+  pixelHeight: 3520
+public/events/spreading-awareness/awareness(41).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(41).HEIC
+  pixelWidth: 5712
+  pixelHeight: 4284
+public/events/spreading-awareness/awareness(51).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(51).jpg
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(105).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(105).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(186).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(186).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(36).JPEG:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(36).JPEG
+  pixelWidth: 2210
+  pixelHeight: 1536
+public/events/spreading-awareness/awareness(191).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(191).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(200).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(200).jpg
+  pixelWidth: 2048
+  pixelHeight: 945
+public/events/spreading-awareness/awareness(98).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(98).HEIC
+  pixelWidth: 4032
+  pixelHeight: 3024
+public/events/spreading-awareness/awareness(129).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(129).jpg
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(65).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(65).HEIC
+  pixelWidth: 2316
+  pixelHeight: 3088
+public/events/spreading-awareness/awareness(92).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(92).jpg
+  pixelWidth: 2314
+  pixelHeight: 2733
+public/events/spreading-awareness/awareness(84).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(84).jpg
+  pixelWidth: 2048
+  pixelHeight: 1153
+public/events/spreading-awareness/awareness(103).HEIC:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(103).HEIC
+  pixelWidth: 3024
+  pixelHeight: 4032
+public/events/spreading-awareness/awareness(168).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(168).jpg
+  pixelWidth: 1153
+  pixelHeight: 2048
+public/events/spreading-awareness/awareness(187).jpg:
+/Users/erik/Desktop/SC21-Website/21-Foundation/public/events/spreading-awareness/awareness(187).jpg
+  pixelWidth: 1616
+  pixelHeight: 1080
