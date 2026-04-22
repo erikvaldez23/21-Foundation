@@ -116,6 +116,61 @@ export const EVENTS = [
   //   ],
   // },
   {
+    id: 4,
+    slug: "yoga-for-mental-health-4",
+    title: "YOGA FOR MENTAL HEALTH",
+    shortTitle: "Yoga for Mental Health",
+    date: "May 2, 2026",
+    isoDate: "2026-05-02T13:00:00-04:00",
+    isoEnd: "2026-05-02T14:15:00-04:00",
+    timezone: "America/New_York",
+    location: { 
+      name: "In Balance Yoga Studio", 
+      address: "1512 N. Main Street, Blacksburg, VA 24060",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=In+Balance+Yoga+Studio+Blacksburg+VA"
+    },
+    cost: "Donation Based",
+    category: "Fundraiser",
+    image: "/events/Yoga/thumbnails/PXL_20250531_161735842~2.jpg",
+    heroImage: "/events/Yoga/PXL_20250531_161735842~2.JPEG",
+    organizer: "Clark21 Foundation",
+    contactEmail: "reachout@seanclark21foundation.org",
+    formUrl: "https://www.inbalanceyogastudio.com/new-students/",
+    description:
+      "Description to go here",
+    tags: ["Fundraiser", "Yoga", "Mental Health", "Community"],
+    itinerary: [
+      { time: "12:45 PM", title: "Arrival & Check-In", detail: "Suggested arrival time to settle in and prepare for the class." },
+      { time: "1:00 PM", title: "Warm Flow Yoga Class", detail: "An all-levels session focused on connection and mental wellness." },
+      { time: "2:00 PM", title: "Closing & Reflection", detail: "A brief moment to honor Sean's memory and connect with the community." },
+    ],
+    knowBeforeYouGo: [
+      { label: "Attire", detail: "Wear something green and comfy clothing." },
+      { label: "Children Welcome", detail: "Children 10+ years old are welcome but must be accompanied by a parent/adult." },
+      { label: "Phone Policy", detail: "No cell phones are allowed in the yoga classroom." },
+      { label: "Studio Etiquette", detail: "Remove shoes when entering the studio’s lobby. Cubbies are available for storage." },
+      { label: "Hydration", detail: "Water bottles are allowed in the yoga classroom." },
+      { label: "Arrival", detail: "Attendees are encouraged to arrive 15-20 minutes prior to the class." },
+      { label: "First Timers", detail: "All first time visitors to IBY need to complete an online waiver: https://www.inbalanceyogastudio.com/new-students/" },
+    ],
+    registration: {
+      pricePlayers: "Donations can be made by calling (540) 961-1030 or in-person.",
+      priceSpectators: "100% of donations support the Sean Clark 21 Foundation.",
+      rules: [
+        "Donations can be made either by calling In Balance Yoga Studio or in-person at the studio the day of the fundraiser: (540) 961-1030",
+        "This is an all-levels warm flow class, all levels of yoga experience are welcome!",
+      ],
+      donationOnly: "Visit In Balance Yoga Studio's website for more information.",
+      waiverUrl: "https://www.inbalanceyogastudio.com/new-students/",
+      waiverText: "In Balance Yoga Online Waiver (Required for new students)",
+    },
+    stayConnected: {
+      instagram: "@seanclark21foundation",
+      contactName: "IBY @ 540-961-1030",
+      email: "reachout@seanclark21foundation.org"
+    }
+  },
+  {
     id: 5,
     slug: "dodgeball-tournament-throw-kindness-dodge-hate-5",
     title: "DODGEBALL TOURNAMENT — THROW KINDNESS DODGE HATE",

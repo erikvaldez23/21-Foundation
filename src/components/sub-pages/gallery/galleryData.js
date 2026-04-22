@@ -29,7 +29,7 @@ export const EVENTS = [
   // },
   {
     id: "5",
-    title: "Spreading Awareness",
+    title: "Spreading Awareness in Action",
     date: "",
     coverSrc: "/events/spreading-awareness/thumbnails/awareness(17).jpg",
     description: "An evening of celebration with volunteers and family.",
