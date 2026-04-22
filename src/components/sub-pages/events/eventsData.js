@@ -182,7 +182,7 @@ export const EVENTS = [
     cost: "$120 - Per 6 Person Team",
     category: "Fundraiser",
     landingImage: "/events/dodgeball/event.png",
-    image: "/logo.png",
+    image: "/events/dodgeball/event.png",
     heroImage: "/events/dodgeball/flyer1.jpeg",
     organizer: "Clark21 Foundation",
     contactEmail: "reachout@seanclark21foundation.org",

@@ -106,11 +106,12 @@ const CTABanner = ({
   };
 
   const handleDonateClick = () => {
-    // If user passed a custom onPrimary, use it. Otherwise open modal.
+    // If user passed a custom onPrimary, use it. Otherwise open Givebutter.
     if (onPrimary) {
       onPrimary();
     } else {
-      setIsModalOpen(true);
+      window.open("https://givebutter.com/SC21", "_blank", "noopener,noreferrer");
+      // setIsModalOpen(true);
     }
   };
 

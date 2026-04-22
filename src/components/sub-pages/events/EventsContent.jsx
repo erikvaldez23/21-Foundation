@@ -122,7 +122,7 @@ const DEFAULT_EVENTS = EVENTS.map((ev) => ({
   id: ev.slug,          // unique key for React
   title: ev.title,
   date: ev.date,
-  location: ev.location?.address || "",
+  // location: ev.location?.address || "",
   image: ev.image,
   to: `/events/${ev.slug}`,
 }));
