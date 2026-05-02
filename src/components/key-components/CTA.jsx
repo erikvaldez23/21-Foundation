@@ -33,12 +33,10 @@ const INK = "#0e1113";
 const Background = styled(Box)(({ theme }) => ({
   background: "#E8E5DD",
 }));
-/* Full-bleed wrapper */
+/* Full-bleed wrapper — 100% not 100vw; vw includes scrollbar gutter and overflows on mobile */
 const Wrap = styled(Box)(({ theme }) => ({
   position: "relative",
-  width: "100vw",
-  marginLeft: "calc(50% - 50vw)",
-  marginRight: "calc(50% - 50vw)",
+  width: "100%",
   borderRadius: 22,
   color: "#fff",
   overflow: "hidden",

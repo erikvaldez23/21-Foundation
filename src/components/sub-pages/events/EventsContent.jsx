@@ -1,8 +1,6 @@
-import React from "react";
 import {
   Box,
   Typography,
-  Grid,
   Card,
   CardContent,
   Button,
@@ -130,8 +128,6 @@ const DEFAULT_EVENTS = EVENTS.map((ev) => ({
 const EventContent = ({
   events = DEFAULT_EVENTS,
   maxWidth = "xl",
-  // columns: 2 on md+, 1 on xs by default. Change lg to 4 for three-up.
-  gridProps = { xs: 12, md: 6, lg: 6 },
   // spacing controls (in theme spacing units)
   spacing = { xs: 4, md: 3, lg: 3 },
   // background color
@@ -143,7 +139,7 @@ const EventContent = ({
   const isSingle = events.length === 1;
 
   return (
-    <Box sx={{ bgcolor: background, pb: 5 }}>
+    <Box sx={{ bgcolor: background, pb: 5, overflowX: 'hidden' }}>
       <Box sx={{ zoom: { xs: 1, md: 0.85 } }}>
         <Container maxWidth={maxWidth} sx={{ pb: 4 }}>
           <Box

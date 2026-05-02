@@ -24,6 +24,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "framer-motion": "^12.23.24",
+    "iframe-resizer": "^5.5.9",
     "lucide-react": "^0.542.0",
     "nodemailer": "^7.0.13",
     "react": "^19.1.0",

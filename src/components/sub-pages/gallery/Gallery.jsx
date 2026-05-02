@@ -11,6 +11,7 @@ const Page = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
   background: "#E8E5DD",
   color: theme.palette.text.primary,
+  overflowX: "hidden",
 }));
 
 const FolderCard = ({ event, isMobile }) => {

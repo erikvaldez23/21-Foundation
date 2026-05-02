@@ -20,7 +20,8 @@ const GalleryHero = ({ title = "GALLERY", subtitle = "MENTAL HEALTH OUTREACH" })
         <Box sx={{
             minHeight: '10vh',
             bgcolor: '#E8E5DD',
-            py: 4
+            py: 4,
+            overflowX: 'hidden',
         }}>
             <Container maxWidth="xl">
                 {/* Header Section */}

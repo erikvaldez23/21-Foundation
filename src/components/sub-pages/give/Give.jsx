@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import {
   Box,
   Typography,
-  Container,
   Grid,
   Card,
   CardContent,
@@ -30,15 +29,13 @@ const DonationsPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#E8E5DD' }}>
-      <Container maxWidth="xl">
-        <GiveHero />
-        {/* <GiveImpact /> */}
-        <GiveButterWidget />
-        {/* <Donations /> */}
-        {/* <GiveDonations /> */}
-        <CTA />
-      </Container>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#E8E5DD', overflowX: 'hidden' }}>
+      <GiveHero />
+      {/* <GiveImpact /> */}
+      <GiveButterWidget />
+      {/* <Donations /> */}
+      {/* <GiveDonations /> */}
+      <CTA />
     </Box>
   );
 };

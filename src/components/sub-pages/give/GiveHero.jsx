@@ -17,10 +17,11 @@ const GiveHero = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       minHeight: '10vh',
       bgcolor: '#E8E5DD',
-      py: 4
+      py: 4,
+      overflowX: 'hidden',
     }}>
       <Container maxWidth="xl">
         {/* Header Section */}
