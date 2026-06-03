@@ -182,7 +182,7 @@ function FancyDrawer({
       }}
     >
       {/* Header */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 3, pt: `max(24px, env(safe-area-inset-top))` }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2, pt: `max(16px, env(safe-area-inset-top))` }}>
         <IconButton
           aria-label="Close menu"
           onClick={onClose}
@@ -193,21 +193,22 @@ function FancyDrawer({
         </IconButton>
       </Box>
       {/* Nav items */}
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', px: 4 }}>
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', px: 4, overflowY: 'auto', py: 1 }}>
         <motion.div
           variants={list}
           initial="initial"
           animate="animate"
           exit="exit"
-          style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
+          style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 2vh, 20px)' }}
         >
           {items.map((item) => {
             const Inner = (
-              <Typography 
-                variant="h3" 
-                sx={{ 
-                  fontWeight: item.active ? 800 : 400, 
+              <Typography
+                sx={{
+                  fontWeight: item.active ? 800 : 400,
                   fontFamily: 'serif',
+                  fontSize: 'clamp(1.4rem, 5vh, 2.5rem)',
+                  lineHeight: 1.15,
                   opacity: item.active ? 1 : 0.7,
                   transition: 'opacity 0.2s',
                   '&:hover': { opacity: 1 }
@@ -245,7 +246,7 @@ function FancyDrawer({
       </Box>
 
       {/* Footer */}
-      <Box sx={{ p: 4, pb: `max(32px, env(safe-area-inset-bottom))`, display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ p: 2, pb: `max(16px, env(safe-area-inset-bottom))`, display: 'flex', justifyContent: 'center' }}>
         {showInstagram && (
           <IconButton
             component="a"
