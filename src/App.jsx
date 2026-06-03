@@ -23,6 +23,7 @@ import ScrollToTop from "./components/animate/ScrollToTop";
 import EventDetail from "./components/sub-pages/events/EventDetails";
 import EventPage from "./components/sub-pages/events/EventPage";
 import Banner from "./components/key-components/Banner"
+import CommunityOutreach from "./components/sub-pages/community-outreach/CommunityOutreach";
 
 const theme = createTheme({
   palette: {
@@ -49,7 +50,7 @@ function App() {
                 <HeroClark />
                 {/* <Banner /> */}
                 <Quote />
-                <Events2 />
+                {/* <Events2 /> */}
                 {/* <ImpactPillars /> */}
                 <ImpactPillars2 />
                 <CTA />
@@ -65,6 +66,7 @@ function App() {
           <Route path="/gallery/:slug" element={<EventGallery />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/events/:slug" element={<EventDetail />} />
+          <Route path="/community-outreach" element={<CommunityOutreach />} />
           {/* <Route path="/events/:slug" element={<EventDetailsPage />} /> */}
         </Routes>
         <Footer />

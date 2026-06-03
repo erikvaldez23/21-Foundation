@@ -34,6 +34,7 @@ const DEFAULT_LINKS = [
   { label: "Events", to: "/events" },
   { label: "Gallery", to: "/gallery" },
   // { label: "Shop", to: "/shop" },
+  { label: "Community Outreach", to: "/community-outreach" },
   { label: "Give", to: "/give" },
   { label: "Contact", to: "/contact" },
 ];

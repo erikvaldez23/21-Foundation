@@ -138,6 +138,43 @@ const EventContent = ({
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isSingle = events.length === 1;
 
+  if (events.length === 0) {
+    return (
+      <Box
+        sx={{
+          bgcolor: background,
+          pb: 5,
+          overflowX: "hidden",
+          minHeight: 340,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box sx={{ textAlign: "center", px: 3 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontFamily: "serif",
+              fontWeight: 400,
+              color: "#3a3a3a",
+              mb: 1.5,
+            }}
+          >
+            More Events Are on the Way
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{ color: "#6b6b6b", maxWidth: 480, mx: "auto" }}
+          >
+            We're working on exciting new events for our community. Check back
+            soon for updates.
+          </Typography>
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ bgcolor: background, pb: 5, overflowX: 'hidden' }}>
       <Box sx={{ zoom: { xs: 1, md: 0.85 } }}>
