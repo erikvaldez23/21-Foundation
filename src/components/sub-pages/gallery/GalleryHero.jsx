@@ -21,7 +21,6 @@ const GalleryHero = ({ title = "GALLERY", subtitle = "MENTAL HEALTH OUTREACH" })
             minHeight: '10vh',
             bgcolor: '#E8E5DD',
             py: 4,
-            overflowX: 'hidden',
         }}>
             <Container maxWidth="xl">
                 {/* Header Section */}

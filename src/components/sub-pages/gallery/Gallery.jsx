@@ -11,7 +11,6 @@ const Page = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
   background: "#E8E5DD",
   color: theme.palette.text.primary,
-  overflowX: "hidden",
 }));
 
 const FolderCard = ({ event, isMobile }) => {
@@ -135,7 +134,7 @@ export default function Gallery() {
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
+            gridTemplateColumns: { xs: "minmax(0, 1fr)", md: "repeat(2, minmax(0, 1fr))" },
             gap: { xs: 3, md: 4 },
             mt: 4,
             pb: 2,
