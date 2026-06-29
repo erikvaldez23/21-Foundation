@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect, useRef } from "react";
+import React, { useMemo, useState, useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
     Box,
@@ -146,6 +146,49 @@ export default function EventGallery() {
 
     const measured = currentPhotos;
 
+    // CSS flex-wrap decides line breaks itself, so there's no selector for
+    // "the only item on this wrapped line" — we pack rows ourselves (using
+    // the same hypothetical-main-size rule the browser uses: sum flex-basis
+    // + gaps, break once the next item would overflow) so we know exactly
+    // which rows are sparse and can special-case them.
+    const GRID_GAP = 16;
+    const gridRef = useRef(null);
+    const [gridWidth, setGridWidth] = useState(0);
+
+    useLayoutEffect(() => {
+        if (!gridRef.current) return;
+        // Measure synchronously before paint so the grid doesn't flash
+        // empty on first render while waiting for the observer callback.
+        setGridWidth(gridRef.current.getBoundingClientRect().width);
+        const ro = new ResizeObserver((entries) => {
+            setGridWidth(entries[0].contentRect.width);
+        });
+        ro.observe(gridRef.current);
+        return () => ro.disconnect();
+    }, []);
+
+    const targetHeight = isMobile ? 180 : 250;
+
+    const rows = useMemo(() => {
+        if (!gridWidth) return [];
+        const result = [];
+        let row = [];
+        let rowWidth = 0;
+        for (const item of measured) {
+            const basisWidth = (item.w / item.h) * targetHeight;
+            const addedWidth = row.length ? basisWidth + GRID_GAP : basisWidth;
+            if (row.length && rowWidth + addedWidth > gridWidth) {
+                result.push(row);
+                row = [];
+                rowWidth = 0;
+            }
+            row.push({ item, basisWidth });
+            rowWidth += row.length === 1 ? basisWidth : basisWidth + GRID_GAP;
+        }
+        if (row.length) result.push(row);
+        return result;
+    }, [measured, gridWidth, targetHeight]);
+
     const openAt = useCallback(
         (id) => {
             const idx = measured.findIndex((p) => p.id === id);
@@ -244,58 +287,84 @@ export default function EventGallery() {
                 </Button>
 
                 <Box
+                    ref={gridRef}
                     sx={{
                         display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '16px',
+                        flexDirection: 'column',
+                        gap: `${GRID_GAP}px`,
                         width: '100%',
                     }}
                 >
-                    {measured.map((item) => {
-                        const targetHeight = isMobile ? 180 : 250;
-                        const basisWidth = Math.round((item.w / item.h) * targetHeight);
+                    {rows.map((row, rowIndex) => {
+                        // A landscape photo left alone on a row (sparse last
+                        // page, small album) gets to fill the row at its true
+                        // aspect ratio instead of being cropped/stretched to
+                        // the fixed row height.
+                        const isSingleLandscape =
+                            isMobile && row.length === 1 && row[0].item.w > row[0].item.h;
+
                         return (
-                            <Tile
-                                key={item.id}
-                                style={{
-                                    flexGrow: 1,
-                                    // Cap how far a tile can stretch to absorb leftover row
-                                    // space, so a sparse row (last page, small album) leaves
-                                    // empty space at the end instead of blowing up + cropping
-                                    // the few photos present to fill the whole row.
-                                    maxWidth: `${Math.round(basisWidth * 1.35)}px`,
-                                    height: `${targetHeight}px`,
-                                    flexBasis: `${basisWidth}px`,
-                                    position: 'relative',
-                                    overflow: 'hidden',
+                            <Box
+                                key={rowIndex}
+                                sx={{
+                                    display: 'flex',
+                                    gap: `${GRID_GAP}px`,
+                                    justifyContent: isSingleLandscape ? 'center' : 'flex-start',
                                 }}
-                                onClick={() => openAt(item.id)}
-                                variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
-                                whileHover={{ y: -2 }}
                             >
-                                <ImageCover
-                                    src={pickOptimalSrc(item, basisWidth, viewport.dpr)}
-                                    alt={item.title}
-                                    width={item.w}
-                                    height={item.h}
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                                <HoverOverlay>
-                                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                        <PhotoCameraBackRoundedIcon fontSize="small" />
-                                        <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
-                                            {item.title}
-                                        </Typography>
-                                    </Box>
-                                    <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-                                        <SmallPill>{item.album}</SmallPill>
-                                        {(item.tags || []).slice(0, 2).map((t) => (
-                                            <SmallPill key={t}>{t}</SmallPill>
-                                        ))}
-                                    </Box>
-                                </HoverOverlay>
-                            </Tile>
+                                {row.map(({ item, basisWidth }) => (
+                                    <Tile
+                                        key={item.id}
+                                        style={
+                                            isSingleLandscape
+                                                ? {
+                                                    width: '100%',
+                                                    aspectRatio: `${item.w} / ${item.h}`,
+                                                    position: 'relative',
+                                                    overflow: 'hidden',
+                                                }
+                                                : {
+                                                    flexGrow: 1,
+                                                    // Cap how far a tile can stretch to absorb
+                                                    // leftover row space, so a sparse row leaves
+                                                    // empty space at the end instead of blowing
+                                                    // up + cropping the few photos present.
+                                                    maxWidth: `${Math.round(basisWidth * 1.35)}px`,
+                                                    height: `${targetHeight}px`,
+                                                    flexBasis: `${basisWidth}px`,
+                                                    position: 'relative',
+                                                    overflow: 'hidden',
+                                                }
+                                        }
+                                        onClick={() => openAt(item.id)}
+                                        variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+                                        whileHover={{ y: -2 }}
+                                    >
+                                        <ImageCover
+                                            src={pickOptimalSrc(item, basisWidth, viewport.dpr)}
+                                            alt={item.title}
+                                            width={item.w}
+                                            height={item.h}
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                        <HoverOverlay>
+                                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                                <PhotoCameraBackRoundedIcon fontSize="small" />
+                                                <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                                                    {item.title}
+                                                </Typography>
+                                            </Box>
+                                            <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                                                <SmallPill>{item.album}</SmallPill>
+                                                {(item.tags || []).slice(0, 2).map((t) => (
+                                                    <SmallPill key={t}>{t}</SmallPill>
+                                                ))}
+                                            </Box>
+                                        </HoverOverlay>
+                                    </Tile>
+                                ))}
+                            </Box>
                         );
                     })}
                 </Box>
