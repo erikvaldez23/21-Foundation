@@ -293,6 +293,7 @@ export default function EventGallery() {
                         flexDirection: 'column',
                         gap: `${GRID_GAP}px`,
                         width: '100%',
+                        overflowAnchor: 'none',
                     }}
                 >
                     {rows.map((row, rowIndex) => {
@@ -376,8 +377,25 @@ export default function EventGallery() {
                             page={page} 
                             onChange={(e, value) => {
                                 setPage(value);
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
-                            }} 
+                                // Wait a frame so the new page's grid (different row
+                                // count/heights) actually commits before we measure it —
+                                // measuring synchronously here races the DOM swap (all
+                                // tiles remount, since their keys change with the page)
+                                // against the in-flight smooth scroll, which intermittently
+                                // got fought by the browser's scroll anchoring.
+                                requestAnimationFrame(() => {
+                                    // Scroll to the grid itself (where the new page's first
+                                    // image lands), not the absolute page top — otherwise
+                                    // the hero banner/back button push the images off-screen.
+                                    // Offset accounts for the fixed top navbar.
+                                    if (gridRef.current) {
+                                        const top = gridRef.current.getBoundingClientRect().top + window.scrollY - 96;
+                                        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+                                    } else {
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }
+                                });
+                            }}
                             color="primary" 
                             size={isMobile ? "medium" : "large"}
                         />
