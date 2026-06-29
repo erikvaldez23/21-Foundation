@@ -24,6 +24,7 @@ import PhotoCameraBackRoundedIcon from "@mui/icons-material/PhotoCameraBackRound
 import GalleryHero from "./GalleryHero";
 import CTA from "../../key-components/CTA";
 import { EVENTS, PHOTOS } from "./galleryData";
+import { pickOptimalSrc, getContainedWidth } from "./imageUtils";
 
 const Page = styled(Box)(({ theme }) => ({
     minHeight: "100vh",
@@ -101,6 +102,33 @@ export default function EventGallery() {
     const [page, setPage] = useState(1);
     const ITEMS_PER_PAGE = 20;
 
+    // Tracks viewport + DPR so image source selection adapts to screen size
+    // and orientation changes, not just a static mobile/desktop boolean.
+    const [viewport, setViewport] = useState(() => ({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        dpr: window.devicePixelRatio || 1,
+    }));
+
+    useEffect(() => {
+        let raf = null;
+        const onResize = () => {
+            if (raf) cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+                setViewport({
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    dpr: window.devicePixelRatio || 1,
+                });
+            });
+        };
+        window.addEventListener("resize", onResize);
+        return () => {
+            window.removeEventListener("resize", onResize);
+            if (raf) cancelAnimationFrame(raf);
+        };
+    }, []);
+
     const event = useMemo(() => EVENTS.find((e) => e.id === slug), [slug]);
     const eventPhotos = useMemo(() => PHOTOS.filter((p) => p.eventId === slug), [slug]);
 
@@ -143,6 +171,35 @@ export default function EventGallery() {
     }, [lightbox.open]);
 
     const current = lightbox.items[lightbox.index];
+
+    // Resolve the lightbox source against the box the image will actually
+    // render in (90vw x 85vh, true aspect ratio), not just a mobile flag.
+    const optimalSrc = useMemo(() => {
+        if (!current) return null;
+        const displayWidth = getContainedWidth(current.w, current.h, viewport);
+        return pickOptimalSrc(current, displayWidth, viewport.dpr);
+    }, [current, viewport]);
+
+    // Show the (likely already-cached) thumbnail immediately, then swap to
+    // the full-res source only once it's actually needed and loaded.
+    const [fullLoaded, setFullLoaded] = useState(false);
+    useEffect(() => {
+        setFullLoaded(false);
+        if (!current || !optimalSrc || optimalSrc === current.thumbSrc) return;
+        const img = new Image();
+        img.onload = () => setFullLoaded(true);
+        img.src = optimalSrc;
+        return () => {
+            img.onload = null;
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on current.id, not object identity
+    }, [current?.id, optimalSrc]);
+
+    const lightboxSrc = !current
+        ? null
+        : optimalSrc === current.thumbSrc || fullLoaded
+            ? optimalSrc
+            : current.thumbSrc || optimalSrc;
 
     const downloadFile = (url, filename = "photo.jpg") => {
         fetch(url)
@@ -202,6 +259,11 @@ export default function EventGallery() {
                                 key={item.id}
                                 style={{
                                     flexGrow: 1,
+                                    // Cap how far a tile can stretch to absorb leftover row
+                                    // space, so a sparse row (last page, small album) leaves
+                                    // empty space at the end instead of blowing up + cropping
+                                    // the few photos present to fill the whole row.
+                                    maxWidth: `${Math.round(basisWidth * 1.35)}px`,
                                     height: `${targetHeight}px`,
                                     flexBasis: `${basisWidth}px`,
                                     position: 'relative',
@@ -211,11 +273,13 @@ export default function EventGallery() {
                                 variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
                                 whileHover={{ y: -2 }}
                             >
-                                <ImageCover 
-                                    src={item.thumbSrc || item.src} 
-                                    alt={item.title} 
-                                    loading="lazy" 
-                                    decoding="async" 
+                                <ImageCover
+                                    src={pickOptimalSrc(item, basisWidth, viewport.dpr)}
+                                    alt={item.title}
+                                    width={item.w}
+                                    height={item.h}
+                                    loading="lazy"
+                                    decoding="async"
                                 />
                                 <HoverOverlay>
                                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -320,8 +384,10 @@ export default function EventGallery() {
                     <AnimatePresence mode="wait">
                         <motion.img
                             key={current.id}
-                            src={current.src}
+                            src={lightboxSrc}
                             alt={current.title}
+                            width={current.w}
+                            height={current.h}
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
@@ -329,9 +395,13 @@ export default function EventGallery() {
                             style={{
                                 maxWidth: '90vw',
                                 maxHeight: '85vh',
+                                width: 'auto',
+                                height: 'auto',
                                 objectFit: 'contain',
                                 borderRadius: '8px',
                                 boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
+                                filter: fullLoaded || optimalSrc === current.thumbSrc ? 'none' : 'blur(2px)',
+                                transition: 'filter 0.25s ease-out',
                             }}
                         />
                     </AnimatePresence>
