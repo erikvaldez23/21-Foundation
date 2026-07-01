@@ -55,7 +55,7 @@ export default function MentalHealthSection() {
               <Box component="span" sx={{ color: '#339c5e', fontWeight: 700, fontSize: '1.1rem' }}>
                 988
               </Box>
-              , the Suicide and Mental Health Crisis Hotline, amongst students.
+              , the Suicide and Mental Health Crisis Lifeline, amongst students.
             </Typography>
 
             <Typography variant="body1" sx={{ fontSize: '1.05rem', lineHeight: 1.85, color: '#444', mb: 5 }}>
@@ -114,7 +114,7 @@ export default function MentalHealthSection() {
               variant="h6"
               sx={{ fontWeight: 400, opacity: 0.95, mb: 2, fontSize: { xs: '1rem', md: '1.1rem' } }}
             >
-              Suicide &amp; Mental Health Crisis Hotline
+              Suicide &amp; Mental Health Crisis Lifeline
             </Typography>
             <Typography variant="body2" sx={{ opacity: 0.8, maxWidth: 260, mx: 'auto', lineHeight: 1.7 }}>
               Free, confidential support available 24/7 — call or text <strong>988</strong> anytime.

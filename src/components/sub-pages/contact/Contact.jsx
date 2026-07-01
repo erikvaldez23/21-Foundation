@@ -149,7 +149,7 @@ export default function ContactSection() {
                   <Typography variant="body1" color="text.secondary">(816) 616-6624</Typography>
                 </Box>
                 <Box>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Suicide Crisis Hotline</Typography>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Suicide Crisis Lifeline</Typography>
                   <Typography variant="body1" color="text.secondary">988</Typography>
                 </Box>
               </Box>

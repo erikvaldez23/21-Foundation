@@ -20,7 +20,7 @@ const CommunityOutreachHero = () => {
               display: 'block'
             }}
           >
-            MENTAL HEALTH OUTREACH
+            MENTAL HEALTH REACH OUT
           </Typography>
 
           <Typography

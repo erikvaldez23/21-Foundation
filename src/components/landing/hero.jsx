@@ -236,7 +236,7 @@ const Hero2 = () => {
               mb: 0.5,
             }}
           >
-            988 Suicide &amp; Crisis Hotline
+            988 Suicide &amp; Crisis Lifeline
           </Typography>
 
           <Typography
@@ -321,7 +321,7 @@ const Hero2 = () => {
             textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
           }}
         >
-          988 Suicide &amp; Crisis Hotline
+          988 Suicide &amp; Crisis Lifeline
         </Typography>
         <Typography
           component={motion.h1}

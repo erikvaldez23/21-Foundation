@@ -85,90 +85,90 @@ const StoryMission = ({
   return (
     <SectionWrap id="story">
       <Box sx={{ zoom: { xs: 1, md: 0.85 } }}>
-      <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
-            gap: { xs: 6, md: 8, lg: 12 },
-            alignItems: "center",
-          }}
-        >
-          {/* LEFT: Image */}
+        <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
           <Box
             sx={{
-              position: "relative",
-              height: { xs: 500, md: 800 },
-              borderRadius: 4,
-              overflow: "hidden",
-              order: { xs: 2, md: 1 },
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+              gap: { xs: 6, md: 8, lg: 12 },
+              alignItems: "center",
             }}
           >
+            {/* LEFT: Image */}
             <Box
-              component="img"
-              src={image}
-              alt="About the Sean Clark 21 Foundation"
               sx={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
+                position: "relative",
+                height: { xs: 500, md: 800 },
+                borderRadius: 4,
+                overflow: "hidden",
+                order: { xs: 2, md: 1 },
               }}
-            />
-          </Box>
-
-          {/* RIGHT: Content */}
-          <Box sx={{ order: { xs: 1, md: 2 } }}>
-            <Typography variant="overline" sx={{ letterSpacing: 2, color: "#666", display: "block", mb: 2 }}>
-              ABOUT US
-            </Typography>
-            <SerifHeading variant="h2" sx={{ fontSize: { xs: "2rem", md: "3rem" }, mb: 3, lineHeight: 1.15 }}>
-              {title}
-            </SerifHeading>
-
-            <Stack spacing={3} sx={{ mb: 4 }}>
-              <Typography variant="body1" sx={{ fontSize: "1.05rem", lineHeight: 1.7, color: "#444" }}>
-                The Sean Clark 21 Foundation was created to promote mental health
-                awareness following the devastating loss of our beloved son Sean
-                Clark, age 14. Unfortunately, most people encounter bullying,
-                anxiety, depression and feelings of distress at various points in
-                their lives.
-              </Typography>
-              <Typography variant="body1" sx={{ fontSize: "1.05rem", lineHeight: 1.7, color: "#444" }}>
-                The foundation aims to stop the stigma and taboo related to
-                speaking openly about mental health and suicide. We want to create
-                open communication and encourage anyone struggling with their
-                mental health to feel empowered to <strong>REACH OUT</strong> and
-                seek help—either through friends and family or by utilizing{" "}
-                <strong>#988</strong>, the number for the mental crisis hotline
-                nationwide.
-              </Typography>
-              <Typography variant="body1" sx={{ fontSize: "1.05rem", lineHeight: 1.7, color: "#444" }}>
-                Mental health is not discriminatory; it affects all genders,
-                religions, social statuses and ages. We focus our efforts on the
-                younger population to try and target the problem at the root.
-                Suicide has been reported in children as young as 7 years old. The
-                Sean Clark 21 Foundation wants you to know you are never alone.
-              </Typography>
-            </Stack>
-
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, mb: 5 }}>
-              {pillars.map((p, i) => (
-                <PillarChip
-                  key={i}
-                  icon={p.icon}
-                  label={p.label}
-                  variant="outlined"
-                />
-              ))}
+            >
+              <Box
+                component="img"
+                src={image}
+                alt="About the Sean Clark 21 Foundation"
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+              />
             </Box>
 
-            {/* <ActionButton onClick={onCta}> */}
-            {/* {ctaLabel} */}
-            {/* </ActionButton> */}
+            {/* RIGHT: Content */}
+            <Box sx={{ order: { xs: 1, md: 2 } }}>
+              <Typography variant="overline" sx={{ letterSpacing: 2, color: "#666", display: "block", mb: 2 }}>
+                ABOUT US
+              </Typography>
+              <SerifHeading variant="h2" sx={{ fontSize: { xs: "2rem", md: "3rem" }, mb: 3, lineHeight: 1.15 }}>
+                {title}
+              </SerifHeading>
+
+              <Stack spacing={3} sx={{ mb: 4 }}>
+                <Typography variant="body1" sx={{ fontSize: "1.05rem", lineHeight: 1.7, color: "#444" }}>
+                  The Sean Clark 21 Foundation was created to promote mental health
+                  awareness following the devastating loss of our beloved son Sean
+                  Clark, age 14. Unfortunately, most people encounter bullying,
+                  anxiety, depression and feelings of distress at various points in
+                  their lives.
+                </Typography>
+                <Typography variant="body1" sx={{ fontSize: "1.05rem", lineHeight: 1.7, color: "#444" }}>
+                  The foundation aims to stop the stigma and taboo related to
+                  speaking openly about mental health and suicide. We want to create
+                  open communication and encourage anyone struggling with their
+                  mental health to feel empowered to <strong>REACH OUT</strong> and
+                  seek help—either through friends and family or by utilizing{" "}
+                  <strong>#988</strong>, the number for the mental crisis lifeline
+                  nationwide.
+                </Typography>
+                <Typography variant="body1" sx={{ fontSize: "1.05rem", lineHeight: 1.7, color: "#444" }}>
+                  Mental health is not discriminatory; it affects all genders,
+                  religions, social statuses and ages. We focus our efforts on the
+                  younger population to try and target the problem at the root.
+                  Suicide has been reported in children as young as 7 years old. The
+                  Sean Clark 21 Foundation wants you to know you are never alone.
+                </Typography>
+              </Stack>
+
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, mb: 5 }}>
+                {pillars.map((p, i) => (
+                  <PillarChip
+                    key={i}
+                    icon={p.icon}
+                    label={p.label}
+                    variant="outlined"
+                  />
+                ))}
+              </Box>
+
+              {/* <ActionButton onClick={onCta}> */}
+              {/* {ctaLabel} */}
+              {/* </ActionButton> */}
+            </Box>
           </Box>
-        </Box>
-      </Container>
+        </Container>
       </Box>
     </SectionWrap>
   );

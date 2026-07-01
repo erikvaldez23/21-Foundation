@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-const GalleryHero = ({ title = "GALLERY", subtitle = "MENTAL HEALTH OUTREACH" }) => {
+const GalleryHero = ({ title = "GALLERY", subtitle = "MENTAL HEALTH REACH OUT" }) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 

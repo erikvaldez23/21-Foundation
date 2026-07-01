@@ -17,17 +17,17 @@ const ContactHero = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       minHeight: '10vh',
       bgcolor: '#E8E5DD',
       py: 4
     }}>
       <Container maxWidth="xl">
         {/* Header Section */}
-        <Box sx={{ textAlign: 'center', mb: { xs: 0 ,md: 6 }, pt: { xs: 8 , md: 4 }}}>
-          <Typography 
-            variant="overline" 
-            sx={{ 
+        <Box sx={{ textAlign: 'center', mb: { xs: 0, md: 6 }, pt: { xs: 8, md: 4 } }}>
+          <Typography
+            variant="overline"
+            sx={{
               color: '#666',
               letterSpacing: 2,
               fontSize: '0.8rem',
@@ -35,12 +35,12 @@ const ContactHero = () => {
               display: 'block'
             }}
           >
-            MENTAL HEALTH OUTREACH
+            MENTAL HEALTH REACH OUT
           </Typography>
-          
-          <Typography 
-            variant="h2" 
-            component="h1" 
+
+          <Typography
+            variant="h2"
+            component="h1"
             sx={{
               fontSize: { xs: '3rem', md: '3.5rem' },
               fontWeight: 400,

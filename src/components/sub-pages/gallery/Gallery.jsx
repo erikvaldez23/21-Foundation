@@ -129,7 +129,7 @@ export default function Gallery() {
   return (
     <Page>
       <Container maxWidth="xl" sx={{ pb: 8 }}>
-        <GalleryHero title="GALLERY" subtitle="MENTAL HEALTH OUTREACH" />
+        <GalleryHero title="GALLERY" subtitle="MENTAL HEALTH REACH OUT" />
 
         <Box
           sx={{

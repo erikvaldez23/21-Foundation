@@ -30,7 +30,7 @@ import {
 /* ------------------------------- Defaults ------------------------------- */
 const DEFAULT_LINKS = [
   { label: "Home", to: "/" },
-  { label: "About", to: "/about" },
+  { label: "About Us", to: "/about" },
   { label: "Events", to: "/events" },
   { label: "Gallery", to: "/gallery" },
   // { label: "Shop", to: "/shop" },
@@ -220,20 +220,20 @@ function FancyDrawer({
             return (
               <motion.div key={item.key} variants={listItem}>
                 {item.to ? (
-                  <MuiLink 
-                    component={RouterLink} 
-                    to={item.to} 
-                    onClick={onClose} 
-                    underline="none" 
+                  <MuiLink
+                    component={RouterLink}
+                    to={item.to}
+                    onClick={onClose}
+                    underline="none"
                     color="inherit"
                   >
                     {Inner}
                   </MuiLink>
                 ) : (
-                  <MuiLink 
-                    href={item.href || "#"} 
-                    onClick={onClose} 
-                    underline="none" 
+                  <MuiLink
+                    href={item.href || "#"}
+                    onClick={onClose}
+                    underline="none"
                     color="inherit"
                   >
                     {Inner}

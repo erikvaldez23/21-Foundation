@@ -151,7 +151,7 @@ export default function EventDetails() {
                 display: "block",
               }}
             >
-              {event.category ? event.category.toUpperCase() : "MENTAL HEALTH OUTREACH"}
+              {event.category ? event.category.toUpperCase() : "MENTAL HEALTH REACH OUT"}
             </Typography>
 
             <Typography

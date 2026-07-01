@@ -234,7 +234,7 @@ const Shop = () => {
                 display: "block",
               }}
             >
-              MENTAL HEALTH OUTREACH
+              MENTAL HEALTH REACH OUT
             </Typography>
             <Typography
               variant="h2"
