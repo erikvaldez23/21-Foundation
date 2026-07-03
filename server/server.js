@@ -4,6 +4,8 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const Subscriber = require("./models/Subscriber");
 
 // Verify Stripe key is loaded
 if (process.env.STRIPE_SECRET_KEY) {
@@ -21,6 +23,15 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// MongoDB Connection
+if (!process.env.MONGODB_URI) {
+  console.error("ERROR: MONGODB_URI is missing. Check your .env file at:", path.join(__dirname, ".env"));
+}
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 // Nodemailer Transporter
 const transporter = nodemailer.createTransport({
@@ -177,44 +188,36 @@ app.post('/api/purchase-success', async (req, res) => {
 });
 
 // --- Newsletter Routes ---
-const fs = require("fs");
-const SUBSCRIBERS_FILE = path.join(__dirname, "subscribers.json");
-
-// Helper to get subscribers
-const getSubscribers = () => {
-  if (!fs.existsSync(SUBSCRIBERS_FILE)) {
-    return [];
-  }
-  const data = fs.readFileSync(SUBSCRIBERS_FILE);
+app.get("/api/newsletter", async (req, res) => {
   try {
-    return JSON.parse(data);
-  } catch (err) {
-    return [];
+    const subscribers = await Subscriber.find().sort({ subscribedAt: -1 });
+    res.json(subscribers);
+  } catch (error) {
+    console.error("Error fetching subscribers:", error);
+    res.status(500).json({ error: "Failed to fetch subscribers" });
   }
-};
-
-app.get("/api/newsletter", (req, res) => {
-  const subscribers = getSubscribers();
-  res.json(subscribers);
 });
 
-app.post("/api/newsletter", (req, res) => {
+app.post("/api/newsletter", async (req, res) => {
   const { email } = req.body;
   if (!email || !email.includes("@")) {
     return res.status(400).json({ error: "Invalid email address" });
   }
 
-  const subscribers = getSubscribers();
+  try {
+    const existing = await Subscriber.findOne({ email: email.toLowerCase().trim() });
+    if (existing) {
+      return res.status(200).json({ message: "Email already subscribed" });
+    }
 
-  if (subscribers.includes(email)) {
-    return res.status(200).json({ message: "Email already subscribed" });
+    await Subscriber.create({ email });
+
+    console.log(`New subscriber: ${email}`);
+    res.json({ message: "Successfully subscribed!" });
+  } catch (error) {
+    console.error("Error saving subscriber:", error);
+    res.status(500).json({ error: "Failed to save subscriber" });
   }
-
-  subscribers.push(email);
-  fs.writeFileSync(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2));
-
-  console.log(`New subscriber: ${email}`);
-  res.json({ message: "Successfully subscribed!" });
 });
 
 // Start server
