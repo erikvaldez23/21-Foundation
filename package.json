@@ -27,6 +27,7 @@
     "iframe-resizer": "^5.5.9",
     "lucide-react": "^0.542.0",
     "mongodb": "^7.4.0",
+    "mongoose": "^9.7.3",
     "nodemailer": "^7.0.13",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
