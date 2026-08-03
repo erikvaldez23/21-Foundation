@@ -214,8 +214,10 @@ const EventContent = ({
                     width: "100%",
                     display: "flex",
                     gridColumn: isLastOdd ? "1 / -1" : undefined,
-                    maxWidth: isLastOdd ? { md: "60%" } : undefined,
-                    mx: isLastOdd ? "auto" : undefined,
+                    // Shrink and center the card on desktop when it's the only event;
+                    // full width on mobile.
+                    maxWidth: isLastOdd ? { md: "60%" } : isSingle ? { md: "65%" } : undefined,
+                    mx: isLastOdd || isSingle ? { md: "auto" } : undefined,
                   }}
                 >
                   <EventCard
