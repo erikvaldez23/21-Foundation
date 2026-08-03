@@ -18,10 +18,12 @@ const EventCard = ({ event, isMobile, isSingle }) => (
       overflow: "hidden",
       borderRadius: 2,
       mx: "auto",
-      maxWidth: { xs: 500, md: "100%" },
-      // Responsive size: use aspect ratio instead of fixed width/height to avoid layout shift
-      aspectRatio: isSingle ? "21 / 9" : "16 / 10",
-      minHeight: isSingle ? { xs: 360, md: 560 } : { xs: 260, md: 400 },
+      maxWidth: { xs: "100%", md: "100%" },
+      // Mobile: let the single-event banner size itself to its content so
+      // nothing gets clipped by the card's `overflow: hidden`. Fixed
+      // aspect ratios only kick in from sm+ where there's room to spare.
+      aspectRatio: isSingle ? { xs: "auto", sm: "21 / 9" } : "16 / 10",
+      minHeight: isSingle ? { xs: 320, sm: 420, md: 560 } : { xs: 260, md: 400 },
       width: "100%",
       transition: "transform .2s ease, box-shadow .2s ease",
       cursor: "pointer",
@@ -59,9 +61,13 @@ const EventCard = ({ event, isMobile, isSingle }) => (
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        // Text sits at the bottom of the card, above the corner button.
+        justifyContent: isSingle ? "flex-end" : "center",
         alignItems: "flex-start",
         p: { xs: 3, md: 4 },
+        // Reserve room below the text so the absolutely-positioned button
+        // never overlaps it.
+        pb: isSingle ? { xs: 9, sm: 9, md: 10 } : { xs: 3, md: 4 },
         color: "white",
         zIndex: 2,
       }}
@@ -82,8 +88,12 @@ const EventCard = ({ event, isMobile, isSingle }) => (
         {event.title}
         <br />
         {event.date}
-        <br />
-        {event.location}
+        {event.location && (
+          <>
+            <br />
+            {event.location}
+          </>
+        )}
       </Typography>
       <Box sx={{ width: 64, height: 2, bgcolor: "white", mt: 1, opacity: 0.85 }} />
     </CardContent>
