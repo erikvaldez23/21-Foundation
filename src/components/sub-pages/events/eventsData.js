@@ -6,6 +6,48 @@
  */
 
 export const EVENTS = [
+  {
+    id: 6,
+    slug: "2nd-annual-reach-out-walk-6",
+    title: "2ND ANNUAL REACH OUT WALK",
+    shortTitle: "2nd Annual Reach Out Walk",
+    date: "September 13, 2026",
+    isoDate: "2026-09-13T10:30:00-05:00",
+    isoEnd: "2026-09-13T13:00:00-05:00",
+    timezone: "America/Chicago",
+    location: {
+      name: "St. Michael The Archangel Church",
+      address: "14251 Nall Ave, Leawood, KS 66223",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=14251+Nall+Ave+Leawood+KS+66223",
+    },
+    cost: "Youth (12 & under): $15 · Adult: $25",
+    category: "Fundraiser",
+    image: "/events/reach-out-walk/thumbnails/reach-out-walk(1).jpg",
+    heroImage: "/events/reach-out-walk/reach-out-walk(1).jpg",
+    organizer: "Sean Clark 21 Foundation",
+    contactEmail: "reachout@seanclark21foundation.org",
+    formUrl: "https://givebutter.com/2nd-annual-reach-out-walk-5k2flp",
+    description:
+      "Bring your friends, your family, and your heart. Let's walk in courage. Let's walk for connection. Let's walk to Reach Out. Join us as we walk with purpose and passion to honor the legacy of Sean Clark. The Reach Out Walk is more than just a walk — it's a movement to support mental wellness, build community, and inspire young people to rise strong through sports, friendship, family, and faith. Together, we'll take steps to foster resilience, spread kindness, and encourage open conversations about mental health.",
+    tags: ["Walk", "Community", "Awareness", "Fundraiser"],
+    itinerary: [
+      { time: "10:30 AM", title: "Optional Mass", detail: "An optional Mass ahead of the walk." },
+      { time: "11:35 AM – 12:00 PM", title: "Packet Pickup & Walk-Up Registration", detail: "Pick up your packet or register in person." },
+      { time: "12:00 PM – 12:15 PM", title: "Remarks", detail: "Words from Isa, John, and Tre'." },
+      { time: "12:15 PM", title: "Symbolic Walk", detail: "A symbolic walk around the parish." },
+      { time: "After the Walk", title: "Social, Coffee & Donuts", detail: "Stick around for fellowship, coffee, and donuts." },
+    ],
+    knowBeforeYouGo: [
+      { label: "Registration Pricing", detail: "Symbolic Walk Youth (12 & under): $15 · Symbolic Walk Participant (Adult): $25. Prefer to just give? You can donate without registering for a walk ticket." },
+      { label: "T-Shirt Deadline", detail: "Register by August 25 to guarantee your event T-shirt." },
+      { label: "Walk-Up Registration", detail: "Walk-up registrations are welcome on the day of the event; however, T-shirt size and availability cannot be guaranteed after the August 25 deadline." },
+    ],
+    stayConnected: {
+      instagram: "@seanclark21foundation",
+      email: "reachout@seanclark21foundation.org",
+      contactName: "the Reach Out Walk team",
+    },
+  },
   // {
   //   id: 1,
   //   slug: "seans-birthday-celebration-at-amc-1",
