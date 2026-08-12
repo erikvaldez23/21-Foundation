@@ -12,9 +12,10 @@ export const EVENTS = [
     title: "2ND ANNUAL REACH OUT WALK",
     shortTitle: "2nd Annual Reach Out Walk",
     date: "September 13, 2026",
-    isoDate: "2026-09-13T10:30:00-05:00",
+    isoDate: "2026-09-13T11:30:00-05:00",
     isoEnd: "2026-09-13T13:00:00-05:00",
     timezone: "America/Chicago",
+    optionalMassTime: "10:30 AM",
     location: {
       name: "St. Michael The Archangel Church",
       address: "14251 Nall Ave, Leawood, KS 66223",

@@ -229,10 +229,20 @@ export default function EventDetails() {
               {dateText && (
                 <DetailRow icon={CalendarDays} label="When">
                   {dateText}
+                  {event.optionalMassTime && (
+                    <>
+                      <br />
+                      <span style={{ color: "#777" }}>
+                        Optional Mass at {event.optionalMassTime}
+                      </span>
+                    </>
+                  )}
                   {timeText && (
                     <>
                       <br />
-                      <span style={{ color: "#777" }}>{timeText}</span>
+                      <span style={{ color: "#777" }}>
+                        {event.optionalMassTime ? `Start Time: ${timeText}` : timeText}
+                      </span>
                     </>
                   )}
                 </DetailRow>
