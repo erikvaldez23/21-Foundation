@@ -55,7 +55,19 @@ export default function MeetTheTeamOneImage({
     "Isabel Jaramillo",
     "Jesse Gulotta",
     "Brian Most",
-    "Jennifer Most"
+    "Jennifer Most",
+    "Jaclyn Leonard"
+  ],
+  youthPhotos = [
+    "/about/youth-committee.jpg",
+    "/about/youth-committee-2.jpg"
+  ],
+  youthMembers = [
+    "Chloè Eid",
+    "Cassia Mazzella",
+    "Caleb Pfaff",
+    "Ryan Dubill",
+    "Brennan Hardgree"
   ],
 }) {
   const theme = useTheme();
@@ -251,6 +263,85 @@ export default function MeetTheTeamOneImage({
                   </Typography>
                   <Typography variant="overline" sx={{ color: "#666", letterSpacing: "0.1em", fontSize: "0.75rem" }}>
                     {name === "Julia Pfaff" ? "Committee Chair" : "Committee Member"}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+
+          {/* YOUTH COMMITTEE SECTION */}
+          <Box sx={{ maxWidth: "1200px", mx: "auto", mt: 12 }}>
+            <Typography
+              variant="h6"
+              sx={{
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                color: "#888",
+                mb: 6,
+                pb: 2,
+                borderBottom: "1px solid #1a1a1a",
+                textAlign: "center"
+              }}
+            >
+              Youth Committee
+            </Typography>
+
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+                gap: { xs: 3, md: 4 },
+                mb: 6
+              }}
+            >
+              {youthPhotos.map((src) => (
+                <TeamImage
+                  key={src}
+                  src={src}
+                  alt="Youth Committee"
+                  sx={{ aspectRatio: "4 / 3", borderRadius: 4 }}
+                />
+              ))}
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: { xs: 2, md: 4 }
+              }}
+            >
+              {youthMembers.map((name) => (
+                <Box
+                  key={name}
+                  sx={{
+                    textAlign: "center",
+                    p: 2,
+                    flex: { xs: "0 0 calc(50% - 8px)", md: "0 0 calc(25% - 24px)" },
+                    border: "1px solid transparent",
+                    transition: "all 0.2s",
+                    "&:hover": {
+                      borderColor: "rgba(0,0,0,0.1)"
+                    }
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontFamily: "serif",
+                      color: "#1a1a1a",
+                      mb: 1,
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      fontSize: { xs: "1.2rem", md: "1.5rem" }
+                    }}
+                  >
+                    {name}
+                  </Typography>
+                  <Typography variant="overline" sx={{ color: "#666", letterSpacing: "0.1em", fontSize: "0.75rem" }}>
+                    Youth Committee Member
                   </Typography>
                 </Box>
               ))}
