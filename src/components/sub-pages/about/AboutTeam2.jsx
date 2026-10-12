@@ -63,7 +63,7 @@ export default function MeetTheTeamOneImage({
     "/about/youth-committee-2.jpg"
   ],
   youthMembers = [
-    "Chloè Eid",
+    "Chloe Eid",
     "Cassia Mazzella",
     "Caleb Pfaff",
     "Ryan Dubill",
